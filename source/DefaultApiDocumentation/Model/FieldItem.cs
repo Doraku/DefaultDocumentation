@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace DefaultApiReference.Model
+namespace DefaultApiDocumentation.Model
 {
     internal sealed class FieldItem : ADocItem, ITitleDocItem
     {

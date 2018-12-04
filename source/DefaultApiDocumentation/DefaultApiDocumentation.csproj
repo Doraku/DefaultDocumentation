@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <LangVersion>latest</LangVersion>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Optimize>true</Optimize>
+    <Configurations>Debug;Release</Configurations>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\ds.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Debug" Condition="'$(Configuration)'=='Debug'">
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package">
+    <Authors>Paillat Laszlo</Authors>
+    <PackageId>DefaultApiDocumentation</PackageId>
+    <Description>DefaultEcs is an Entity Component System framework which aims to be accessible with little constraints while retaining as much performance as possible for game development.</Description>
+    <!--<PackageIconUrl>https://github.com/Doraku/DefaultEcs/raw/master/image/logo.png</PackageIconUrl>-->
+    <PackageProjectUrl>https://github.com/Doraku/DefaultApiDocumentation</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Doraku/DefaultApiDocumentation/blob/master/LICENSE.md</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/Doraku/DefaultApiDocumentation.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>api-documentation markdown</PackageTags>
+
+    <Version>0.1.0</Version>
+    <PackageReleaseNotes>
+    </PackageReleaseNotes>
+  </PropertyGroup>
+</Project>

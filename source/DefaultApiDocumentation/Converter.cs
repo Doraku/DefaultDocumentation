@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using DefaultApiReference.Model;
+using DefaultApiDocumentation.Model;
 
-namespace DefaultApiReference
+namespace DefaultApiDocumentation
 {
     internal class Converter
     {

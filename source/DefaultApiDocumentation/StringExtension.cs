@@ -1,4 +1,4 @@
-﻿namespace DefaultApiReference
+﻿namespace DefaultApiDocumentation
 {
     internal static class StringExtension
     {

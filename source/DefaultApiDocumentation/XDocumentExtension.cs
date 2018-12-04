@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace DefaultApiReference
+namespace DefaultApiDocumentation
 {
     internal static class XDocumentExtension
     {

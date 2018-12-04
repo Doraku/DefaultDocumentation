@@ -1,4 +1,4 @@
-﻿namespace DefaultApiReference.Model
+﻿namespace DefaultApiDocumentation.Model
 {
     internal interface IParameterDocItem
     {

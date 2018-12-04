@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 
-namespace DefaultApiReference.Model
+namespace DefaultApiDocumentation.Model
 {
     internal sealed class MethodItem : AGenericDocItem, ITitleDocItem, IParameterDocItem
     {

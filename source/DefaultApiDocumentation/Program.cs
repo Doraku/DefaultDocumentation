@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Linq;
 
-namespace DefaultApiReference
+namespace DefaultApiDocumentation
 {
     internal static class Program
     {

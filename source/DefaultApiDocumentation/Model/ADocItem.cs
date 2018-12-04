@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Xml.Linq;
 
-namespace DefaultApiReference.Model
+namespace DefaultApiDocumentation.Model
 {
     internal static class DocItemExtension
     {
