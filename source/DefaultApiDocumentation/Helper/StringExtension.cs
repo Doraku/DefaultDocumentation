@@ -1,4 +1,4 @@
-﻿namespace DefaultApiDocumentation
+﻿namespace DefaultApiDocumentation.Helper
 {
     internal static class StringExtension
     {
@@ -36,7 +36,9 @@
             return $"[{name}](https://docs.microsoft.com/en-us/dotnet/api/{value.CleanForDotNetApiLink()} '{name}')";
         }
 
-        public static string AsLink(this string value, string text = null) => $"[{text ?? value}](./{value.CleanForLink()} '{value}')";
+        public static string AsLink(this string value, string text = null) => $"[{text ?? value}](./{value.CleanForLink()}.md '{value}')";
+
+        public static string AsLinkWithTarget(this string value, string target, string text) => $"[{text}](./{value.CleanForLink()}.md#{target.CleanForLink()} '{text}')";
 
         public static string AsPageLink(this string value, string text = null) => $"[{text ?? value}](#{value.CleanForLink()} '{value}')";
     }

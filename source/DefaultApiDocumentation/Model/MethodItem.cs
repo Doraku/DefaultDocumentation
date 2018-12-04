@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using DefaultApiDocumentation.Helper;
 
 namespace DefaultApiDocumentation.Model
 {
@@ -64,7 +65,7 @@ namespace DefaultApiDocumentation.Model
             int braceCount = 0;
             for (int i = 0; i < value.Length; ++i)
             {
-                switch(value[i])
+                switch (value[i])
                 {
                     case '{':
                         ++braceCount;

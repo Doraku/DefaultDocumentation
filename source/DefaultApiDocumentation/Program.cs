@@ -13,8 +13,9 @@ namespace DefaultApiDocumentation
             }
 
             Converter.Convert(
+                "DefaultEcs",
                 XDocument.Parse(File.ReadAllText(@"D:\Projects\DefaultEcs\documentation\DefaultEcs.xml")),
-                @"D:\Projects\DefaultEcs.wiki");
+                @"D:\Projects\DefaultEcs\documentation\api\");
         }
     }
 }

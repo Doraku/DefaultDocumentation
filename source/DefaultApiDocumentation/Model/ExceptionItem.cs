@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using DefaultApiDocumentation.Helper;
 
 namespace DefaultApiDocumentation.Model
 {

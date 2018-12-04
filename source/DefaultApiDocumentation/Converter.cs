@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Linq;
+using DefaultApiDocumentation.Helper;
 using DefaultApiDocumentation.Model;
 
 namespace DefaultApiDocumentation
 {
     internal class Converter
     {
-        private readonly StringBuilder _markdown;
+        private readonly string _homeName;
         private readonly Dictionary<string, ADocItem> _items;
         private readonly string _outputPath;
 
-        private Converter(XDocument document, string outputPath)
+        private Converter(string homeName, XDocument document, string outputPath)
         {
-            _markdown = new StringBuilder();
+            _homeName = homeName;
             _items = Parse(document);
             _outputPath = outputPath;
         }
@@ -62,69 +63,69 @@ namespace DefaultApiDocumentation
             return items;
         }
 
-        private void WriteGenerics(AGenericDocItem item)
+        private void WriteGenerics(DocWriter writer, AGenericDocItem item)
         {
             if (item?.Generics.Length > 0)
             {
-                _markdown.AppendLine("### Type parameters");
+                writer.Write("### Type parameters");
 
                 foreach (GenericItem generic in item.Generics)
                 {
-                    _markdown.AppendLine();
-                    _markdown.AppendLine(generic.FullName().AsLinkTarget());
-                    _markdown.AppendLine($"`{generic.Name}`");
-                    _markdown.AppendLine();
-                    _markdown.AppendLine($"{WriteSummary(generic)}");
+                    writer.Break();
+                    writer.Write(generic.FullName().AsLinkTarget());
+                    writer.Write($"`{generic.Name}`");
+                    writer.Break();
+                    WriteSummary(writer, generic);
                 }
             }
         }
 
-        private void WriteParameters(IParameterDocItem item)
+        private void WriteParameters(DocWriter writer, IParameterDocItem item)
         {
             if (item?.Parameters.Length > 0)
             {
-                _markdown.AppendLine("### Parameters");
+                writer.Write("### Parameters");
 
                 foreach (ParameterItem parameter in item.Parameters)
                 {
-                    _markdown.AppendLine();
-                    _markdown.AppendLine(parameter.FullName().AsLinkTarget());
-                    _markdown.AppendLine($"`{parameter.Name}`");
-                    _markdown.AppendLine();
-                    _markdown.AppendLine($"{WriteSummary(parameter)}");
+                    writer.Break();
+                    writer.Write(parameter.FullName().AsLinkTarget());
+                    writer.Write($"`{parameter.Name}`");
+                    writer.Break();
+                    WriteSummary(writer, parameter);
                 }
             }
         }
 
-        private void WriteExceptions(ADocItem item)
+        private void WriteExceptions(DocWriter writer, ADocItem item)
         {
             if (item.Exceptions.Length > 0)
             {
-                _markdown.AppendLine("### Exceptions");
+                writer.Write("### Exceptions");
 
                 foreach (ExceptionItem exception in item.Exceptions)
                 {
-                    _markdown.AppendLine();
-                    _markdown.AppendLine(
+                    writer.Break();
+                    writer.Write(
                         _items.TryGetValue(exception.Reference, out ADocItem reference)
                         ? reference.FullName().AsLink()
                         : exception.Reference.Substring(2).AsDotNetApiLink());
-                    _markdown.AppendLine();
-                    _markdown.AppendLine(WriteSummary(exception));
+                    writer.Break();
+                    WriteSummary(writer, exception);
                 }
             }
         }
 
-        private void WriteReturns(MethodItem item)
+        private void WriteReturns(DocWriter writer, MethodItem item)
         {
             if (item?.Return != null)
             {
-                _markdown.AppendLine("### Returns");
-                _markdown.AppendLine(WriteSummary(item.Return));
+                writer.Write("### Returns");
+                WriteSummary(writer, item.Return);
             }
         }
 
-        private string WriteSummary(ADocItem item)
+        private void WriteSummary(DocWriter writer, ADocItem item)
         {
             string summary = string.Empty;
 
@@ -169,7 +170,14 @@ namespace DefaultApiDocumentation
                                     throw new Exception($"unknown generic type {element.GetName()}");
                                 }
 
-                                summary += generic.FullName().AsPageLink(generic.Name);
+                                if (writer.IsForThis(generic.Parent))
+                                {
+                                    summary += generic.FullName().AsPageLink(generic.Name);
+                                }
+                                else
+                                {
+                                    summary += generic.Parent.FullName().AsLinkWithTarget(generic.FullName(), generic.Name);
+                                }
                                 break;
 
                             case "paramref":
@@ -210,49 +218,50 @@ namespace DefaultApiDocumentation
                 summary = summary.Substring(0, summary.Length - 5);
             }
 
-            return summary;
+            writer.Write(summary);
         }
 
-        private void WriteDocFor<T>(T item)
+        private void WriteDocFor<T>(DocWriter writer, T item)
             where T : ADocItem, ITitleDocItem
         {
-            _markdown.AppendLine($"### {"Home".AsLink("DefaultEcs")}");
+            writer.Write($"### {_homeName.AsLink()}");
             if (item.Parent != null)
             {
-                _markdown.AppendLine($"### {item.Parent.FullName().AsLink()}");
-                _markdown.AppendLine($"## {item.Name} `{item.Title}`");
+                writer.Write($"### {item.Parent.FullName().AsLink()}");
+                writer.Write($"## {item.Name} `{item.Title}`");
             }
             else
             {
-                _markdown.AppendLine($"## {item.FullName()} `{item.Title}`");
+                writer.Write($"## {item.FullName()} `{item.Title}`");
             }
 
-            _markdown.AppendLine(WriteSummary(item));
+            WriteSummary(writer, item);
 
-            WriteGenerics(item as AGenericDocItem);
-            WriteParameters(item as IParameterDocItem);
-            WriteReturns(item as MethodItem);
-            WriteExceptions(item);
+            WriteGenerics(writer, item as AGenericDocItem);
+            WriteParameters(writer, item as IParameterDocItem);
+            WriteReturns(writer, item as MethodItem);
+            WriteExceptions(writer, item);
         }
 
         private void WriteHome()
         {
-            _markdown.AppendLine($"### {"Home".AsLink("DefaultEcs")}");
-
-            foreach (IGrouping<string, TypeItem> typesByNamespace in _items.Values.OfType<TypeItem>().GroupBy(i => i.Namespace).OrderBy(i => i.Key))
+            using (DocWriter writer = new DocWriter(_outputPath, _homeName))
             {
-                _markdown.AppendLine($"## {typesByNamespace.Key}");
+                writer.Write($"### {_homeName.AsLink()}");
 
-                foreach (TypeItem item in typesByNamespace)
+                foreach (IGrouping<string, TypeItem> typesByNamespace in _items.Values.OfType<TypeItem>().GroupBy(i => i.Namespace).OrderBy(i => i.Key))
                 {
-                    _markdown.AppendLine($"- {item.FullName().AsLink(item.Name)}");
+                    writer.Write($"## {typesByNamespace.Key}");
+
+                    foreach (TypeItem item in typesByNamespace)
+                    {
+                        writer.Write($"- {item.FullName().AsLink(item.Name)}");
+                    }
                 }
             }
-
-            _markdown.FlushTo(_outputPath, "Home");
         }
 
-        private void WriteLinkFor<T>(ADocItem parent)
+        private void WriteLinkFor<T>(DocWriter writer, ADocItem parent)
             where T : ADocItem, ITitleDocItem
         {
             bool hasTitle = false;
@@ -262,48 +271,51 @@ namespace DefaultApiDocumentation
                 if (!hasTitle)
                 {
                     hasTitle = true;
-                    _markdown.AppendLine($"### {item.Title}");
+                    writer.Write($"### {item.Title}");
                 }
 
-                _markdown.AppendLine($"- {item.FullName().AsLink(item.Name)}");
+                writer.Write($"- {item.FullName().AsLink(item.Name)}");
             }
         }
 
         private void WriteTypePages()
         {
-            foreach (TypeItem item in _items.Values.OfType<TypeItem>())
+            _items.Values.OfType<TypeItem>().AsParallel().ForAll(item =>
             {
-                WriteDocFor(item);
-                WriteLinkFor<ConstructorItem>(item);
-                WriteLinkFor<FieldItem>(item);
-                WriteLinkFor<PropertyItem>(item);
-                WriteLinkFor<MethodItem>(item);
-
-                _markdown.FlushTo(_outputPath, item.FullName());
-            }
+                using (DocWriter writer = new DocWriter(_outputPath, item))
+                {
+                    WriteDocFor(writer, item);
+                    WriteLinkFor<ConstructorItem>(writer, item);
+                    WriteLinkFor<FieldItem>(writer, item);
+                    WriteLinkFor<PropertyItem>(writer, item);
+                    WriteLinkFor<MethodItem>(writer, item);
+                }
+            });
         }
 
         private void WriteDocPages<T>()
             where T : ADocItem, ITitleDocItem
         {
-            foreach (T item in _items.Values.OfType<T>())
+            _items.Values.OfType<T>().AsParallel().ForAll(item =>
             {
-                WriteDocFor(item);
-
-                _markdown.FlushTo(_outputPath, item.FullName());
-            }
+                using (DocWriter writer = new DocWriter(_outputPath, item))
+                {
+                    WriteDocFor(writer, item);
+                }
+            });
         }
 
-        public static void Convert(XDocument document, string outputPath)
+        public static void Convert(string homeName, XDocument document, string outputPath)
         {
-            Converter converter = new Converter(document, outputPath);
+            Converter converter = new Converter(homeName, document, outputPath);
 
-            converter.WriteHome();
-            converter.WriteTypePages();
-            converter.WriteDocPages<ConstructorItem>();
-            converter.WriteDocPages<FieldItem>();
-            converter.WriteDocPages<PropertyItem>();
-            converter.WriteDocPages<MethodItem>();
+            Task.WaitAll(
+                Task.Run(converter.WriteHome),
+                Task.Run(converter.WriteTypePages),
+                Task.Run(converter.WriteDocPages<ConstructorItem>),
+                Task.Run(converter.WriteDocPages<FieldItem>),
+                Task.Run(converter.WriteDocPages<PropertyItem>),
+                Task.Run(converter.WriteDocPages<MethodItem>));
         }
     }
 }

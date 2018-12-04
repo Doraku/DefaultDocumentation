@@ -3,7 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using DefaultApiDocumentation.Model;
 
-namespace DefaultApiDocumentation
+namespace DefaultApiDocumentation.Helper
 {
     internal static class XElementExtension
     {

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Xml.Linq;
+using DefaultApiDocumentation.Helper;
 
 namespace DefaultApiDocumentation.Model
 {
@@ -32,7 +33,7 @@ namespace DefaultApiDocumentation.Model
         }
 
         protected ADocItem(ADocItem parent, XElement item)
-            : this (parent, item.GetName(), item)
+            : this(parent, item.GetName(), item)
         { }
     }
 }
