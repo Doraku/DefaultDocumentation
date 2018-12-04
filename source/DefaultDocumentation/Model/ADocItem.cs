@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Xml.Linq;
-using DefaultApiDocumentation.Helper;
+using DefaultDocumentation.Helper;
 
-namespace DefaultApiDocumentation.Model
+namespace DefaultDocumentation.Model
 {
     internal static class DocItemExtension
     {

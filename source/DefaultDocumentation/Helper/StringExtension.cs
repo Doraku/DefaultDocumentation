@@ -1,4 +1,4 @@
-﻿namespace DefaultApiDocumentation.Helper
+﻿namespace DefaultDocumentation.Helper
 {
     internal static class StringExtension
     {

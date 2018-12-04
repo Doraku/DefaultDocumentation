@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using DefaultApiDocumentation.Helper;
-using DefaultApiDocumentation.Model;
+using DefaultDocumentation.Helper;
+using DefaultDocumentation.Model;
 
-namespace DefaultApiDocumentation
+namespace DefaultDocumentation
 {
     internal sealed class DocWriter : IDisposable
     {

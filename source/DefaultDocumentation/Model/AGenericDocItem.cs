@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using DefaultApiDocumentation.Helper;
+using DefaultDocumentation.Helper;
 
-namespace DefaultApiDocumentation.Model
+namespace DefaultDocumentation.Model
 {
     internal abstract class AGenericDocItem : ADocItem
     {

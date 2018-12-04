@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace DefaultApiDocumentation.Model
+namespace DefaultDocumentation.Model
 {
     internal sealed class PropertyItem : ADocItem, ITitleDocItem
     {

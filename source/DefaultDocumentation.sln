@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultApiDocumentation", "DefaultApiDocumentation\DefaultApiDocumentation.csproj", "{4D7998F0-BA62-41E0-904C-A8D1B45F3937}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation", "DefaultDocumentation\DefaultDocumentation.csproj", "{4D7998F0-BA62-41E0-904C-A8D1B45F3937}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

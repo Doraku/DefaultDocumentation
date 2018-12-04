@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using DefaultApiDocumentation.Helper;
-using DefaultApiDocumentation.Model;
+using DefaultDocumentation.Helper;
+using DefaultDocumentation.Model;
 
-namespace DefaultApiDocumentation
+namespace DefaultDocumentation
 {
     internal class Converter
     {

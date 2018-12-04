@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using DefaultApiDocumentation.Model;
+using DefaultDocumentation.Model;
 
-namespace DefaultApiDocumentation.Helper
+namespace DefaultDocumentation.Helper
 {
     internal static class XElementExtension
     {
