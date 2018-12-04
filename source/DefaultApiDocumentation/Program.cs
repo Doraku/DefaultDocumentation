@@ -7,7 +7,7 @@ namespace DefaultApiDocumentation
     {
         private static void Main()
         {
-            foreach (FileInfo file in new DirectoryInfo(@"D:\Projects\DefaultEcs.wiki").GetFiles("*.md"))
+            foreach (FileInfo file in new DirectoryInfo(@"D:\Projects\DefaultEcs\documentation\api\").GetFiles("*.md"))
             {
                 file.Delete();
             }

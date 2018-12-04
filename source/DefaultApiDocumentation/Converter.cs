@@ -74,7 +74,6 @@ namespace DefaultApiDocumentation
                     writer.Break();
                     writer.Write(generic.FullName().AsLinkTarget());
                     writer.Write($"`{generic.Name}`");
-                    writer.Break();
                     WriteSummary(writer, generic);
                 }
             }
@@ -91,7 +90,6 @@ namespace DefaultApiDocumentation
                     writer.Break();
                     writer.Write(parameter.FullName().AsLinkTarget());
                     writer.Write($"`{parameter.Name}`");
-                    writer.Break();
                     WriteSummary(writer, parameter);
                 }
             }
@@ -110,7 +108,6 @@ namespace DefaultApiDocumentation
                         _items.TryGetValue(exception.Reference, out ADocItem reference)
                         ? reference.FullName().AsLink()
                         : exception.Reference.Substring(2).AsDotNetApiLink());
-                    writer.Break();
                     WriteSummary(writer, exception);
                 }
             }
@@ -125,7 +122,7 @@ namespace DefaultApiDocumentation
             }
         }
 
-        private void WriteSummary(DocWriter writer, ADocItem item)
+        private void WriteSummary(DocWriter writer, ADocItem item, bool useBlock = true)
         {
             string summary = string.Empty;
 
@@ -218,7 +215,8 @@ namespace DefaultApiDocumentation
                 summary = summary.Substring(0, summary.Length - 5);
             }
 
-            writer.Write(summary);
+            string block = useBlock ? ">" : string.Empty;
+            writer.Write($"{block}{summary}");
         }
 
         private void WriteDocFor<T>(DocWriter writer, T item)
@@ -235,7 +233,7 @@ namespace DefaultApiDocumentation
                 writer.Write($"## {item.FullName()} `{item.Title}`");
             }
 
-            WriteSummary(writer, item);
+            WriteSummary(writer, item, false);
 
             WriteGenerics(writer, item as AGenericDocItem);
             WriteParameters(writer, item as IParameterDocItem);
