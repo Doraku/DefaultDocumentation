@@ -5,17 +5,39 @@ namespace DefaultDocumentation
 {
     internal static class Program
     {
-        private static void Main()
+        private static void Main(string[] args)
         {
-            foreach (FileInfo file in new DirectoryInfo(@"D:\Projects\DefaultEcs\documentation\api\").GetFiles("*.md"))
+            if (args.Length < 1)
             {
-                file.Delete();
+                return;
+            }
+
+            FileInfo documentation = new FileInfo(args[0]);
+            if (!documentation.Exists)
+            {
+                return;
+            }
+
+            DirectoryInfo directory =
+                args.Length > 1 && !string.IsNullOrWhiteSpace(args[1])
+                ? new DirectoryInfo(args[1])
+                : documentation.Directory;
+
+            if (directory.Exists)
+            {
+                foreach (FileInfo file in directory.GetFiles("*.md"))
+                {
+                    file.Delete();
+                }
+            }
+            else
+            {
+                directory.Create();
             }
 
             Converter.Convert(
-                "DefaultEcs",
-                XDocument.Parse(File.ReadAllText(@"D:\Projects\DefaultEcs\documentation\DefaultEcs.xml")),
-                @"D:\Projects\DefaultEcs\documentation\api\");
+                XDocument.Parse(File.ReadAllText(documentation.FullName)),
+                directory.FullName);
         }
     }
 }

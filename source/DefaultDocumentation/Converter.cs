@@ -10,13 +10,11 @@ namespace DefaultDocumentation
 {
     internal class Converter
     {
-        private readonly string _homeName;
         private readonly Dictionary<string, ADocItem> _items;
         private readonly string _outputPath;
 
-        private Converter(string homeName, XDocument document, string outputPath)
+        private Converter(XDocument document, string outputPath)
         {
-            _homeName = homeName;
             _items = Parse(document);
             _outputPath = outputPath;
         }
@@ -222,7 +220,7 @@ namespace DefaultDocumentation
         private void WriteDocFor<T>(DocWriter writer, T item)
             where T : ADocItem, ITitleDocItem
         {
-            writer.Write($"### {_homeName.AsLink()}");
+            writer.Write($"### {"README".AsLink()}");
             if (item.Parent != null)
             {
                 writer.Write($"### {item.Parent.FullName().AsLink()}");
@@ -243,9 +241,9 @@ namespace DefaultDocumentation
 
         private void WriteHome()
         {
-            using (DocWriter writer = new DocWriter(_outputPath, _homeName))
+            using (DocWriter writer = new DocWriter(_outputPath, "README"))
             {
-                writer.Write($"### {_homeName.AsLink()}");
+                writer.Write($"### {"README".AsLink()}");
 
                 foreach (IGrouping<string, TypeItem> typesByNamespace in _items.Values.OfType<TypeItem>().GroupBy(i => i.Namespace).OrderBy(i => i.Key))
                 {
@@ -303,9 +301,9 @@ namespace DefaultDocumentation
             });
         }
 
-        public static void Convert(string homeName, XDocument document, string outputPath)
+        public static void Convert(XDocument document, string outputPath)
         {
-            Converter converter = new Converter(homeName, document, outputPath);
+            Converter converter = new Converter(document, outputPath);
 
             Task.WaitAll(
                 Task.Run(converter.WriteHome),

@@ -20,13 +20,20 @@
     <Description></Description>
     <PackageIconUrl>https://github.com/Doraku/DefaultDocumentation/raw/master/image/logo.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/Doraku/DefaultDocumentation</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/Doraku/DefaultDocumentation/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageLicense>https://github.com/Doraku/DefaultDocumentation/blob/master/LICENSE.md</PackageLicense>
     <RepositoryUrl>https://github.com/Doraku/DefaultDocumentation.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>markdown documentation</PackageTags>
+
+    <IsTool>true</IsTool>
+    <DevelopmentDependency>true</DevelopmentDependency>
 
     <Version>0.1.0</Version>
     <PackageReleaseNotes>
     </PackageReleaseNotes>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="build\DefaultDocumentation.targets" PackagePath="build" />
+  </ItemGroup>
 </Project>
