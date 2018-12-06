@@ -17,7 +17,7 @@
   <PropertyGroup Label="Package">
     <Authors>Paillat Laszlo</Authors>
     <PackageId>DefaultDocumentation</PackageId>
-    <Description></Description>
+    <Description>Create a simple markdown documentation from the Visual Studio xml one.</Description>
     <PackageIconUrl>https://github.com/Doraku/DefaultDocumentation/raw/master/image/logo.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/Doraku/DefaultDocumentation</PackageProjectUrl>
     <PackageLicense>https://github.com/Doraku/DefaultDocumentation/blob/master/LICENSE.md</PackageLicense>
