@@ -3,7 +3,7 @@
 As the name imply, this project lets you easily produce a "good enough" markdown documentation from the xml documentation produced by visual studio from comments.
 
 
-[![NuGet](https://img.shields.io/badge/nuget-v0.1.0-brightgreen.svg)](https://www.nuget.org/packages/DefaultDocumentation)
+[![NuGet](https://img.shields.io/badge/nuget-v0.2.0-brightgreen.svg)](https://www.nuget.org/packages/DefaultDocumentation)
 
 - [Requirement](#Requirement)
 - [Usage](#Usage)
@@ -27,7 +27,7 @@ List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotn
 
 - [ ] `<c>` not yet
 - [ ] `<code>` not yet
-- [x] `cref attribute` in `<see>` element
+- [x] `cref attribute` in `<exception>`, `<see>` and `<seealso>` elements
 - [ ] `<exemple>` not yet
 - [x] `<exception>`
 - [ ] `<include>` not yet
@@ -36,10 +36,10 @@ List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotn
 - [x] `<param>`
 - [x] `<paramref>`
 - [ ] `<permission>` not yet
-- [ ] `<remarks>` not yet
+- [x] `<remarks>`
 - [x] `<returns>`
 - [x] `<see>`
-- [ ] `<seealso>` not yet
+- [x] `<seealso>` handled the same as `<see>`
 - [x] `<summary>`
 - [x] `<typeparam>`
 - [x] `<typeparamref>`
@@ -47,11 +47,11 @@ List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotn
 
 List of supported members taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/processing-the-xml-file)
 - [ ] `N Namespace` not yet
-- [x] `T` except nested types, not tested
+- [x] `T`
 - [x] `F`
-- [x] `P` except indexer
-- [x] `M` missing special display for operator
-- [ ] `E Event` not yet
+- [x] `P`
+- [x] `M` missing implicit/explicit operators
+- [x] `E`
 - [ ] `!` this is not supposed to happen
 
 Obviously my goal was not to support everything from the start but only what I needed for my projects (_good enough_).
