@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dummy</name>
+    </assembly>
+    <members>
+        <member name="T:Dummy.DummyClass">
+            <summary>
+            dummy
+            </summary>
+        </member>
+        <member name="T:Dummy.DummyClass.DummyNested`1">
+            <summary>
+            dummy
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="E:Dummy.DummyClass.DummyNested`1.Action">
+            <summary>
+            dummy
+            </summary>
+        </member>
+        <member name="F:Dummy.DummyClass.DummyField">
+            <summary>
+            dummy
+            </summary>
+        </member>
+        <member name="P:Dummy.DummyClass.DummyProperty">
+            <summary>
+            dummy
+            </summary>
+        </member>
+        <member name="P:Dummy.DummyClass.Item(System.Int32)">
+            <summary>
+            dummy
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dummy.DummyClass.#ctor">
+            <summary>
+            dummy
+            </summary>
+        </member>
+        <member name="M:Dummy.DummyClass.DummyMethod">
+            <summary>
+            dummy
+            </summary>
+        </member>
+        <member name="M:Dummy.DummyClass.op_Addition(Dummy.DummyClass,System.Int32)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="b">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_Explicit(System.Int32)~Dummy.DummyClass">
+            <summary>
+            
+            </summary>
+            <param name="c"></param>
+        </member>
+        <member name="M:Dummy.DummyClass.op_Equality(Dummy.DummyClass,Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="b">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_Inequality(Dummy.DummyClass,Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="b">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_Subtraction(Dummy.DummyClass,Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="b">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_Multiply(Dummy.DummyClass,Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="b">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_Division(Dummy.DummyClass,Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="b">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_BitwiseAnd(Dummy.DummyClass,Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="b">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_BitwiseOr(Dummy.DummyClass,Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="b">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_OnesComplement(Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_ExclusiveOr(Dummy.DummyClass,Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="b">dummy</param>
+            <returns>dummy</returns>
+        </member>
+    </members>
+</doc>

@@ -36,7 +36,6 @@ namespace DefaultDocumentation
             }
 
             Converter.Convert(
-                Path.GetFileNameWithoutExtension(documentation.Name),
                 XDocument.Parse(File.ReadAllText(documentation.FullName)),
                 directory.FullName);
         }

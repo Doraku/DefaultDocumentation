@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Helper;
+using DefaultDocumentation.Model.Base;
+using DefaultDocumentation.Model.NonMember;
 
 namespace DefaultDocumentation.Model
 {
-    internal sealed class MethodItem : AGenericDocItem, ITitleDocItem, IParameterDocItem
+    internal sealed class MethodItem : AGenericDocItem, ITitleDocItem, IParameterDocItem, IReturnDocItem
     {
         public const string Id = "M:";
 

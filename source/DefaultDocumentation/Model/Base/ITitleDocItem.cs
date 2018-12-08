@@ -1,4 +1,4 @@
-﻿namespace DefaultDocumentation.Model
+﻿namespace DefaultDocumentation.Model.Base
 {
     internal interface ITitleDocItem
     {

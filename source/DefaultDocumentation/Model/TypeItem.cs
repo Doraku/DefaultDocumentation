@@ -1,5 +1,6 @@
 ﻿using System.Xml.Linq;
 using DefaultDocumentation.Helper;
+using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation.Model
 {

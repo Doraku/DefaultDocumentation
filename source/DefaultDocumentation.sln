@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dummy", "Dummy\Dummy.csproj", "{4BBA3FDF-A296-4428-90C3-FC266D4EA45A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultDocumentation.Test", "DefaultDocumentation.Test\DefaultDocumentation.Test.csproj", "{42945395-C264-44D1-B1F7-8DE60223D6F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,14 @@ Global
 		{4D7998F0-BA62-41E0-904C-A8D1B45F3937}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D7998F0-BA62-41E0-904C-A8D1B45F3937}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D7998F0-BA62-41E0-904C-A8D1B45F3937}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BBA3FDF-A296-4428-90C3-FC266D4EA45A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BBA3FDF-A296-4428-90C3-FC266D4EA45A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BBA3FDF-A296-4428-90C3-FC266D4EA45A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BBA3FDF-A296-4428-90C3-FC266D4EA45A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42945395-C264-44D1-B1F7-8DE60223D6F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42945395-C264-44D1-B1F7-8DE60223D6F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42945395-C264-44D1-B1F7-8DE60223D6F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42945395-C264-44D1-B1F7-8DE60223D6F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

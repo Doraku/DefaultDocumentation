@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation.Model
 {
@@ -8,8 +9,8 @@ namespace DefaultDocumentation.Model
 
         public string Title => "property";
 
-        public PropertyItem(ADocItem parent, XElement item)
-            : base(parent, item)
+        public PropertyItem(ADocItem parent, XElement element)
+            : base(parent, element)
         { }
     }
 }

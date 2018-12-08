@@ -17,6 +17,8 @@ namespace DefaultDocumentation.Helper
 
         public static XElement GetReturns(this XElement item) => item.Element("returns");
 
+        public static XElement GetRemarks(this XElement element) => element.Element("remarks");
+
         public static string GetFullName(this XElement item) => item.Attribute("name")?.Value;
 
         public static string GetName(this XElement item) => item.GetFullName()?.Split('.').Last();
@@ -24,7 +26,7 @@ namespace DefaultDocumentation.Helper
         public static string GetNamespace(this XElement item)
         {
             string name = item.GetFullName();
-            if (name.StartsWith(MethodItem.Id)
+            if ((name.StartsWith(MethodItem.Id) || name.StartsWith(PropertyItem.Id))
                 && name.IndexOf('(') >= 0)
             {
                 name = name.Substring(0, name.IndexOf('('));

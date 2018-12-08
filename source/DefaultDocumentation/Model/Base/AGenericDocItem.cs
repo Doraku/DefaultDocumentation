@@ -2,31 +2,32 @@
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Helper;
+using DefaultDocumentation.Model.NonMember;
 
-namespace DefaultDocumentation.Model
+namespace DefaultDocumentation.Model.Base
 {
     internal abstract class AGenericDocItem : ADocItem
     {
         public GenericItem[] Generics { get; }
 
-        protected AGenericDocItem(string @namespace, string name, XElement item)
-            : base(@namespace, CleanName(name, GetGenericNames(item)), item.GetSummary())
+        protected AGenericDocItem(XElement element, string name)
+            : base(element, CleanName(name, GetGenericNames(element)))
         {
-            Generics = item.GetGenerics().Select(e => new GenericItem(this, e)).ToArray();
+            Generics = element.GetGenerics().Select(e => new GenericItem(this, e)).ToArray();
         }
 
-        protected AGenericDocItem(string @namespace, XElement item)
-            : this(@namespace, item.GetName(), item)
+        protected AGenericDocItem(string @namespace, XElement element)
+            : this(element, element.GetName())
         { }
 
-        protected AGenericDocItem(ADocItem parent, string name, XElement item)
-            : base(parent, CleanName(name, GetGenericNames(item)), item)
+        protected AGenericDocItem(ADocItem parent, string name, XElement element)
+            : base(parent, CleanName(name, GetGenericNames(element)), element)
         {
-            Generics = item.GetGenerics().Select(e => new GenericItem(this, e)).ToArray();
+            Generics = element.GetGenerics().Select(e => new GenericItem(this, e)).ToArray();
         }
 
-        protected AGenericDocItem(ADocItem parent, XElement item)
-            : this(parent, item.GetName(), item)
+        protected AGenericDocItem(ADocItem parent, XElement element)
+            : this(parent, element.GetName(), element)
         { }
 
         private static string CleanName(string name, IEnumerable<string> genericNames)

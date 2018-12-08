@@ -30,6 +30,13 @@
 
     <Version>0.1.0</Version>
     <PackageReleaseNotes>
+added E event support
+added M operator support
+added P index support
+added T nested type support
+added remarks support
+added seealso support
+changed to use the name of the assembly in the xml instead of the file name as the main markdown page
     </PackageReleaseNotes>
   </PropertyGroup>
 

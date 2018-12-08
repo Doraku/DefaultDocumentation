@@ -1,4 +1,6 @@
 ﻿using System.Xml.Linq;
+using DefaultDocumentation.Model.Base;
+using DefaultDocumentation.Model.NonMember;
 
 namespace DefaultDocumentation.Model
 {
@@ -10,8 +12,8 @@ namespace DefaultDocumentation.Model
 
         public ParameterItem[] Parameters { get; }
 
-        public ConstructorItem(MethodItem innerItem, XElement item)
-            : base(innerItem.Parent, innerItem.Name, item)
+        public ConstructorItem(MethodItem innerItem)
+            : base(innerItem.Parent, innerItem.Name, innerItem.Element)
         {
             Parameters = innerItem.Parameters;
         }

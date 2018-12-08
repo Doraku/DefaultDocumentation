@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using DefaultDocumentation.Helper;
 using DefaultDocumentation.Model;
+using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation
 {
@@ -20,7 +21,7 @@ namespace DefaultDocumentation
         }
 
         public DocWriter(string path, ADocItem item)
-            : this(item, Path.Combine(path, $"{item.FullName().CleanForLink()}.md"))
+            : this(item, Path.Combine(path, $"{item.FullName.CleanForLink()}.md"))
         { }
 
         public DocWriter(string path, string name)

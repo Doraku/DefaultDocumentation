@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation.Model
 {
@@ -8,8 +9,8 @@ namespace DefaultDocumentation.Model
 
         public string Title => "field";
 
-        public FieldItem(ADocItem parent, XElement item)
-            : base(parent, item)
+        public FieldItem(ADocItem parent, XElement element)
+            : base(parent, element)
         { }
     }
 }
