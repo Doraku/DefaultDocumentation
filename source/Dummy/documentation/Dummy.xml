@@ -11,7 +11,7 @@
         </member>
         <member name="T:Dummy.DummyClass.DummyNested`1">
             <summary>
-            dummy
+            dummy <c>test</c>
             </summary>
             <typeparam name="T"></typeparam>
         </member>

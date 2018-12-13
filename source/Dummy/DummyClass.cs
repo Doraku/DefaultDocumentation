@@ -8,7 +8,7 @@ namespace Dummy
     public class DummyClass
     {
         /// <summary>
-        /// dummy
+        /// dummy <c>test</c>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         public class DummyNested<T>

@@ -4,11 +4,11 @@
 dummy
 ### Parameters
 
-<a name='Dummy-DummyClass-op_ExclusiveOr(Dummy-DummyClass- Dummy-DummyClass)-a'></a>
+<a name='Dummy-DummyClass-op_ExclusiveOr(Dummy-DummyClass-_Dummy-DummyClass)-a'></a>
 `a`
 >dummy
 
-<a name='Dummy-DummyClass-op_ExclusiveOr(Dummy-DummyClass- Dummy-DummyClass)-b'></a>
+<a name='Dummy-DummyClass-op_ExclusiveOr(Dummy-DummyClass-_Dummy-DummyClass)-b'></a>
 `b`
 >dummy
 ### Returns

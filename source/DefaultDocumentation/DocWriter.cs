@@ -2,7 +2,6 @@
 using System.IO;
 using System.Text;
 using DefaultDocumentation.Helper;
-using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation
