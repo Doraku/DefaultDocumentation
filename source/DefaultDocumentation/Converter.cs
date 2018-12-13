@@ -221,6 +221,10 @@ namespace DefaultDocumentation
                                 summary += parameter.FullName.AsPageLink(parameter.Name);
                                 break;
 
+                            case "c":
+                                summary += $"`{element.Value}`";
+                                break;
+
                             default:
                                 throw new Exception($"unhandled element in summary {element.Name.LocalName}");
                         }
