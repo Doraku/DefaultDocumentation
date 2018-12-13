@@ -92,13 +92,13 @@ namespace DefaultDocumentation
         {
             if (item?.Generics.Length > 0)
             {
-                writer.Write("### Type parameters");
+                writer.WriteLine("### Type parameters");
 
                 foreach (GenericItem generic in item.Generics)
                 {
                     writer.Break();
-                    writer.Write(generic.FullName.AsLinkTarget());
-                    writer.Write($"`{generic.Name}`");
+                    writer.WriteLine(generic.AsLinkTarget());
+                    writer.WriteLine($"`{generic.Name}`");
                     WriteSummary(writer, generic);
                 }
             }
@@ -108,13 +108,13 @@ namespace DefaultDocumentation
         {
             if (item?.Parameters.Length > 0)
             {
-                writer.Write("### Parameters");
+                writer.WriteLine("### Parameters");
 
                 foreach (ParameterItem parameter in item.Parameters)
                 {
                     writer.Break();
-                    writer.Write(parameter.FullName.AsLinkTarget());
-                    writer.Write($"`{parameter.Name}`");
+                    writer.WriteLine(parameter.AsLinkTarget());
+                    writer.WriteLine($"`{parameter.Name}`");
                     WriteSummary(writer, parameter);
                 }
             }
@@ -127,14 +127,14 @@ namespace DefaultDocumentation
             {
                 if (!hasTitle)
                 {
-                    writer.Write("### Exceptions");
+                    writer.WriteLine("### Exceptions");
 
                     hasTitle = true;
                 }
                 writer.Break();
-                writer.Write(
+                writer.WriteLine(
                     _items.TryGetValue(exception.Reference, out ADocItem reference)
-                    ? reference.FullName.AsLink()
+                    ? reference.AsLink()
                     : exception.Reference.Substring(2).AsDotNetApiLink());
                 WriteSummary(writer, exception);
             }
@@ -144,7 +144,7 @@ namespace DefaultDocumentation
         {
             if (item?.Return != null)
             {
-                writer.Write("### Returns");
+                writer.WriteLine("### Returns");
                 WriteSummary(writer, item.Return);
             }
         }
@@ -153,7 +153,7 @@ namespace DefaultDocumentation
         {
             if (item.Remarks != null)
             {
-                writer.Write("### Remarks");
+                writer.WriteLine("### Remarks");
                 WriteSummary(writer, item.Remarks, false);
             }
         }
@@ -178,7 +178,7 @@ namespace DefaultDocumentation
                                 string referenceName = element.GetReferenceName();
                                 if (_items.TryGetValue(referenceName, out ADocItem reference))
                                 {
-                                    summary += reference.FullName.AsLink();
+                                    summary += reference.AsLink();
                                 }
                                 else
                                 {
@@ -206,11 +206,11 @@ namespace DefaultDocumentation
 
                                 if (writer.IsForThis(generic.Parent))
                                 {
-                                    summary += generic.FullName.AsPageLink(generic.Name);
+                                    summary += generic.AsPageLink();
                                 }
                                 else
                                 {
-                                    summary += generic.Parent.FullName.AsLinkWithTarget(generic.FullName, generic.Name);
+                                    summary += generic.AsLinkWithTarget();
                                 }
                                 break;
 
@@ -218,7 +218,7 @@ namespace DefaultDocumentation
                                 IParameterDocItem parameterItem = (item as IParameterDocItem) ?? (item.Parent as IParameterDocItem);
                                 ParameterItem parameter = parameterItem.Parameters.First(i => i.Name == element.GetName());
 
-                                summary += parameter.FullName.AsPageLink(parameter.Name);
+                                summary += parameter.AsPageLink();
                                 break;
 
                             case "c":
@@ -257,7 +257,7 @@ namespace DefaultDocumentation
             }
 
             string block = useBlock ? ">" : string.Empty;
-            writer.Write($"{block}{summary}");
+            writer.WriteLine($"{block}{summary}");
         }
 
         private void WriteDocFor<T>(DocWriter writer, T item)
@@ -271,18 +271,12 @@ namespace DefaultDocumentation
                 parents.Push(parent);
                 parent = parent.Parent;
             }
-            if (parents.Count > 0)
+            while (parents.TryPop(out parent))
             {
-                while (parents.TryPop(out parent))
-                {
-                    writer.Write($"### {parent.FullName.AsLink()}");
-                }
-                writer.Write($"## {item.Name} `{item.Title}`");
+                writer.Write($".{parent.AsLink()}");
             }
-            else
-            {
-                writer.Write($"## {item.FullName} `{item.Title}`");
-            }
+            writer.Break();
+            writer.WriteLine($"## {item.Name} `{item.Title}`");
 
             WriteSummary(writer, item, false);
             WriteRemarks(writer, item);
@@ -294,7 +288,7 @@ namespace DefaultDocumentation
 
         private void WriteLinkForType(DocWriter writer, TypeItem item)
         {
-            writer.Write($"- {item.FullName.AsLink(item.Name)}");
+            writer.WriteLine($"- {item.AsLink()}");
 
             foreach (TypeItem nested in _items.Values.OfType<TypeItem>().Where(i => i.Parent == item).OrderBy(i => i.Name))
             {
@@ -306,7 +300,7 @@ namespace DefaultDocumentation
         {
             using (DocWriter writer = new DocWriter(_outputPath, _mainName))
             {
-                writer.Write($"### {_mainName.AsLink()}");
+                writer.WriteLine($"### {_mainName.AsLink()}");
 
                 foreach (IGrouping<string, TypeItem> typesByNamespace in _items.Values
                     .OfType<TypeItem>()
@@ -314,7 +308,7 @@ namespace DefaultDocumentation
                     .GroupBy(i => i.Namespace)
                     .OrderBy(i => i.Key))
                 {
-                    writer.Write($"## {typesByNamespace.Key}");
+                    writer.WriteLine($"## {typesByNamespace.Key}");
 
                     foreach (TypeItem item in typesByNamespace.OrderBy(i => i.Name))
                     {
@@ -334,10 +328,10 @@ namespace DefaultDocumentation
                 if (!hasTitle)
                 {
                     hasTitle = true;
-                    writer.Write($"### {item.Title}");
+                    writer.WriteLine($"### {item.Title}");
                 }
 
-                writer.Write($"- {item.FullName.AsLink(item.Name)}");
+                writer.WriteLine($"- {item.AsLink()}");
             }
         }
 

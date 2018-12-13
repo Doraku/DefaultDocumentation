@@ -1,4 +1,3 @@
-### [Dummy](./Dummy.md 'Dummy')
-### [Dummy.DummyClass](./Dummy-DummyClass.md 'Dummy.DummyClass')
+### [Dummy](./Dummy.md 'Dummy').[DummyClass](./Dummy-DummyClass.md 'Dummy.DummyClass')
 ## DummyProperty `property`
 dummy

@@ -1,26 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DefaultDocumentation.Model;
+using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation.Helper
 {
     internal static class StringExtension
     {
-        private static readonly char[] _invalidLinkChars = new[]
-        {
-            '.',
-            ',',
-            '#',
-            '[',
-            ']'
-        };
-
         private static readonly IReadOnlyDictionary<string, string> _operators =
             OperatorItem.OperatorNames
             .ToDictionary(p => p.Value + '(', p => p.Key + '(')
             .Concat(new Dictionary<string, string>
             {
                 [" "] = "_",
+                ["."] = "-",
+                [","] = "-",
+                ["#"] = "-",
+                ["["] = "-",
+                ["]"] = "-",
                 ["&lt;"] = "-",
                 ["&gt;"] = "-"
             }).ToDictionary(p => p.Key, p => p.Value);
@@ -29,10 +26,6 @@ namespace DefaultDocumentation.Helper
 
         public static string CleanForLink(this string value)
         {
-            foreach (char c in _invalidLinkChars)
-            {
-                value = value.Replace(c, '-');
-            }
             foreach (var pair in _operators)
             {
                 value = value.Replace(pair.Key, pair.Value);
@@ -41,7 +34,7 @@ namespace DefaultDocumentation.Helper
             return value;
         }
 
-        public static string AsLinkTarget(this string value) => $"<a name='{value.CleanForLink()}'></a>";
+        public static string AsLinkTarget(this ADocItem item) => $"<a name='{item.LinkName}'></a>";
 
         public static string AsDotNetApiLink(this string value)
         {
@@ -54,10 +47,12 @@ namespace DefaultDocumentation.Helper
             return $"[{name}](https://docs.microsoft.com/en-us/dotnet/api/{value.CleanForDotNetApiLink()} '{name}')";
         }
 
-        public static string AsLink(this string value, string text = null) => $"[{text ?? value}](./{value.CleanForLink()}.md '{value}')";
+        public static string AsLink(this string value) => $"[{value}](./{value.CleanForLink()}.md '{value}')";
 
-        public static string AsLinkWithTarget(this string value, string target, string text) => $"[{text}](./{value.CleanForLink()}.md#{target.CleanForLink()} '{text}')";
+        public static string AsLink(this ADocItem item) => $"[{item.Name}](./{item.LinkName}.md '{item.FullName}')";
 
-        public static string AsPageLink(this string value, string text = null) => $"[{text ?? value}](#{value.CleanForLink()} '{value}')";
+        public static string AsLinkWithTarget(this ADocItem item) => $"[{item.Name}](./{item.Parent.LinkName}.md#{item.LinkName} '{item.FullName}')";
+
+        public static string AsPageLink(this ADocItem item) => $"[{item.Name}](#{item.LinkName} '{item.FullName}')";
     }
 }

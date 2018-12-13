@@ -1,5 +1,5 @@
 ### [Dummy](./Dummy.md 'Dummy')
-## Dummy.DummyClass `type`
+## DummyClass `type`
 dummy
 ### constructor
 - [#ctor()](./Dummy-DummyClass--ctor().md 'Dummy.DummyClass.#ctor()')
