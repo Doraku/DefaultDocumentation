@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation.Helper
 {
@@ -26,15 +25,13 @@ namespace DefaultDocumentation.Helper
 
         public static string CleanForLink(this string value)
         {
-            foreach (var pair in _operators)
+            foreach (KeyValuePair<string, string> pair in _operators)
             {
                 value = value.Replace(pair.Key, pair.Value);
             }
 
             return value;
         }
-
-        public static string AsLinkTarget(this ADocItem item) => $"<a name='{item.LinkName}'></a>";
 
         public static string AsDotNetApiLink(this string value)
         {
@@ -48,11 +45,5 @@ namespace DefaultDocumentation.Helper
         }
 
         public static string AsLink(this string value) => $"[{value}](./{value.CleanForLink()}.md '{value}')";
-
-        public static string AsLink(this ADocItem item) => $"[{item.Name}](./{item.LinkName}.md '{item.FullName}')";
-
-        public static string AsLinkWithTarget(this ADocItem item) => $"[{item.Name}](./{item.Parent.LinkName}.md#{item.LinkName} '{item.FullName}')";
-
-        public static string AsPageLink(this ADocItem item) => $"[{item.Name}](#{item.LinkName} '{item.FullName}')";
     }
 }

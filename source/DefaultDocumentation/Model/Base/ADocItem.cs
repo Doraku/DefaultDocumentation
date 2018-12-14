@@ -11,14 +11,20 @@ namespace DefaultDocumentation.Model.Base
     {
         private readonly Lazy<string> _linkName;
 
-        public ADocItem Parent { get; set; }
-
+        public ADocItem Parent { get; }
         public XElement Element { get; }
         public string Name { get; }
         public string Namespace => Parent?.FullName ?? Element.GetNamespace();
-        public string FullName => $"{Namespace}.{Name}";
-        public XElement Summary { get; }
-        public RemarksItem Remarks { get; }
+        public virtual string FullName => $"{Namespace}.{Name}";
+        public XElement Summary => Element.GetSummary() ?? Element;
+        public RemarksItem Remarks
+        {
+            get
+            {
+                XElement remarksElement = Element.GetRemarks();
+                return remarksElement != null ? new RemarksItem(this, remarksElement) : null;
+            }
+        }
         public IEnumerable<ExceptionItem> Exceptions => Element.GetExceptions().Select(i => new ExceptionItem(this, i));
         public string LinkName => _linkName.Value;
 
@@ -29,9 +35,6 @@ namespace DefaultDocumentation.Model.Base
             Element = element;
             Parent = parent;
             Name = name;
-            Summary = Element.GetSummary() ?? Element;
-            XElement remarksElement = Element.GetRemarks();
-            Remarks = remarksElement != null ? new RemarksItem(this, remarksElement) : null;
         }
 
         protected ADocItem(XElement element, string name)

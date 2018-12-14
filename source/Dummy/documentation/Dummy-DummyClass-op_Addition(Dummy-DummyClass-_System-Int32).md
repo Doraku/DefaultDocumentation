@@ -1,4 +1,5 @@
-### [Dummy](./Dummy.md 'Dummy').[DummyClass](./Dummy-DummyClass.md 'Dummy.DummyClass')
+#### [Dummy](./Dummy.md 'Dummy')
+### [Dummy](./Dummy.md#Dummy 'Dummy').[DummyClass](./Dummy-DummyClass.md 'Dummy.DummyClass')
 ## +(Dummy.DummyClass, System.Int32) `operator`
 dummy
 ### Parameters

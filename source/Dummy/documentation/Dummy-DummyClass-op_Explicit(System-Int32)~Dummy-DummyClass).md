@@ -1,4 +1,5 @@
-### [Dummy](./Dummy.md 'Dummy').[DummyClass](./Dummy-DummyClass.md 'Dummy.DummyClass')
+#### [Dummy](./Dummy.md 'Dummy')
+### [Dummy](./Dummy.md#Dummy 'Dummy').[DummyClass](./Dummy-DummyClass.md 'Dummy.DummyClass')
 ## op_Explicit(System.Int32)~Dummy.DummyClass) `method`
 
 ### Parameters

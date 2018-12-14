@@ -1,4 +1,5 @@
-### [Dummy](./Dummy.md 'Dummy')
+#### [Dummy](./Dummy.md 'Dummy')
+### [Dummy](./Dummy.md#Dummy 'Dummy')
 ## DummyClass `type`
 dummy
 ### constructor

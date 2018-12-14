@@ -10,8 +10,8 @@ namespace DefaultDocumentation.Model
 
         public string Title => "type";
 
-        public TypeItem(XElement item)
-            : base(item.GetNamespace(), item)
+        public TypeItem(ADocItem parent, XElement item)
+            : base(parent, item)
         { }
     }
 }

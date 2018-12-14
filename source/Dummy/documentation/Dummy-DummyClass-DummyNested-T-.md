@@ -1,4 +1,5 @@
-### [Dummy](./Dummy.md 'Dummy').[DummyClass](./Dummy-DummyClass.md 'Dummy.DummyClass')
+#### [Dummy](./Dummy.md 'Dummy')
+### [Dummy](./Dummy.md#Dummy 'Dummy').[DummyClass](./Dummy-DummyClass.md 'Dummy.DummyClass')
 ## DummyNested&lt;T&gt; `type`
 dummy `test`
 ### Type parameters

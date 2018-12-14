@@ -29,15 +29,16 @@ namespace DefaultDocumentation
 
             foreach (XElement element in document.GetMembers().Where(e => e.GetFullName().StartsWith(TypeItem.Id)))
             {
-                items.Add(element.GetFullName(), new TypeItem(element));
-            }
+                string parentNamespace = element.GetNamespace();
+                ADocItem parent;
 
-            foreach (TypeItem item in items.Values.OfType<TypeItem>())
-            {
-                if (items.TryGetValue($"{TypeItem.Id}{item.Element.GetNamespace()}", out ADocItem parent))
+                if (!items.TryGetValue($"{TypeItem.Id}{parentNamespace}", out parent)
+                    && !items.TryGetValue($"{NamespaceItem.Id}{parentNamespace}", out parent))
                 {
-                    item.Parent = parent;
+                    parent = new NamespaceItem(parentNamespace);
                 }
+
+                items.Add(element.GetFullName(), new TypeItem(parent, element));
             }
 
             foreach (XElement element in document.GetMembers().Where(e => !e.GetFullName().StartsWith(TypeItem.Id)))
@@ -52,26 +53,18 @@ namespace DefaultDocumentation
                 }
                 else if (fullName.StartsWith(PropertyItem.Id))
                 {
-                    if (fullName.EndsWith(')'))
-                    {
-                        newItem = new IndexItem(new MethodItem(parent, element));
-                    }
-                    else
-                    {
-                        newItem = new PropertyItem(parent, element);
-                    }
+                    newItem =
+                        fullName.EndsWith(')')
+                        ? new IndexItem(new MethodItem(parent, element))
+                        : new PropertyItem(parent, element) as ADocItem;
                 }
                 else if (fullName.StartsWith(MethodItem.Id))
                 {
                     newItem = new MethodItem(parent, element);
-                    if (newItem.Name.StartsWith('#'))
-                    {
-                        newItem = new ConstructorItem(newItem as MethodItem);
-                    }
-                    else
-                    {
-                        newItem = OperatorItem.HandleOperator(newItem as MethodItem);
-                    }
+                    newItem =
+                        newItem.Name.StartsWith('#')
+                        ? new ConstructorItem(newItem as MethodItem)
+                        : OperatorItem.HandleOperator(newItem as MethodItem);
                 }
                 else if (fullName.StartsWith(EventItem.Id))
                 {
@@ -176,14 +169,10 @@ namespace DefaultDocumentation
                             case "see":
                             case "seealso":
                                 string referenceName = element.GetReferenceName();
-                                if (_items.TryGetValue(referenceName, out ADocItem reference))
-                                {
-                                    summary += reference.AsLink();
-                                }
-                                else
-                                {
-                                    summary += referenceName.Substring(2).AsDotNetApiLink();
-                                }
+                                summary +=
+                                    _items.TryGetValue(referenceName, out ADocItem reference)
+                                    ? (reference is NamespaceItem ? reference.AsLinkWithTarget(_mainName) : reference.AsLink())
+                                    : referenceName.Substring(2).AsDotNetApiLink();
                                 break;
 
                             case "typeparamref":
@@ -204,14 +193,10 @@ namespace DefaultDocumentation
                                     throw new Exception($"unknown generic type {element.GetName()}");
                                 }
 
-                                if (writer.IsForThis(generic.Parent))
-                                {
-                                    summary += generic.AsPageLink();
-                                }
-                                else
-                                {
-                                    summary += generic.AsLinkWithTarget();
-                                }
+                                summary +=
+                                    writer.IsForThis(generic.Parent)
+                                    ? generic.AsPageLink()
+                                    : generic.AsLinkWithTarget();
                                 break;
 
                             case "paramref":
@@ -263,7 +248,7 @@ namespace DefaultDocumentation
         private void WriteDocFor<T>(DocWriter writer, T item)
             where T : ADocItem, ITitleDocItem
         {
-            writer.Write($"### {_mainName.AsLink()}");
+            writer.WriteLine($"#### {_mainName.AsLink()}");
             ADocItem parent = item.Parent;
             Stack<ADocItem> parents = new Stack<ADocItem>();
             while (parent != null)
@@ -271,11 +256,7 @@ namespace DefaultDocumentation
                 parents.Push(parent);
                 parent = parent.Parent;
             }
-            while (parents.TryPop(out parent))
-            {
-                writer.Write($".{parent.AsLink()}");
-            }
-            writer.Break();
+            writer.WriteLine($"### {string.Join('.', parents.Select(i => i is NamespaceItem ? i.AsLinkWithTarget(_mainName) : i.AsLink()))}");
             writer.WriteLine($"## {item.Name} `{item.Title}`");
 
             WriteSummary(writer, item, false);
@@ -302,13 +283,14 @@ namespace DefaultDocumentation
             {
                 writer.WriteLine($"### {_mainName.AsLink()}");
 
-                foreach (IGrouping<string, TypeItem> typesByNamespace in _items.Values
+                foreach (IGrouping<ADocItem, TypeItem> typesByNamespace in _items.Values
                     .OfType<TypeItem>()
-                    .Where(i => i.Parent == null)
-                    .GroupBy(i => i.Namespace)
-                    .OrderBy(i => i.Key))
+                    .Where(i => i.Parent is NamespaceItem)
+                    .GroupBy(i => i.Parent)
+                    .OrderBy(i => i.Key.Name))
                 {
-                    writer.WriteLine($"## {typesByNamespace.Key}");
+                    writer.WriteLine(typesByNamespace.Key.AsLinkTarget());
+                    writer.WriteLine($"## {typesByNamespace.Key.Name}");
 
                     foreach (TypeItem item in typesByNamespace.OrderBy(i => i.Name))
                     {

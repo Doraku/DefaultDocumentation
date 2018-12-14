@@ -25,7 +25,7 @@ Should you want the markdown files to be produced in a different directory, you 
 # Overview
 List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/recommended-tags-for-documentation-comments)
 
-- [ ] `<c>` not yet
+- [x] `<c>`
 - [ ] `<code>` not yet
 - [x] `cref attribute` in `<exception>`, `<see>` and `<seealso>` elements
 - [ ] `<exemple>` not yet
@@ -46,7 +46,7 @@ List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotn
 - [ ] `<value>` not yet
 
 List of supported members taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/processing-the-xml-file)
-- [ ] `N Namespace` not yet
+- [x] `N`
 - [x] `T`
 - [x] `F`
 - [x] `P`

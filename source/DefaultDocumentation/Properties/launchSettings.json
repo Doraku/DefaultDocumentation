@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DefaultDocumentation": {
+      "commandName": "Project",
+      "commandLineArgs": "/xml:\"..\\..\\..\\..\\Dummy\\documentation\\Dummy.xml\""
+    }
+  }
+}
