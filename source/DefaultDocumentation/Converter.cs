@@ -135,7 +135,7 @@ namespace DefaultDocumentation
         }
 
         private void Write<T>(DocWriter writer, T item)
-            where T : ADocItem, ITitleDocItem
+            where T : ATextItem, ITitleDocItem
         {
             if (item != null)
             {
@@ -144,7 +144,7 @@ namespace DefaultDocumentation
             }
         }
 
-        private void WriteSummary(DocWriter writer, ADocItem item)
+        private void WriteSummary(DocWriter writer, ATextItem item)
         {
             string summary = string.Empty;
 
@@ -169,7 +169,7 @@ namespace DefaultDocumentation
                                 break;
 
                             case "typeparamref":
-                                ADocItem parent = item;
+                                ADocItem parent = item as ADocItem ?? item.Parent;
                                 GenericItem generic = null;
                                 while (parent != null && generic == null)
                                 {
@@ -208,7 +208,8 @@ namespace DefaultDocumentation
                                 break;
 
                             default:
-                                throw new Exception($"unhandled element in summary {element.Name.LocalName}");
+                                summary += element.ToString();
+                                break;
                         }
                         break;
 

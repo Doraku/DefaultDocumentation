@@ -3,7 +3,7 @@ using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation.Model.NonMember
 {
-    internal sealed class RemarksItem : ADocItem, ITitleDocItem
+    internal sealed class RemarksItem : ATextItem, ITitleDocItem
     {
         public string Title => "Remarks";
 

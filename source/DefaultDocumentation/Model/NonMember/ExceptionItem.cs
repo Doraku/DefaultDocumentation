@@ -4,7 +4,7 @@ using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation.Model.NonMember
 {
-    internal sealed class ExceptionItem : ADocItem
+    internal sealed class ExceptionItem : ATextItem
     {
         public string Reference => Summary.GetReferenceName();
 

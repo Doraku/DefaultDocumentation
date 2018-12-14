@@ -7,16 +7,13 @@ using DefaultDocumentation.Model.NonMember;
 
 namespace DefaultDocumentation.Model.Base
 {
-    internal abstract class ADocItem
+    internal abstract class ADocItem : ATextItem
     {
         private readonly Lazy<string> _linkName;
 
-        public ADocItem Parent { get; }
-        public XElement Element { get; }
         public string Name { get; }
         public string Namespace => Parent?.FullName ?? Element.GetNamespace();
         public virtual string FullName => $"{Namespace}.{Name}";
-        public XElement Summary => Element.GetSummary() ?? Element;
         public RemarksItem Remarks
         {
             get
@@ -37,11 +34,10 @@ namespace DefaultDocumentation.Model.Base
         public string LinkName => _linkName.Value;
 
         protected ADocItem(ADocItem parent, string name, XElement element)
+            : base(parent, element)
         {
             _linkName = new Lazy<string>(() => FullName.CleanForLink());
 
-            Element = element;
-            Parent = parent;
             Name = name;
         }
 
