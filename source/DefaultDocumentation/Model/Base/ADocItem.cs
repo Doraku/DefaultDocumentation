@@ -25,6 +25,14 @@ namespace DefaultDocumentation.Model.Base
                 return remarksElement != null ? new RemarksItem(this, remarksElement) : null;
             }
         }
+        public ExampleItem Example
+        {
+            get
+            {
+                XElement exampleElement = Element.GetRemarks();
+                return exampleElement != null ? new ExampleItem(this, exampleElement) : null;
+            }
+        }
         public IEnumerable<ExceptionItem> Exceptions => Element.GetExceptions().Select(i => new ExceptionItem(this, i));
         public string LinkName => _linkName.Value;
 

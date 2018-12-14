@@ -134,21 +134,13 @@ namespace DefaultDocumentation
             }
         }
 
-        private void WriteReturns(DocWriter writer, IReturnDocItem item)
+        private void Write<T>(DocWriter writer, T item)
+            where T : ADocItem, ITitleDocItem
         {
-            if (item?.Return != null)
+            if (item != null)
             {
-                writer.WriteLine("### Returns");
-                WriteSummary(writer, item.Return);
-            }
-        }
-
-        private void WriteRemarks(DocWriter writer, ADocItem item)
-        {
-            if (item.Remarks != null)
-            {
-                writer.WriteLine("### Remarks");
-                WriteSummary(writer, item.Remarks);
+                writer.WriteLine($"### {item.Title}");
+                WriteSummary(writer, item);
             }
         }
 
@@ -264,10 +256,11 @@ namespace DefaultDocumentation
             writer.WriteLine($"## {item.Name} `{item.Title}`");
 
             WriteSummary(writer, item);
-            WriteRemarks(writer, item);
+            Write(writer, item.Remarks);
+            Write(writer, item.Example);
             WriteGenerics(writer, item as AGenericDocItem);
             WriteParameters(writer, item as IParameterDocItem);
-            WriteReturns(writer, item as IReturnDocItem);
+            Write(writer, (item as IReturnDocItem)?.Return);
             WriteExceptions(writer, item);
         }
 

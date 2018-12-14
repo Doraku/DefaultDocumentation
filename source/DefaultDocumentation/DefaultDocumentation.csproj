@@ -32,6 +32,7 @@
     <PackageReleaseNotes>
 added c support
 added code support
+added example support
 added N support
     </PackageReleaseNotes>
   </PropertyGroup>

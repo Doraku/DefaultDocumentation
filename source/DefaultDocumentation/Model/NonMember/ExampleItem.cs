@@ -3,11 +3,11 @@ using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation.Model.NonMember
 {
-    internal sealed class RemarksItem : ADocItem, ITitleDocItem
+    internal sealed class ExampleItem : ADocItem, ITitleDocItem
     {
-        public string Title => "Remarks";
+        public string Title => "Example";
 
-        public RemarksItem(ADocItem parent, XElement element)
+        public ExampleItem(ADocItem parent, XElement element)
             : base(parent, element)
         {
         }
