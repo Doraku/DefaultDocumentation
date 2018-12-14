@@ -6,10 +6,10 @@ dummy
 
 <a name='Dummy-DummyClass-op_Addition(Dummy-DummyClass-_System-Int32)-a'></a>
 `a`
->dummy
+dummy
 
 <a name='Dummy-DummyClass-op_Addition(Dummy-DummyClass-_System-Int32)-b'></a>
 `b`
->dummy
+dummy
 ### Returns
->dummy
+dummy

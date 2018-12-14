@@ -6,10 +6,10 @@ dummy
 
 <a name='Dummy-DummyClass-op_Multiply(Dummy-DummyClass-_Dummy-DummyClass)-a'></a>
 `a`
->dummy
+dummy
 
 <a name='Dummy-DummyClass-op_Multiply(Dummy-DummyClass-_Dummy-DummyClass)-b'></a>
 `b`
->dummy
+dummy
 ### Returns
->dummy
+dummy

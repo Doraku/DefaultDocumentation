@@ -12,6 +12,10 @@
         <member name="T:Dummy.DummyClass.DummyNested`1">
             <summary>
             dummy <c>test</c>
+            <code>
+            example
+            yep
+            </code>
             </summary>
             <typeparam name="T"></typeparam>
         </member>

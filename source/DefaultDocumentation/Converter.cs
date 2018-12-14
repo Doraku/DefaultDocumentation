@@ -36,6 +36,7 @@ namespace DefaultDocumentation
                     && !items.TryGetValue($"{NamespaceItem.Id}{parentNamespace}", out parent))
                 {
                     parent = new NamespaceItem(parentNamespace);
+                    items.Add($"{NamespaceItem.Id}{parent.Name}", parent);
                 }
 
                 items.Add(element.GetFullName(), new TypeItem(parent, element));
@@ -147,11 +148,11 @@ namespace DefaultDocumentation
             if (item.Remarks != null)
             {
                 writer.WriteLine("### Remarks");
-                WriteSummary(writer, item.Remarks, false);
+                WriteSummary(writer, item.Remarks);
             }
         }
 
-        private void WriteSummary(DocWriter writer, ADocItem item, bool useBlock = true)
+        private void WriteSummary(DocWriter writer, ADocItem item)
         {
             string summary = string.Empty;
 
@@ -210,6 +211,10 @@ namespace DefaultDocumentation
                                 summary += $"`{element.Value}`";
                                 break;
 
+                            case "code":
+                                summary += $"\n```{element.Value}```\n";
+                                break;
+
                             default:
                                 throw new Exception($"unhandled element in summary {element.Name.LocalName}");
                         }
@@ -235,14 +240,13 @@ namespace DefaultDocumentation
                 ++firstLine;
             }
 
-            summary = string.Join("<br/>", lines.Skip(firstLine).Select(l => l.Substring(startIndex)));
-            while (summary.EndsWith("<br/>"))
+            summary = string.Join(Environment.NewLine, lines.Skip(firstLine).Select(l => l.StartsWith(' ') ? l.Substring(startIndex) : l));
+            while (summary.EndsWith(Environment.NewLine))
             {
-                summary = summary.Substring(0, summary.Length - 5);
+                summary = summary.Substring(0, summary.Length - Environment.NewLine.Length);
             }
 
-            string block = useBlock ? ">" : string.Empty;
-            writer.WriteLine($"{block}{summary}");
+            writer.WriteLine($"{summary}");
         }
 
         private void WriteDocFor<T>(DocWriter writer, T item)
@@ -259,7 +263,7 @@ namespace DefaultDocumentation
             writer.WriteLine($"### {string.Join('.', parents.Select(i => i is NamespaceItem ? i.AsLinkWithTarget(_mainName) : i.AsLink()))}");
             writer.WriteLine($"## {item.Name} `{item.Title}`");
 
-            WriteSummary(writer, item, false);
+            WriteSummary(writer, item);
             WriteRemarks(writer, item);
             WriteGenerics(writer, item as AGenericDocItem);
             WriteParameters(writer, item as IParameterDocItem);
@@ -283,18 +287,14 @@ namespace DefaultDocumentation
             {
                 writer.WriteLine($"### {_mainName.AsLink()}");
 
-                foreach (IGrouping<ADocItem, TypeItem> typesByNamespace in _items.Values
-                    .OfType<TypeItem>()
-                    .Where(i => i.Parent is NamespaceItem)
-                    .GroupBy(i => i.Parent)
-                    .OrderBy(i => i.Key.Name))
+                foreach (NamespaceItem item in _items.Values.OfType<NamespaceItem>().OrderBy(i => i.Name))
                 {
-                    writer.WriteLine(typesByNamespace.Key.AsLinkTarget());
-                    writer.WriteLine($"## {typesByNamespace.Key.Name}");
+                    writer.WriteLine(item.AsLinkTarget());
+                    writer.WriteLine($"## {item.Name}");
 
-                    foreach (TypeItem item in typesByNamespace.OrderBy(i => i.Name))
+                    foreach (TypeItem type in _items.Values.OfType<TypeItem>().Where(i => i.Parent == item).OrderBy(i => i.Name))
                     {
-                        WriteLinkForType(writer, item);
+                        WriteLinkForType(writer, type);
                     }
                 }
             }

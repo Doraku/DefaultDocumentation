@@ -9,6 +9,10 @@ namespace Dummy
     {
         /// <summary>
         /// dummy <c>test</c>
+        /// <code>
+        /// example
+        /// yep
+        /// </code>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         public class DummyNested<T>
