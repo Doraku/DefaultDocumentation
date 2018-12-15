@@ -93,7 +93,7 @@ namespace DefaultDocumentation
                     writer.Break();
                     writer.WriteLine(generic.AsLinkTarget());
                     writer.WriteLine($"`{generic.Name}`");
-                    WriteSummary(writer, generic);
+                    WriteText(writer, generic);
                 }
             }
         }
@@ -109,7 +109,7 @@ namespace DefaultDocumentation
                     writer.Break();
                     writer.WriteLine(parameter.AsLinkTarget());
                     writer.WriteLine($"`{parameter.Name}`");
-                    WriteSummary(writer, parameter);
+                    WriteText(writer, parameter);
                 }
             }
         }
@@ -130,21 +130,21 @@ namespace DefaultDocumentation
                     _items.TryGetValue(exception.Reference, out ADocItem reference)
                     ? reference.AsLink()
                     : exception.Reference.Substring(2).AsDotNetApiLink());
-                WriteSummary(writer, exception);
+                WriteText(writer, exception);
             }
         }
 
-        private void Write<T>(DocWriter writer, T item)
+        private void WriteItem<T>(DocWriter writer, T item)
             where T : ATextItem, ITitleDocItem
         {
             if (item != null)
             {
                 writer.WriteLine($"### {item.Title}");
-                WriteSummary(writer, item);
+                WriteText(writer, item);
             }
         }
 
-        private void WriteSummary(DocWriter writer, ATextItem item)
+        private void WriteText(DocWriter writer, ATextItem item)
         {
             string summary = string.Empty;
 
@@ -256,12 +256,12 @@ namespace DefaultDocumentation
             writer.WriteLine($"### {string.Join('.', parents.Select(i => i is NamespaceItem ? i.AsLinkWithTarget(_mainName) : i.AsLink()))}");
             writer.WriteLine($"## {item.Name} `{item.Title}`");
 
-            WriteSummary(writer, item);
-            Write(writer, item.Remarks);
-            Write(writer, item.Example);
+            WriteText(writer, item);
+            WriteItem(writer, item.Remarks);
+            WriteItem(writer, item.Example);
             WriteGenerics(writer, item as AGenericDocItem);
             WriteParameters(writer, item as IParameterDocItem);
-            Write(writer, (item as IReturnDocItem)?.Return);
+            WriteItem(writer, (item as IReturnDocItem)?.Return);
             WriteExceptions(writer, item);
         }
 
