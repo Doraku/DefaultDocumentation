@@ -3,7 +3,7 @@
 As the name imply, this project lets you easily produce a "good enough" markdown documentation from the xml documentation produced by visual studio from comments.
 
 
-[![NuGet](https://img.shields.io/badge/nuget-v0.2.0-brightgreen.svg)](https://www.nuget.org/packages/DefaultDocumentation)
+[![NuGet](https://img.shields.io/badge/nuget-v0.3.0-brightgreen.svg)](https://www.nuget.org/packages/DefaultDocumentation)
 
 - [Requirement](#Requirement)
 - [Usage](#Usage)
@@ -26,9 +26,9 @@ Should you want the markdown files to be produced in a different directory, you 
 List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/recommended-tags-for-documentation-comments)
 
 - [x] `<c>`
-- [ ] `<code>` not yet
+- [x] `<code>`
 - [x] `cref attribute` in `<exception>`, `<see>` and `<seealso>` elements
-- [ ] `<exemple>` not yet
+- [x] `<example>`
 - [x] `<exception>`
 - [ ] `<include>` not yet
 - [ ] `<list>` not yet
