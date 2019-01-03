@@ -13,7 +13,7 @@ namespace DefaultDocumentation
     internal class Converter
     {
         private readonly string _mainName;
-        private readonly Dictionary<string, ADocItem> _items;
+        private readonly Dictionary<string, AMemberItem> _items;
         private readonly string _outputPath;
 
         private Converter(XDocument document, string outputPath)
@@ -23,16 +23,15 @@ namespace DefaultDocumentation
             _outputPath = outputPath;
         }
 
-        private static Dictionary<string, ADocItem> Parse(XDocument document)
+        private static Dictionary<string, AMemberItem> Parse(XDocument document)
         {
-            Dictionary<string, ADocItem> items = new Dictionary<string, ADocItem>();
+            Dictionary<string, AMemberItem> items = new Dictionary<string, AMemberItem>();
 
             foreach (XElement element in document.GetMembers().Where(e => e.GetFullName().StartsWith(TypeItem.Id)))
             {
                 string parentNamespace = element.GetNamespace();
-                ADocItem parent;
 
-                if (!items.TryGetValue($"{TypeItem.Id}{parentNamespace}", out parent)
+                if (!items.TryGetValue($"{TypeItem.Id}{parentNamespace}", out AMemberItem parent)
                     && !items.TryGetValue($"{NamespaceItem.Id}{parentNamespace}", out parent))
                 {
                     parent = new NamespaceItem(parentNamespace);
@@ -44,8 +43,8 @@ namespace DefaultDocumentation
 
             foreach (XElement element in document.GetMembers().Where(e => !e.GetFullName().StartsWith(TypeItem.Id)))
             {
-                ADocItem parent = items[$"{TypeItem.Id}{element.GetNamespace()}"];
-                ADocItem newItem;
+                AMemberItem parent = items[$"{TypeItem.Id}{element.GetNamespace()}"];
+                AMemberItem newItem;
 
                 string fullName = element.GetFullName();
                 if (fullName.StartsWith(FieldItem.Id))
@@ -57,7 +56,7 @@ namespace DefaultDocumentation
                     newItem =
                         fullName.EndsWith(')')
                         ? new IndexItem(new MethodItem(parent, element))
-                        : new PropertyItem(parent, element) as ADocItem;
+                        : new PropertyItem(parent, element) as AMemberItem;
                 }
                 else if (fullName.StartsWith(MethodItem.Id))
                 {
@@ -82,69 +81,7 @@ namespace DefaultDocumentation
             return items;
         }
 
-        private void WriteGenerics(DocWriter writer, AGenericDocItem item)
-        {
-            if (item?.Generics.Length > 0)
-            {
-                writer.WriteLine("### Type parameters");
-
-                foreach (GenericItem generic in item.Generics)
-                {
-                    writer.Break();
-                    writer.WriteLine(generic.AsLinkTarget());
-                    writer.WriteLine($"`{generic.Name}`");
-                    WriteText(writer, generic);
-                }
-            }
-        }
-
-        private void WriteParameters(DocWriter writer, IParameterDocItem item)
-        {
-            if (item?.Parameters.Length > 0)
-            {
-                writer.WriteLine("### Parameters");
-
-                foreach (ParameterItem parameter in item.Parameters)
-                {
-                    writer.Break();
-                    writer.WriteLine(parameter.AsLinkTarget());
-                    writer.WriteLine($"`{parameter.Name}`");
-                    WriteText(writer, parameter);
-                }
-            }
-        }
-
-        private void WriteExceptions(DocWriter writer, ADocItem item)
-        {
-            bool hasTitle = false;
-            foreach (ExceptionItem exception in item.Exceptions)
-            {
-                if (!hasTitle)
-                {
-                    writer.WriteLine("### Exceptions");
-
-                    hasTitle = true;
-                }
-                writer.Break();
-                writer.WriteLine(
-                    _items.TryGetValue(exception.Reference, out ADocItem reference)
-                    ? reference.AsLink()
-                    : exception.Reference.Substring(2).AsDotNetApiLink());
-                WriteText(writer, exception);
-            }
-        }
-
-        private void WriteItem<T>(DocWriter writer, T item)
-            where T : ATextItem, ITitleDocItem
-        {
-            if (item != null)
-            {
-                writer.WriteLine($"### {item.Title}");
-                WriteText(writer, item);
-            }
-        }
-
-        private void WriteText(DocWriter writer, ATextItem item)
+        private void WriteText(DocWriter writer, AItem item)
         {
             string summary = string.Empty;
 
@@ -163,13 +100,13 @@ namespace DefaultDocumentation
                             case "seealso":
                                 string referenceName = element.GetReferenceName();
                                 summary +=
-                                    _items.TryGetValue(referenceName, out ADocItem reference)
+                                    _items.TryGetValue(referenceName, out AMemberItem reference)
                                     ? (reference is NamespaceItem ? reference.AsLinkWithTarget(_mainName) : reference.AsLink())
                                     : referenceName.Substring(2).AsDotNetApiLink();
                                 break;
 
                             case "typeparamref":
-                                ADocItem parent = item as ADocItem ?? item.Parent;
+                                AMemberItem parent = item as AMemberItem ?? item.Parent;
                                 GenericItem generic = null;
                                 while (parent != null && generic == null)
                                 {
@@ -242,12 +179,52 @@ namespace DefaultDocumentation
             writer.WriteLine($"{summary}");
         }
 
+        private void WriteItem<T>(DocWriter writer, T item)
+            where T : AItem
+        {
+            if (item != null)
+            {
+                writer.WriteLine($"### {item.Header}");
+                WriteText(writer, item);
+            }
+        }
+
+        private void WriteItems<T>(DocWriter writer, IReadOnlyList<T> items)
+            where T : AItem
+        {
+            if (items?.Count > 0)
+            {
+                writer.WriteLine($"### {items[0].Header}");
+
+                foreach (T item in items)
+                {
+                    writer.Break();
+                    switch (item)
+                    {
+                        case ExceptionItem exception:
+                            writer.WriteLine(
+                                _items.TryGetValue(exception.Reference, out AMemberItem reference)
+                                ? reference.AsLink()
+                                : exception.Reference.Substring(2).AsDotNetApiLink());
+                            break;
+
+                        case ANamedItem namedItem:
+                            writer.WriteLine(namedItem.AsLinkTarget());
+                            writer.WriteLine($"`{namedItem.Name}`");
+                            break;
+                    }
+                    writer.Break();
+                    WriteText(writer, item);
+                }
+            }
+        }
+
         private void WriteDocFor<T>(DocWriter writer, T item)
-            where T : ADocItem, ITitleDocItem
+            where T : AMemberItem
         {
             writer.WriteLine($"#### {_mainName.AsLink()}");
-            ADocItem parent = item.Parent;
-            Stack<ADocItem> parents = new Stack<ADocItem>();
+            AMemberItem parent = item.Parent;
+            Stack<AMemberItem> parents = new Stack<AMemberItem>();
             while (parent != null)
             {
                 parents.Push(parent);
@@ -259,10 +236,10 @@ namespace DefaultDocumentation
             WriteText(writer, item);
             WriteItem(writer, item.Remarks);
             WriteItem(writer, item.Example);
-            WriteGenerics(writer, item as AGenericDocItem);
-            WriteParameters(writer, item as IParameterDocItem);
+            WriteItems(writer, (item as AGenericDocItem)?.Generics);
+            WriteItems(writer, (item as IParameterDocItem)?.Parameters);
             WriteItem(writer, (item as IReturnDocItem)?.Return);
-            WriteExceptions(writer, item);
+            WriteItems(writer, item.Exceptions);
         }
 
         private void WriteLinkForType(DocWriter writer, TypeItem item)
@@ -294,8 +271,8 @@ namespace DefaultDocumentation
             }
         }
 
-        private void WriteLinkFor<T>(DocWriter writer, ADocItem parent)
-            where T : ADocItem, ITitleDocItem
+        private void WriteLinkFor<T>(DocWriter writer, AMemberItem parent)
+            where T : AMemberItem
         {
             bool hasTitle = false;
 
@@ -304,7 +281,7 @@ namespace DefaultDocumentation
                 if (!hasTitle)
                 {
                     hasTitle = true;
-                    writer.WriteLine($"### {item.Title}");
+                    writer.WriteLine($"### {item.Header}");
                 }
 
                 writer.WriteLine($"- {item.AsLink()}");
@@ -330,7 +307,7 @@ namespace DefaultDocumentation
         }
 
         private void WriteDocPages<T>()
-            where T : ADocItem, ITitleDocItem
+            where T : AMemberItem
         {
             _items.Values.OfType<T>().AsParallel().ForAll(item =>
             {

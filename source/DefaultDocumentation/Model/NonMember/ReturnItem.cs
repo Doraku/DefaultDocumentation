@@ -3,11 +3,11 @@ using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation.Model.NonMember
 {
-    internal sealed class ReturnItem : ATextItem, ITitleDocItem
+    internal sealed class ReturnItem : AItem
     {
-        public string Title => "Returns";
+        public override string Header => "Returns";
 
-        public ReturnItem(ADocItem parent, XElement element)
+        public ReturnItem(AMemberItem parent, XElement element)
             : base(parent, element)
         { }
     }

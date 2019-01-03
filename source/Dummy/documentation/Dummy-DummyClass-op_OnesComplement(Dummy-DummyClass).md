@@ -6,6 +6,7 @@ dummy
 
 <a name='Dummy-DummyClass-op_OnesComplement(Dummy-DummyClass)-a'></a>
 `a`
+
 dummy
 ### Returns
 dummy

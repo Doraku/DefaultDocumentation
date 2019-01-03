@@ -15,6 +15,9 @@ namespace Dummy
         /// </code>
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <remarks>
+        /// pouet
+        /// </remarks>
         public class DummyNested<T>
         {
             /// <summary>

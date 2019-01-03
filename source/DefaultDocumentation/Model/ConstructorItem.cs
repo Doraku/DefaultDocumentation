@@ -1,14 +1,14 @@
-﻿using System.Xml.Linq;
-using DefaultDocumentation.Model.Base;
+﻿using DefaultDocumentation.Model.Base;
 using DefaultDocumentation.Model.NonMember;
 
 namespace DefaultDocumentation.Model
 {
-    internal sealed class ConstructorItem : AGenericDocItem, ITitleDocItem, IParameterDocItem
+    internal sealed class ConstructorItem : AMemberItem, IParameterDocItem
     {
         public const string Id = "M:";
 
-        public string Title => "constructor";
+        public override string Header => "Constructors";
+        public override string Title => "constructor";
 
         public ParameterItem[] Parameters { get; }
 

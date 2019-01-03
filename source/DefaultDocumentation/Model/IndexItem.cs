@@ -3,9 +3,10 @@ using DefaultDocumentation.Model.NonMember;
 
 namespace DefaultDocumentation.Model
 {
-    internal sealed class IndexItem : ADocItem, ITitleDocItem, IParameterDocItem, IReturnDocItem
+    internal sealed class IndexItem : AMemberItem, IParameterDocItem, IReturnDocItem
     {
-        public string Title => "index";
+        public override string Header => "Indexes";
+        public override string Title => "index";
 
         public ReturnItem Return { get; }
 

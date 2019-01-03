@@ -6,10 +6,15 @@ dummy `test`
 example
 yep
 ```
+### Remarks
+pouet
+### Example
+pouet
 ### Type parameters
 
 <a name='Dummy-DummyClass-DummyNested-T--T'></a>
 `T`
 
-### event
+
+### Events
 - [Action](./Dummy-DummyClass-DummyNested-T--Action.md 'Dummy.DummyClass.DummyNested&lt;T&gt;.Action')

@@ -4,7 +4,7 @@ using DefaultDocumentation.Model.NonMember;
 
 namespace DefaultDocumentation.Model
 {
-    internal sealed class OperatorItem : AGenericDocItem, ITitleDocItem, IParameterDocItem, IReturnDocItem
+    internal sealed class OperatorItem : AGenericDocItem, IParameterDocItem, IReturnDocItem
     {
         public static readonly IReadOnlyDictionary<string, string> OperatorNames = new Dictionary<string, string>
         {
@@ -20,7 +20,8 @@ namespace DefaultDocumentation.Model
             ["op_ExclusiveOr"] = "^",
         };
 
-        public string Title => "operator";
+        public override string Header => "Operators";
+        public override string Title => "operator";
 
         public ReturnItem Return { get; }
 
@@ -33,7 +34,7 @@ namespace DefaultDocumentation.Model
             Parameters = innerItem.Parameters;
         }
 
-        public static ADocItem HandleOperator(MethodItem item)
+        public static AMemberItem HandleOperator(MethodItem item)
         {
             string methodName = item.Name.Substring(0, item.Name.IndexOf('('));
             if (OperatorNames.TryGetValue(methodName, out string op))

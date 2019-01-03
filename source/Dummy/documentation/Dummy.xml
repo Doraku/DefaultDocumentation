@@ -18,6 +18,9 @@
             </code>
             </summary>
             <typeparam name="T"></typeparam>
+            <remarks>
+            pouet
+            </remarks>
         </member>
         <member name="E:Dummy.DummyClass.DummyNested`1.Action">
             <summary>

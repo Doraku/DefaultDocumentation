@@ -1,16 +1,16 @@
 ﻿using System.Xml.Linq;
-using DefaultDocumentation.Helper;
 using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation.Model
 {
-    internal sealed class TypeItem : AGenericDocItem, ITitleDocItem
+    internal sealed class TypeItem : AGenericDocItem
     {
         public const string Id = "T:";
 
-        public string Title => "type";
+        public override string Header => "Types";
+        public override string Title => "type";
 
-        public TypeItem(ADocItem parent, XElement item)
+        public TypeItem(AMemberItem parent, XElement item)
             : base(parent, item)
         { }
     }

@@ -6,10 +6,12 @@ dummy
 
 <a name='Dummy-DummyClass-op_Subtraction(Dummy-DummyClass-_Dummy-DummyClass)-a'></a>
 `a`
+
 dummy
 
 <a name='Dummy-DummyClass-op_Subtraction(Dummy-DummyClass-_Dummy-DummyClass)-b'></a>
 `b`
+
 dummy
 ### Returns
 dummy

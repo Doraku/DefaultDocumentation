@@ -3,9 +3,11 @@ using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation.Model.NonMember
 {
-    internal sealed class GenericItem : ADocItem
+    internal sealed class GenericItem : ANamedItem
     {
-        public GenericItem(ADocItem parent, XElement element)
+        public override string Header => "Type parameters";
+
+        public GenericItem(AMemberItem parent, XElement element)
             : base(parent, element)
         { }
     }

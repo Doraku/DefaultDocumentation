@@ -6,7 +6,7 @@ using DefaultDocumentation.Model.NonMember;
 
 namespace DefaultDocumentation.Model.Base
 {
-    internal abstract class AGenericDocItem : ADocItem
+    internal abstract class AGenericDocItem : AMemberItem
     {
         public GenericItem[] Generics { get; }
 
@@ -16,13 +16,13 @@ namespace DefaultDocumentation.Model.Base
             Generics = element.GetGenerics().Select(e => new GenericItem(this, e)).ToArray();
         }
 
-        protected AGenericDocItem(ADocItem parent, string name, XElement element)
+        protected AGenericDocItem(AMemberItem parent, string name, XElement element)
             : base(parent, CleanName(name, GetGenericNames(element)), element)
         {
             Generics = element.GetGenerics().Select(e => new GenericItem(this, e)).ToArray();
         }
 
-        protected AGenericDocItem(ADocItem parent, XElement element)
+        protected AGenericDocItem(AMemberItem parent, XElement element)
             : this(parent, element.GetName(), element)
         { }
 

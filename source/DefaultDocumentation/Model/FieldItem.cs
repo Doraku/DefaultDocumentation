@@ -3,13 +3,14 @@ using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation.Model
 {
-    internal sealed class FieldItem : ADocItem, ITitleDocItem
+    internal sealed class FieldItem : AMemberItem
     {
         public const string Id = "F:";
 
-        public string Title => "field";
+        public override string Header => "Fields";
+        public override string Title => "field";
 
-        public FieldItem(ADocItem parent, XElement element)
+        public FieldItem(AMemberItem parent, XElement element)
             : base(parent, element)
         { }
     }

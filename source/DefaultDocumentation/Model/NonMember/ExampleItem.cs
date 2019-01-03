@@ -1,15 +1,21 @@
 ﻿using System.Xml.Linq;
+using DefaultDocumentation.Helper;
 using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation.Model.NonMember
 {
-    internal sealed class ExampleItem : ATextItem, ITitleDocItem
+    internal sealed class ExampleItem : AItem
     {
-        public string Title => "Example";
+        public override string Header => "Example";
 
-        public ExampleItem(ADocItem parent, XElement element)
+        private ExampleItem(AMemberItem parent, XElement element)
             : base(parent, element)
+        { }
+
+        public static ExampleItem GetFrom(AMemberItem item)
         {
+            XElement exampleElement = item.Element.GetRemarks();
+            return exampleElement != null ? new ExampleItem(item, exampleElement) : null;
         }
     }
 }

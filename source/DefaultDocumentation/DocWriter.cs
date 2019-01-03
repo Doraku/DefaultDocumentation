@@ -12,10 +12,10 @@ namespace DefaultDocumentation
         private static readonly ConcurrentQueue<StringBuilder> _builders = new ConcurrentQueue<StringBuilder>();
 
         private readonly StringBuilder _builder;
-        private readonly ADocItem _item;
+        private readonly AMemberItem _item;
         private readonly string _filePath;
 
-        private DocWriter(ADocItem item, string filePath)
+        private DocWriter(AMemberItem item, string filePath)
         {
             if (!_builders.TryDequeue(out _builder))
             {
@@ -26,12 +26,12 @@ namespace DefaultDocumentation
             _filePath = filePath;
         }
 
-        public DocWriter(string path, ADocItem item)
+        public DocWriter(string path, AMemberItem item)
             : this(item, Path.Combine(path, $"{item.LinkName}.md"))
         { }
 
         public DocWriter(string path, string name)
-            : this(default(ADocItem), Path.Combine(path, $"{name.CleanForLink()}.md"))
+            : this(default(AMemberItem), Path.Combine(path, $"{name.CleanForLink()}.md"))
         { }
 
         public void WriteLine(string line) => _builder.AppendLine(line);
@@ -40,7 +40,7 @@ namespace DefaultDocumentation
 
         public void Break() => _builder.AppendLine();
 
-        public bool IsForThis(ADocItem item) => _item == item;
+        public bool IsForThis(AMemberItem item) => _item == item;
 
         public void Dispose()
         {

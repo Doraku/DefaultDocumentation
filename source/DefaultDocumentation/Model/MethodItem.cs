@@ -7,17 +7,18 @@ using DefaultDocumentation.Model.NonMember;
 
 namespace DefaultDocumentation.Model
 {
-    internal sealed class MethodItem : AGenericDocItem, ITitleDocItem, IParameterDocItem, IReturnDocItem
+    internal sealed class MethodItem : AGenericDocItem, IParameterDocItem, IReturnDocItem
     {
         public const string Id = "M:";
 
-        public string Title => "method";
+        public override string Header => "Methods";
+        public override string Title => "method";
 
         public ReturnItem Return { get; }
 
         public ParameterItem[] Parameters { get; }
 
-        public MethodItem(ADocItem parent, XElement item)
+        public MethodItem(AMemberItem parent, XElement item)
             : base(parent, GetMethodName(item, parent), item)
         {
             XElement returnElement = item.GetReturns();
@@ -90,7 +91,7 @@ namespace DefaultDocumentation.Model
             yield return value.Substring(startIndex);
         }
 
-        private static string GetMethodName(XElement item, ADocItem parent)
+        private static string GetMethodName(XElement item, AMemberItem parent)
         {
             string name = item.GetFullName();
 

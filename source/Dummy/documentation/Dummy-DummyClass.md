@@ -2,18 +2,18 @@
 ### [Dummy](./Dummy.md#Dummy 'Dummy')
 ## DummyClass `type`
 dummy
-### constructor
+### Constructors
 - [#ctor()](./Dummy-DummyClass--ctor().md 'Dummy.DummyClass.#ctor()')
-### field
+### Fields
 - [DummyField](./Dummy-DummyClass-DummyField.md 'Dummy.DummyClass.DummyField')
-### property
+### Properties
 - [DummyProperty](./Dummy-DummyClass-DummyProperty.md 'Dummy.DummyClass.DummyProperty')
-### index
+### Indexes
 - [this[System.Int32]](./Dummy-DummyClass-this-System-Int32-.md 'Dummy.DummyClass.this[System.Int32]')
-### method
+### Methods
 - [DummyMethod()](./Dummy-DummyClass-DummyMethod().md 'Dummy.DummyClass.DummyMethod()')
 - [op_Explicit(System.Int32)~Dummy.DummyClass)](./Dummy-DummyClass-op_Explicit(System-Int32)~Dummy-DummyClass).md 'Dummy.DummyClass.op_Explicit(System.Int32)~Dummy.DummyClass)')
-### operator
+### Operators
 - [!=(Dummy.DummyClass, Dummy.DummyClass)](./Dummy-DummyClass-op_Inequality(Dummy-DummyClass-_Dummy-DummyClass).md 'Dummy.DummyClass.!=(Dummy.DummyClass, Dummy.DummyClass)')
 - [&(Dummy.DummyClass, Dummy.DummyClass)](./Dummy-DummyClass-op_BitwiseAnd(Dummy-DummyClass-_Dummy-DummyClass).md 'Dummy.DummyClass.&(Dummy.DummyClass, Dummy.DummyClass)')
 - [-(Dummy.DummyClass, Dummy.DummyClass)](./Dummy-DummyClass-op_Subtraction(Dummy-DummyClass-_Dummy-DummyClass).md 'Dummy.DummyClass.-(Dummy.DummyClass, Dummy.DummyClass)')
