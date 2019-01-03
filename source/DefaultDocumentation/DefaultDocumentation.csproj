@@ -30,10 +30,7 @@
 
     <Version>0.3.0</Version>
     <PackageReleaseNotes>
-added c support
-added code support
-added example support
-added N support
+added M full operator support
     </PackageReleaseNotes>
   </PropertyGroup>
 

@@ -1,6 +1,6 @@
 #### [Dummy](./Dummy.md 'Dummy')
 ### [Dummy](./Dummy.md#Dummy 'Dummy').[DummyClass](./Dummy-DummyClass.md 'Dummy.DummyClass')
-## /(Dummy.DummyClass, Dummy.DummyClass) `operator`
+## Division(Dummy.DummyClass, Dummy.DummyClass) `operator`
 dummy
 ### Parameters
 

@@ -69,17 +69,17 @@ namespace Dummy
         /// <returns>dummy</returns>
         public static DummyClass operator +(DummyClass a, int b) => a;
 
-        ///// <summary>
-        ///// dummy
-        ///// </summary>
-        ///// <param name="c"></param>
-        //public static implicit operator int(DummyClass c) => 0;
+        /// <summary>
+        /// dummy
+        /// </summary>
+        /// <param name="c"></param>
+        public static implicit operator int(DummyClass c) => 0;
 
-        ///// <summary>
-        ///// dummy
-        ///// </summary>
-        ///// <param name="c"></param>
-        //public static explicit operator double(DummyClass c) => 0;
+        /// <summary>
+        /// dummy
+        /// </summary>
+        /// <param name="c"></param>
+        public static explicit operator double(DummyClass c) => 0;
 
         /// <summary>
         /// 
@@ -157,5 +157,72 @@ namespace Dummy
         /// <param name="b">dummy</param>
         /// <returns>dummy</returns>
         public static bool operator ^(DummyClass a, DummyClass b) => true;
+
+        /// <summary>
+        /// dummy
+        /// </summary>
+        /// <param name="a">dummy</param>
+        /// <returns>dummy</returns>
+        public static DummyClass operator ++(DummyClass a) => a;
+
+        /// <summary>
+        /// dummy
+        /// </summary>
+        /// <param name="a">dummy</param>
+        /// <returns>dummy</returns>
+        public static DummyClass operator --(DummyClass a) => a;
+
+        /// <summary>
+        /// dummy
+        /// </summary>
+        /// <param name="a">dummy</param>
+        /// <param name="b">dummy</param>
+        /// <returns>dummy</returns>
+        public static bool operator <(DummyClass a, DummyClass b) => false;
+
+        /// <summary>
+        /// dummy
+        /// </summary>
+        /// <param name="a">dummy</param>
+        /// <param name="b">dummy</param>
+        /// <returns>dummy</returns>
+        public static bool operator >(DummyClass a, DummyClass b) => false;
+
+        /// <summary>
+        /// dummy
+        /// </summary>
+        /// <param name="a">dummy</param>
+        /// <param name="b">dummy</param>
+        /// <returns>dummy</returns>
+        public static bool operator <=(DummyClass a, DummyClass b) => false;
+
+        /// <summary>
+        /// dummy
+        /// </summary>
+        /// <param name="a">dummy</param>
+        /// <param name="b">dummy</param>
+        /// <returns>dummy</returns>
+        public static bool operator >=(DummyClass a, DummyClass b) => false;
+
+        /// <summary>
+        /// dummy
+        /// </summary>
+        /// <param name="a">dummy</param>
+        /// <returns>dummy</returns>
+        public static DummyClass operator -(DummyClass a) => a;
+
+        /// <summary>
+        /// dummy
+        /// </summary>
+        /// <param name="a">dummy</param>
+        /// <returns>dummy</returns>
+        public static DummyClass operator +(DummyClass a) => a;
+        /// <summary>
+        /// dummy
+        /// </summary>
+        /// <param name="a">dummy</param>
+        /// <param name="b">dummy</param>
+        /// <returns>dummy</returns>
+        public static bool operator %(DummyClass a, DummyClass b) => false;
     }
 }

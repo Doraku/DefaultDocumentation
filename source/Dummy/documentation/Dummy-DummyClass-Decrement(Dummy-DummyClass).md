@@ -1,10 +1,10 @@
 #### [Dummy](./Dummy.md 'Dummy')
 ### [Dummy](./Dummy.md#Dummy 'Dummy').[DummyClass](./Dummy-DummyClass.md 'Dummy.DummyClass')
-## ~(Dummy.DummyClass) `operator`
+## Decrement(Dummy.DummyClass) `operator`
 dummy
 ### Parameters
 
-<a name='Dummy-DummyClass-op_OnesComplement(Dummy-DummyClass)-a'></a>
+<a name='Dummy-DummyClass-op_Decrement(Dummy-DummyClass)-a'></a>
 `a`
 
 dummy

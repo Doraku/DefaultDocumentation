@@ -6,18 +6,30 @@ namespace DefaultDocumentation.Model
 {
     internal sealed class OperatorItem : AGenericDocItem, IParameterDocItem, IReturnDocItem
     {
-        public static readonly IReadOnlyDictionary<string, string> OperatorNames = new Dictionary<string, string>
+        private static readonly HashSet<string> _operatorNames = new HashSet<string>
         {
-            ["op_Equality"] = "==",
-            ["op_Inequality"] = "!=",
-            ["op_Addition"] = "+",
-            ["op_Subtraction"] = "-",
-            ["op_Multiply"] = "*",
-            ["op_Division"] = "/",
-            ["op_BitwiseOr"] = "|",
-            ["op_BitwiseAnd"] = "&",
-            ["op_OnesComplement"] = "~",
-            ["op_ExclusiveOr"] = "^",
+            "op_Equality",
+            "op_Inequality",
+            "op_Addition",
+            "op_Subtraction",
+            "op_Multiply",
+            "op_Division",
+            "op_BitwiseOr",
+            "op_BitwiseAnd",
+            "op_OnesComplement",
+            "op_ExclusiveOr",
+            "op_Increment",
+            "op_Decrement",
+            "op_LessThan",
+            "op_GreaterThan",
+            "op_LessThanOrEqual",
+            "op_GreaterThanOrEqual",
+            "op_UnaryNegation",
+            "op_UnaryPlus",
+            "op_Modulus",
+
+            "op_Explicit",
+            "op_Implicit"
         };
 
         public override string Header => "Operators";
@@ -37,9 +49,16 @@ namespace DefaultDocumentation.Model
         public static AMemberItem HandleOperator(MethodItem item)
         {
             string methodName = item.Name.Substring(0, item.Name.IndexOf('('));
-            if (OperatorNames.TryGetValue(methodName, out string op))
+            if (_operatorNames.Contains(methodName))
             {
-                return new OperatorItem(item, $"{op}{item.Name.Substring(methodName.Length)}");
+                if (methodName == "op_Explicit"
+                    || methodName == "op_Implicit")
+                {
+                    string[] names = item.Name.Split('~');
+                    return new OperatorItem(item, $"{methodName.Substring(3)}{names[0].Substring(methodName.Length).TrimEnd(')')} to {names[1]})");
+                }
+
+                return new OperatorItem(item, $"{methodName.Substring(3)}{item.Name.Substring(methodName.Length)}");
             }
 
             return item;

@@ -62,6 +62,18 @@
             <param name="b">dummy</param>
             <returns>dummy</returns>
         </member>
+        <member name="M:Dummy.DummyClass.op_Implicit(Dummy.DummyClass)~System.Int32">
+            <summary>
+            dummy
+            </summary>
+            <param name="c"></param>
+        </member>
+        <member name="M:Dummy.DummyClass.op_Explicit(Dummy.DummyClass)~System.Double">
+            <summary>
+            dummy
+            </summary>
+            <param name="c"></param>
+        </member>
         <member name="M:Dummy.DummyClass.op_Explicit(System.Int32)~Dummy.DummyClass">
             <summary>
             
@@ -132,6 +144,74 @@
             <returns>dummy</returns>
         </member>
         <member name="M:Dummy.DummyClass.op_ExclusiveOr(Dummy.DummyClass,Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="b">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_Increment(Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_Decrement(Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_LessThan(Dummy.DummyClass,Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="b">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_GreaterThan(Dummy.DummyClass,Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="b">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_LessThanOrEqual(Dummy.DummyClass,Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="b">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_GreaterThanOrEqual(Dummy.DummyClass,Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="b">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_UnaryNegation(Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_UnaryPlus(Dummy.DummyClass)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_Modulus(Dummy.DummyClass,Dummy.DummyClass)">
             <summary>
             dummy
             </summary>
