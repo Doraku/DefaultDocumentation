@@ -7,7 +7,7 @@ namespace DefaultDocumentation.Model.NonMember
 {
     internal sealed class ExceptionItem : AItem
     {
-        public override string Header => "Exception";
+        public override string Header => "Exceptions";
 
         public string Reference => Summary.GetReferenceName();
 

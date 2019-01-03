@@ -274,13 +274,13 @@ namespace DefaultDocumentation
         private void WriteLinkFor<T>(DocWriter writer, AMemberItem parent)
             where T : AMemberItem
         {
-            bool hasTitle = false;
+            bool hasHeader = false;
 
             foreach (T item in _items.Values.OfType<T>().Where(i => i.Parent == parent).OrderBy(i => i.Name))
             {
-                if (!hasTitle)
+                if (!hasHeader)
                 {
-                    hasTitle = true;
+                    hasHeader = true;
                     writer.WriteLine($"### {item.Header}");
                 }
 
