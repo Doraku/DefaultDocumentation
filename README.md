@@ -3,7 +3,7 @@
 As the name imply, this project lets you easily produce a "good enough" markdown documentation from the xml documentation produced by visual studio from comments.
 
 
-[![NuGet](https://img.shields.io/badge/nuget-v0.3.0-brightgreen.svg)](https://www.nuget.org/packages/DefaultDocumentation)
+[![NuGet](https://img.shields.io/badge/nuget-v0.4.0-brightgreen.svg)](https://www.nuget.org/packages/DefaultDocumentation)
 
 - [Requirement](#Requirement)
 - [Usage](#Usage)
@@ -46,16 +46,8 @@ List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotn
 - [ ] `<value>` not yet
 
 List of supported members taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/processing-the-xml-file)
-- [x] `N`
-- [x] `T`
-- [x] `F`
-- [x] `P`
-- [x] `M` missing implicit/explicit operators
-- [x] `E`
-- [ ] `!` this is not supposed to happen
 
-Obviously my goal was not to support everything from the start but only what I needed for my projects (_good enough_).
-Nonetheless adding some of those should be trivial so feel free to ask or even do it yourself in a pull request.
+Should you need some extra support feel free to ask or even do it yourself in a pull request.
 
 <a name='Sample'></a>
 # Sample

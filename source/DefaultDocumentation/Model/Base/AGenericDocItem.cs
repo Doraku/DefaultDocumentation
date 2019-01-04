@@ -10,16 +10,10 @@ namespace DefaultDocumentation.Model.Base
     {
         public GenericItem[] Generics { get; }
 
-        protected AGenericDocItem(XElement element, string name)
-            : base(element, CleanName(name, GetGenericNames(element)))
-        {
-            Generics = element.GetGenerics().Select(e => new GenericItem(this, e)).ToArray();
-        }
-
         protected AGenericDocItem(AMemberItem parent, string name, XElement element)
             : base(parent, CleanName(name, GetGenericNames(element)), element)
         {
-            Generics = element.GetGenerics().Select(e => new GenericItem(this, e)).ToArray();
+            Generics = GenericItem.GetFrom(this);
         }
 
         protected AGenericDocItem(AMemberItem parent, XElement element)

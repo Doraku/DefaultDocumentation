@@ -1,4 +1,6 @@
-﻿using System.Xml.Linq;
+﻿using System.Linq;
+using System.Xml.Linq;
+using DefaultDocumentation.Helper;
 using DefaultDocumentation.Model.Base;
 
 namespace DefaultDocumentation.Model.NonMember
@@ -7,8 +9,13 @@ namespace DefaultDocumentation.Model.NonMember
     {
         public override string Header => "Type parameters";
 
-        public GenericItem(AMemberItem parent, XElement element)
+        private GenericItem(AMemberItem parent, XElement element)
             : base(parent, element)
         { }
+
+        public static GenericItem[] GetFrom(AMemberItem item)
+        {
+            return item.Element.GetGenerics().Select(i => new GenericItem(item, i)).ToArray();
+        }
     }
 }

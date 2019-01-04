@@ -28,7 +28,7 @@
     <IsTool>true</IsTool>
     <DevelopmentDependency>true</DevelopmentDependency>
 
-    <Version>0.3.0</Version>
+    <Version>0.4.0</Version>
     <PackageReleaseNotes>
 added M full operator support
     </PackageReleaseNotes>
