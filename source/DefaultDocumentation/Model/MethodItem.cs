@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Helper;
@@ -106,7 +107,14 @@ namespace DefaultDocumentation.Model
             {
                 string[] parameters = ReadParameter(name.Substring(parametersIndex).Trim('(', ')')).ToArray();
 
-                CleanParameters(GetGenericNames(item).ToArray(), (parent as TypeItem).Generics, parameters);
+                try
+                {
+                    CleanParameters(GetGenericNames(item).ToArray(), (parent as TypeItem).Generics, parameters);
+                }
+                catch
+                {
+                    throw new Exception($"Error encountered on method {item.GetFullName()}, are you missing comment documentation on some generic types?");
+                }
 
                 name = $"{name.Substring(0, parametersIndex)}({string.Join(", ", parameters)})";
             }

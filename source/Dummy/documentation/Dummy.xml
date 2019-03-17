@@ -49,10 +49,12 @@
             dummy
             </summary>
         </member>
-        <member name="M:Dummy.DummyClass.DummyMethod">
+        <member name="M:Dummy.DummyClass.DummyMethod``1(``0)">
             <summary>
             dummy
             </summary>
+            <param name="pouet">kikoo</param>
+            <typeparam name="T2">lol</typeparam>
         </member>
         <member name="M:Dummy.DummyClass.op_Addition(Dummy.DummyClass,System.Int32)">
             <summary>

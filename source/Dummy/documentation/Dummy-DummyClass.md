@@ -11,7 +11,7 @@ dummy
 ### Indexes
 - [this[System.Int32]](./Dummy-DummyClass-this-System-Int32-.md 'Dummy.DummyClass.this[System.Int32]')
 ### Methods
-- [DummyMethod()](./Dummy-DummyClass-DummyMethod().md 'Dummy.DummyClass.DummyMethod()')
+- [DummyMethod&lt;T2&gt;(T2)](./Dummy-DummyClass-DummyMethod-T2-(T2).md 'Dummy.DummyClass.DummyMethod&lt;T2&gt;(T2)')
 ### Operators
 - [Addition(Dummy.DummyClass, System.Int32)](./Dummy-DummyClass-Addition(Dummy-DummyClass-_System-Int32).md 'Dummy.DummyClass.Addition(Dummy.DummyClass, System.Int32)')
 - [BitwiseAnd(Dummy.DummyClass, Dummy.DummyClass)](./Dummy-DummyClass-BitwiseAnd(Dummy-DummyClass-_Dummy-DummyClass).md 'Dummy.DummyClass.BitwiseAnd(Dummy.DummyClass, Dummy.DummyClass)')

@@ -55,7 +55,9 @@ namespace Dummy
         /// <summary>
         /// dummy
         /// </summary>
-        public void DummyMethod()
+        /// <param name="pouet">kikoo</param>
+        /// <typeparam name="T2">lol</typeparam>
+        public void DummyMethod<T2>(T2 pouet)
         {
             var t = this;
             t += 0;

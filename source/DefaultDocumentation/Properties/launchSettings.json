@@ -2,7 +2,7 @@
   "profiles": {
     "DefaultDocumentation": {
       "commandName": "Project",
-      "commandLineArgs": "/xml:\"..\\..\\..\\..\\Dummy\\documentation\\Dummy.xml\""
+      "commandLineArgs": "/xml:\"D:\\Projects\\DefaultDocumentation\\source\\Dummy\\documentation\\Dummy.xml\" /markdown:\"D:\\Projects\\DefaultDocumentation\\source\\Dummy\\documentation\""
     }
   }
 }
