@@ -28,9 +28,9 @@
     <IsTool>true</IsTool>
     <DevelopmentDependency>true</DevelopmentDependency>
 
-    <Version>0.4.0</Version>
+    <Version>0.4.1</Version>
     <PackageReleaseNotes>
-added M full operator support
+throw a better exception when missing documentation on generic types
     </PackageReleaseNotes>
   </PropertyGroup>
 
