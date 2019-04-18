@@ -28,7 +28,7 @@
     <IsTool>true</IsTool>
     <DevelopmentDependency>true</DevelopmentDependency>
 
-    <Version>0.4.1</Version>
+    <Version>0.4.2-alpha1</Version>
     <PackageReleaseNotes>
 throw a better exception when missing documentation on generic types
     </PackageReleaseNotes>

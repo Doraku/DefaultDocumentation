@@ -12,6 +12,7 @@
         <member name="T:Dummy.DummyClass.DummyNested`1">
             <summary>
             dummy <c>test</c>
+            linebreak
             <code>
             example
             yep

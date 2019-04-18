@@ -9,6 +9,7 @@ namespace Dummy
     {
         /// <summary>
         /// dummy <c>test</c>
+        /// linebreak
         /// <code>
         /// example
         /// yep

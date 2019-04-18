@@ -90,7 +90,7 @@ namespace DefaultDocumentation
                 switch (node)
                 {
                     case XText text:
-                        summary += text.Value;
+                        summary += string.Join("  \n", text.Value.Split('\n'));
                         break;
 
                     case XElement element:
@@ -141,7 +141,7 @@ namespace DefaultDocumentation
                                 break;
 
                             case "code":
-                                summary += $"\n```{element.Value}```\n";
+                                summary += $"```{element.Value}```\n";
                                 break;
 
                             default:
@@ -176,7 +176,7 @@ namespace DefaultDocumentation
                 summary = summary.Substring(0, summary.Length - Environment.NewLine.Length);
             }
 
-            writer.WriteLine($"{summary}");
+            writer.WriteLine($"{summary.TrimEnd()}");
         }
 
         private void WriteItem<T>(DocWriter writer, T item)

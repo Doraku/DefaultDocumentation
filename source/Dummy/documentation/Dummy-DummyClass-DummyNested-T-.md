@@ -1,7 +1,8 @@
 #### [Dummy](./Dummy.md 'Dummy')
 ### [Dummy](./Dummy.md#Dummy 'Dummy').[DummyClass](./Dummy-DummyClass.md 'Dummy.DummyClass')
 ## DummyNested&lt;T&gt; `type`
-dummy `test`
+dummy `test`  
+linebreak  
 ```
 example
 yep
