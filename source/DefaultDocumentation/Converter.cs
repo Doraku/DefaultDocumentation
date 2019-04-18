@@ -10,7 +10,7 @@ using DefaultDocumentation.Model.NonMember;
 
 namespace DefaultDocumentation
 {
-    internal class Converter
+    internal sealed class Converter
     {
         private readonly string _mainName;
         private readonly Dictionary<string, AMemberItem> _items;
@@ -112,7 +112,7 @@ namespace DefaultDocumentation
                                 {
                                     if (parent is AGenericDocItem genericItem)
                                     {
-                                        generic = genericItem.Generics.FirstOrDefault(i => i.Name == element.GetName());
+                                        generic = Array.Find(genericItem.Generics, i => i.Name == element.GetName());
                                     }
 
                                     parent = parent.Parent;

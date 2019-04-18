@@ -11,8 +11,6 @@ namespace DefaultDocumentation.Test
         {
             Check.That(nameof(Dummy)).IsNotNull();
             Check.That(nameof(DefaultDocumentation));
-
-
         }
     }
 }
