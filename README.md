@@ -3,7 +3,7 @@
 As the name imply, this project lets you easily produce a "good enough" markdown documentation from the xml documentation produced by visual studio from comments.
 
 
-[![NuGet](https://img.shields.io/badge/nuget-v0.4.0-brightgreen.svg)](https://www.nuget.org/packages/DefaultDocumentation)
+[![NuGet](https://img.shields.io/badge/nuget-v0.4.2-brightgreen.svg)](https://www.nuget.org/packages/DefaultDocumentation)
 
 - [Requirement](#Requirement)
 - [Usage](#Usage)
