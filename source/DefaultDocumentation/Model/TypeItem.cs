@@ -13,5 +13,7 @@ namespace DefaultDocumentation.Model
         public TypeItem(AMemberItem parent, XElement item)
             : base(parent, item)
         { }
+
+        public static XElement CreateEmptyXElement(string name) => XElement.Parse($"<member name = \"{Id}{name}\" ><summary></summary></member>");
     }
 }

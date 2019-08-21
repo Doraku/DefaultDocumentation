@@ -30,8 +30,7 @@
 
     <Version>0.4.2</Version>
     <PackageReleaseNotes>
-throw a better exception when missing documentation on generic types
-handle line break correctly
+now create empty documentation for missing parent types
     </PackageReleaseNotes>
   </PropertyGroup>
 

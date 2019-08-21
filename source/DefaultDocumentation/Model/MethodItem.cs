@@ -109,7 +109,7 @@ namespace DefaultDocumentation.Model
 
                 try
                 {
-                    CleanParameters(GetGenericNames(item).ToArray(), (parent as TypeItem).Generics, parameters);
+                    CleanParameters(GetGenericNames(item).ToArray(), (parent as TypeItem)?.Generics, parameters);
                 }
                 catch
                 {

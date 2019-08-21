@@ -27,9 +27,9 @@ namespace DefaultDocumentation
         {
             Dictionary<string, AMemberItem> items = new Dictionary<string, AMemberItem>();
 
-            foreach (XElement element in document.GetMembers().Where(e => e.GetFullName().StartsWith(TypeItem.Id)))
+            AMemberItem HandleTypeItem(XElement typeElement)
             {
-                string parentNamespace = element.GetNamespace();
+                string parentNamespace = typeElement.GetNamespace();
 
                 if (!items.TryGetValue($"{TypeItem.Id}{parentNamespace}", out AMemberItem parent)
                     && !items.TryGetValue($"{NamespaceItem.Id}{parentNamespace}", out parent))
@@ -38,12 +38,24 @@ namespace DefaultDocumentation
                     items.Add($"{NamespaceItem.Id}{parent.Name}", parent);
                 }
 
-                items.Add(element.GetFullName(), new TypeItem(parent, element));
+                TypeItem typeItem = new TypeItem(parent, typeElement);
+                items.Add(typeElement.GetFullName(), typeItem);
+
+                return typeItem;
+            }
+
+            foreach (XElement element in document.GetMembers().Where(e => e.GetFullName().StartsWith(TypeItem.Id)))
+            {
+                HandleTypeItem(element);
             }
 
             foreach (XElement element in document.GetMembers().Where(e => !e.GetFullName().StartsWith(TypeItem.Id)))
             {
-                AMemberItem parent = items[$"{TypeItem.Id}{element.GetNamespace()}"];
+                string parentFullName = element.GetNamespace();
+                if (!items.TryGetValue($"{TypeItem.Id}{parentFullName}", out AMemberItem parent))
+                {
+                    parent = HandleTypeItem(TypeItem.CreateEmptyXElement(parentFullName));
+                }
                 AMemberItem newItem;
 
                 string fullName = element.GetFullName();
