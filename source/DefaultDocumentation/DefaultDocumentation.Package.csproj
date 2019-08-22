@@ -30,6 +30,7 @@ changed dotnet path to be linux friendly
 retrograded target to netcore1.0
 added framework4.5 target
 added value support
+added para support
     </PackageReleaseNotes>
   </PropertyGroup>
 

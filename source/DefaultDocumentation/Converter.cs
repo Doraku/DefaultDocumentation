@@ -97,77 +97,88 @@ namespace DefaultDocumentation
         {
             string summary = string.Empty;
 
-            foreach (XNode node in item.Summary.Nodes())
+            void WriteNodes(IEnumerable<XNode> nodes)
             {
-                switch (node)
+                foreach (XNode node in nodes)
                 {
-                    case XText text:
-                        summary += string.Join("  \n", text.Value.Split('\n'));
-                        break;
+                    switch (node)
+                    {
+                        case XText text:
+                            summary += string.Join("  \n", text.Value.Split('\n'));
+                            break;
 
-                    case XElement element:
-                        switch (element.Name.LocalName)
-                        {
-                            case "see":
-                            case "seealso":
-                                string referenceName = element.GetReferenceName();
-                                summary +=
-                                    _items.TryGetValue(referenceName, out AMemberItem reference)
-                                    ? (reference is NamespaceItem ? reference.AsLinkWithTarget(_mainName) : reference.AsLink())
-                                    : referenceName.Substring(2).AsDotNetApiLink();
-                                break;
+                        case XElement element:
+                            switch (element.Name.LocalName)
+                            {
+                                case "see":
+                                case "seealso":
+                                    string referenceName = element.GetReferenceName();
+                                    summary +=
+                                        _items.TryGetValue(referenceName, out AMemberItem reference)
+                                        ? (reference is NamespaceItem ? reference.AsLinkWithTarget(_mainName) : reference.AsLink())
+                                        : referenceName.Substring(2).AsDotNetApiLink();
+                                    break;
 
-                            case "typeparamref":
-                                AMemberItem parent = item as AMemberItem ?? item.Parent;
-                                GenericItem generic = null;
-                                while (parent != null && generic == null)
-                                {
-                                    if (parent is AGenericDocItem genericItem)
+                                case "typeparamref":
+                                    AMemberItem parent = item as AMemberItem ?? item.Parent;
+                                    GenericItem generic = null;
+                                    while (parent != null && generic == null)
                                     {
-                                        generic = Array.Find(genericItem.Generics, i => i.Name == element.GetName());
+                                        if (parent is AGenericDocItem genericItem)
+                                        {
+                                            generic = Array.Find(genericItem.Generics, i => i.Name == element.GetName());
+                                        }
+
+                                        parent = parent.Parent;
                                     }
 
-                                    parent = parent.Parent;
-                                }
+                                    if (generic == null)
+                                    {
+                                        summary += element.GetName();
+                                    }
+                                    else
+                                    {
+                                        summary +=
+                                            writer.IsForThis(generic.Parent)
+                                            ? generic.AsPageLink()
+                                            : generic.AsLinkWithTarget();
+                                    }
+                                    break;
 
-                                if (generic == null)
-                                {
-                                    summary += element.GetName();
-                                }
-                                else
-                                {
-                                    summary +=
-                                        writer.IsForThis(generic.Parent)
-                                        ? generic.AsPageLink()
-                                        : generic.AsLinkWithTarget();
-                                }
-                                break;
+                                case "paramref":
+                                    IParameterDocItem parameterItem = (item as IParameterDocItem) ?? (item.Parent as IParameterDocItem);
+                                    ParameterItem parameter = parameterItem.Parameters.First(i => i.Name == element.GetName());
 
-                            case "paramref":
-                                IParameterDocItem parameterItem = (item as IParameterDocItem) ?? (item.Parent as IParameterDocItem);
-                                ParameterItem parameter = parameterItem.Parameters.First(i => i.Name == element.GetName());
+                                    summary += parameter.AsPageLink();
+                                    break;
 
-                                summary += parameter.AsPageLink();
-                                break;
+                                case "c":
+                                    summary += $"`{element.Value}`";
+                                    break;
 
-                            case "c":
-                                summary += $"`{element.Value}`";
-                                break;
+                                case "code":
+                                    summary += $"```{element.Value}```\n";
+                                    break;
 
-                            case "code":
-                                summary += $"```{element.Value}```\n";
-                                break;
+                                case "para":
+                                    summary += "\n\n";
+                                    WriteNodes(element.Nodes());
+                                    summary += "\n\n";
+                                    break;
 
-                            default:
-                                summary += element.ToString();
-                                break;
-                        }
-                        break;
+                                default:
+                                    summary += element.ToString();
+                                    break;
+                            }
+                            break;
 
-                    default:
-                        throw new Exception($"unhandled node type in summary {node.NodeType}");
+                        default:
+                            throw new Exception($"unhandled node type in summary {node.NodeType}");
+                    }
                 }
             }
+
+            WriteNodes(item.Summary.Nodes());
 
             string[] lines = summary.Split('\n');
             int startIndex = 0;
