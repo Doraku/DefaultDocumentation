@@ -1,0 +1,13 @@
+﻿<Project>
+  <PropertyGroup Label="Compilation">
+    <OutputType>Exe</OutputType>
+    <LangVersion>latest</LangVersion>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Optimize>true</Optimize>
+    <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="DefaultDocumentation.targets" />
+  </ItemGroup>
+</Project>

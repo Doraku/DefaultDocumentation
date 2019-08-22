@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="DefaultDocumentation.targets" />
+  
+  <PropertyGroup Label="Sign">
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\ds.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package">
+    <Authors>Paillat Laszlo</Authors>
+    <AssemblyName>DefaultDocumentation</AssemblyName>
+    <AssemblyTitle>DefaultDocumentation</AssemblyTitle>
+    <PackageId>DefaultDocumentation</PackageId>
+    <Description>Create a simple markdown documentation from the Visual Studio xml one.</Description>
+    <PackageIconUrl>https://github.com/Doraku/DefaultDocumentation/raw/master/image/logo.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/Doraku/DefaultDocumentation</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/Doraku/DefaultDocumentation.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>markdown documentation</PackageTags>
+
+    <IsTool>true</IsTool>
+    <DevelopmentDependency>true</DevelopmentDependency>
+
+    <Version>0.4.3-alpha1</Version>
+    <PackageReleaseNotes>
+fixed crash when missing parent types
+fixed crash when missing generic parameter documentation
+    </PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="build\DefaultDocumentation.targets" PackagePath="build" />
+  </ItemGroup>
+</Project>

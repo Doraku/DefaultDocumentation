@@ -1,21 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.136
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation", "DefaultDocumentation\DefaultDocumentation.csproj", "{4D7998F0-BA62-41E0-904C-A8D1B45F3937}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AC68DCB5-418D-4573-8914-108195D7C6FD}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
+		DefaultDocumentation\DefaultDocumentation.Package.csproj = DefaultDocumentation\DefaultDocumentation.Package.csproj
+		DefaultDocumentation\DefaultDocumentation.targets = DefaultDocumentation\DefaultDocumentation.targets
 		..\LICENSE.md = ..\LICENSE.md
 		..\Packaging.bat = ..\Packaging.bat
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dummy", "Dummy\Dummy.csproj", "{4BBA3FDF-A296-4428-90C3-FC266D4EA45A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dummy", "Dummy\Dummy.csproj", "{4BBA3FDF-A296-4428-90C3-FC266D4EA45A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultDocumentation.Test", "DefaultDocumentation.Test\DefaultDocumentation.Test.csproj", "{42945395-C264-44D1-B1F7-8DE60223D6F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.Test", "DefaultDocumentation.Test\DefaultDocumentation.Test.csproj", "{42945395-C264-44D1-B1F7-8DE60223D6F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
