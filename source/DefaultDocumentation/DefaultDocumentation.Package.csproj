@@ -29,6 +29,7 @@ fixed crash when missing generic parameter documentation
 changed dotnet path to be linux friendly
 retrograded target to netcore1.0
 added framework4.5 target
+added value support
     </PackageReleaseNotes>
   </PropertyGroup>
 

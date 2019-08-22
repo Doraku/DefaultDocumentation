@@ -21,6 +21,8 @@ namespace DefaultDocumentation.Helper
 
         public static XElement GetExample(this XElement element) => element.Element("example");
 
+        public static XElement GetValue(this XElement element) => element.Element("value");
+
         public static string GetFullName(this XElement element) => element?.Attribute("name")?.Value;
 
         public static string GetName(this XElement element) => element.GetFullName()?.Split('.').Last();

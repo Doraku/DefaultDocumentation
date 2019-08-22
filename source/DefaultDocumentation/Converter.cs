@@ -253,6 +253,7 @@ namespace DefaultDocumentation
             WriteItems(writer, (item as AGenericDocItem)?.Generics);
             WriteItems(writer, (item as IParameterDocItem)?.Parameters);
             WriteItem(writer, (item as IReturnDocItem)?.Return);
+            WriteItem(writer, (item as PropertyItem)?.Value);
             WriteItems(writer, item.Exceptions);
         }
 
