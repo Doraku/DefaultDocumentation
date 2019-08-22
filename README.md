@@ -3,7 +3,7 @@
 As the name imply, this project lets you easily produce a "good enough" markdown documentation from the xml documentation produced by visual studio from comments.
 
 
-[![NuGet](https://img.shields.io/badge/nuget-v0.4.2-brightgreen.svg)](https://www.nuget.org/packages/DefaultDocumentation)
+[![NuGet](https://img.shields.io/badge/nuget-v0.4.3-brightgreen.svg)](https://www.nuget.org/packages/DefaultDocumentation)
 
 - [Requirement](#Requirement)
 - [Usage](#Usage)
@@ -12,7 +12,7 @@ As the name imply, this project lets you easily produce a "good enough" markdown
 
 <a name='Requirement'></a>
 # Requirement
-netcoreapp2.1
+framework4.5 or netcoreapp1.0
 
 <a name='Usage'></a>
 # Usage
@@ -30,9 +30,9 @@ List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotn
 - [x] `cref attribute` in `<exception>`, `<see>` and `<seealso>` elements
 - [x] `<example>`
 - [x] `<exception>`
-- [ ] `<include>` not yet
+- [x] `<include>` (nothing to do)
 - [ ] `<list>` not yet
-- [ ] `<para>` not yet
+- [x] `<para>` not yet
 - [x] `<param>`
 - [x] `<paramref>`
 - [ ] `<permission>` not yet
@@ -43,7 +43,7 @@ List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotn
 - [x] `<summary>`
 - [x] `<typeparam>`
 - [x] `<typeparamref>`
-- [ ] `<value>` not yet
+- [x] `<value>` not yet
 
 List of supported members taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/processing-the-xml-file)
 

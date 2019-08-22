@@ -22,7 +22,7 @@
     <IsTool>true</IsTool>
     <DevelopmentDependency>true</DevelopmentDependency>
 
-    <Version>0.4.3-alpha3</Version>
+    <Version>0.4.3</Version>
     <PackageReleaseNotes>
 fixed crash when missing parent types
 fixed crash when missing generic parameter documentation
