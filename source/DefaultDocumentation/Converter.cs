@@ -66,7 +66,7 @@ namespace DefaultDocumentation
                 else if (fullName.StartsWith(PropertyItem.Id))
                 {
                     newItem =
-                        fullName.EndsWith(')')
+                        fullName.EndsWith(")")
                         ? new IndexItem(new MethodItem(parent, element))
                         : new PropertyItem(parent, element) as AMemberItem;
                 }
@@ -74,7 +74,7 @@ namespace DefaultDocumentation
                 {
                     newItem = new MethodItem(parent, element);
                     newItem =
-                        newItem.Name.StartsWith('#')
+                        newItem.Name.StartsWith("#")
                         ? new ConstructorItem(newItem as MethodItem)
                         : OperatorItem.HandleOperator(newItem as MethodItem);
                 }
@@ -184,7 +184,7 @@ namespace DefaultDocumentation
                 ++firstLine;
             }
 
-            summary = string.Join(Environment.NewLine, lines.Skip(firstLine).Select(l => l.StartsWith(' ') ? l.Substring(startIndex) : l));
+            summary = string.Join(Environment.NewLine, lines.Skip(firstLine).Select(l => l.StartsWith(" ") ? l.Substring(startIndex) : l));
             while (summary.EndsWith(Environment.NewLine))
             {
                 summary = summary.Substring(0, summary.Length - Environment.NewLine.Length);
@@ -244,7 +244,7 @@ namespace DefaultDocumentation
                 parents.Push(parent);
                 parent = parent.Parent;
             }
-            writer.WriteLine($"### {string.Join('.', parents.Select(i => i is NamespaceItem ? i.AsLinkWithTarget(_mainName) : i.AsLink()))}");
+            writer.WriteLine($"### {string.Join(".", parents.Select(i => i is NamespaceItem ? i.AsLinkWithTarget(_mainName) : i.AsLink()))}");
             writer.WriteLine($"## {item.Name} `{item.Title}`");
 
             WriteText(writer, item);

@@ -31,7 +31,7 @@ namespace DefaultDocumentation.Helper
         public static string AsDotNetApiLink(this string value)
         {
             string name = value;
-            if (name.Contains('`'))
+            if (name.Contains("`"))
             {
                 name = $"{name.Substring(0, name.IndexOf('`'))}&lt;&gt;";
             }

@@ -2,7 +2,10 @@
   <PropertyGroup Label="Compilation">
     <OutputType>Exe</OutputType>
     <LangVersion>latest</LangVersion>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFrameworks>
+      net45;
+      netcoreapp1.0;
+    </TargetFrameworks>
     <Optimize>true</Optimize>
     <Configurations>Debug;Release</Configurations>
   </PropertyGroup>

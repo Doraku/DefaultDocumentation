@@ -43,7 +43,7 @@ namespace DefaultDocumentation.Model
                     int index = int.Parse(parameter.Substring(2));
                     parameter = index < generics.Length ? generics[index] : $"T{index}";
                 }
-                else if (parameter.StartsWith('`'))
+                else if (parameter.StartsWith("`"))
                 {
                     int index = int.Parse(parameter.Substring(1));
                     parameter = index < parentGenerics.Length ? parentGenerics[index].Name : $"T{index}";
