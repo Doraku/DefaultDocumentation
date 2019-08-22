@@ -132,13 +132,15 @@ namespace DefaultDocumentation
 
                                 if (generic == null)
                                 {
-                                    throw new Exception($"unknown generic type {element.GetName()}");
+                                    summary += element.GetName();
                                 }
-
-                                summary +=
-                                    writer.IsForThis(generic.Parent)
-                                    ? generic.AsPageLink()
-                                    : generic.AsLinkWithTarget();
+                                else
+                                {
+                                    summary +=
+                                        writer.IsForThis(generic.Parent)
+                                        ? generic.AsPageLink()
+                                        : generic.AsLinkWithTarget();
+                                }
                                 break;
 
                             case "paramref":

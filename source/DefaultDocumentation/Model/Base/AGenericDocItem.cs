@@ -22,10 +22,11 @@ namespace DefaultDocumentation.Model.Base
 
         private static string CleanName(string name, IEnumerable<string> genericNames)
         {
-            if (genericNames.Any())
+            int genericsIndex = name.IndexOf('`');
+            if (genericNames.Any() || genericsIndex >= 0)
             {
                 int parametersIndex = name.IndexOf('(');
-                name = $"{name.Substring(0, name.IndexOf('`'))}&lt;{string.Join(", ", genericNames)}&gt;"
+                name = $"{name.Substring(0, genericsIndex)}&lt;{string.Join(", ", genericNames)}&gt;"
                     + (parametersIndex < 0 ? string.Empty : name.Substring(parametersIndex));
             }
 

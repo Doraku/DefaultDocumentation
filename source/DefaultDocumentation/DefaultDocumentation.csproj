@@ -31,6 +31,7 @@
     <Version>0.4.2</Version>
     <PackageReleaseNotes>
 now create empty documentation for missing parent types
+fixed crash when missing generic parameter documentation
     </PackageReleaseNotes>
   </PropertyGroup>
 

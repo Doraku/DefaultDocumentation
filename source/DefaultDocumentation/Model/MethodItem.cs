@@ -40,11 +40,13 @@ namespace DefaultDocumentation.Model
 
                 if (parameter.StartsWith("``"))
                 {
-                    parameter = generics[int.Parse(parameter.Substring(2))];
+                    int index = int.Parse(parameter.Substring(2));
+                    parameter = index < generics.Length ? generics[index] : $"T{index}";
                 }
                 else if (parameter.StartsWith('`'))
                 {
-                    parameter = parentGenerics[int.Parse(parameter.Substring(1))].Name;
+                    int index = int.Parse(parameter.Substring(1));
+                    parameter = index < parentGenerics.Length ? parentGenerics[index].Name : $"T{index}";
                 }
                 else if (parameter.IndexOf('{') >= 0)
                 {
@@ -107,14 +109,7 @@ namespace DefaultDocumentation.Model
             {
                 string[] parameters = ReadParameter(name.Substring(parametersIndex).Trim('(', ')')).ToArray();
 
-                try
-                {
-                    CleanParameters(GetGenericNames(item).ToArray(), (parent as TypeItem)?.Generics, parameters);
-                }
-                catch
-                {
-                    throw new Exception($"Error encountered on method {item.GetFullName()}, are you missing comment documentation on some generic types?");
-                }
+                CleanParameters(GetGenericNames(item).ToArray(), (parent as TypeItem)?.Generics, parameters);
 
                 name = $"{name.Substring(0, parametersIndex)}({string.Join(", ", parameters)})";
             }
