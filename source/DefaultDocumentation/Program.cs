@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Xml.Linq;
 
 namespace DefaultDocumentation
@@ -9,18 +10,24 @@ namespace DefaultDocumentation
         private static void PrintHelp()
         {
             Console.WriteLine("parameters:");
+            Console.WriteLine("\t/assembly:{assembly file path}");
             Console.WriteLine("\t/xml:{xml documentation file path}");
             Console.WriteLine("\t/markdown:{markdown documentation output folder}");
         }
 
         private static void Main(string[] args)
         {
+            FileInfo assembly = null;
             FileInfo documentation = null;
             DirectoryInfo directory = null;
 
             foreach (string arg in args)
             {
-                if (arg.StartsWith("/xml:"))
+                if (arg.StartsWith("/assembly:"))
+                {
+                    assembly = new FileInfo(arg.Substring(10));
+                }
+                else if (arg.StartsWith("/xml:"))
                 {
                     documentation = new FileInfo(arg.Substring(5));
                 }
@@ -30,13 +37,13 @@ namespace DefaultDocumentation
                 }
             }
 
-            if (!(documentation?.Exists ?? false))
+            if (!(assembly?.Exists ?? false) || !(documentation?.Exists ?? false))
             {
                 PrintHelp();
                 return;
             }
 
-            directory = directory ?? documentation.Directory;
+            directory ??= documentation.Directory;
 
             if (directory.Exists)
             {
@@ -51,6 +58,7 @@ namespace DefaultDocumentation
             }
 
             Converter.Convert(
+                Assembly.LoadFrom(assembly.FullName),
                 XDocument.Parse(File.ReadAllText(documentation.FullName)),
                 directory.FullName);
         }
