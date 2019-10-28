@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using System.Xml.Linq;
+using Mono.Cecil;
 
 namespace DefaultDocumentation
 {
@@ -12,7 +12,7 @@ namespace DefaultDocumentation
             Console.WriteLine("parameters:");
             Console.WriteLine("\t/assembly:{assembly file path}");
             Console.WriteLine("\t/xml:{xml documentation file path}");
-            Console.WriteLine("\t/markdown:{markdown documentation output folder}");
+            Console.WriteLine("\t/output:{DefaultDocumentation output folder}");
         }
 
         private static void Main(string[] args)
@@ -31,7 +31,7 @@ namespace DefaultDocumentation
                 {
                     documentation = new FileInfo(arg.Substring(5));
                 }
-                else if (arg.StartsWith("/markdown:") && !string.IsNullOrWhiteSpace(arg.Substring(10)))
+                else if (arg.StartsWith("/output:") && !string.IsNullOrWhiteSpace(arg.Substring(10)))
                 {
                     directory = new DirectoryInfo(arg.Substring(10));
                 }
@@ -58,7 +58,7 @@ namespace DefaultDocumentation
             }
 
             Converter.Convert(
-                Assembly.LoadFrom(assembly.FullName),
+                AssemblyDefinition.ReadAssembly(assembly.FullName),
                 XDocument.Parse(File.ReadAllText(documentation.FullName)),
                 directory.FullName);
         }

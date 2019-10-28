@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using DefaultDocumentation.Helper;
 using DefaultDocumentation.Model.Base;
 using DefaultDocumentation.Model.NonMember;
+using Mono.Cecil;
 
 namespace DefaultDocumentation.Model
 {
@@ -15,6 +16,8 @@ namespace DefaultDocumentation.Model
         public override string Header => "Methods";
         public override string Title => "method";
 
+        public MethodDefinition Method { get; }
+
         public ReturnItem Return { get; }
 
         public ParameterItem[] Parameters { get; }
@@ -22,9 +25,51 @@ namespace DefaultDocumentation.Model
         public MethodItem(AMemberItem parent, XElement item)
             : base(parent, GetMethodName(item, parent), item)
         {
-            XElement returnElement = item.GetReturns();
-            Return = returnElement != null ? new ReturnItem(this, returnElement) : null;
+            TypeDefinition parentType = (parent as TypeItem).Type;
+            string methodName =  item.GetFullName().Substring(parent.Element.GetFullName().Length + 1).Replace('#', '.').Replace('@', '&');
+
+            Method = GetMethodDefinition(item, parent, parentType.Methods);
+
+            Return = new ReturnItem(this, item.GetReturns() ?? new XElement("returns"));
             Parameters = item.GetParameters().Select(e => new ParameterItem(this, e)).ToArray();
+        }
+
+        private static MethodDefinition GetMethodDefinition(XElement element, AMemberItem parent, IEnumerable<MethodDefinition> methods)
+        {
+            string methodName = element.GetFullName().Substring(parent.Element.GetFullName().Length + 1)
+                .Replace('#', '.')
+                .Replace('@', '&')
+                .Replace('{', '<')
+                .Replace('}', '>');
+
+            int parametersIndex = methodName.IndexOf('(');
+            if (parametersIndex < 0)
+            {
+                parametersIndex = methodName.Length;
+                methodName += "()";
+            }
+
+            int genericsCount = 0;
+            int genericsIndex = methodName.IndexOf('`');
+            if (genericsIndex > 0 && genericsIndex < parametersIndex)
+            {
+                genericsCount = int.Parse(methodName.Substring(genericsIndex, parametersIndex - genericsIndex).Trim('`'));
+                methodName = methodName.Substring(0, genericsIndex) + methodName.Substring(parametersIndex);
+            }
+
+            string[] methodGenerics = GetGenericNames(element).ToArray();
+            for (int i = 0; i < methodGenerics.Length; ++i)
+            {
+                methodName = methodName.Replace($"``{i}", methodGenerics[i]);
+            }
+
+            GenericItem[] typeGenerics = (parent as TypeItem)?.Generics;
+            for (int i = 0; i < typeGenerics.Length; ++i)
+            {
+                methodName = methodName.Replace($"`{i}", typeGenerics[i].Name);
+            }
+
+            return methods.First(m => m.GetName() == methodName && m.GenericParameters.Count == genericsCount);
         }
 
         private static void CleanParameters(string[] generics, GenericItem[] parentGenerics, string[] parameters)
@@ -33,10 +78,8 @@ namespace DefaultDocumentation.Model
             {
                 ref string parameter = ref parameters[i];
 
-                parameter = parameter.Trim('@');
-
                 bool isArray = parameter.EndsWith("[]");
-                parameter = parameter.Trim(']', '[');
+                parameter = parameter.Trim(']', '[').Replace("@", string.Empty);
 
                 if (parameter.StartsWith("``"))
                 {
@@ -94,7 +137,7 @@ namespace DefaultDocumentation.Model
             yield return value.Substring(startIndex);
         }
 
-        private static string GetMethodName(XElement item, AMemberItem parent)
+        public static string GetMethodName(XElement item, AMemberItem parent)
         {
             string name = item.GetFullName();
 
@@ -115,6 +158,49 @@ namespace DefaultDocumentation.Model
             }
 
             return name;
+        }
+
+        public override void Write(Converter converter, DocWriter writer)
+        {
+            writer.WriteLine($"## {Name} `{Title}`");
+
+            converter.WriteSummary(writer, this);
+
+            writer.WriteLine("```C#");
+            writer.Write("public ");
+            if (Method.IsStatic)
+            {
+                writer.Write("static ");
+            }
+            writer.Write(Return.IsVoid ? "void" : Return.Type.FullName);
+            writer.WriteLine($" {Parent.Name}({string.Join(", ", Parameters.Select(p => p.Signature))});");
+            writer.WriteLine("```");
+
+            if (Generics.Length > 0)
+            {
+                writer.WriteLine($"### {Generics[0].Header}");
+
+                foreach (GenericItem parameter in Generics)
+                {
+                    parameter.Write(converter, writer);
+                    writer.Break();
+                }
+            }
+
+            if (Parameters.Length > 0)
+            {
+                writer.WriteLine($"### {Parameters[0].Header}");
+
+                foreach (ParameterItem parameter in Parameters)
+                {
+                    parameter.Write(converter, writer);
+                    writer.Break();
+                }
+            }
+
+            Return.Write(converter, writer);
+
+            base.Write(converter, writer);
         }
     }
 }

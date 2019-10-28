@@ -32,7 +32,7 @@ List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotn
 - [x] `<exception>`
 - [x] `<include>` (nothing to do)
 - [ ] `<list>` not yet
-- [x] `<para>` not yet
+- [x] `<para>`
 - [x] `<param>`
 - [x] `<paramref>`
 - [ ] `<permission>` not yet
@@ -43,7 +43,7 @@ List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotn
 - [x] `<summary>`
 - [x] `<typeparam>`
 - [x] `<typeparamref>`
-- [x] `<value>` not yet
+- [x] `<value>`
 
 List of supported members taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/processing-the-xml-file)
 

@@ -79,7 +79,7 @@
         </member>
         <member name="M:Dummy.DummyClass.op_Explicit(System.Int32)~Dummy.DummyClass">
             <summary>
-            
+            dummy
             </summary>
             <param name="c"></param>
         </member>
@@ -220,6 +220,22 @@
             </summary>
             <param name="a">dummy</param>
             <param name="b">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_LeftShift(Dummy.DummyClass,System.Int32)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="i">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.op_RightShift(Dummy.DummyClass,System.Int32)">
+            <summary>
+            dummy
+            </summary>
+            <param name="a">dummy</param>
+            <param name="i">dummy</param>
             <returns>dummy</returns>
         </member>
     </members>

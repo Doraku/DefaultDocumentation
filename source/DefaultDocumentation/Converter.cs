@@ -8,21 +8,23 @@ using DefaultDocumentation.Helper;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Base;
 using DefaultDocumentation.Model.NonMember;
+using Mono.Cecil;
 
 namespace DefaultDocumentation
 {
     internal sealed class Converter
     {
-        private readonly Assembly _assembly;
-        private readonly string _mainName;
-        private readonly Dictionary<string, AMemberItem> _items;
         private readonly string _outputPath;
 
-        private Converter(Assembly assembly, XDocument document, string outputPath)
+        public readonly AssemblyDefinition Assembly;
+        public readonly string MainName;
+        public readonly Dictionary<string, AMemberItem> Items;
+
+        private Converter(AssemblyDefinition assembly, XDocument document, string outputPath)
         {
-            _assembly = assembly;
-            _mainName = document.GetAssemblyName();
-            _items = Parse(document);
+            Assembly = assembly;
+            MainName = document.GetAssemblyName();
+            Items = Parse(document);
             _outputPath = outputPath;
         }
 
@@ -41,7 +43,7 @@ namespace DefaultDocumentation
                     items.Add($"{NamespaceItem.Id}{parent.Name}", parent);
                 }
 
-                TypeItem typeItem = new TypeItem(parent, typeElement, _assembly);
+                TypeItem typeItem = new TypeItem(parent, typeElement, Assembly);
                 items.Add(typeElement.GetFullName(), typeItem);
 
                 return typeItem;
@@ -68,10 +70,7 @@ namespace DefaultDocumentation
                 }
                 else if (fullName.StartsWith(PropertyItem.Id))
                 {
-                    newItem =
-                        fullName.EndsWith(")")
-                        ? new IndexItem(new MethodItem(parent, element))
-                        : new PropertyItem(parent, element) as AMemberItem;
+                    newItem = new PropertyItem(parent, element) as AMemberItem;
                 }
                 else if (fullName.StartsWith(MethodItem.Id))
                 {
@@ -96,7 +95,7 @@ namespace DefaultDocumentation
             return items;
         }
 
-        private void WriteText(DocWriter writer, AItem item)
+        public void WriteSummary(DocWriter writer, AItem item)
         {
             string summary = string.Empty;
 
@@ -117,8 +116,8 @@ namespace DefaultDocumentation
                                 case "seealso":
                                     string referenceName = element.GetReferenceName();
                                     summary +=
-                                        _items.TryGetValue(referenceName, out AMemberItem reference)
-                                        ? (reference is NamespaceItem ? reference.AsLinkWithTarget(_mainName) : reference.AsLink())
+                                        Items.TryGetValue(referenceName, out AMemberItem reference)
+                                        ? (reference is NamespaceItem ? reference.AsLinkWithTarget(MainName) : reference.AsLink())
                                         : referenceName.Substring(2).AsDotNetApiLink();
                                     break;
 
@@ -207,107 +206,10 @@ namespace DefaultDocumentation
             writer.WriteLine($"{summary.TrimEnd()}");
         }
 
-        private void WriteItem<T>(DocWriter writer, T item)
-            where T : AItem
-        {
-            if (item != null)
-            {
-                writer.WriteLine($"### {item.Header}");
-                WriteText(writer, item);
-            }
-        }
-
-        private void WriteItems<T>(DocWriter writer, IReadOnlyList<T> items)
-            where T : AItem
-        {
-            if (items?.Count > 0)
-            {
-                writer.WriteLine($"### {items[0].Header}");
-
-                foreach (T item in items)
-                {
-                    writer.Break();
-                    switch (item)
-                    {
-                        case ExceptionItem exception:
-                            writer.WriteLine(
-                                _items.TryGetValue(exception.Reference, out AMemberItem reference)
-                                ? reference.AsLink()
-                                : exception.Reference.Substring(2).AsDotNetApiLink());
-                            break;
-
-                        case ANamedItem namedItem:
-                            writer.WriteLine(namedItem.AsLinkTarget());
-                            writer.WriteLine($"`{namedItem.Name}`");
-                            break;
-                    }
-                    writer.Break();
-                    WriteText(writer, item);
-                }
-            }
-        }
-
-        private void WriteInfo(DocWriter writer, TypeItem item)
-        {
-            if (item?.Type != null)
-            {
-                writer.WriteLine("```C#");
-                writer.Write("public ");
-
-                if (item.Type.IsValueType)
-                {
-                    writer.Write("struct ");
-                }
-                else if (item.Type.IsInterface)
-                {
-                    writer.Write("interface ");
-                }
-                else
-                {
-                    if (item.Type.IsAbstract && item.Type.IsSealed)
-                    {
-                        writer.Write("static ");
-                    }
-                    else if (item.Type.IsAbstract)
-                    {
-                        writer.Write("abstract ");
-                    }
-                    else if (item.Type.IsSealed)
-                    {
-                        writer.Write("sealed ");
-                    }
-                    writer.Write("class ");
-                }
-                writer.Write(item.Name);
-                Type[] interfaces = item.Type.GetInterfaces();
-                if (item.Type.IsClass && item.Type.BaseType != typeof(object))
-                {
-                    // todo cleanup generic name
-                    writer.Write($" : {item.Type.BaseType.FullName}");
-                    if (interfaces.Length > 0)
-                    {
-                        writer.Write(",");
-                    }
-                }
-                else if (interfaces.Length > 0)
-                {
-                    writer.Write(" :");
-                }
-                writer.Break();
-                if (interfaces.Length > 0)
-                {
-                    // todo cleanup generic name
-                    writer.WriteLine(string.Join($",{Environment.NewLine}", item.Type.GetInterfaces().Select(i => i.FullName)));
-                }
-
-                writer.WriteLine("```");
-            }
-        }
-
         private void WriteDocFor<T>(DocWriter writer, T item)
             where T : AMemberItem
         {
-            writer.WriteLine($"#### {_mainName.AsLink()}");
+            writer.WriteLine($"#### {MainName.AsLink()}");
             AMemberItem parent = item.Parent;
             Stack<AMemberItem> parents = new Stack<AMemberItem>();
             while (parent != null)
@@ -315,26 +217,16 @@ namespace DefaultDocumentation
                 parents.Push(parent);
                 parent = parent.Parent;
             }
-            writer.WriteLine($"### {string.Join(".", parents.Select(i => i is NamespaceItem ? i.AsLinkWithTarget(_mainName) : i.AsLink()))}");
-            writer.WriteLine($"## {item.Name} `{item.Title}`");
+            writer.WriteLine($"### {string.Join(".", parents.Select(i => i is NamespaceItem ? i.AsLinkWithTarget(MainName) : i.AsLink()))}");
 
-            WriteInfo(writer, item as TypeItem);
-
-            WriteText(writer, item);
-            WriteItem(writer, item.Remarks);
-            WriteItem(writer, item.Example);
-            WriteItems(writer, (item as AGenericDocItem)?.Generics);
-            WriteItems(writer, (item as IParameterDocItem)?.Parameters);
-            WriteItem(writer, (item as IReturnDocItem)?.Return);
-            WriteItem(writer, (item as PropertyItem)?.Value);
-            WriteItems(writer, item.Exceptions);
+            item.Write(this, writer);
         }
 
         private void WriteLinkForType(DocWriter writer, TypeItem item)
         {
             writer.WriteLine($"- {item.AsLink()}");
 
-            foreach (TypeItem nested in _items.Values.OfType<TypeItem>().Where(i => i.Parent == item).OrderBy(i => i.Name))
+            foreach (TypeItem nested in Items.Values.OfType<TypeItem>().Where(i => i.Parent == item).OrderBy(i => i.Name))
             {
                 WriteLinkForType(writer, nested);
             }
@@ -342,16 +234,16 @@ namespace DefaultDocumentation
 
         private void WriteHome()
         {
-            using DocWriter writer = new DocWriter(_outputPath, _mainName);
+            using DocWriter writer = new DocWriter(_outputPath, MainName);
 
-            writer.WriteLine($"### {_mainName.AsLink()}");
+            writer.WriteLine($"### {MainName.AsLink()}");
 
-            foreach (NamespaceItem item in _items.Values.OfType<NamespaceItem>().OrderBy(i => i.Name))
+            foreach (NamespaceItem item in Items.Values.OfType<NamespaceItem>().OrderBy(i => i.Name))
             {
                 writer.WriteLine(item.AsLinkTarget());
                 writer.WriteLine($"## {item.Name}");
 
-                foreach (TypeItem type in _items.Values.OfType<TypeItem>().Where(i => i.Parent == item).OrderBy(i => i.Name))
+                foreach (TypeItem type in Items.Values.OfType<TypeItem>().Where(i => i.Parent == item).OrderBy(i => i.Name))
                 {
                     WriteLinkForType(writer, type);
                 }
@@ -363,7 +255,7 @@ namespace DefaultDocumentation
         {
             bool hasHeader = false;
 
-            foreach (T item in _items.Values.OfType<T>().Where(i => i.Parent == parent).OrderBy(i => i.Name))
+            foreach (T item in Items.Values.OfType<T>().Where(i => i.Parent == parent).OrderBy(i => i.Name))
             {
                 if (!hasHeader)
                 {
@@ -377,17 +269,16 @@ namespace DefaultDocumentation
 
         private void WriteTypePages()
         {
-            _items.Values.OfType<TypeItem>().AsParallel().ForAll(item =>
+            Items.Values.OfType<TypeItem>().AsParallel().ForAll(item =>
             {
                 using DocWriter writer = new DocWriter(_outputPath, item);
 
                 WriteDocFor(writer, item);
                 WriteLinkFor<ConstructorItem>(writer, item);
-                WriteLinkFor<EventItem>(writer, item);
                 WriteLinkFor<FieldItem>(writer, item);
                 WriteLinkFor<PropertyItem>(writer, item);
-                WriteLinkFor<IndexItem>(writer, item);
                 WriteLinkFor<MethodItem>(writer, item);
+                WriteLinkFor<EventItem>(writer, item);
                 WriteLinkFor<OperatorItem>(writer, item);
             });
         }
@@ -395,7 +286,7 @@ namespace DefaultDocumentation
         private void WriteDocPages<T>()
             where T : AMemberItem
         {
-            _items.Values.OfType<T>().AsParallel().ForAll(item =>
+            Items.Values.OfType<T>().AsParallel().ForAll(item =>
             {
                 using DocWriter writer = new DocWriter(_outputPath, item);
 
@@ -403,7 +294,7 @@ namespace DefaultDocumentation
             });
         }
 
-        public static void Convert(Assembly assembly, XDocument document, string outputPath)
+        public static void Convert(AssemblyDefinition assembly, XDocument document, string outputPath)
         {
             Converter converter = new Converter(assembly, document, outputPath);
 
@@ -414,7 +305,6 @@ namespace DefaultDocumentation
                 Task.Run(converter.WriteDocPages<EventItem>),
                 Task.Run(converter.WriteDocPages<FieldItem>),
                 Task.Run(converter.WriteDocPages<PropertyItem>),
-                Task.Run(converter.WriteDocPages<IndexItem>),
                 Task.Run(converter.WriteDocPages<MethodItem>),
                 Task.Run(converter.WriteDocPages<OperatorItem>));
         }

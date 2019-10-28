@@ -85,7 +85,7 @@ namespace Dummy
         public static explicit operator double(DummyClass c) => 0;
 
         /// <summary>
-        /// 
+        /// dummy
         /// </summary>
         /// <param name="c"></param>
         public static explicit operator DummyClass(int c) => null;
@@ -227,5 +227,21 @@ namespace Dummy
         /// <param name="b">dummy</param>
         /// <returns>dummy</returns>
         public static bool operator %(DummyClass a, DummyClass b) => false;
+
+        /// <summary>
+        /// dummy
+        /// </summary>
+        /// <param name="a">dummy</param>
+        /// <param name="i">dummy</param>
+        /// <returns>dummy</returns>
+        public static DummyClass operator <<(DummyClass a, int i) => a;
+
+        /// <summary>
+        /// dummy
+        /// </summary>
+        /// <param name="a">dummy</param>
+        /// <param name="i">dummy</param>
+        /// <returns>dummy</returns>
+        public static DummyClass operator >>(DummyClass a, int i) => a;
     }
 }

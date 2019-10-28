@@ -17,5 +17,11 @@ namespace DefaultDocumentation.Model.Base
             Element = element;
             Summary = Element.GetSummary() ?? Element;
         }
+
+        public virtual void Write(Converter converter, DocWriter writer)
+        {
+            writer.WriteLine($"### {Header}");
+            converter.WriteSummary(writer, this);
+        }
     }
 }

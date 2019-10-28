@@ -27,5 +27,22 @@ namespace DefaultDocumentation.Model.Base
         protected AMemberItem(AMemberItem parent, XElement element)
             : this(parent, element.GetName(), element)
         { }
+
+        public override void Write(Converter converter, DocWriter writer)
+        {
+            if (Exceptions?.Length > 0)
+            {
+                writer.WriteLine($"### {Exceptions[0].Header}");
+
+                foreach (ExceptionItem exception in Exceptions)
+                {
+                    writer.Break();
+                    exception.Write(converter, writer);
+                }
+            }
+
+            Example?.Write(converter, writer);
+            Remarks?.Write(converter, writer);
+        }
     }
 }

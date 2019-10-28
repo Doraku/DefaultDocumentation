@@ -14,7 +14,7 @@ namespace DefaultDocumentation.Model.NonMember
 
         public static ExampleItem GetFrom(AMemberItem item)
         {
-            XElement exampleElement = item.Element.GetRemarks();
+            XElement exampleElement = item.Element.GetExample();
             return exampleElement != null ? new ExampleItem(item, exampleElement) : null;
         }
     }

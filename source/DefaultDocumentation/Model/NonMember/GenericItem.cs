@@ -17,5 +17,12 @@ namespace DefaultDocumentation.Model.NonMember
         {
             return item.Element.GetGenerics().Select(i => new GenericItem(item, i)).ToArray();
         }
+
+        public override void Write(Converter converter, DocWriter writer)
+        {
+            writer.WriteLine(this.AsLinkTarget());
+            writer.WriteLine($"`{Name}`  ");
+            converter.WriteSummary(writer, this);
+        }
     }
 }

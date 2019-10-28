@@ -13,5 +13,10 @@ namespace DefaultDocumentation.Model
         public NamespaceItem(string name)
             : base(null, name, null)
         { }
+
+        public override void Write(Converter converter, DocWriter writer)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

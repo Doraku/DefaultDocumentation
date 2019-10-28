@@ -19,5 +19,15 @@ namespace DefaultDocumentation.Model.NonMember
         {
             return item.Element.GetExceptions()?.Select(i => new ExceptionItem(item, i)).ToArray();
         }
+
+        public override void Write(Converter converter, DocWriter writer)
+        {
+            writer.Write(
+                converter.Items.TryGetValue(Reference, out AMemberItem reference)
+                ? reference.AsLink()
+                : Reference.Substring(2).AsDotNetApiLink());
+            writer.WriteLine("  ");
+            converter.WriteSummary(writer, this);
+        }
     }
 }

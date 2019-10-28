@@ -3,14 +3,18 @@
     <OutputType>Exe</OutputType>
     <LangVersion>latest</LangVersion>
     <TargetFrameworks>
-      net48;
-      netcoreapp3.0;
+      net45;
+      netcoreapp2.0;
     </TargetFrameworks>
     <Optimize>true</Optimize>
     <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <None Remove="DefaultDocumentation.targets" />
+  </ItemGroup>
+
+  <ItemGroup Label="Reference">
+    <PackageReference Include="Mono.Cecil" Version="0.11.0" />
   </ItemGroup>
 </Project>
