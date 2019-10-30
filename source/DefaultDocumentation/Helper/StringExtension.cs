@@ -13,7 +13,19 @@ namespace DefaultDocumentation.Helper
             ["["] = "-",
             ["]"] = "-",
             ["&lt;"] = "-",
-            ["&gt;"] = "-"
+            ["&gt;"] = "-",
+        };
+
+        private static readonly IReadOnlyDictionary<char, char> _invalidChars = new Dictionary<char, char>
+        {
+            [':'] = '-',
+            ['.'] = '-',
+            [','] = '-',
+            ['#'] = '-',
+            ['['] = '-',
+            [']'] = '-',
+            ['`'] = '-',
+            ['@'] = '-',
         };
 
         private static string CleanForDotNetApiLink(this string value) => value.Replace('`', '-');
@@ -21,6 +33,16 @@ namespace DefaultDocumentation.Helper
         public static string CleanForLink(this string value)
         {
             foreach (KeyValuePair<string, string> pair in _invalidStrings)
+            {
+                value = value.Replace(pair.Key, pair.Value);
+            }
+
+            return value;
+        }
+
+        public static string Clean(this string value)
+        {
+            foreach (KeyValuePair<char, char> pair in _invalidChars)
             {
                 value = value.Replace(pair.Key, pair.Value);
             }
