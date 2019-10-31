@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using DefaultDocumentation.Model;
 using ICSharpCode.Decompiler;
@@ -24,21 +23,23 @@ namespace DefaultDocumentation
             _docItems = GetDocItems().ToDictionary(i => i.Id);
         }
 
-        private bool TryGetDocumentation(IEntity entity, out XElement documentation)
-        {
-            string documentationString = _xmlDocumentationProvider.GetDocumentation(entity);
-            documentation = documentationString is null ? null : XElement.Parse($"<doc>{documentationString}</doc>");
-
-            return documentation != null;
-        }
-
         private IEnumerable<DocItem> GetDocItems()
         {
+            bool TryGetDocumentation(IEntity entity, out XElement documentation)
+            {
+                string documentationString = _xmlDocumentationProvider.GetDocumentation(entity);
+                documentation = documentationString is null ? null : XElement.Parse($"<doc>{documentationString}</doc>");
+
+                return documentation != null;
+            }
+
+            yield return new HomeDocItem(_decompiler.TypeSystem.MainModule.AssemblyName);
+
             foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions)
             {
                 if (TryGetDocumentation(type, out XElement documentation))
                 {
-                    yield return type.Kind switch
+                    TypeDocItem typeDocItem = type.Kind switch
                     {
                         TypeKind.Class => new ClassDocItem(type, documentation),
                         TypeKind.Struct => new StructDocItem(type, documentation),
@@ -47,63 +48,29 @@ namespace DefaultDocumentation
                         TypeKind.Delegate => new DelegateDocItem(type, documentation),
                         _ => throw new NotSupportedException()
                     };
+                    yield return typeDocItem;
 
-                    foreach (IField field in type.Fields)
+                    foreach (IEntity entity in Enumerable.Empty<IEntity>().Concat(type.Fields).Concat(type.Properties).Concat(type.Methods).Concat(type.Events))
                     {
-                        if (TryGetDocumentation(type, out documentation))
+                        if (TryGetDocumentation(entity, out documentation))
                         {
-                            yield return new FieldDocItem(field, documentation);
-                        }
-                    }
-                    foreach (IProperty property in type.Properties)
-                    {
-                        if (TryGetDocumentation(property, out documentation))
-                        {
-                            yield return new PropertyDocItem(property, documentation);
-                        }
-                    }
-                    foreach (IMethod method in type.Methods)
-                    {
-                        if (TryGetDocumentation(method, out documentation))
-                        {
-                            if (method.IsConstructor)
+                            yield return entity switch
                             {
-                                yield return new ConstructorDocItem(method, documentation);
-                            }
-                            else if (method.IsOperator)
-                            {
-                                yield return new OperatorDocItem(method, documentation);
-                            }
-                            else
-                            {
-                                yield return new MethodDocItem(method, documentation);
-                            }
-                        }
-                    }
-                    foreach (IEvent @event in type.Events)
-                    {
-                        if (TryGetDocumentation(@event, out documentation))
-                        {
-                            yield return new EventDocItem(@event, documentation);
+                                IField field => new FieldDocItem(typeDocItem, field, documentation),
+                                IProperty property => new PropertyDocItem(typeDocItem, property, documentation),
+                                IMethod method when method.IsConstructor => new ConstructorDocItem(typeDocItem, method, documentation),
+                                IMethod method when method.IsOperator => new OperatorDocItem(typeDocItem, method, documentation),
+                                IMethod method => new MethodDocItem(typeDocItem, method, documentation),
+                                IEvent @event => new EventDocItem(typeDocItem, @event, documentation),
+                                _ => throw new NotSupportedException()
+                            };
                         }
                     }
                 }
             }
         }
 
-        private void WriteHome(string outputFolder)
-        {
-            using DocumentationWriter writer = new DocumentationWriter(outputFolder, _decompiler.TypeSystem.MainModule.AssemblyName);
-            foreach (IGrouping<string, TypeDocItem> group in _docItems.Values.OfType<TypeDocItem>().GroupBy(i => i.Type.Namespace))
-            {
-                foreach (TypeDocItem item in group.OrderBy(i => i.Type.FullTypeName))
-                {
-
-                }
-            }
-        }
-
-        private void WritePages(string outputFolder)
+        public void WriteDocumentation(string outputFolder)
         {
             _docItems.Values.AsParallel().ForAll(i =>
             {
@@ -111,13 +78,6 @@ namespace DefaultDocumentation
 
                 i.WriteDocumentation(writer, _docItems);
             });
-        }
-
-        public void WriteDocumentation(string outputFolder)
-        {
-            Task.WaitAll(
-                Task.Run(() => WriteHome(outputFolder)),
-                Task.Run(() => WritePages(outputFolder)));
         }
     }
 }

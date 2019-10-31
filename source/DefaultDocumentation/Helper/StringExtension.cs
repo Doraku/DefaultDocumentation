@@ -4,18 +4,6 @@ namespace DefaultDocumentation.Helper
 {
     internal static class StringExtension
     {
-        private static readonly IReadOnlyDictionary<string, string> _invalidStrings = new Dictionary<string, string>
-        {
-            [" "] = "_",
-            ["."] = "-",
-            [","] = "-",
-            ["#"] = "-",
-            ["["] = "-",
-            ["]"] = "-",
-            ["&lt;"] = "-",
-            ["&gt;"] = "-",
-        };
-
         private static readonly IReadOnlyDictionary<char, char> _invalidChars = new Dictionary<char, char>
         {
             [':'] = '-',
@@ -29,16 +17,6 @@ namespace DefaultDocumentation.Helper
         };
 
         private static string CleanForDotNetApiLink(this string value) => value.Replace('`', '-');
-
-        public static string CleanForLink(this string value)
-        {
-            foreach (KeyValuePair<string, string> pair in _invalidStrings)
-            {
-                value = value.Replace(pair.Key, pair.Value);
-            }
-
-            return value;
-        }
 
         public static string Clean(this string value)
         {
@@ -60,7 +38,5 @@ namespace DefaultDocumentation.Helper
 
             return $"[{name}](https://docs.microsoft.com/en-us/dotnet/api/{value.CleanForDotNetApiLink()} '{name}')";
         }
-
-        public static string AsLink(this string value) => $"[{value}](./{value.CleanForLink()}.md '{value}')";
     }
 }

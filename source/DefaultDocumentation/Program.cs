@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Xml.Linq;
-using Mono.Cecil;
 
 namespace DefaultDocumentation
 {
@@ -57,10 +55,7 @@ namespace DefaultDocumentation
                 directory.Create();
             }
 
-            Converter.Convert(
-                AssemblyDefinition.ReadAssembly(assembly.FullName),
-                XDocument.Parse(File.ReadAllText(documentation.FullName)),
-                directory.FullName);
+            new DocumentationGenerator(assembly.FullName, documentation.FullName).WriteDocumentation(directory.FullName);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Helper;
 using ICSharpCode.Decompiler.Documentation;
@@ -7,29 +8,20 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Model
 {
-    internal sealed class FieldDocItem : DocItem
+    internal sealed class ParameterDocItem : DocItem
     {
-        public IField Field { get; }
+        public IParameter Parameter { get; }
 
-        public FieldDocItem(TypeDocItem parent, IField field, XElement documentation)
-            : base(parent, field, documentation)
+        public ParameterDocItem(DocItem parent, IParameter entity, XElement documentation)
+            : base(parent, entity.Name, documentation.GetParameters()?.FirstOrDefault(d => d.GetName() == entity.Name))
         {
-            Field = field;
+            Parameter = entity;
         }
 
         public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)
         {
-            writer.WriteHeader(this, items);
-
-            writer.WriteLine($"## {Parent.Name}{Name} Field");
-
-            writer.Write(Documentation.GetSummary(), this, items);
-
-            // code
-            // attributes
-
-            writer.WriteLine("#### Field Value");
-            IType itype = Field.Type.RemoveReference();
+            writer.WriteLine(GetLinkTarget());
+            IType itype = Parameter.Type.RemoveReference();
             if (itype.Kind == TypeKind.TypeParameter)
             {
                 DocItem parent = Parent;
@@ -43,16 +35,14 @@ namespace DefaultDocumentation.Model
 
                     parent = parent.Parent;
                 }
-
-                writer.WriteLine(typeParameter.GetLinkTarget(writer.IsForThis(typeParameter.Parent)));
+                
+                writer.WriteLine($"`{Parameter.Name}` {typeParameter.GetLinkTarget(writer.IsForThis(typeParameter.Parent))}  ");
             }
             else
             {
-                writer.WriteLine(items.TryGetValue(itype.GetDefinition().GetIdString(), out DocItem type) ? type.GetLink() : itype.FullName); // dotnetapi link
+                writer.WriteLine($"`{Parameter.Name}` {(items.TryGetValue(itype.GetDefinition().GetIdString(), out DocItem type) ? type.GetLink() : itype.FullName)}  ");// dotnetapi link
             }
-
-            writer.Write("### Example", Documentation.GetExample(), this, items);
-            writer.Write("### Remarks", Documentation.GetRemarks(), this, items);
+            writer.Write(Documentation, this, items);
         }
     }
 }
