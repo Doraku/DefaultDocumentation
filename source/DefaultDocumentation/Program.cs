@@ -29,15 +29,25 @@ namespace DefaultDocumentation
                 {
                     documentation = new FileInfo(arg.Substring(5));
                 }
-                else if (arg.StartsWith("/output:") && !string.IsNullOrWhiteSpace(arg.Substring(10)))
+                else if (arg.StartsWith("/output:") && !string.IsNullOrWhiteSpace(arg.Substring(8)))
                 {
-                    directory = new DirectoryInfo(arg.Substring(10));
+                    directory = new DirectoryInfo(arg.Substring(8));
                 }
             }
 
-            if (!(assembly?.Exists ?? false) || !(documentation?.Exists ?? false))
+            if (assembly is null || documentation is null)
             {
                 PrintHelp();
+                return;
+            }
+            else if (!assembly.Exists)
+            {
+                Console.WriteLine($"assembly file \"{assembly.FullName}\" not found");
+                return;
+            }
+            else if (!documentation.Exists)
+            {
+                Console.WriteLine($"documentation file \"{documentation.FullName}\" not found");
                 return;
             }
 

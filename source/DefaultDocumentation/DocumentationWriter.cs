@@ -74,7 +74,7 @@ namespace DefaultDocumentation
             WriteLine($"#### {GetLink(home)}");
 
             Stack<DocItem> parents = new Stack<DocItem>();
-            for (DocItem parent = _mainItem.Parent; parent != null; parent = parent.Parent)
+            for (DocItem parent = _mainItem?.Parent; parent != home && parent != null; parent = parent.Parent)
             {
                 parents.Push(parent);
             }
@@ -106,7 +106,7 @@ namespace DefaultDocumentation
                         WriteLine($"- {GetLink(child)}");
                     }
 
-                    hasTitle = WriteChildrenLink(child, null);
+                    hasTitle = WriteChildrenLink(child, hasTitle ? null : title);
                 }
 
                 return hasTitle;
@@ -127,6 +127,7 @@ namespace DefaultDocumentation
                 }
 
                 item.WriteDocumentation(this, _items);
+                WriteLine("  ");
             }
         }
 

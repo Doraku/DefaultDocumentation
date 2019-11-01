@@ -41,6 +41,8 @@ namespace DefaultDocumentation.Model
             writer.WriteHeader();
             writer.WritePageTitle($"{Parent.Name}.{Name}", "Operator");
 
+            writer.Write(this, Documentation.GetSummary());
+
             writer.WriteLine("```C#");
             writer.WriteLine(CodeAmbience.ConvertSymbol(Method));
             writer.WriteLine("```");

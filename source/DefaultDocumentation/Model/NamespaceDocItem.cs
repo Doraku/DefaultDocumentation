@@ -4,8 +4,8 @@ namespace DefaultDocumentation.Model
 {
     internal sealed class NamespaceDocItem : DocItem
     {
-        public NamespaceDocItem(string name)
-            : base(null, $"N:{name}", name, name, null)
+        public NamespaceDocItem(HomeDocItem parent, string name)
+            : base(parent, $"N:{name}", name, name, null)
         { }
 
         public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)

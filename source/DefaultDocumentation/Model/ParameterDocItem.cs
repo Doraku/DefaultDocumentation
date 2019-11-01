@@ -11,14 +11,17 @@ namespace DefaultDocumentation.Model
         public IParameter Parameter { get; }
 
         public ParameterDocItem(DocItem parent, IParameter entity, XElement documentation)
-            : base(parent, entity.Name, entity.Name, $"{parent.FullName}.{entity.Name}", documentation.GetParameters()?.FirstOrDefault(d => d.GetName() == entity.Name))
+            : base(parent, entity.Name, $"{parent.FullName}.{entity.Name}", entity.Name, documentation.GetParameters()?.FirstOrDefault(d => d.GetName() == entity.Name))
         {
             Parameter = entity;
         }
 
+        public override bool GeneratePage => false;
+
         public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)
         {
-            writer.Write($"{writer.GetLinkTarget(this)} {writer.GetTypeLink(this, Parameter.Type)}  ");
+            writer.WriteLinkTarget(this);
+            writer.WriteLine($"`{Parameter.Name}` {writer.GetTypeLink(this, Parameter.Type)}  ");
             writer.Write(this, Documentation);
         }
     }

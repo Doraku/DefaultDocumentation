@@ -4,8 +4,8 @@ namespace DefaultDocumentation.Model
 {
     internal sealed class HomeDocItem : DocItem
     {
-        public HomeDocItem()
-            : base(null, "index", "index", "index", null)
+        public HomeDocItem(string name)
+            : base(null, string.Empty, "index", name, null)
         { }
 
         public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)

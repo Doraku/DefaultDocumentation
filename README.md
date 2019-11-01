@@ -1,7 +1,5 @@
 # DefaultDocumentation
-
-As the name imply, this project lets you easily produce a "good enough" markdown documentation from the xml documentation produced by visual studio from comments.
-
+As the name imply, this project lets you easily produce a markdown documentation from the generated assembly and its xml documentation produced by visual studio from comments.
 
 [![NuGet](https://buildstats.info/nuget/DefaultDocumentation)](https://www.nuget.org/packages/DefaultDocumentation)
 
@@ -12,11 +10,11 @@ As the name imply, this project lets you easily produce a "good enough" markdown
 
 <a name='Requirement'></a>
 # Requirement
-framework4.5 or netcoreapp1.0
+framework4.7.2 or netcoreapp2.0
 
 <a name='Usage'></a>
 # Usage
-Once referenced in your project, if there is a `<DocumentationFile>`, markdown pages will be produced next to the xml file on compilation.
+Once referenced in your project, if there is a `<DocumentationFile>` or `<GenerateDocumentationFile>`, markdown pages will be produced next to the xml file on compilation.
 Please be advised that existing `*.md` files in the directory will be deleted.
 
 Should you want the markdown files to be produced in a different directory, you can do so by adding a `<DefaultDocumentationFolder>` element in your csproj with the desired path.
@@ -51,4 +49,4 @@ Should you need some extra support feel free to ask or even do it yourself in a 
 
 <a name='Sample'></a>
 # Sample
-You can see the result of DefaultDocumentation applied to a project [here](https://github.com/Doraku/DefaultEcs/blob/master/documentation/api/DefaultEcs.md).
+You can see the result of DefaultDocumentation applied to a project [here](https://github.com/Doraku/DefaultEcs/blob/master/documentation/api/index.md).

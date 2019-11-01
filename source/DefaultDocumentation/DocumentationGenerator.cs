@@ -13,13 +13,13 @@ namespace DefaultDocumentation
     internal sealed class DocumentationGenerator
     {
         private readonly CSharpDecompiler _decompiler;
-        private readonly XmlDocumentationProvider _xmlDocumentationProvider;
         private readonly Dictionary<string, DocItem> _docItems;
 
-        public DocumentationGenerator(string assemblyFilePath, string xmlDocumentationFilePath)
+        public DocumentationGenerator(string assemblyFilePath, string documentationFilePath)
         {
             _decompiler = new CSharpDecompiler(assemblyFilePath, new DecompilerSettings());
-            _xmlDocumentationProvider = new XmlDocumentationProvider(xmlDocumentationFilePath);
+            _decompiler.DocumentationProvider = new XmlDocumentationProvider(documentationFilePath);
+
             _docItems = new Dictionary<string, DocItem>();
 
             foreach (DocItem item in GetDocItems())
@@ -32,13 +32,14 @@ namespace DefaultDocumentation
         {
             bool TryGetDocumentation(IEntity entity, out XElement documentation)
             {
-                string documentationString = _xmlDocumentationProvider.GetDocumentation(entity);
+                string documentationString = _decompiler.DocumentationProvider.GetDocumentation(entity);
                 documentation = documentationString is null ? null : XElement.Parse($"<doc>{documentationString}</doc>");
 
                 return documentation != null;
             }
 
-            yield return new HomeDocItem();
+            HomeDocItem homeDocItem = new HomeDocItem(_decompiler.TypeSystem.MainModule.AssemblyName);
+            yield return homeDocItem;
 
             foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions)
             {
@@ -47,7 +48,7 @@ namespace DefaultDocumentation
                     string namespaceId = $"N:{type.Namespace}";
                     if (!_docItems.TryGetValue(type.DeclaringType?.GetDefinition().GetIdString() ?? namespaceId, out DocItem parentDocItem))
                     {
-                        parentDocItem = new NamespaceDocItem(type.Namespace);
+                        parentDocItem = new NamespaceDocItem(homeDocItem, type.Namespace);
                         yield return parentDocItem;
                     }
 

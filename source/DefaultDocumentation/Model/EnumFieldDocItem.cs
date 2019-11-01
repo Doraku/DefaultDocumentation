@@ -19,7 +19,7 @@ namespace DefaultDocumentation.Model
 
         public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)
         {
-            writer.WriteLine($"{Name} {Field.GetConstantValue()}  ");
+            writer.WriteLine($"`{Name}` {Field.GetConstantValue()}  ");
 
             writer.Write(this, Documentation.GetSummary());
 

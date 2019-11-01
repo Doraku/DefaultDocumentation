@@ -1,13 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <DefaultDocumentationTool>dotnet "$(MSBuildThisFileDirectory)../tools/DefaultDocumentation.dll"</DefaultDocumentationTool>
-    <DefaultDocumentationTool Condition="'$(MSBuildRuntimeType)' == 'Mono'">mono "$(MSBuildThisFileDirectory)../tools/DefaultDocumentation.exe"</DefaultDocumentationTool>
-    <DefaultDocumentationTool Condition="'$(MSBuildRuntimeType)' == 'Full'">"$(MSBuildThisFileDirectory)../tools/DefaultDocumentation.exe"</DefaultDocumentationTool>
+  <Target Name="DefaultDocumentation" AfterTargets="PostBuildEvent">
+    <PropertyGroup>
+      <DefaultDocumentationTool>dotnet "$(MSBuildThisFileDirectory)../tools/DefaultDocumentation.dll"</DefaultDocumentationTool>
+      <DefaultDocumentationTool Condition="'$(MSBuildRuntimeType)' == 'Mono'">mono "$(MSBuildThisFileDirectory)../tools/DefaultDocumentation.exe"</DefaultDocumentationTool>
+      <DefaultDocumentationTool Condition="'$(MSBuildRuntimeType)' == 'Full'">"$(MSBuildThisFileDirectory)../tools/DefaultDocumentation.exe"</DefaultDocumentationTool>
 
-    <DefaultDocumentationCommand>$(DefaultDocumentationTool) /assembly:"$(TargetPath)" /xml:"$(DocumentationFile)" /markdown:"$(DefaultDocumentationFolder)"</DefaultDocumentationCommand>
-  </PropertyGroup>
-  <Target Name="DefaultDocumentation" AfterTargets="Build">
+      <DocumentationFile Condition="'$(DocumentationFile)' != ''">$([System.IO.Path]::GetFullPath($(DocumentationFile)))</DocumentationFile>
+      <DefaultDocumentationFolder Condition="'$(DefaultDocumentationFolder)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationFolder)))</DefaultDocumentationFolder>
+      
+      <DefaultDocumentationCommand>$(DefaultDocumentationTool) /assembly:"$(TargetPath)" /xml:"$(DocumentationFile)" /output:"$(DefaultDocumentationFolder)"</DefaultDocumentationCommand>
+    </PropertyGroup>
     <Exec Command="$(DefaultDocumentationCommand)"/>
   </Target>
 </Project>

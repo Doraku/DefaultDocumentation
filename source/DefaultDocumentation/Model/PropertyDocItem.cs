@@ -39,6 +39,8 @@ namespace DefaultDocumentation.Model
             writer.WriteHeader();
             writer.WritePageTitle($"{Parent.Name}.{Name}", "Property");
 
+            writer.Write(this, Documentation.GetSummary());
+
             writer.WriteLine("```C#");
             writer.WriteLine(CodeAmbience.ConvertSymbol(Property));
             writer.WriteLine("```");

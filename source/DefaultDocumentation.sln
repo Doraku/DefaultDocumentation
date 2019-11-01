@@ -8,11 +8,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AC68DCB5-418D-4573-8914-108195D7C6FD}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
-		DefaultDocumentation\DefaultDocumentation.Package.csproj = DefaultDocumentation\DefaultDocumentation.Package.csproj
+		DefaultDocumentation\DefaultDocumentation.Release.csproj = DefaultDocumentation\DefaultDocumentation.Release.csproj
 		DefaultDocumentation\DefaultDocumentation.targets = DefaultDocumentation\DefaultDocumentation.targets
 		..\LICENSE.md = ..\LICENSE.md
-		..\Packaging.bat = ..\Packaging.bat
 		..\README.md = ..\README.md
+		..\Release.bat = ..\Release.bat
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dummy", "Dummy\Dummy.csproj", "{4BBA3FDF-A296-4428-90C3-FC266D4EA45A}"

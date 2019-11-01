@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="DefaultDocumentation.targets" />
+  
+  <PropertyGroup Label="Sign">
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\ds.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package">
+    <Version>0.5.0</Version>
+    <PackageReleaseNotes>
+full rework to produce a much more complete documentation using the produced assembly
+    </PackageReleaseNotes>
+  </PropertyGroup>
+</Project>
