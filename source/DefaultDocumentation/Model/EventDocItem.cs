@@ -1,12 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
 using DefaultDocumentation.Helper;
+using ICSharpCode.Decompiler.CSharp.OutputVisitor;
+using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Model
 {
     internal sealed class EventDocItem : DocItem
     {
+        private static readonly CSharpAmbience CodeAmbience = new CSharpAmbience
+        {
+            ConversionFlags =
+                ConversionFlags.ShowAccessibility
+                | ConversionFlags.ShowBody
+                | ConversionFlags.ShowDefinitionKeyword
+                | ConversionFlags.ShowModifiers
+        };
+
         public IEvent Event { get; }
 
         public EventDocItem(TypeDocItem parent, IEvent @event, XElement documentation)
@@ -17,20 +28,21 @@ namespace DefaultDocumentation.Model
 
         public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)
         {
-            writer.WriteHeader(this, items);
+            writer.WriteHeader();
+            writer.WritePageTitle($"{Parent.Name}.{Name}", "Event");
 
-            writer.WriteLine($"## {Parent.Name}{Name} Event");
+            writer.Write(this, Documentation.GetSummary());
 
-            writer.Write(Documentation.GetSummary(), this, items);
-
-            // code
+            writer.WriteLine("```C#");
+            writer.WriteLine(CodeAmbience.ConvertSymbol(Event));
+            writer.WriteLine("```");
             // attributes
 
             writer.WriteLine("#### Event type");
-            //writer.WriteLine(items.TryGetValue(Event..Type.GetDefinition().GetIdString(), out DocItem type) ? type.GetLink() : Field.Type.FullName); // dotnetapi link
+            writer.WriteLine(writer.GetTypeLink(this, Event.ReturnType));
 
-            writer.Write("### Example", Documentation.GetExample(), this, items);
-            writer.Write("### Remarks", Documentation.GetRemarks(), this, items);
+            writer.Write("### Example", Documentation.GetExample(), this);
+            writer.Write("### Remarks", Documentation.GetRemarks(), this);
         }
     }
 }

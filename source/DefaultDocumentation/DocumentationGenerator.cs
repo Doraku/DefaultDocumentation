@@ -20,7 +20,12 @@ namespace DefaultDocumentation
         {
             _decompiler = new CSharpDecompiler(assemblyFilePath, new DecompilerSettings());
             _xmlDocumentationProvider = new XmlDocumentationProvider(xmlDocumentationFilePath);
-            _docItems = GetDocItems().ToDictionary(i => i.Id);
+            _docItems = new Dictionary<string, DocItem>();
+
+            foreach (DocItem item in GetDocItems())
+            {
+                _docItems.Add(item.Id, item);
+            }
         }
 
         private IEnumerable<DocItem> GetDocItems()
@@ -33,21 +38,29 @@ namespace DefaultDocumentation
                 return documentation != null;
             }
 
-            yield return new HomeDocItem(_decompiler.TypeSystem.MainModule.AssemblyName);
+            yield return new HomeDocItem();
 
             foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions)
             {
                 if (TryGetDocumentation(type, out XElement documentation))
                 {
+                    string namespaceId = $"N:{type.Namespace}";
+                    if (!_docItems.TryGetValue(type.DeclaringType?.GetDefinition().GetIdString() ?? namespaceId, out DocItem parentDocItem))
+                    {
+                        parentDocItem = new NamespaceDocItem(type.Namespace);
+                        yield return parentDocItem;
+                    }
+
                     TypeDocItem typeDocItem = type.Kind switch
                     {
-                        TypeKind.Class => new ClassDocItem(type, documentation),
-                        TypeKind.Struct => new StructDocItem(type, documentation),
-                        TypeKind.Interface => new InterfaceDocItem(type, documentation),
-                        TypeKind.Enum => new EnumDocItem(type, documentation),
-                        TypeKind.Delegate => new DelegateDocItem(type, documentation),
+                        TypeKind.Class => new ClassDocItem(parentDocItem, type, documentation),
+                        TypeKind.Struct => new StructDocItem(parentDocItem, type, documentation),
+                        TypeKind.Interface => new InterfaceDocItem(parentDocItem, type, documentation),
+                        TypeKind.Enum => new EnumDocItem(parentDocItem, type, documentation),
+                        TypeKind.Delegate => new DelegateDocItem(parentDocItem, type, documentation),
                         _ => throw new NotSupportedException()
                     };
+
                     yield return typeDocItem;
 
                     foreach (IEntity entity in Enumerable.Empty<IEntity>().Concat(type.Fields).Concat(type.Properties).Concat(type.Methods).Concat(type.Events))
@@ -56,6 +69,7 @@ namespace DefaultDocumentation
                         {
                             yield return entity switch
                             {
+                                IField field when typeDocItem is EnumDocItem enumDocItem => new EnumFieldDocItem(enumDocItem, field, documentation),
                                 IField field => new FieldDocItem(typeDocItem, field, documentation),
                                 IProperty property => new PropertyDocItem(typeDocItem, property, documentation),
                                 IMethod method when method.IsConstructor => new ConstructorDocItem(typeDocItem, method, documentation),
@@ -70,11 +84,11 @@ namespace DefaultDocumentation
             }
         }
 
-        public void WriteDocumentation(string outputFolder)
+        public void WriteDocumentation(string outputFolderPath)
         {
-            _docItems.Values.AsParallel().ForAll(i =>
+            _docItems.Values.Where(i => i.GeneratePage).AsParallel().ForAll(i =>
             {
-                using DocumentationWriter writer = new DocumentationWriter(outputFolder, i);
+                using DocumentationWriter writer = new DocumentationWriter(_docItems, outputFolderPath, i);
 
                 i.WriteDocumentation(writer, _docItems);
             });

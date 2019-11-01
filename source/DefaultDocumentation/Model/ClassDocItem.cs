@@ -5,8 +5,8 @@ namespace DefaultDocumentation.Model
 {
     internal sealed class ClassDocItem : TypeDocItem
     {
-        public ClassDocItem(ITypeDefinition type, XElement documentation)
-            : base(type, documentation)
+        public ClassDocItem(DocItem parent, ITypeDefinition type, XElement documentation)
+            : base(parent, type, documentation)
         { }
     }
 }

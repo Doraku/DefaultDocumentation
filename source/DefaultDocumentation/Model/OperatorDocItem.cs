@@ -2,13 +2,29 @@
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Helper;
-using ICSharpCode.Decompiler.Documentation;
+using ICSharpCode.Decompiler.CSharp.OutputVisitor;
+using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Model
 {
     internal sealed class OperatorDocItem : DocItem, IParameterizedDocItem
     {
+        private static readonly CSharpAmbience CodeAmbience = new CSharpAmbience
+        {
+            ConversionFlags =
+                ConversionFlags.ShowAccessibility
+                | ConversionFlags.ShowBody
+                | ConversionFlags.ShowModifiers
+                | ConversionFlags.ShowParameterList
+                | ConversionFlags.ShowParameterModifiers
+                | ConversionFlags.ShowParameterNames
+                | ConversionFlags.ShowReturnType
+                | ConversionFlags.ShowTypeParameterList
+                | ConversionFlags.ShowTypeParameterVarianceModifier
+                | ConversionFlags.UseFullyQualifiedTypeNames
+        };
+
         public IMethod Method { get; }
 
         public ParameterDocItem[] Parameters { get; }
@@ -22,37 +38,28 @@ namespace DefaultDocumentation.Model
 
         public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)
         {
-            writer.WriteHeader(this, items);
+            writer.WriteHeader();
+            writer.WritePageTitle($"{Parent.Name}.{Name}", "Operator");
 
-            writer.WriteLine($"## {Parent.Name}{Name} Operator");
-
-            writer.Write(Documentation.GetSummary(), this, items);
-
-            // code
+            writer.WriteLine("```C#");
+            writer.WriteLine(CodeAmbience.ConvertSymbol(Method));
+            writer.WriteLine("```");
 
             // attributes
 
-            if (Parameters.Length > 0)
-            {
-                writer.WriteLine("#### Parameters");
-                foreach (ParameterDocItem item in Parameters)
-                {
-                    item.WriteDocumentation(writer, items);
-                    writer.Break();
-                }
-            }
+            writer.WriteDocItems(Parameters, "#### Parameters");
 
             if (Method.ReturnType.Kind != TypeKind.Void)
             {
                 writer.WriteLine("#### Returns");
-                writer.WriteLine(items.TryGetValue(Method.ReturnType.GetDefinition().GetIdString(), out DocItem type) ? type.GetLink() : Method.ReturnType.FullName); // dotnetapi link
-                writer.Write(Documentation.GetReturns(), this, items);
+                writer.WriteLine(writer.GetTypeLink(this, Method.ReturnType) + "  ");
+                writer.Write(this, Documentation.GetReturns());
             }
 
-            writer.WriteExceptions(this, items);
+            writer.WriteExceptions(this);
 
-            writer.Write("### Example", Documentation.GetExample(), this, items);
-            writer.Write("### Remarks", Documentation.GetRemarks(), this, items);
+            writer.Write("### Example", Documentation.GetExample(), this);
+            writer.Write("### Remarks", Documentation.GetRemarks(), this);
         }
     }
 }

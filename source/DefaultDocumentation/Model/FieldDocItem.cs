@@ -1,14 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Linq;
 using DefaultDocumentation.Helper;
-using ICSharpCode.Decompiler.Documentation;
+using ICSharpCode.Decompiler.CSharp.OutputVisitor;
+using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Model
 {
     internal sealed class FieldDocItem : DocItem
     {
+        private static readonly CSharpAmbience CodeAmbience = new CSharpAmbience
+        {
+            ConversionFlags =
+                ConversionFlags.ShowAccessibility
+                | ConversionFlags.ShowBody
+                | ConversionFlags.ShowDefinitionKeyword
+                | ConversionFlags.ShowModifiers
+        };
+
         public IField Field { get; }
 
         public FieldDocItem(TypeDocItem parent, IField field, XElement documentation)
@@ -19,40 +28,21 @@ namespace DefaultDocumentation.Model
 
         public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)
         {
-            writer.WriteHeader(this, items);
+            writer.WriteHeader();
+            writer.WritePageTitle($"{Parent.Name}.{Name}", "Field");
 
-            writer.WriteLine($"## {Parent.Name}{Name} Field");
+            writer.Write(this, Documentation.GetSummary());
 
-            writer.Write(Documentation.GetSummary(), this, items);
-
-            // code
-            // attributes
+            writer.WriteLine("```C#");
+            writer.WriteLine(CodeAmbience.ConvertSymbol(Field));
+            writer.WriteLine("```");
+            // todo attributes
 
             writer.WriteLine("#### Field Value");
-            IType itype = Field.Type.RemoveReference();
-            if (itype.Kind == TypeKind.TypeParameter)
-            {
-                DocItem parent = Parent;
-                TypeParameterDocItem typeParameter = null;
-                while (parent != null && typeParameter == null)
-                {
-                    if (parent is ITypeParameterizedDocItem typeParameters)
-                    {
-                        typeParameter = Array.Find(typeParameters.TypeParameters, i => i.TypeParameter.Name == itype.Name);
-                    }
+            writer.WriteLine($"{writer.GetTypeLink(this, Field.Type)}  ");
 
-                    parent = parent.Parent;
-                }
-
-                writer.WriteLine(typeParameter.GetLinkTarget(writer.IsForThis(typeParameter.Parent)));
-            }
-            else
-            {
-                writer.WriteLine(items.TryGetValue(itype.GetDefinition().GetIdString(), out DocItem type) ? type.GetLink() : itype.FullName); // dotnetapi link
-            }
-
-            writer.Write("### Example", Documentation.GetExample(), this, items);
-            writer.Write("### Remarks", Documentation.GetRemarks(), this, items);
+            writer.Write("### Example", Documentation.GetExample(), this);
+            writer.Write("### Remarks", Documentation.GetRemarks(), this);
         }
     }
 }

@@ -7,6 +7,9 @@ using System.Text;
 using System.Xml.Linq;
 using DefaultDocumentation.Helper;
 using DefaultDocumentation.Model;
+using ICSharpCode.Decompiler.Documentation;
+using ICSharpCode.Decompiler.TypeSystem;
+using ICSharpCode.Decompiler.TypeSystem.Implementation;
 
 namespace DefaultDocumentation
 {
@@ -15,27 +18,49 @@ namespace DefaultDocumentation
         private static readonly ConcurrentQueue<StringBuilder> _builders = new ConcurrentQueue<StringBuilder>();
 
         private readonly StringBuilder _builder;
-        private readonly DocItem _item;
+        private readonly IReadOnlyDictionary<string, DocItem> _items;
+        private readonly DocItem _mainItem;
         private readonly string _filePath;
 
-        private DocumentationWriter(DocItem item, string filePath)
+        public DocumentationWriter(IReadOnlyDictionary<string, DocItem> items, string folderPath, DocItem item)
         {
             if (!_builders.TryDequeue(out _builder))
             {
                 _builder = new StringBuilder(1024);
             }
 
-            _item = item;
-            _filePath = filePath;
+            _items = items;
+            _mainItem = item;
+            _filePath = Path.Combine(folderPath, $"{item.Link}.md");
         }
 
-        public DocumentationWriter(string path, DocItem item)
-            : this(item, Path.Combine(path, $"{item.Link}.md"))
-        { }
+        public static string GetLink(DocItem item) => $"[{item.Name}](./{item.Link}.md '{item.FullName}')";
 
-        public DocumentationWriter(string path, string name)
-            : this(default(DocItem), Path.Combine(path, $"{name.Clean()}.md"))
-        { }
+        public string GetLinkTarget(DocItem item) => $"<a name='{item.Link}'></a>";
+
+        public string GetInnerLink(DocItem item)
+        {
+            DocItem pagedDocItem = item.GetPagedDocItem();
+
+            return $"[{item.Name}]({(_mainItem == pagedDocItem ? string.Empty : $"./{pagedDocItem.Link}.md")}#{item.Link} '{item.FullName}')";
+        }
+
+        public string GetTypeLink(DocItem item, IType type)
+        {
+            IType realType = type is TypeWithElementType tempType ? tempType.ElementType : type;
+            if (realType.Kind == TypeKind.TypeParameter)
+            {
+                return item.TryGetTypeParameterDocItem(realType.Name, out TypeParameterDocItem typeParameter) ? GetInnerLink(typeParameter) : realType.Name;
+            }
+            else if (_items.TryGetValue(realType.GetDefinition().GetIdString(), out DocItem typeDocItem))
+            {
+                return GetLink(typeDocItem);
+            }
+
+            return realType.FullName.AsDotNetApiLink();
+        }
+
+        public string GetLink(string id) => _items.TryGetValue(id, out DocItem reference) ? GetLink(reference) : id.Substring(2).AsDotNetApiLink();
 
         public void WriteLine(string line) => _builder.AppendLine(line);
 
@@ -43,8 +68,94 @@ namespace DefaultDocumentation
 
         public void Break() => _builder.AppendLine();
 
-        public void Write(string title, XElement element, DocItem item, IReadOnlyDictionary<string, DocItem> items)
+        public void WriteHeader()
         {
+            HomeDocItem home = _items.Values.OfType<HomeDocItem>().Single();
+            WriteLine($"#### {GetLink(home)}");
+
+            Stack<DocItem> parents = new Stack<DocItem>();
+            for (DocItem parent = _mainItem.Parent; parent != null; parent = parent.Parent)
+            {
+                parents.Push(parent);
+            }
+
+            if (parents.Count > 0)
+            {
+                WriteLine($"### {string.Join(".", parents.Select(GetLink))}");
+            }
+        }
+
+        public void WritePageTitle(string name, string title) => WriteLine($"## {name} {title}");
+
+        public void WriteChildrenLink<T>(string title)
+            where T : DocItem
+        {
+            bool WriteChildrenLink(DocItem parent, string title)
+            {
+                bool hasTitle = title is null;
+                foreach (DocItem child in _items.Values.Where(i => i.Parent == parent).OrderBy(i => i.Id))
+                {
+                    if (child is T)
+                    {
+                        if (!hasTitle)
+                        {
+                            hasTitle = true;
+                            WriteLine($"### {title}");
+                        }
+
+                        WriteLine($"- {GetLink(child)}");
+                    }
+
+                    hasTitle = WriteChildrenLink(child, null);
+                }
+
+                return hasTitle;
+            }
+
+            WriteChildrenLink(_mainItem, title);
+        }
+
+        public void WriteDocItems(IEnumerable<DocItem> items, string title)
+        {
+            bool hasTitle = false;
+            foreach (DocItem item in items)
+            {
+                if (!hasTitle)
+                {
+                    hasTitle = true;
+                    WriteLine(title);
+                }
+
+                item.WriteDocumentation(this, _items);
+            }
+        }
+
+        public void WriteLinkTarget(DocItem item) => WriteLine($"<a name='{item.Link}'></a>");
+
+        public void Write(DocItem item, XElement element) => Write(null, element, item);
+
+        public void Write(string title, XElement element, DocItem item)
+        {
+            string WriteNodes(IEnumerable<XNode> nodes)
+            {
+                return string.Concat(nodes.Select(node => node switch
+                {
+                    XText text => string.Join("  \n", text.Value.Split('\n')),
+                    XElement element => element.Name.ToString() switch
+                    {
+                        "see" => GetLink(element.GetReferenceName()),
+                        "seealso" => GetLink(element.GetReferenceName()),
+                        "typeparamref" => item.TryGetTypeParameterDocItem(element.GetName(), out TypeParameterDocItem typeParameter) ? GetInnerLink(typeParameter) : element.GetName(),
+                        "paramref" => item.TryGetParameterDocItem(element.GetName(), out ParameterDocItem parameter) ? GetInnerLink(parameter) : element.GetName(),
+                        "c" => $"`{element.Value}`",
+                        "code" => $"```\n{element.Value}\n```\n",
+                        "para" => $"\n\n{WriteNodes(element.Nodes())}\n\n",
+                        _ => element.ToString()
+                    },
+                    _ => throw new Exception($"unhandled node type in summary {node.NodeType}")
+                }));
+            }
+
             if (element is null)
             {
                 return;
@@ -55,79 +166,7 @@ namespace DefaultDocumentation
                 WriteLine(title);
             }
 
-            string summary = string.Empty;
-
-            void WriteNodes(IEnumerable<XNode> nodes)
-            {
-                foreach (XNode node in nodes)
-                {
-                    switch (node)
-                    {
-                        case XText text:
-                            summary += string.Join("  \n", text.Value.Split('\n'));
-                            break;
-
-                        case XElement element:
-                            switch (element.Name.LocalName)
-                            {
-                                case "see":
-                                case "seealso":
-                                    string referenceName = element.GetReferenceName();
-                                    summary +=
-                                        items.TryGetValue(referenceName, out DocItem reference)
-                                        ? reference.GetLink() // need to handle namespace
-                                        : referenceName.Substring(2);//.AsDotNetApiLink();
-                                    break;
-
-                                case "typeparamref":
-                                    DocItem parent = item;
-                                    TypeParameterDocItem typeParameter = null;
-                                    while (parent != null && typeParameter == null)
-                                    {
-                                        if (parent is ITypeParameterizedDocItem typeParameters)
-                                        {
-                                            typeParameter = Array.Find(typeParameters.TypeParameters, i => i.TypeParameter.Name == element.GetName());
-                                        }
-
-                                        parent = parent.Parent;
-                                    }
-
-                                    summary += typeParameter?.GetLinkTarget(IsForThis(typeParameter.Parent)) ?? element.GetName();
-                                    break;
-
-                                case "paramref":
-                                    ParameterDocItem parameter = ((item as IParameterizedDocItem) ?? (item.Parent as IParameterizedDocItem))?.Parameters.FirstOrDefault(i => i.Parameter.Name == element.GetName());
-
-                                    summary += parameter?.GetLinkTarget(IsForThis(parameter.Parent)) ?? element.GetName();
-                                    break;
-
-                                case "c":
-                                    summary += $"`{element.Value}`";
-                                    break;
-
-                                case "code":
-                                    summary += $"```{element.Value}```\n";
-                                    break;
-
-                                case "para":
-                                    summary += "\n\n";
-                                    WriteNodes(element.Nodes());
-                                    summary += "\n\n";
-                                    break;
-
-                                default:
-                                    summary += element.ToString();
-                                    break;
-                            }
-                            break;
-
-                        default:
-                            throw new Exception($"unhandled node type in summary {node.NodeType}");
-                    }
-                }
-            }
-
-            WriteNodes(element.Nodes());
+            string summary = WriteNodes(element.Nodes());
 
             string[] lines = summary.Split('\n');
             int startIndex = 0;
@@ -150,27 +189,10 @@ namespace DefaultDocumentation
                 summary = summary.Substring(0, summary.Length - Environment.NewLine.Length);
             }
 
-            WriteLine(summary.TrimEnd());
+            WriteLine(summary.TrimEnd() + "  ");
         }
 
-        public void Write(XElement element, DocItem item, IReadOnlyDictionary<string, DocItem> items) => Write(null, element, item, items);
-
-        public void WriteHeader(DocItem item, IReadOnlyDictionary<string, DocItem> items)
-        {
-            HomeDocItem home = items.Values.OfType<HomeDocItem>().Single();
-            WriteLine($"#### {home.GetLink()}");
-
-            DocItem parent = item.Parent;
-            Stack<DocItem> parents = new Stack<DocItem>();
-            while (parent != null)
-            {
-                parents.Push(parent);
-                parent = parent.Parent;
-            }
-            WriteLine($"### {string.Join(".", parents.Select(i => i.GetLink(i is TypeDocItem)))}");
-        }
-
-        public void WriteExceptions(DocItem item, IReadOnlyDictionary<string, DocItem> items)
+        public void WriteExceptions(DocItem item)
         {
             bool hasTitle = false;
             foreach (XElement exception in item.Documentation.GetExceptions())
@@ -184,16 +206,13 @@ namespace DefaultDocumentation
                 string typeName = exception.GetReferenceName();
 
                 Write(
-                    items.TryGetValue(typeName, out DocItem type)
-                    ? type.GetLink()
-                    : typeName.Substring(2));//.AsDotNetApiLink());
+                    _items.TryGetValue(typeName, out DocItem type)
+                    ? GetLink(type)
+                    : typeName.Substring(2).AsDotNetApiLink());
                 WriteLine("  ");
-                Write(exception, item, items);
-                Break();
+                Write(item, exception);
             }
         }
-
-        public bool IsForThis(DocItem item) => _item == item;
 
         public void Dispose()
         {

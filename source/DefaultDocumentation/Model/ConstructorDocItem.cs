@@ -2,12 +2,29 @@
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Helper;
+using ICSharpCode.Decompiler.CSharp.OutputVisitor;
+using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Model
 {
     internal sealed class ConstructorDocItem : DocItem, IParameterizedDocItem
     {
+        private static readonly CSharpAmbience CodeAmbience = new CSharpAmbience
+        {
+            ConversionFlags =
+                ConversionFlags.ShowAccessibility
+                | ConversionFlags.ShowBody
+                | ConversionFlags.ShowModifiers
+                | ConversionFlags.ShowParameterList
+                | ConversionFlags.ShowParameterModifiers
+                | ConversionFlags.ShowParameterNames
+                | ConversionFlags.ShowReturnType
+                | ConversionFlags.ShowTypeParameterList
+                | ConversionFlags.ShowTypeParameterVarianceModifier
+                | ConversionFlags.UseFullyQualifiedTypeNames
+        };
+
         public IMethod Method { get; }
         public ParameterDocItem[] Parameters { get; }
 
@@ -20,30 +37,23 @@ namespace DefaultDocumentation.Model
 
         public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)
         {
-            writer.WriteHeader(this, items);
+            writer.WriteHeader();
+            writer.WritePageTitle(Name, "Constructor");
 
-            writer.WriteLine($"## {Name} Constructor");
+            writer.Write(this, Documentation.GetSummary());
 
-            writer.Write(Documentation.GetSummary(), this, items);
-
-            // code
+            writer.WriteLine("```C#");
+            writer.WriteLine(CodeAmbience.ConvertSymbol(Method));
+            writer.WriteLine("```");
 
             // attributes
 
-            if (Parameters.Length > 0)
-            {
-                writer.WriteLine("#### Parameters");
-                foreach (ParameterDocItem item in Parameters)
-                {
-                    item.WriteDocumentation(writer, items);
-                    writer.Break();
-                }
-            }
+            writer.WriteDocItems(Parameters, "#### Parameters");
 
-            writer.WriteExceptions(this, items);
+            writer.WriteExceptions(this);
 
-            writer.Write("### Example", Documentation.GetExample(), this, items);
-            writer.Write("### Remarks", Documentation.GetRemarks(), this, items);
+            writer.Write("### Example", Documentation.GetExample(), this);
+            writer.Write("### Remarks", Documentation.GetRemarks(), this);
         }
     }
 }

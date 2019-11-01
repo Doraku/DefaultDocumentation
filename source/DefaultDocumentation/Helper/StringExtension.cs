@@ -4,23 +4,20 @@ namespace DefaultDocumentation.Helper
 {
     internal static class StringExtension
     {
-        private static readonly IReadOnlyDictionary<char, char> _invalidChars = new Dictionary<char, char>
+        private static readonly IReadOnlyDictionary<string, string> _invalidStrings = new Dictionary<string, string>
         {
-            [':'] = '-',
-            ['.'] = '-',
-            [','] = '-',
-            ['#'] = '-',
-            ['['] = '-',
-            [']'] = '-',
-            ['`'] = '-',
-            ['@'] = '-',
+            [" "] = string.Empty,
+            [","] = "_",
+            ["."] = "-",
+            ["["] = "-",
+            ["]"] = "-",
+            ["&lt;"] = "-",
+            ["&gt;"] = "-",
         };
-
-        private static string CleanForDotNetApiLink(this string value) => value.Replace('`', '-');
 
         public static string Clean(this string value)
         {
-            foreach (KeyValuePair<char, char> pair in _invalidChars)
+            foreach (KeyValuePair<string, string> pair in _invalidStrings)
             {
                 value = value.Replace(pair.Key, pair.Value);
             }
@@ -36,7 +33,7 @@ namespace DefaultDocumentation.Helper
                 name = $"{name.Substring(0, name.IndexOf('`'))}&lt;&gt;";
             }
 
-            return $"[{name}](https://docs.microsoft.com/en-us/dotnet/api/{value.CleanForDotNetApiLink()} '{name}')";
+            return $"[{name}](https://docs.microsoft.com/en-us/dotnet/api/{value.Replace('`', '-')} '{name}')";
         }
     }
 }
