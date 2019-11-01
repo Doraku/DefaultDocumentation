@@ -16,6 +16,7 @@ namespace DefaultDocumentation.Model
                 ConversionFlags.ShowAccessibility
                 | ConversionFlags.ShowBody
                 | ConversionFlags.ShowModifiers
+                | ConversionFlags.ShowParameterDefaultValues
                 | ConversionFlags.ShowParameterList
                 | ConversionFlags.ShowParameterModifiers
                 | ConversionFlags.ShowParameterNames
