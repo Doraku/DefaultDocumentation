@@ -28,12 +28,24 @@ namespace DefaultDocumentation.Helper
         public static string AsDotNetApiLink(this string value, string displayedName = null)
         {
             displayedName ??= value;
-            if (displayedName.Contains("`"))
+
+            int genericIndex = displayedName.IndexOf('`');
+            if (genericIndex > 0)
             {
-                displayedName = $"{displayedName.Substring(0, displayedName.IndexOf('`'))}&lt;&gt;"; // probably a problem for link to generic method
+                int memberIndex = displayedName.IndexOf('.', genericIndex);
+                displayedName = $"{displayedName.Substring(0, genericIndex)}&lt;&gt;{(memberIndex > 0 ? displayedName.Substring(memberIndex) : string.Empty)}";
             }
 
-            return $"[{displayedName}](https://docs.microsoft.com/en-us/dotnet/api/{value.Replace('`', '-')} '{value}')";
+            string link = value;
+            int parametersIndex = link.IndexOf("(");
+            if (parametersIndex > 0)
+            {
+                string methodName = link.Substring(0, parametersIndex);
+
+                link = $"{methodName}#{link.Replace('.', '_').Replace('`', '_').Replace('(', '_').Replace(')', '_')}";
+            }
+
+            return $"[{displayedName}](https://docs.microsoft.com/en-us/dotnet/api/{link.Replace('`', '-')} '{value}')";
         }
     }
 }

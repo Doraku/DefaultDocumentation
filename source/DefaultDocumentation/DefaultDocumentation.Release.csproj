@@ -12,6 +12,7 @@
 added parameters default value in generated code example
 
 fixed generic type and array link generation
+fixed dotnet api link for generic and parameterized members
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>
