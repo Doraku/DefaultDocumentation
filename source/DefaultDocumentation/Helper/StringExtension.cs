@@ -25,15 +25,15 @@ namespace DefaultDocumentation.Helper
             return value;
         }
 
-        public static string AsDotNetApiLink(this string value)
+        public static string AsDotNetApiLink(this string value, string displayedName = null)
         {
-            string name = value;
-            if (name.Contains("`"))
+            displayedName ??= value;
+            if (displayedName.Contains("`"))
             {
-                name = $"{name.Substring(0, name.IndexOf('`'))}&lt;&gt;";
+                displayedName = $"{displayedName.Substring(0, displayedName.IndexOf('`'))}&lt;&gt;"; // probably a problem for link to generic method
             }
 
-            return $"[{name}](https://docs.microsoft.com/en-us/dotnet/api/{value.Replace('`', '-')} '{name}')";
+            return $"[{displayedName}](https://docs.microsoft.com/en-us/dotnet/api/{value.Replace('`', '-')} '{value}')";
         }
     }
 }

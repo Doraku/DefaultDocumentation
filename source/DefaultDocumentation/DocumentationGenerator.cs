@@ -17,8 +17,10 @@ namespace DefaultDocumentation
 
         public DocumentationGenerator(string assemblyFilePath, string documentationFilePath)
         {
-            _decompiler = new CSharpDecompiler(assemblyFilePath, new DecompilerSettings());
-            _decompiler.DocumentationProvider = new XmlDocumentationProvider(documentationFilePath);
+            _decompiler = new CSharpDecompiler(assemblyFilePath, new DecompilerSettings())
+            {
+                DocumentationProvider = new XmlDocumentationProvider(documentationFilePath)
+            };
 
             _docItems = new Dictionary<string, DocItem>();
 

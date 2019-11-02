@@ -34,7 +34,7 @@ namespace DefaultDocumentation
             _filePath = Path.Combine(folderPath, $"{item.Link}.md");
         }
 
-        public static string GetLink(DocItem item) => $"[{item.Name}](./{item.Link}.md '{item.FullName}')";
+        public static string GetLink(DocItem item, string displayedName = null) => $"[{displayedName ?? item.Name}](./{item.Link}.md '{item.FullName}')";
 
         public string GetLinkTarget(DocItem item) => $"<a name='{item.Link}'></a>";
 
@@ -47,17 +47,28 @@ namespace DefaultDocumentation
 
         public string GetTypeLink(DocItem item, IType type)
         {
-            IType realType = type is TypeWithElementType tempType ? tempType.ElementType : type;
-            if (realType.Kind == TypeKind.TypeParameter)
+            string HandleParameterizedType(ParameterizedType genericType)
             {
-                return item.TryGetTypeParameterDocItem(realType.Name, out TypeParameterDocItem typeParameter) ? GetInnerLink(typeParameter) : realType.Name;
-            }
-            else if (_items.TryGetValue(realType.GetDefinition().GetIdString(), out DocItem typeDocItem))
-            {
-                return GetLink(typeDocItem);
+                if (_items.TryGetValue(genericType.GetDefinition().GetIdString(), out DocItem docItem) && docItem is TypeDocItem typeDocItem)
+                {
+                    return GetLink(docItem, typeDocItem.Type.FullName + "&lt;")
+                        + string.Join(GetLink(docItem, ","), genericType.TypeArguments.Select(t => GetTypeLink(item, t)))
+                        + GetLink(docItem, "&gt;");
+                }
+
+                return genericType.GenericType.ReflectionName.AsDotNetApiLink(genericType.FullName + "&lt;")
+                    + string.Join(genericType.GenericType.ReflectionName.AsDotNetApiLink(","), genericType.TypeArguments.Select(t => GetTypeLink(item, t)))
+                    + genericType.GenericType.ReflectionName.AsDotNetApiLink("&gt;");
             }
 
-            return realType.FullName.AsDotNetApiLink();
+            return type.Kind switch
+            {
+                TypeKind.Array when type is TypeWithElementType arrayType => GetTypeLink(item, arrayType.ElementType) + "System.Array".AsDotNetApiLink("[]"),
+                TypeKind.ByReference when type is TypeWithElementType innerType => GetTypeLink(item, innerType.ElementType),
+                TypeKind.TypeParameter => item.TryGetTypeParameterDocItem(type.Name, out TypeParameterDocItem typeParameter) ? GetInnerLink(typeParameter) : type.Name,
+                _ when type is ParameterizedType genericType => HandleParameterizedType(genericType),
+                _ => _items.TryGetValue(type.GetDefinition().GetIdString(), out DocItem typeDocItem) ? GetLink(typeDocItem) : type.FullName.AsDotNetApiLink()
+            };
         }
 
         public string GetLink(string id) => _items.TryGetValue(id, out DocItem reference) ? GetLink(reference) : id.Substring(2).AsDotNetApiLink();
@@ -81,7 +92,7 @@ namespace DefaultDocumentation
 
             if (parents.Count > 0)
             {
-                WriteLine($"### {string.Join(".", parents.Select(GetLink))}");
+                WriteLine($"### {string.Join(".", parents.Select(p => GetLink(p)))}");
             }
         }
 

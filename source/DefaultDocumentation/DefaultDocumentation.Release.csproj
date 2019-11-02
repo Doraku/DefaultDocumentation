@@ -10,6 +10,8 @@
     <Version>0.5.0</Version>
     <PackageReleaseNotes>
 added parameters default value in generated code example
+
+fixed generic type and array link generation
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>
