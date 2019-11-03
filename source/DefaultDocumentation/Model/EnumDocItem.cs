@@ -33,10 +33,10 @@ namespace DefaultDocumentation.Model
             writer.Write(this, Documentation.GetSummary());
 
             writer.WriteLine("```C#");
-            writer.WriteLine(CodeAmbience.ConvertSymbol(Type));
+            writer.Write(CodeAmbience.ConvertSymbol(Type));
+            IType enumType = Type.GetEnumUnderlyingType();
+            writer.WriteLine(enumType.IsKnownType(KnownTypeCode.Int32) ? string.Empty : $" : {enumType.FullName}");
             writer.WriteLine("```");
-
-            //inheritance
 
             // attribute
 

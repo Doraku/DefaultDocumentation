@@ -21,6 +21,11 @@ namespace DefaultDocumentation.Model
                 | ConversionFlags.ShowTypeParameterVarianceModifier
         };
 
+        private static readonly CSharpAmbience BaseTypeAmbience = new CSharpAmbience
+        {
+            ConversionFlags = ConversionFlags.ShowTypeParameterList
+        };
+
         public ITypeDefinition Type { get; }
 
         public TypeParameterDocItem[] TypeParameters { get; }
@@ -39,15 +44,44 @@ namespace DefaultDocumentation.Model
 
             writer.Write(this, Documentation.GetSummary());
 
+            List<IType> interfaces = Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface).ToList();
+
             writer.WriteLine("```C#");
-            writer.WriteLine(CodeAmbience.ConvertSymbol(Type));
+            writer.Write(CodeAmbience.ConvertSymbol(Type));
+            IType baseType = Type.DirectBaseTypes.FirstOrDefault(t => t.Kind == TypeKind.Class && !t.IsKnownType(KnownTypeCode.Object) && !t.IsKnownType(KnownTypeCode.ValueType));
+            if (baseType != null)
+            {
+                writer.Write(" : ");
+                writer.Write(BaseTypeAmbience.ConvertType(baseType));
+            }
+            foreach (IType @interface in interfaces)
+            {
+                writer.WriteLine(baseType is null ? " :" : ",");
+                baseType = Type;
+                writer.Write(BaseTypeAmbience.ConvertType(@interface));
+            }
+            writer.Break();
             writer.WriteLine("```");
 
-            //inheritance
+            if (Type.Kind == TypeKind.Class)
+            {
+                writer.Write("Inheritance ");
+                writer.Write(string.Join(" &gt; ", Type.GetNonInterfaceBaseTypes().Select(t => writer.GetTypeLink(this, t))));
+                writer.WriteLine("  ");
+                if (interfaces.Count > 0)
+                {
+                    writer.Break();
+                }
+            }
 
             // attribute
 
-            // implements
+            if (interfaces.Count > 0)
+            {
+                writer.Write("Implements ");
+                writer.Write(string.Join(", ", interfaces.Select(t => writer.GetTypeLink(this, t))));
+                writer.WriteLine("  ");
+            }
 
             writer.WriteDocItems(TypeParameters, "#### Type parameters");
 
