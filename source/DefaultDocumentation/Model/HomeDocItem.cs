@@ -1,16 +1,22 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Linq;
+using DefaultDocumentation.Helper;
 
 namespace DefaultDocumentation.Model
 {
     internal sealed class HomeDocItem : DocItem
     {
-        public HomeDocItem(string name)
-            : base(null, string.Empty, "index", name, null)
+        public HomeDocItem(string name, XElement documentation)
+            : base(null, string.Empty, "index", name, documentation)
         { }
 
         public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)
         {
             writer.WriteHeader();
+
+            writer.Write(this, Documentation.GetSummary());
+
+            writer.Write("### Remarks", Documentation.GetRemarks(), this);
 
             writer.WriteChildrenLink<NamespaceDocItem>("Namespaces");
         }

@@ -13,14 +13,13 @@ namespace DefaultDocumentation
     internal sealed class DocumentationGenerator
     {
         private readonly CSharpDecompiler _decompiler;
+        private readonly XmlDocumentationProvider _documentationProvider;
         private readonly Dictionary<string, DocItem> _docItems;
 
         public DocumentationGenerator(string assemblyFilePath, string documentationFilePath)
         {
-            _decompiler = new CSharpDecompiler(assemblyFilePath, new DecompilerSettings())
-            {
-                DocumentationProvider = new XmlDocumentationProvider(documentationFilePath)
-            };
+            _decompiler = new CSharpDecompiler(assemblyFilePath, new DecompilerSettings());
+            _documentationProvider = new XmlDocumentationProvider(documentationFilePath);
 
             _docItems = new Dictionary<string, DocItem>();
 
@@ -32,25 +31,30 @@ namespace DefaultDocumentation
 
         private IEnumerable<DocItem> GetDocItems()
         {
+            static XElement ConvertToDocumentation(string documentationString) => documentationString is null ? null : XElement.Parse($"<doc>{documentationString}</doc>");
+
             bool TryGetDocumentation(IEntity entity, out XElement documentation)
             {
-                string documentationString = _decompiler.DocumentationProvider.GetDocumentation(entity);
-                documentation = documentationString is null ? null : XElement.Parse($"<doc>{documentationString}</doc>");
+                documentation = ConvertToDocumentation(_documentationProvider.GetDocumentation(entity));
 
                 return documentation != null;
             }
 
-            HomeDocItem homeDocItem = new HomeDocItem(_decompiler.TypeSystem.MainModule.AssemblyName);
+            HomeDocItem homeDocItem = new HomeDocItem(_decompiler.TypeSystem.MainModule.AssemblyName, null);
             yield return homeDocItem;
 
-            foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions)
+            foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(t => t.Name != "NamespaceDoc"))
             {
                 if (TryGetDocumentation(type, out XElement documentation))
                 {
                     string namespaceId = $"N:{type.Namespace}";
                     if (!_docItems.TryGetValue(type.DeclaringType?.GetDefinition().GetIdString() ?? namespaceId, out DocItem parentDocItem))
                     {
-                        parentDocItem = new NamespaceDocItem(homeDocItem, type.Namespace);
+                        parentDocItem = new NamespaceDocItem(
+                            homeDocItem,
+                            type.Namespace,
+                            ConvertToDocumentation(_documentationProvider.GetDocumentation(namespaceId) ?? _documentationProvider.GetDocumentation($"T:{type.Namespace}.NamespaceDoc")));
+
                         yield return parentDocItem;
                     }
 
