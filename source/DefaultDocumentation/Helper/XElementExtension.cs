@@ -13,13 +13,13 @@ namespace DefaultDocumentation.Helper
 
         public static IEnumerable<XElement> GetExceptions(this XElement element) => element?.Elements("exception");
 
-        public static XElement GetReturns(this XElement element) => element.Element("returns");
+        public static XElement GetReturns(this XElement element) => element?.Element("returns");
 
         public static XElement GetRemarks(this XElement element) => element?.Element("remarks");
 
-        public static XElement GetExample(this XElement element) => element.Element("example");
+        public static XElement GetExample(this XElement element) => element?.Element("example");
 
-        public static XElement GetValue(this XElement element) => element.Element("value");
+        public static XElement GetValue(this XElement element) => element?.Element("value");
 
         public static string GetName(this XElement element) => element?.Attribute("name")?.Value;
 

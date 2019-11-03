@@ -54,7 +54,7 @@ namespace DefaultDocumentation.Model
             {
                 writer.WriteLine("#### Returns");
                 writer.WriteLine(writer.GetTypeLink(this, Property.ReturnType) + "  ");
-                writer.Write(this, Documentation.GetReturns());
+                writer.Write(this, Documentation.GetValue());
             }
 
             writer.WriteExceptions(this);

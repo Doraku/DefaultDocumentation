@@ -14,6 +14,7 @@ added inheritance and implementation type information
 
 fixed generic type and array link generation
 fixed dotnet api link for generic and parameterized members
+fixed Property documentation using return element instead of value element
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>
