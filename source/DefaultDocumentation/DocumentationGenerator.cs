@@ -45,48 +45,58 @@ namespace DefaultDocumentation
 
             foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(t => t.Name != "NamespaceDoc"))
             {
-                if (TryGetDocumentation(type, out XElement documentation))
-                {
-                    string namespaceId = $"N:{type.Namespace}";
-                    if (!_docItems.TryGetValue(type.DeclaringType?.GetDefinition().GetIdString() ?? namespaceId, out DocItem parentDocItem))
-                    {
-                        parentDocItem = new NamespaceDocItem(
-                            homeDocItem,
-                            type.Namespace,
-                            ConvertToDocumentation(_documentationProvider.GetDocumentation(namespaceId) ?? _documentationProvider.GetDocumentation($"T:{type.Namespace}.NamespaceDoc")));
+                bool showType = TryGetDocumentation(type, out XElement documentation);
+                bool newNamespace = false;
 
+                string namespaceId = $"N:{type.Namespace}";
+                if (!_docItems.TryGetValue(type.DeclaringType?.GetDefinition().GetIdString() ?? namespaceId, out DocItem parentDocItem))
+                {
+                    newNamespace = true;
+
+                    parentDocItem = new NamespaceDocItem(
+                        homeDocItem,
+                        type.Namespace,
+                        ConvertToDocumentation(_documentationProvider.GetDocumentation(namespaceId) ?? _documentationProvider.GetDocumentation($"T:{type.Namespace}.NamespaceDoc")));
+                }
+
+                TypeDocItem typeDocItem = type.Kind switch
+                {
+                    TypeKind.Class => new ClassDocItem(parentDocItem, type, documentation),
+                    TypeKind.Struct => new StructDocItem(parentDocItem, type, documentation),
+                    TypeKind.Interface => new InterfaceDocItem(parentDocItem, type, documentation),
+                    TypeKind.Enum => new EnumDocItem(parentDocItem, type, documentation),
+                    TypeKind.Delegate => new DelegateDocItem(parentDocItem, type, documentation),
+                    _ => throw new NotSupportedException()
+                };
+
+                foreach (IEntity entity in Enumerable.Empty<IEntity>().Concat(type.Fields).Concat(type.Properties).Concat(type.Methods).Concat(type.Events))
+                {
+                    if (TryGetDocumentation(entity, out documentation))
+                    {
+                        showType = true;
+
+                        yield return entity switch
+                        {
+                            IField field when typeDocItem is EnumDocItem enumDocItem => new EnumFieldDocItem(enumDocItem, field, documentation),
+                            IField field => new FieldDocItem(typeDocItem, field, documentation),
+                            IProperty property => new PropertyDocItem(typeDocItem, property, documentation),
+                            IMethod method when method.IsConstructor => new ConstructorDocItem(typeDocItem, method, documentation),
+                            IMethod method when method.IsOperator => new OperatorDocItem(typeDocItem, method, documentation),
+                            IMethod method => new MethodDocItem(typeDocItem, method, documentation),
+                            IEvent @event => new EventDocItem(typeDocItem, @event, documentation),
+                            _ => throw new NotSupportedException()
+                        };
+                    }
+                }
+
+                if (showType)
+                {
+                    if (newNamespace)
+                    {
                         yield return parentDocItem;
                     }
 
-                    TypeDocItem typeDocItem = type.Kind switch
-                    {
-                        TypeKind.Class => new ClassDocItem(parentDocItem, type, documentation),
-                        TypeKind.Struct => new StructDocItem(parentDocItem, type, documentation),
-                        TypeKind.Interface => new InterfaceDocItem(parentDocItem, type, documentation),
-                        TypeKind.Enum => new EnumDocItem(parentDocItem, type, documentation),
-                        TypeKind.Delegate => new DelegateDocItem(parentDocItem, type, documentation),
-                        _ => throw new NotSupportedException()
-                    };
-
                     yield return typeDocItem;
-
-                    foreach (IEntity entity in Enumerable.Empty<IEntity>().Concat(type.Fields).Concat(type.Properties).Concat(type.Methods).Concat(type.Events))
-                    {
-                        if (TryGetDocumentation(entity, out documentation))
-                        {
-                            yield return entity switch
-                            {
-                                IField field when typeDocItem is EnumDocItem enumDocItem => new EnumFieldDocItem(enumDocItem, field, documentation),
-                                IField field => new FieldDocItem(typeDocItem, field, documentation),
-                                IProperty property => new PropertyDocItem(typeDocItem, property, documentation),
-                                IMethod method when method.IsConstructor => new ConstructorDocItem(typeDocItem, method, documentation),
-                                IMethod method when method.IsOperator => new OperatorDocItem(typeDocItem, method, documentation),
-                                IMethod method => new MethodDocItem(typeDocItem, method, documentation),
-                                IEvent @event => new EventDocItem(typeDocItem, @event, documentation),
-                                _ => throw new NotSupportedException()
-                            };
-                        }
-                    }
                 }
             }
         }

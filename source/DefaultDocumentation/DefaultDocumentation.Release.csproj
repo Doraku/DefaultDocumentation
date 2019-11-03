@@ -16,6 +16,7 @@ added namespace documentation through special named class NamespaceDoc
 fixed generic type and array link generation
 fixed dotnet api link for generic and parameterized members
 fixed Property documentation using return element instead of value element
+fixed decorated member documentation not generated if parent type is not decorated
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>
