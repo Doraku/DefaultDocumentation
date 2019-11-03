@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using DefaultDocumentation.Helper;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
 using ICSharpCode.Decompiler.Output;
@@ -26,7 +25,7 @@ namespace DefaultDocumentation.Model
             Event = @event;
         }
 
-        public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)
+        public override void WriteDocumentation(DocumentationWriter writer)
         {
             writer.WriteHeader();
             writer.WritePageTitle($"{Parent.Name}.{Name}", "Event");

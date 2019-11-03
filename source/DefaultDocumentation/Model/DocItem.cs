@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using DefaultDocumentation.Helper;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
 using ICSharpCode.Decompiler.Documentation;
@@ -51,6 +50,6 @@ namespace DefaultDocumentation.Model
             : this(parent, entity.GetIdString(), FullNameAmbience.ConvertSymbol(entity), NameAmbience.ConvertSymbol(entity), documentation)
         { }
 
-        public abstract void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items);
+        public abstract void WriteDocumentation(DocumentationWriter writer);
     }
 }

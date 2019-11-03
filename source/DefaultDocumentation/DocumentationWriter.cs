@@ -137,10 +137,14 @@ namespace DefaultDocumentation
                     WriteLine(title);
                 }
 
-                item.WriteDocumentation(this, _items);
+                item.WriteDocumentation(this);
                 WriteLine("  ");
             }
         }
+
+        public void WriteDocItems<T>(string title)
+            where T : DocItem
+            => WriteDocItems(_items.Values.OfType<T>().Where(i => i.Parent == _mainItem), title);
 
         public void WriteLinkTarget(DocItem item) => WriteLine($"<a name='{item.Link}'></a>");
 

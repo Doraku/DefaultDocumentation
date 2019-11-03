@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Helper;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
@@ -40,7 +39,7 @@ namespace DefaultDocumentation.Model
             Parameters = method.Parameters.Select(p => new ParameterDocItem(this, p, documentation)).ToArray();
         }
 
-        public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)
+        public override void WriteDocumentation(DocumentationWriter writer)
         {
             writer.WriteHeader();
             writer.WritePageTitle($"{Parent.Name}.{Name}", "Method");

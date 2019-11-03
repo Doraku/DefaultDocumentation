@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using DefaultDocumentation.Helper;
 
 namespace DefaultDocumentation.Model
@@ -10,7 +9,7 @@ namespace DefaultDocumentation.Model
             : base(parent, $"N:{name}", name, name, documentation)
         { }
 
-        public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)
+        public override void WriteDocumentation(DocumentationWriter writer)
         {
             writer.WriteHeader();
             writer.WritePageTitle(Name, "Namespace");

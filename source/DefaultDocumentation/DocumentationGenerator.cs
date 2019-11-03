@@ -107,7 +107,7 @@ namespace DefaultDocumentation
             {
                 using DocumentationWriter writer = new DocumentationWriter(_docItems, outputFolderPath, i);
 
-                i.WriteDocumentation(writer, _docItems);
+                i.WriteDocumentation(writer);
             });
         }
     }

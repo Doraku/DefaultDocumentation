@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Helper;
 using ICSharpCode.Decompiler.TypeSystem;
@@ -18,7 +17,7 @@ namespace DefaultDocumentation.Model
 
         public override bool GeneratePage => false;
 
-        public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)
+        public override void WriteDocumentation(DocumentationWriter writer)
         {
             writer.WriteLinkTarget(this);
             writer.WriteLine($"`{TypeParameter.Name}`  ");

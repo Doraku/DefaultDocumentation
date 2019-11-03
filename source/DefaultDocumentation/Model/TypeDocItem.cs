@@ -37,7 +37,7 @@ namespace DefaultDocumentation.Model
             TypeParameters = Type.TypeParameters.Select(p => new TypeParameterDocItem(this, p, documentation)).ToArray();
         }
 
-        public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)
+        public override void WriteDocumentation(DocumentationWriter writer)
         {
             writer.WriteHeader();
             writer.WritePageTitle(Name, Type.Kind.ToString());

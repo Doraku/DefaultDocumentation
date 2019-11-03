@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using DefaultDocumentation.Helper;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
 using ICSharpCode.Decompiler.Output;
@@ -25,7 +23,7 @@ namespace DefaultDocumentation.Model
             : base(parent, type, documentation)
         { }
 
-        public override void WriteDocumentation(DocumentationWriter writer, IReadOnlyDictionary<string, DocItem> items)
+        public override void WriteDocumentation(DocumentationWriter writer)
         {
             writer.WriteHeader();
             writer.WritePageTitle(Name, Type.Kind.ToString());
@@ -40,7 +38,7 @@ namespace DefaultDocumentation.Model
 
             // attribute
 
-            writer.WriteDocItems(items.Values.OfType<EnumFieldDocItem>().Where(i => i.Parent == this), "### Fields");
+            writer.WriteDocItems<EnumFieldDocItem>("### Fields");
 
             writer.Write("### Example", Documentation.GetExample(), this);
             writer.Write("### Remarks", Documentation.GetRemarks(), this);
