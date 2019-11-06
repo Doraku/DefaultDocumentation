@@ -9,14 +9,7 @@
   <PropertyGroup Label="Package">
     <Version>0.5.1</Version>
     <PackageReleaseNotes>
-added parameters default value in generated code example
-added inheritance and implementation type information
-added namespace documentation through special named class NamespaceDoc
-
-fixed generic type and array link generation
-fixed dotnet api link for generic and parameterized members
-fixed Property documentation using return element instead of value element
-fixed decorated member documentation not generated if parent type is not decorated
+fixed Property Returns title to Property Value
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>
