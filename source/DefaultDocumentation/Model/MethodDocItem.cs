@@ -46,7 +46,7 @@ namespace DefaultDocumentation.Model
 
             writer.Write(this, Documentation.GetSummary());
 
-            writer.WriteLine("```C#");
+            writer.WriteLine("```csharp");
             writer.WriteLine(CodeAmbience.ConvertSymbol(Method));
             writer.WriteLine("```");
 

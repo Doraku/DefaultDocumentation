@@ -46,7 +46,7 @@ namespace DefaultDocumentation.Model
 
             List<IType> interfaces = Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface).ToList();
 
-            writer.WriteLine("```C#");
+            writer.WriteLine("```csharp");
             writer.Write(CodeAmbience.ConvertSymbol(Type));
             IType baseType = Type.DirectBaseTypes.FirstOrDefault(t => t.Kind == TypeKind.Class && !t.IsKnownType(KnownTypeCode.Object) && !t.IsKnownType(KnownTypeCode.ValueType));
             if (baseType != null)
