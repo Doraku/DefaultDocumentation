@@ -9,7 +9,7 @@
       <DocumentationFile Condition="'$(DocumentationFile)' != ''">$([System.IO.Path]::GetFullPath($(DocumentationFile)))</DocumentationFile>
       <DefaultDocumentationFolder Condition="'$(DefaultDocumentationFolder)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationFolder)))</DefaultDocumentationFolder>
       
-      <DefaultDocumentationCommand>$(DefaultDocumentationTool) /assembly:"$(TargetPath)" /xml:"$(DocumentationFile)" /output:"$(DefaultDocumentationFolder)"</DefaultDocumentationCommand>
+      <DefaultDocumentationCommand>$(DefaultDocumentationTool) /assembly:"$(TargetPath)" /xml:"$(DocumentationFile)" /output:"$(DefaultDocumentationFolder)" /home:"$(DefaultDocumentationHome)"</DefaultDocumentationCommand>
     </PropertyGroup>
     <Exec Command="$(DefaultDocumentationCommand)"/>
   </Target>

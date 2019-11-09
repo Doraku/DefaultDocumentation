@@ -12,6 +12,7 @@
 fixed Property Returns title to Property Value
 
 added assembly documentation for home page through special named type AssemblyDoc
+added DefaultDocumentationHome element to change home file name
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>

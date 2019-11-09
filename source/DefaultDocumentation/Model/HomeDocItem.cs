@@ -5,8 +5,8 @@ namespace DefaultDocumentation.Model
 {
     internal sealed class HomeDocItem : DocItem
     {
-        public HomeDocItem(string name, XElement documentation)
-            : base(null, string.Empty, "index", name, documentation)
+        public HomeDocItem(string pageName, string name, XElement documentation)
+            : base(null, string.Empty, pageName, name, documentation)
         { }
 
         public override void WriteDocumentation(DocumentationWriter writer)

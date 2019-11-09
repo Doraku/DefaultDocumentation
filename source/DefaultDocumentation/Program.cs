@@ -5,37 +5,34 @@ namespace DefaultDocumentation
 {
     internal static class Program
     {
-        private static void PrintHelp()
-        {
-            Console.WriteLine("parameters:");
-            Console.WriteLine("\t/assembly:{assembly file path}");
-            Console.WriteLine("\t/xml:{xml documentation file path}");
-            Console.WriteLine("\t/output:{DefaultDocumentation output folder}");
-        }
-
         private static void Main(string[] args)
         {
             FileInfo assembly = null;
-            FileInfo documentation = null;
-            DirectoryInfo directory = null;
+            FileInfo xml = null;
+            DirectoryInfo output = null;
+            string home = null;
 
             foreach (string arg in args)
             {
-                if (arg.StartsWith("/assembly:"))
+                if (TryGetArgValue(arg, nameof(assembly), out string argValue))
                 {
-                    assembly = new FileInfo(arg.Substring(10));
+                    assembly = new FileInfo(argValue);
                 }
-                else if (arg.StartsWith("/xml:"))
+                else if (TryGetArgValue(arg, nameof(xml), out argValue))
                 {
-                    documentation = new FileInfo(arg.Substring(5));
+                    xml = new FileInfo(argValue);
                 }
-                else if (arg.StartsWith("/output:") && !string.IsNullOrWhiteSpace(arg.Substring(8)))
+                else if (TryGetArgValue(arg, nameof(output), out argValue) && !string.IsNullOrWhiteSpace(argValue))
                 {
-                    directory = new DirectoryInfo(arg.Substring(8));
+                    output = new DirectoryInfo(argValue);
+                }
+                else if (TryGetArgValue(arg, nameof(home), out argValue) && !string.IsNullOrWhiteSpace(argValue))
+                {
+                    home = argValue;
                 }
             }
 
-            if (assembly is null || documentation is null)
+            if (assembly is null || xml is null)
             {
                 PrintHelp();
                 return;
@@ -45,27 +42,49 @@ namespace DefaultDocumentation
                 Console.WriteLine($"assembly file \"{assembly.FullName}\" not found");
                 return;
             }
-            else if (!documentation.Exists)
+            else if (!xml.Exists)
             {
-                Console.WriteLine($"documentation file \"{documentation.FullName}\" not found");
+                Console.WriteLine($"documentation file \"{xml.FullName}\" not found");
                 return;
             }
 
-            directory ??= documentation.Directory;
+            output ??= xml.Directory;
+            home ??= "index";
 
-            if (directory.Exists)
+            if (output.Exists)
             {
-                foreach (FileInfo file in directory.GetFiles("*.md"))
+                foreach (FileInfo file in output.GetFiles("*.md"))
                 {
                     file.Delete();
                 }
             }
             else
             {
-                directory.Create();
+                output.Create();
             }
 
-            new DocumentationGenerator(assembly.FullName, documentation.FullName).WriteDocumentation(directory.FullName);
+            new DocumentationGenerator(assembly.FullName, xml.FullName, home).WriteDocumentation(output.FullName);
+
+            static bool TryGetArgValue(string arg, string argName, out string value)
+            {
+                value = null;
+                if (arg.StartsWith($"/{argName}:"))
+                {
+                    value = arg.Substring(argName.Length + 2);
+                }
+
+                return value != null;
+            }
+
+            void PrintHelp()
+            {
+                Console.WriteLine("parameters:");
+                Console.WriteLine($"\t/{nameof(assembly)}:{{assembly file path}}");
+                Console.WriteLine($"\t/{nameof(xml)}:{{xml documentation file path}}");
+                Console.WriteLine("optional parameters:");
+                Console.WriteLine($"\t/{nameof(output)}:{{DefaultDocumentation output folder}}");
+                Console.WriteLine($"\t/{nameof(home)}:{{DefaultDocumentation home page name}}");
+            }
         }
     }
 }

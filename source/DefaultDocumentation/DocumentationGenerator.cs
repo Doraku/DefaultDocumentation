@@ -16,20 +16,20 @@ namespace DefaultDocumentation
         private readonly XmlDocumentationProvider _documentationProvider;
         private readonly Dictionary<string, DocItem> _docItems;
 
-        public DocumentationGenerator(string assemblyFilePath, string documentationFilePath)
+        public DocumentationGenerator(string assemblyFilePath, string documentationFilePath, string homePageName)
         {
             _decompiler = new CSharpDecompiler(assemblyFilePath, new DecompilerSettings());
             _documentationProvider = new XmlDocumentationProvider(documentationFilePath);
 
             _docItems = new Dictionary<string, DocItem>();
 
-            foreach (DocItem item in GetDocItems())
+            foreach (DocItem item in GetDocItems(homePageName))
             {
                 _docItems.Add(item.Id, item);
             }
         }
 
-        private IEnumerable<DocItem> GetDocItems()
+        private IEnumerable<DocItem> GetDocItems(string homePageName)
         {
             static XElement ConvertToDocumentation(string documentationString) => documentationString is null ? null : XElement.Parse($"<doc>{documentationString}</doc>");
 
@@ -41,6 +41,7 @@ namespace DefaultDocumentation
             }
 
             HomeDocItem homeDocItem = new HomeDocItem(
+                homePageName,
                 _decompiler.TypeSystem.MainModule.AssemblyName,
                 ConvertToDocumentation(_documentationProvider.GetDocumentation($"T:{_decompiler.TypeSystem.MainModule.AssemblyName}.AssemblyDoc")));
             yield return homeDocItem;
