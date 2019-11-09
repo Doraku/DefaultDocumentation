@@ -40,10 +40,12 @@ namespace DefaultDocumentation
                 return documentation != null;
             }
 
-            HomeDocItem homeDocItem = new HomeDocItem(_decompiler.TypeSystem.MainModule.AssemblyName, null);
+            HomeDocItem homeDocItem = new HomeDocItem(
+                _decompiler.TypeSystem.MainModule.AssemblyName,
+                ConvertToDocumentation(_documentationProvider.GetDocumentation($"T:{_decompiler.TypeSystem.MainModule.AssemblyName}.AssemblyDoc")));
             yield return homeDocItem;
 
-            foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(t => t.Name != "NamespaceDoc"))
+            foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(t => t.Name != "NamespaceDoc" && t.Name != "AssemblyDoc"))
             {
                 bool showType = TryGetDocumentation(type, out XElement documentation);
                 bool newNamespace = false;
