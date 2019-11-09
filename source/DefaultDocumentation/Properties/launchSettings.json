@@ -2,7 +2,7 @@
   "profiles": {
     "DefaultDocumentation": {
       "commandName": "Project",
-      "commandLineArgs": "/assembly:\"D:\\Projects\\DefaultEcs\\source\\DefaultEcs\\bin\\Release\\netstandard2.0\\DefaultEcs.dll\" /xml:\"D:\\Projects\\DefaultEcs\\source\\DefaultEcs\\bin\\Release\\netstandard2.0\\DefaultEcs.xml\" /output:\"D:\\Projects\\DefaultEcs\\documentation\\api\""
+      "commandLineArgs": "/assembly:\"D:\\Projects\\DefaultEcs\\source\\DefaultEcs\\bin\\Release\\netstandard2.0\\DefaultEcs.dll\" /xml:\"D:\\Projects\\DefaultEcs\\source\\DefaultEcs\\bin\\Release\\netstandard2.0\\DefaultEcs.xml\" /output:\"D:\\Projects\\DefaultEcs\\documentation\\api\" /linksfile:\"D:\\Projects\\DefaultEcs\\documentation\\api\\links.txt\" /baselink:\"https://github.com/Doraku/DefaultEcs/tree/master/documentation/api\" /externallinks:\"D:\\Downloads\\Random\\New Text Document.txt\""
     }
   }
 }

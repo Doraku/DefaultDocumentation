@@ -25,16 +25,23 @@ namespace DefaultDocumentation.Helper
             return value;
         }
 
-        public static string AsDotNetApiLink(this string value, string displayedName = null)
+        public static string Prettify(this string value)
         {
-            displayedName ??= value;
-
-            int genericIndex = displayedName.IndexOf('`');
+            int genericIndex = value.IndexOf('`');
             if (genericIndex > 0)
             {
-                int memberIndex = displayedName.IndexOf('.', genericIndex);
-                displayedName = $"{displayedName.Substring(0, genericIndex)}&lt;&gt;{(memberIndex > 0 ? displayedName.Substring(memberIndex) : string.Empty)}";
+                int memberIndex = value.IndexOf('.', genericIndex);
+                value = $"{value.Substring(0, genericIndex)}&lt;&gt;{(memberIndex > 0 ? value.Substring(memberIndex) : string.Empty)}";
             }
+
+            return value;
+        }
+
+        public static string AsLink(this string value, string displayedName) => $"[{displayedName.Prettify()}]({value} '{value}')";
+
+        public static string AsDotNetApiLink(this string value, string displayedName = null)
+        {
+            displayedName = (displayedName ?? value).Prettify();
 
             string link = value;
             int parametersIndex = link.IndexOf("(");

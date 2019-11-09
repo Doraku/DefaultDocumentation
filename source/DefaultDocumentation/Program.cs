@@ -11,6 +11,9 @@ namespace DefaultDocumentation
             FileInfo xml = null;
             DirectoryInfo output = null;
             string home = null;
+            string baselink = null;
+            FileInfo linksfile = null;
+            string externallinks = null;
 
             foreach (string arg in args)
             {
@@ -29,6 +32,18 @@ namespace DefaultDocumentation
                 else if (TryGetArgValue(arg, nameof(home), out argValue) && !string.IsNullOrWhiteSpace(argValue))
                 {
                     home = argValue;
+                }
+                else if (TryGetArgValue(arg, nameof(baselink), out argValue) && !string.IsNullOrWhiteSpace(argValue))
+                {
+                    baselink = argValue;
+                }
+                else if (TryGetArgValue(arg, nameof(linksfile), out argValue) && !string.IsNullOrWhiteSpace(argValue))
+                {
+                    linksfile = new FileInfo(argValue);
+                }
+                else if (TryGetArgValue(arg, nameof(externallinks), out argValue) && !string.IsNullOrWhiteSpace(argValue))
+                {
+                    externallinks = argValue;
                 }
             }
 
@@ -63,7 +78,19 @@ namespace DefaultDocumentation
                 output.Create();
             }
 
-            new DocumentationGenerator(assembly.FullName, xml.FullName, home).WriteDocumentation(output.FullName);
+            DocumentationGenerator generator = new DocumentationGenerator(assembly.FullName, xml.FullName, home, externallinks);
+
+            generator.WriteDocumentation(output.FullName);
+
+            if (linksfile != null)
+            {
+                if (linksfile.Exists)
+                {
+                    linksfile.Delete();
+                }
+
+                generator.WriteLinks(baselink, linksfile.FullName);
+            }
 
             static bool TryGetArgValue(string arg, string argName, out string value)
             {
@@ -84,6 +111,9 @@ namespace DefaultDocumentation
                 Console.WriteLine("optional parameters:");
                 Console.WriteLine($"\t/{nameof(output)}:{{DefaultDocumentation output folder}}");
                 Console.WriteLine($"\t/{nameof(home)}:{{DefaultDocumentation home page name}}");
+                Console.WriteLine($"\t/{nameof(baselink)}:{{base link path used if generating a links file}}");
+                Console.WriteLine($"\t/{nameof(linksfile)}:{{links file path}}");
+                Console.WriteLine($"\t/{nameof(externallinks)}:{{links files for element outside of this assembly, separated by '|'}}");
             }
         }
     }

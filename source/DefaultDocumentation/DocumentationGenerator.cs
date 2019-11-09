@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Model;
@@ -15,17 +16,23 @@ namespace DefaultDocumentation
         private readonly CSharpDecompiler _decompiler;
         private readonly XmlDocumentationProvider _documentationProvider;
         private readonly Dictionary<string, DocItem> _docItems;
+        private readonly Dictionary<string, string> _links;
 
-        public DocumentationGenerator(string assemblyFilePath, string documentationFilePath, string homePageName)
+        public DocumentationGenerator(string assemblyFilePath, string documentationFilePath, string homePageName, string linksFiles)
         {
             _decompiler = new CSharpDecompiler(assemblyFilePath, new DecompilerSettings());
             _documentationProvider = new XmlDocumentationProvider(documentationFilePath);
 
             _docItems = new Dictionary<string, DocItem>();
-
             foreach (DocItem item in GetDocItems(homePageName))
             {
                 _docItems.Add(item.Id, item);
+            }
+
+            _links = new Dictionary<string, string>();
+            foreach ((string id, string link) in GetExternalLinks(linksFiles))
+            {
+                _links[id] = link;
             }
         }
 
@@ -104,14 +111,70 @@ namespace DefaultDocumentation
             }
         }
 
+        private IEnumerable<(string, string)> GetExternalLinks(string linksFiles)
+        {
+            foreach (string linksFile in (linksFiles ?? string.Empty).Split('|').Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s)))
+            {
+                using StreamReader reader = File.OpenText(linksFile);
+
+                string baseLink = string.Empty;
+                while (!reader.EndOfStream)
+                {
+                    string[] items = reader.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    switch (items.Length)
+                    {
+                        case 1:
+                            baseLink = items[0];
+                            if (!baseLink.EndsWith("/"))
+                            {
+                                baseLink += "/";
+                            }
+                            break;
+
+                        case 2:
+                            yield return (items[0], baseLink + items[1]);
+                            break;
+                    }
+                }
+            }
+        }
+
         public void WriteDocumentation(string outputFolderPath)
         {
             _docItems.Values.Where(i => i.GeneratePage).AsParallel().ForAll(i =>
             {
-                using DocumentationWriter writer = new DocumentationWriter(_docItems, outputFolderPath, i);
+                using DocumentationWriter writer = new DocumentationWriter(_docItems, _links, outputFolderPath, i);
 
                 i.WriteDocumentation(writer);
             });
+        }
+
+        public void WriteLinks(string baseLinkPath, string linksFilePath)
+        {
+            using StreamWriter writer = File.CreateText(linksFilePath);
+
+            if (!string.IsNullOrEmpty(baseLinkPath))
+            {
+                writer.WriteLine(baseLinkPath);
+            }
+
+            foreach (DocItem item in _docItems.Values)
+            {
+                switch (item)
+                {
+                    case HomeDocItem _:
+                        break;
+
+                    case EnumFieldDocItem enumField:
+                        writer.WriteLine($"{item.Id} {item.Parent.Link}.md#{item.Link}");
+                        break;
+
+                    default:
+                        writer.WriteLine($"{item.Id} {item.Link}.md");
+                        break;
+                }
+            }
         }
     }
 }

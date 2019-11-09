@@ -19,10 +19,11 @@ namespace DefaultDocumentation
 
         private readonly StringBuilder _builder;
         private readonly IReadOnlyDictionary<string, DocItem> _items;
+        private readonly IReadOnlyDictionary<string, string> _links;
         private readonly DocItem _mainItem;
         private readonly string _filePath;
 
-        public DocumentationWriter(IReadOnlyDictionary<string, DocItem> items, string folderPath, DocItem item)
+        public DocumentationWriter(IReadOnlyDictionary<string, DocItem> items, IReadOnlyDictionary<string, string> links, string folderPath, DocItem item)
         {
             if (!_builders.TryDequeue(out _builder))
             {
@@ -30,11 +31,13 @@ namespace DefaultDocumentation
             }
 
             _items = items;
+            _links = links;
             _mainItem = item;
             _filePath = Path.Combine(folderPath, $"{item.Link}.md");
         }
 
-        public string GetLink(DocItem item, string displayedName = null) => item.GeneratePage ? $"[{displayedName ?? item.Name}](./{item.Link}.md '{item.FullName}')" : GetInnerLink(item, displayedName);
+        public string GetLink(DocItem item, string displayedName = null) =>
+            item.GeneratePage ? $"[{displayedName ?? item.Name}](./{item.Link}.md '{item.FullName}')" : GetInnerLink(item, displayedName);
 
         public string GetInnerLink(DocItem item, string displayedName = null)
         {
@@ -65,11 +68,12 @@ namespace DefaultDocumentation
                 TypeKind.ByReference when type is TypeWithElementType innerType => GetTypeLink(item, innerType.ElementType),
                 TypeKind.TypeParameter => item.TryGetTypeParameterDocItem(type.Name, out TypeParameterDocItem typeParameter) ? GetInnerLink(typeParameter) : type.Name,
                 _ when type is ParameterizedType genericType => HandleParameterizedType(genericType),
-                _ => _items.TryGetValue(type.GetDefinition().GetIdString(), out DocItem typeDocItem) ? GetLink(typeDocItem) : type.FullName.AsDotNetApiLink()
+                _ => GetLink(type.GetDefinition().GetIdString())
             };
         }
 
-        public string GetLink(string id) => _items.TryGetValue(id, out DocItem reference) ? GetLink(reference) : id.Substring(2).AsDotNetApiLink();
+        public string GetLink(string id) =>
+            _items.TryGetValue(id, out DocItem item) ? GetLink(item) : (_links.TryGetValue(id, out string link) ? link.AsLink(id.Substring(2)) : id.Substring(2).AsDotNetApiLink());
 
         public void WriteLine(string line) => _builder.AppendLine(line);
 

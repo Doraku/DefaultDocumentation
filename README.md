@@ -17,7 +17,8 @@ framework4.7.2 or netcoreapp2.0
 Once referenced in your project, if there is a `<DocumentationFile>` or `<GenerateDocumentationFile>`, markdown pages will be produced next to the xml file on compilation.  
 Please be advised that existing `*.md` files in the directory will be deleted.
 
-Should you want the markdown files to be produced in a different directory, you can do so by adding a `<DefaultDocumentationFolder>` element in your csproj with the desired path.
+Should you want the markdown files to be produced in a different directory, you can do so by adding a `<DefaultDocumentationFolder>` element in your csproj with the desired path.  
+Default home page name is `index` and can be changed by supplying a `<DefaultDocumentationHome>` element in your csproj with the desired file name.
 
 <a name='Overview'></a>
 # Overview
@@ -45,9 +46,17 @@ List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotn
 
 List of supported members taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/processing-the-xml-file)
 
-Namespace documentation is available by adding a special class named `NamespaceDoc` into the namespace. Only `<summary>` and `<remarks>` are supported.  
+Assembly and Namespace documentation are available by adding a special class named `AssemblyDoc` in a namespace with the name of the assembly and `NamespaceDoc` into the namespace. Only `<summary>` and `<remarks>` are supported.  
 Empty namespace with no defined types will not appear in the generated documentation.
 ```
+namespace YourAssemblyName
+{
+    /// <summary>
+    /// your assembly documentation, used on the home page
+    /// </summary>
+    internal static class AssemblyDoc { } // internal so it is not visible outside the assembly
+}
+
 namespace YourNamespace
 {
     /// <summary>
