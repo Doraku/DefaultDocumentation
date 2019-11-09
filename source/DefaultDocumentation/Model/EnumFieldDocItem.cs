@@ -18,6 +18,7 @@ namespace DefaultDocumentation.Model
 
         public override void WriteDocumentation(DocumentationWriter writer)
         {
+            writer.WriteLinkTarget(this);
             writer.WriteLine($"`{Name}` {Field.GetConstantValue()}  ");
 
             writer.Write(this, Documentation.GetSummary());

@@ -34,15 +34,13 @@ namespace DefaultDocumentation
             _filePath = Path.Combine(folderPath, $"{item.Link}.md");
         }
 
-        public static string GetLink(DocItem item, string displayedName = null) => $"[{displayedName ?? item.Name}](./{item.Link}.md '{item.FullName}')";
+        public string GetLink(DocItem item, string displayedName = null) => item.GeneratePage ? $"[{displayedName ?? item.Name}](./{item.Link}.md '{item.FullName}')" : GetInnerLink(item, displayedName);
 
-        public string GetLinkTarget(DocItem item) => $"<a name='{item.Link}'></a>";
-
-        public string GetInnerLink(DocItem item)
+        public string GetInnerLink(DocItem item, string displayedName = null)
         {
             DocItem pagedDocItem = item.GetPagedDocItem();
 
-            return $"[{item.Name}]({(_mainItem == pagedDocItem ? string.Empty : $"./{pagedDocItem.Link}.md")}#{item.Link} '{item.FullName}')";
+            return $"[{displayedName ?? item.Name}]({(_mainItem == pagedDocItem ? string.Empty : $"./{pagedDocItem.Link}.md")}#{item.Link} '{item.FullName}')";
         }
 
         public string GetTypeLink(DocItem item, IType type)

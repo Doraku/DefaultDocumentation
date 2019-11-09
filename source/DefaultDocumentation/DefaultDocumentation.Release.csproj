@@ -10,6 +10,7 @@
     <Version>0.5.1</Version>
     <PackageReleaseNotes>
 fixed Property Returns title to Property Value
+fixed enum field link
 
 added assembly documentation for home page through special named type AssemblyDoc
 added DefaultDocumentationHome element to change home file name
