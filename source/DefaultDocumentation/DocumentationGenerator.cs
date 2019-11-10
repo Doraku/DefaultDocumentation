@@ -124,6 +124,10 @@ namespace DefaultDocumentation
 
                     switch (items.Length)
                     {
+                        case 0:
+                            baseLink = string.Empty;
+                            break;
+
                         case 1:
                             baseLink = items[0];
                             if (!baseLink.EndsWith("/"))
