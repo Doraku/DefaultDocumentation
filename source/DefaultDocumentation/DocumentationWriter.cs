@@ -201,7 +201,7 @@ namespace DefaultDocumentation
                 ++firstLine;
             }
 
-            summary = string.Join(Environment.NewLine, lines.Skip(firstLine).Select(l => l.StartsWith(" ") ? l.Substring(startIndex) : l));
+            summary = string.Join(Environment.NewLine, lines.Skip(firstLine).Select(l => l.StartsWith(" ") ? l.Substring(Math.Min(l.Length, startIndex)) : l));
             while (summary.EndsWith(Environment.NewLine))
             {
                 summary = summary.Substring(0, summary.Length - Environment.NewLine.Length);

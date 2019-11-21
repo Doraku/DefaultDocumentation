@@ -11,6 +11,7 @@
     <PackageReleaseNotes>
 fixed Property Returns title to Property Value
 fixed enum field link
+fixed leading whitespace in summary throwing an exception
 
 added assembly documentation for home page through special named type AssemblyDoc
 added DefaultDocumentationHome element to change home file name
