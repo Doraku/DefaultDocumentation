@@ -44,7 +44,7 @@ namespace DefaultDocumentation.Model
 
             writer.Write(this, Documentation.GetSummary());
 
-            List<IType> interfaces = Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface).ToList();
+            List<IType> interfaces = Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface && t.GetDefinition().Accessibility == Accessibility.Public).ToList();
 
             writer.WriteLine("```csharp");
             writer.Write(CodeAmbience.ConvertSymbol(Type));

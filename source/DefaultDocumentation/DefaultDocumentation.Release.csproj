@@ -7,9 +7,12 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Version>0.5.4</Version>
+    <Version>0.5.5</Version>
     <PackageReleaseNotes>
+fixed TypeDocItem writing members of nested types
 fixed nested type not showing parent type in name
+fixed NullReferenceException for generic type
+fixed internal interfaces shown in implementation
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>

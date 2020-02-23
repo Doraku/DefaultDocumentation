@@ -75,7 +75,8 @@ namespace DefaultDocumentation
         {
             string HandleParameterizedType(ParameterizedType genericType)
             {
-                if (_items.TryGetValue(genericType.GetDefinition().GetIdString(), out DocItem docItem) && docItem is TypeDocItem typeDocItem)
+                ITypeDefinition typeDefinition = genericType.GetDefinition();
+                if (typeDefinition != null && _items.TryGetValue(typeDefinition.GetIdString(), out DocItem docItem) && docItem is TypeDocItem typeDocItem)
                 {
                     return GetLink(docItem, typeDocItem.Type.FullName + "&lt;")
                         + string.Join(GetLink(docItem, ","), genericType.TypeArguments.Select(t => GetTypeLink(item, t)))
