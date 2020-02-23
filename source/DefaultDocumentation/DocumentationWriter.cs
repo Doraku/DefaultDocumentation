@@ -36,6 +36,31 @@ namespace DefaultDocumentation
             _filePath = Path.Combine(folderPath, $"{item.Link}.md");
         }
 
+        private bool WriteChildrenLink<T>(DocItem parent, string title, bool includeInnerChildren)
+        {
+            bool hasTitle = title is null;
+            foreach (DocItem child in _items.Values.Where(i => i.Parent == parent).OrderBy(i => i.Id))
+            {
+                if (child is T)
+                {
+                    if (!hasTitle)
+                    {
+                        hasTitle = true;
+                        WriteLine($"### {title}");
+                    }
+
+                    WriteLine($"- {GetLink(child)}");
+                }
+
+                if (includeInnerChildren)
+                {
+                    hasTitle = WriteChildrenLink<T>(child, hasTitle ? null : title, true);
+                }
+            }
+
+            return hasTitle;
+        }
+
         public string GetLink(DocItem item, string displayedName = null) =>
             item.GeneratePage ? $"[{displayedName ?? item.Name}](./{item.Link}.md '{item.FullName}')" : GetInnerLink(item, displayedName);
 
@@ -100,33 +125,9 @@ namespace DefaultDocumentation
 
         public void WritePageTitle(string name, string title) => WriteLine($"## {name} {title}");
 
-        public void WriteChildrenLink<T>(string title)
-            where T : DocItem
-        {
-            bool WriteChildrenLink(DocItem parent, string title)
-            {
-                bool hasTitle = title is null;
-                foreach (DocItem child in _items.Values.Where(i => i.Parent == parent).OrderBy(i => i.Id))
-                {
-                    if (child is T)
-                    {
-                        if (!hasTitle)
-                        {
-                            hasTitle = true;
-                            WriteLine($"### {title}");
-                        }
+        public void WriteChildrenLink<T>(string title) where T : DocItem => WriteChildrenLink<T>(_mainItem, title, true);
 
-                        WriteLine($"- {GetLink(child)}");
-                    }
-
-                    hasTitle = WriteChildrenLink(child, hasTitle ? null : title);
-                }
-
-                return hasTitle;
-            }
-
-            WriteChildrenLink(_mainItem, title);
-        }
+        public void WriteDirectChildrenLink<T>(string title) where T : DocItem => WriteChildrenLink<T>(_mainItem, title, false);
 
         public void WriteDocItems(IEnumerable<DocItem> items, string title)
         {

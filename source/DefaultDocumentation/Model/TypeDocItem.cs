@@ -88,12 +88,12 @@ namespace DefaultDocumentation.Model
             writer.Write("### Example", Documentation.GetExample(), this);
             writer.Write("### Remarks", Documentation.GetRemarks(), this);
 
-            writer.WriteChildrenLink<ConstructorDocItem>("Constructors");
-            writer.WriteChildrenLink<FieldDocItem>("Fields");
-            writer.WriteChildrenLink<PropertyDocItem>("Properties");
-            writer.WriteChildrenLink<MethodDocItem>("Methods");
-            writer.WriteChildrenLink<EventDocItem>("Events");
-            writer.WriteChildrenLink<OperatorDocItem>("Operators");
+            writer.WriteDirectChildrenLink<ConstructorDocItem>("Constructors");
+            writer.WriteDirectChildrenLink<FieldDocItem>("Fields");
+            writer.WriteDirectChildrenLink<PropertyDocItem>("Properties");
+            writer.WriteDirectChildrenLink<MethodDocItem>("Methods");
+            writer.WriteDirectChildrenLink<EventDocItem>("Events");
+            writer.WriteDirectChildrenLink<OperatorDocItem>("Operators");
         }
     }
 }

@@ -170,7 +170,7 @@ namespace DefaultDocumentation
                     case HomeDocItem _:
                         break;
 
-                    case EnumFieldDocItem enumField:
+                    case EnumFieldDocItem _:
                         writer.WriteLine($"{item.Id} {item.Parent.Link}.md#{item.Link}");
                         break;
 
