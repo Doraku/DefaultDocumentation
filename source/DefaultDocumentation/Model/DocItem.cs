@@ -19,6 +19,15 @@ namespace DefaultDocumentation.Model
                 | ConversionFlags.UseFullyQualifiedEntityNames
         };
 
+        private static readonly CSharpAmbience TypeNameAmbience = new CSharpAmbience
+        {
+            ConversionFlags =
+                ConversionFlags.ShowParameterList
+                | ConversionFlags.ShowTypeParameterList
+                | ConversionFlags.ShowDeclaringType
+                | ConversionFlags.UseFullyQualifiedTypeNames
+        };
+
         private static readonly CSharpAmbience NameAmbience = new CSharpAmbience
         {
             ConversionFlags =
@@ -47,7 +56,7 @@ namespace DefaultDocumentation.Model
         }
 
         protected DocItem(DocItem parent, IEntity entity, XElement documentation)
-            : this(parent, entity.GetIdString(), FullNameAmbience.ConvertSymbol(entity), NameAmbience.ConvertSymbol(entity), documentation)
+            : this(parent, entity.GetIdString(), FullNameAmbience.ConvertSymbol(entity), (entity is ITypeDefinition ? TypeNameAmbience : NameAmbience).ConvertSymbol(entity), documentation)
         { }
 
         public abstract void WriteDocumentation(DocumentationWriter writer);
