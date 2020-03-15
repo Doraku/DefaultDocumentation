@@ -10,7 +10,7 @@ As the name imply, this project lets you easily produce a markdown documentation
 
 <a name='Requirement'></a>
 # Requirement
-framework4.7.2 or netcoreapp2.0
+framework4.7.2 or netcoreapp3.0
 
 <a name='Usage'></a>
 # Usage

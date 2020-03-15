@@ -4,7 +4,7 @@
     <LangVersion>latest</LangVersion>
     <TargetFrameworks>
       net472;
-      netcoreapp2.0;
+      netcoreapp3.0;
     </TargetFrameworks>
     <Optimize>true</Optimize>
     <Configurations>Debug;Release</Configurations>
