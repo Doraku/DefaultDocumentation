@@ -1,5 +1,4 @@
-### [Dummy](./Dummy.md 'Dummy')
-<a name='Dummy'></a>
-## Dummy
+## Dummy Namespace
+### Classes
 - [DummyClass](./Dummy-DummyClass.md 'Dummy.DummyClass')
-- [DummyNested&lt;T&gt;](./Dummy-DummyClass-DummyNested-T-.md 'Dummy.DummyClass.DummyNested&lt;T&gt;')
+- [DummyClass.DummyNested&lt;T&gt;](./Dummy-DummyClass-DummyNested-T-.md 'Dummy.DummyClass.DummyNested&lt;T&gt;')

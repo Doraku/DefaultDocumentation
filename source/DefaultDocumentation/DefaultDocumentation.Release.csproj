@@ -12,6 +12,8 @@
 breaking change:
 changed netcoreapp to v3.0
 do not generate base homepage if there is only one namespace present and no DefaultDocumentationHome specified nor any AssemblyDoc
+
+fixed operator documentation page overlapping names
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>

@@ -56,8 +56,36 @@ namespace DefaultDocumentation.Model
         }
 
         protected DocItem(DocItem parent, IEntity entity, XElement documentation)
-            : this(parent, entity.GetIdString(), FullNameAmbience.ConvertSymbol(entity), (entity is ITypeDefinition ? TypeNameAmbience : NameAmbience).ConvertSymbol(entity), documentation)
+            : this(parent, entity.GetIdString(), GetFullName(entity), (entity is ITypeDefinition ? TypeNameAmbience : NameAmbience).ConvertSymbol(entity), documentation)
         { }
+
+        private static string GetFullName(IEntity entity)
+        {
+            string fullName = FullNameAmbience.ConvertSymbol(entity);
+
+            if (entity.SymbolKind == SymbolKind.Operator)
+            {
+                int index = fullName.IndexOf(".operator ") + 1;
+                if (index <= 0)
+                {
+                    index = fullName.IndexOf(".implicit operator ") + 1;
+                    int offset = 17;
+                    if (index <= 0)
+                    {
+                        index = fullName.IndexOf(".explicit operator ") + 1;
+                        offset = 17;
+                    }
+
+                    fullName = fullName.Substring(0, index) + entity.Name + fullName.Substring(index + offset);
+                }
+                else
+                {
+                    fullName = fullName.Substring(0, index) + entity.Name + fullName.Substring(fullName.IndexOf('('));
+                }
+            }
+
+            return fullName;
+        }
 
         public abstract void WriteDocumentation(DocumentationWriter writer);
     }
