@@ -110,7 +110,10 @@ namespace DefaultDocumentation
         public void WriteHeader()
         {
             HomeDocItem home = _items.Values.OfType<HomeDocItem>().Single();
-            WriteLine($"#### {GetLink(home)}");
+            if (home.GeneratePage)
+            {
+                WriteLine($"#### {GetLink(home)}");
+            }
 
             Stack<DocItem> parents = new Stack<DocItem>();
             for (DocItem parent = _mainItem?.Parent; parent != home && parent != null; parent = parent.Parent)

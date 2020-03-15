@@ -109,6 +109,8 @@ namespace DefaultDocumentation
                     yield return typeDocItem;
                 }
             }
+
+            homeDocItem.HasMultipleNamespaces = _docItems.Values.OfType<NamespaceDocItem>().Count() > 1;
         }
 
         private IEnumerable<(string, string)> GetExternalLinks(string linksFiles)

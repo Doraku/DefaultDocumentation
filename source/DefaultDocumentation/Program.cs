@@ -64,7 +64,6 @@ namespace DefaultDocumentation
             }
 
             output ??= xml.Directory;
-            home ??= "index";
 
             if (output.Exists)
             {
