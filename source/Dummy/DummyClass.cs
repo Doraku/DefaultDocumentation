@@ -42,7 +42,7 @@ namespace Dummy
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public int this[int index]
+        public dynamic this[int index]
         {
             get => index;
         }

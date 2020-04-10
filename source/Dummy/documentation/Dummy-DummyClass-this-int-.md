@@ -2,7 +2,7 @@
 ## DummyClass.this[int] Property
 dummy  
 ```csharp
-public int this[int index] { get; }
+public dynamic this[int index] { get; }
 ```
 #### Parameters
 <a name='Dummy-DummyClass-this-int--index'></a>
@@ -10,4 +10,4 @@ public int this[int index] { get; }
   
   
 #### Property Value
-[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')  
+[dynamic](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/using-type-dynamic 'dynamic')  

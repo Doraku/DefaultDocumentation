@@ -12,8 +12,8 @@
   
   <ItemGroup>
     <None Remove="DefaultDocumentation.targets" />
-    <Content Include="..\..\image\logo.png" PackagePath="\" Visible="false"/>
     <None Include="bin\Release\net472\*.dll" Pack="true" PackagePath="tools\" Visible="false" />
+    <Content Include="..\..\image\logo.png" PackagePath="\" Visible="false"/>
     <Content Include="build\DefaultDocumentation.targets" PackagePath="build\" />
   </ItemGroup>
 

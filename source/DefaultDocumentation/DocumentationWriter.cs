@@ -93,6 +93,7 @@ namespace DefaultDocumentation
                 TypeKind.Array when type is TypeWithElementType arrayType => GetTypeLink(item, arrayType.ElementType) + "System.Array".AsDotNetApiLink("[]"),
                 TypeKind.ByReference when type is TypeWithElementType innerType => GetTypeLink(item, innerType.ElementType),
                 TypeKind.TypeParameter => item.TryGetTypeParameterDocItem(type.Name, out TypeParameterDocItem typeParameter) ? GetInnerLink(typeParameter) : type.Name,
+                TypeKind.Dynamic => "[dynamic](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/using-type-dynamic 'dynamic')",
                 _ when type is ParameterizedType genericType => HandleParameterizedType(genericType),
                 _ => GetLink(type.GetDefinition().GetIdString())
             };

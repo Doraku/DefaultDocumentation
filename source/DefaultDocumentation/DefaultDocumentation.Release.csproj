@@ -7,13 +7,9 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Version>0.6.0</Version>
+    <Version>0.6.1</Version>
     <PackageReleaseNotes>
-breaking change:
-changed netcoreapp to v3.0
-do not generate base homepage if there is only one namespace present and no DefaultDocumentationHome specified nor any AssemblyDoc
-
-fixed operator documentation page overlapping names
+fixed documentation generation for dynamic keyword
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>
