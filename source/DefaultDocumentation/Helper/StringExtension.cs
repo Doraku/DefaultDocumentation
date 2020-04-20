@@ -1,19 +1,22 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace DefaultDocumentation.Helper
 {
     internal static class StringExtension
     {
-        private static readonly IReadOnlyDictionary<string, string> _invalidStrings = new Dictionary<string, string>
-        {
-            [" "] = string.Empty,
-            [","] = "_",
-            ["."] = "-",
-            ["["] = "-",
-            ["]"] = "-",
-            ["&lt;"] = "-",
-            ["&gt;"] = "-",
-        };
+        private static readonly IReadOnlyDictionary<string, string> _invalidStrings =
+            new Dictionary<string, string>(Path.GetInvalidFileNameChars().ToDictionary(c => $"{c}", _ => "-"))
+            {
+                [" "] = string.Empty,
+                [","] = "_",
+                ["."] = "-",
+                ["["] = "-",
+                ["]"] = "-",
+                ["&lt;"] = "-",
+                ["&gt;"] = "-",
+            };
 
         public static string Clean(this string value)
         {
