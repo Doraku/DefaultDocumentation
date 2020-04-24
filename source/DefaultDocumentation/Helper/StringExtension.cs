@@ -9,6 +9,7 @@ namespace DefaultDocumentation.Helper
         private static readonly IReadOnlyDictionary<string, string> _invalidStrings =
             new Dictionary<string, string>(Path.GetInvalidFileNameChars().ToDictionary(c => $"{c}", _ => "-"))
             {
+                ["="] = string.Empty,
                 [" "] = string.Empty,
                 [","] = "_",
                 ["."] = "-",

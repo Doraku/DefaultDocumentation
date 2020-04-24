@@ -1,4 +1,7 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Security.Cryptography;
+using System.Text;
+using System.Xml.Linq;
 using DefaultDocumentation.Helper;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
 using ICSharpCode.Decompiler.Documentation;
@@ -41,7 +44,6 @@ namespace DefaultDocumentation.Model
         public XElement Documentation { get; }
         public string FullName { get; }
         public string Name { get; }
-        public string Link { get; }
 
         public virtual bool GeneratePage => true;
 
@@ -52,7 +54,6 @@ namespace DefaultDocumentation.Model
             Documentation = documentation;
             FullName = fullName.Replace("<", "&lt;").Replace(">", "&gt;").Replace("this ", string.Empty);
             Name = name.Replace("<", "&lt;").Replace(">", "&gt;").Replace("this ", string.Empty);
-            Link = FullName.Clean();
         }
 
         protected DocItem(DocItem parent, IEntity entity, XElement documentation)
@@ -88,5 +89,11 @@ namespace DefaultDocumentation.Model
         }
 
         public abstract void WriteDocumentation(DocumentationWriter writer);
+
+        public virtual string GetLink(FileNameMode fileNameMode) => (fileNameMode switch
+        {
+            FileNameMode.Md5 => Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(FullName))),
+            _ => FullName
+        }).Clean();
     }
 }

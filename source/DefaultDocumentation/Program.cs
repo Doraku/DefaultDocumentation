@@ -11,6 +11,7 @@ namespace DefaultDocumentation
             FileInfo xml = null;
             DirectoryInfo output = null;
             string home = null;
+            FileNameMode fileNameMode = FileNameMode.FullName;
             string baselink = null;
             FileInfo linksfile = null;
             string externallinks = null;
@@ -32,6 +33,10 @@ namespace DefaultDocumentation
                 else if (TryGetArgValue(arg, nameof(home), out argValue) && !string.IsNullOrWhiteSpace(argValue))
                 {
                     home = argValue;
+                }
+                else if (TryGetArgValue(arg, nameof(fileNameMode), out argValue))
+                {
+                    fileNameMode = (FileNameMode)Enum.Parse(typeof(FileNameMode), argValue);
                 }
                 else if (TryGetArgValue(arg, nameof(baselink), out argValue) && !string.IsNullOrWhiteSpace(argValue))
                 {
@@ -77,7 +82,7 @@ namespace DefaultDocumentation
                 output.Create();
             }
 
-            DocumentationGenerator generator = new DocumentationGenerator(assembly.FullName, xml.FullName, home, externallinks);
+            DocumentationGenerator generator = new DocumentationGenerator(assembly.FullName, xml.FullName, home, fileNameMode, externallinks);
 
             generator.WriteDocumentation(output.FullName);
 
@@ -110,6 +115,7 @@ namespace DefaultDocumentation
                 Console.WriteLine("optional parameters:");
                 Console.WriteLine($"\t/{nameof(output)}:{{DefaultDocumentation output folder}}");
                 Console.WriteLine($"\t/{nameof(home)}:{{DefaultDocumentation home page name}}");
+                Console.WriteLine($"\t/{nameof(fileNameMode)}:{{{string.Join(" | ", Enum.GetValues(typeof(FileNameMode)))}}}");
                 Console.WriteLine($"\t/{nameof(baselink)}:{{base link path used if generating a links file}}");
                 Console.WriteLine($"\t/{nameof(linksfile)}:{{links file path}}");
                 Console.WriteLine($"\t/{nameof(externallinks)}:{{links files for element outside of this assembly, separated by '|'}}");

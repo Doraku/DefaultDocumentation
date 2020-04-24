@@ -27,5 +27,7 @@ namespace DefaultDocumentation.Model
 
             writer.WriteChildrenLink<NamespaceDocItem>("Namespaces");
         }
+
+        public override string GetLink(FileNameMode fileNameMode) => FullName.Clean();
     }
 }

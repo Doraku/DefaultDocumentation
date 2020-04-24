@@ -18,22 +18,24 @@ namespace DefaultDocumentation
         private static readonly ConcurrentQueue<StringBuilder> _builders = new ConcurrentQueue<StringBuilder>();
 
         private readonly StringBuilder _builder;
+        private readonly FileNameMode _fileNameMode;
         private readonly IReadOnlyDictionary<string, DocItem> _items;
         private readonly IReadOnlyDictionary<string, string> _links;
         private readonly DocItem _mainItem;
         private readonly string _filePath;
 
-        public DocumentationWriter(IReadOnlyDictionary<string, DocItem> items, IReadOnlyDictionary<string, string> links, string folderPath, DocItem item)
+        public DocumentationWriter(FileNameMode fileNameMode, IReadOnlyDictionary<string, DocItem> items, IReadOnlyDictionary<string, string> links, string folderPath, DocItem item)
         {
             if (!_builders.TryDequeue(out _builder))
             {
                 _builder = new StringBuilder(1024);
             }
 
+            _fileNameMode = fileNameMode;
             _items = items;
             _links = links;
             _mainItem = item;
-            _filePath = Path.Combine(folderPath, $"{item.Link}.md");
+            _filePath = Path.Combine(folderPath, $"{item.GetLink(_fileNameMode)}.md");
         }
 
         private bool WriteChildrenLink<T>(DocItem parent, string title, bool includeInnerChildren)
@@ -62,13 +64,13 @@ namespace DefaultDocumentation
         }
 
         public string GetLink(DocItem item, string displayedName = null) =>
-            item.GeneratePage ? $"[{displayedName ?? item.Name}](./{item.Link}.md '{item.FullName}')" : GetInnerLink(item, displayedName);
+            item.GeneratePage ? $"[{displayedName ?? item.Name}](./{item.GetLink(_fileNameMode)}.md '{item.FullName}')" : GetInnerLink(item, displayedName);
 
         public string GetInnerLink(DocItem item, string displayedName = null)
         {
             DocItem pagedDocItem = item.GetPagedDocItem();
 
-            return $"[{displayedName ?? item.Name}]({(_mainItem == pagedDocItem ? string.Empty : $"./{pagedDocItem.Link}.md")}#{item.Link} '{item.FullName}')";
+            return $"[{displayedName ?? item.Name}]({(_mainItem == pagedDocItem ? string.Empty : $"./{pagedDocItem.GetLink(_fileNameMode)}.md")}#{item.GetLink(_fileNameMode)} '{item.FullName}')";
         }
 
         public string GetTypeLink(DocItem item, IType type)
@@ -154,7 +156,7 @@ namespace DefaultDocumentation
             where T : DocItem
             => WriteDocItems(_items.Values.OfType<T>().Where(i => i.Parent == _mainItem), title);
 
-        public void WriteLinkTarget(DocItem item) => WriteLine($"<a name='{item.Link}'></a>");
+        public void WriteLinkTarget(DocItem item) => WriteLine($"<a name='{item.GetLink(_fileNameMode)}'></a>");
 
         public void Write(DocItem item, XElement element) => Write(null, element, item);
 

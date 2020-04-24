@@ -7,9 +7,11 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Version>0.6.1</Version>
+    <Version>0.6.2</Version>
     <PackageReleaseNotes>
-fixed documentation generation for dynamic keyword
+added DefaultDocumentationFileNameMode parameter to change the way documentation pages are named (possible values: FullName, Md5)
+      
+fixed invalid char in file name generation
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>

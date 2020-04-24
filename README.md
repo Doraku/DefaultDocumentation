@@ -20,6 +20,10 @@ Please be advised that existing `*.md` files in the directory will be deleted.
 Should you want the markdown files to be produced in a different directory, you can do so by adding a `<DefaultDocumentationFolder>` element in your csproj with the desired path.  
 Default home page name is `index` and can be changed by supplying a `<DefaultDocumentationHome>` element in your csproj with the desired file name.
 
+The name of the documentation page will be generated with the full name of each member but it is possible to change this by setting a `DefaultDocumentationFileNameMode` element in your csproj with one of those values:
+- FullName: the default behavior, will use the fully qualified name of each member
+- Md5: will do a Md5 of the full name of each member to produce shorter name (experimental, you may get collision)
+
 <a name='Overview'></a>
 # Overview
 List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/recommended-tags-for-documentation-comments)

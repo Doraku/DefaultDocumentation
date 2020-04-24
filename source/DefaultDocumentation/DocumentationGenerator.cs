@@ -15,13 +15,15 @@ namespace DefaultDocumentation
     {
         private readonly CSharpDecompiler _decompiler;
         private readonly XmlDocumentationProvider _documentationProvider;
+        private readonly FileNameMode _fileNameMode;
         private readonly Dictionary<string, DocItem> _docItems;
         private readonly Dictionary<string, string> _links;
 
-        public DocumentationGenerator(string assemblyFilePath, string documentationFilePath, string homePageName, string linksFiles)
+        public DocumentationGenerator(string assemblyFilePath, string documentationFilePath, string homePageName, FileNameMode fileNameMode, string linksFiles)
         {
             _decompiler = new CSharpDecompiler(assemblyFilePath, new DecompilerSettings());
             _documentationProvider = new XmlDocumentationProvider(documentationFilePath);
+            _fileNameMode = fileNameMode;
 
             _docItems = new Dictionary<string, DocItem>();
             foreach (DocItem item in GetDocItems(homePageName))
@@ -150,7 +152,7 @@ namespace DefaultDocumentation
         {
             _docItems.Values.Where(i => i.GeneratePage).AsParallel().ForAll(i =>
             {
-                using DocumentationWriter writer = new DocumentationWriter(_docItems, _links, outputFolderPath, i);
+                using DocumentationWriter writer = new DocumentationWriter(_fileNameMode, _docItems, _links, outputFolderPath, i);
 
                 i.WriteDocumentation(writer);
             });
@@ -173,11 +175,11 @@ namespace DefaultDocumentation
                         break;
 
                     case EnumFieldDocItem _:
-                        writer.WriteLine($"{item.Id} {item.Parent.Link}.md#{item.Link}");
+                        writer.WriteLine($"{item.Id} {item.Parent.GetLink(_fileNameMode)}.md#{item.GetLink(_fileNameMode)}");
                         break;
 
                     default:
-                        writer.WriteLine($"{item.Id} {item.Link}.md");
+                        writer.WriteLine($"{item.Id} {item.GetLink(_fileNameMode)}.md");
                         break;
                 }
             }
