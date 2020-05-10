@@ -24,6 +24,11 @@ The name of the documentation page will be generated with the full name of each 
 - FullName: the default behavior, will use the fully qualified name of each member
 - Md5: will do a Md5 of the full name of each member to produce shorter name (experimental, you may get collision)
 
+By default, nested types are all visible on their namespace page. It is possible to change thise behavior by setting a `DefaultDocumentationNestedTypeVisibility` element in your csproj with once of those values:
+- Namespace: nested type links will be on the namespace page
+- DeclaringType: nested type links will be on their declaring type page
+- Everywhere: nested type links will be on both the namespace and their declaring type page
+
 <a name='Overview'></a>
 # Overview
 List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/recommended-tags-for-documentation-comments)
