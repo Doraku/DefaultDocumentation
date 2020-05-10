@@ -9,9 +9,10 @@
       <DocumentationFile Condition="'$(DocumentationFile)' != ''">$([System.IO.Path]::GetFullPath($(DocumentationFile)))</DocumentationFile>
       <DefaultDocumentationFolder Condition="'$(DefaultDocumentationFolder)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationFolder)))</DefaultDocumentationFolder>
       <DefaultDocumentationFileNameMode Condition="'$(DefaultDocumentationFileNameMode)' == ''">FullName</DefaultDocumentationFileNameMode>
+      <DefaultDocumentationNestedTypeVisibility Condition="'$(DefaultDocumentationNestedTypeVisibility)' == ''">Namespace</DefaultDocumentationNestedTypeVisibility>
       <DefaultDocumentationLinksFile Condition="'$(DefaultDocumentationLinksFile)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationLinksFile)))</DefaultDocumentationLinksFile>
       
-      <DefaultDocumentationCommand>$(DefaultDocumentationTool) /assembly:"$(TargetPath)" /xml:"$(DocumentationFile)" /output:"$(DefaultDocumentationFolder)" /home:"$(DefaultDocumentationHome)" /fileNameMode:$(DefaultDocumentationFileNameMode)</DefaultDocumentationCommand>
+      <DefaultDocumentationCommand>$(DefaultDocumentationTool) /assembly:"$(TargetPath)" /xml:"$(DocumentationFile)" /output:"$(DefaultDocumentationFolder)" /home:"$(DefaultDocumentationHome)" /fileNameMode:"$(DefaultDocumentationFileNameMode)" /nestedTypeVisibility:"$(DefaultDocumentationNestedTypeVisibility)"</DefaultDocumentationCommand>
       <DefaultDocumentationCommandLinksParameters>/baselink:"$(DefaultDocumentationBaseLink)" /linksfile:"$(DefaultDocumentationLinksFile)"</DefaultDocumentationCommandLinksParameters>
     </PropertyGroup>
     <Exec Command="$(DefaultDocumentationCommand) $(DefaultDocumentationCommandLinksParameters)"/>

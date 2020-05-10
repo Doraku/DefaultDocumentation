@@ -18,11 +18,23 @@ namespace DefaultDocumentation.Model
 
             writer.Write("### Remarks", Documentation.GetRemarks(), this);
 
-            writer.WriteChildrenLink<ClassDocItem>("Classes");
-            writer.WriteChildrenLink<StructDocItem>("Structs");
-            writer.WriteChildrenLink<InterfaceDocItem>("Interfaces");
-            writer.WriteChildrenLink<EnumDocItem>("Enums");
-            writer.WriteChildrenLink<DelegateDocItem>("Delegates");
+            if (writer.NestedTypeVisibility == NestedTypeVisibility.Namespace
+                || writer.NestedTypeVisibility == NestedTypeVisibility.Everywhere)
+            {
+                writer.WriteChildrenLink<ClassDocItem>("Classes");
+                writer.WriteChildrenLink<StructDocItem>("Structs");
+                writer.WriteChildrenLink<InterfaceDocItem>("Interfaces");
+                writer.WriteChildrenLink<EnumDocItem>("Enums");
+                writer.WriteChildrenLink<DelegateDocItem>("Delegates");
+            }
+            else
+            {
+                writer.WriteDirectChildrenLink<ClassDocItem>("Classes");
+                writer.WriteDirectChildrenLink<StructDocItem>("Structs");
+                writer.WriteDirectChildrenLink<InterfaceDocItem>("Interfaces");
+                writer.WriteDirectChildrenLink<EnumDocItem>("Enums");
+                writer.WriteDirectChildrenLink<DelegateDocItem>("Delegates");
+            }
         }
     }
 }

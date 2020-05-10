@@ -16,14 +16,22 @@ namespace DefaultDocumentation
         private readonly CSharpDecompiler _decompiler;
         private readonly XmlDocumentationProvider _documentationProvider;
         private readonly FileNameMode _fileNameMode;
+        private readonly NestedTypeVisibility _nestedTypeVisibility;
         private readonly Dictionary<string, DocItem> _docItems;
         private readonly Dictionary<string, string> _links;
 
-        public DocumentationGenerator(string assemblyFilePath, string documentationFilePath, string homePageName, FileNameMode fileNameMode, string linksFiles)
+        public DocumentationGenerator(
+            string assemblyFilePath,
+            string documentationFilePath,
+            string homePageName,
+            FileNameMode fileNameMode,
+            NestedTypeVisibility nestedTypeVisibility,
+            string linksFiles)
         {
             _decompiler = new CSharpDecompiler(assemblyFilePath, new DecompilerSettings());
             _documentationProvider = new XmlDocumentationProvider(documentationFilePath);
             _fileNameMode = fileNameMode;
+            _nestedTypeVisibility = nestedTypeVisibility;
 
             _docItems = new Dictionary<string, DocItem>();
             foreach (DocItem item in GetDocItems(homePageName))
@@ -152,7 +160,7 @@ namespace DefaultDocumentation
         {
             _docItems.Values.Where(i => i.GeneratePage).AsParallel().ForAll(i =>
             {
-                using DocumentationWriter writer = new DocumentationWriter(_fileNameMode, _docItems, _links, outputFolderPath, i);
+                using DocumentationWriter writer = new DocumentationWriter(_fileNameMode, _nestedTypeVisibility, _docItems, _links, outputFolderPath, i);
 
                 i.WriteDocumentation(writer);
             });

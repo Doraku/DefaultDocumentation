@@ -12,44 +12,57 @@ namespace DefaultDocumentation
             DirectoryInfo output = null;
             string home = null;
             FileNameMode fileNameMode = FileNameMode.FullName;
+            NestedTypeVisibility nestedTypeVisibility = NestedTypeVisibility.Namespace;
             string baselink = null;
             FileInfo linksfile = null;
             string externallinks = null;
 
-            foreach (string arg in args)
+            try
             {
-                if (TryGetArgValue(arg, nameof(assembly), out string argValue))
+                foreach (string arg in args)
                 {
-                    assembly = new FileInfo(argValue);
+                    if (TryGetArgValue(arg, nameof(assembly), out string argValue))
+                    {
+                        assembly = new FileInfo(argValue);
+                    }
+                    else if (TryGetArgValue(arg, nameof(xml), out argValue))
+                    {
+                        xml = new FileInfo(argValue);
+                    }
+                    else if (TryGetArgValue(arg, nameof(output), out argValue) && !string.IsNullOrWhiteSpace(argValue))
+                    {
+                        output = new DirectoryInfo(argValue);
+                    }
+                    else if (TryGetArgValue(arg, nameof(home), out argValue) && !string.IsNullOrWhiteSpace(argValue))
+                    {
+                        home = argValue;
+                    }
+                    else if (TryGetArgValue(arg, nameof(fileNameMode), out argValue))
+                    {
+                        fileNameMode = (FileNameMode)Enum.Parse(typeof(FileNameMode), argValue);
+                    }
+                    else if (TryGetArgValue(arg, nameof(nestedTypeVisibility), out argValue))
+                    {
+                        nestedTypeVisibility = (NestedTypeVisibility)Enum.Parse(typeof(NestedTypeVisibility), argValue);
+                    }
+                    else if (TryGetArgValue(arg, nameof(baselink), out argValue) && !string.IsNullOrWhiteSpace(argValue))
+                    {
+                        baselink = argValue;
+                    }
+                    else if (TryGetArgValue(arg, nameof(linksfile), out argValue) && !string.IsNullOrWhiteSpace(argValue))
+                    {
+                        linksfile = new FileInfo(argValue);
+                    }
+                    else if (TryGetArgValue(arg, nameof(externallinks), out argValue) && !string.IsNullOrWhiteSpace(argValue))
+                    {
+                        externallinks = argValue;
+                    }
                 }
-                else if (TryGetArgValue(arg, nameof(xml), out argValue))
-                {
-                    xml = new FileInfo(argValue);
-                }
-                else if (TryGetArgValue(arg, nameof(output), out argValue) && !string.IsNullOrWhiteSpace(argValue))
-                {
-                    output = new DirectoryInfo(argValue);
-                }
-                else if (TryGetArgValue(arg, nameof(home), out argValue) && !string.IsNullOrWhiteSpace(argValue))
-                {
-                    home = argValue;
-                }
-                else if (TryGetArgValue(arg, nameof(fileNameMode), out argValue))
-                {
-                    fileNameMode = (FileNameMode)Enum.Parse(typeof(FileNameMode), argValue);
-                }
-                else if (TryGetArgValue(arg, nameof(baselink), out argValue) && !string.IsNullOrWhiteSpace(argValue))
-                {
-                    baselink = argValue;
-                }
-                else if (TryGetArgValue(arg, nameof(linksfile), out argValue) && !string.IsNullOrWhiteSpace(argValue))
-                {
-                    linksfile = new FileInfo(argValue);
-                }
-                else if (TryGetArgValue(arg, nameof(externallinks), out argValue) && !string.IsNullOrWhiteSpace(argValue))
-                {
-                    externallinks = argValue;
-                }
+            }
+            catch
+            {
+                PrintHelp();
+                throw;
             }
 
             if (assembly is null || xml is null)
@@ -82,7 +95,7 @@ namespace DefaultDocumentation
                 output.Create();
             }
 
-            DocumentationGenerator generator = new DocumentationGenerator(assembly.FullName, xml.FullName, home, fileNameMode, externallinks);
+            DocumentationGenerator generator = new DocumentationGenerator(assembly.FullName, xml.FullName, home, fileNameMode, nestedTypeVisibility, externallinks);
 
             generator.WriteDocumentation(output.FullName);
 
@@ -116,6 +129,7 @@ namespace DefaultDocumentation
                 Console.WriteLine($"\t/{nameof(output)}:{{DefaultDocumentation output folder}}");
                 Console.WriteLine($"\t/{nameof(home)}:{{DefaultDocumentation home page name}}");
                 Console.WriteLine($"\t/{nameof(fileNameMode)}:{{{string.Join(" | ", Enum.GetValues(typeof(FileNameMode)))}}}");
+                Console.WriteLine($"\t/{nameof(nestedTypeVisibility)}:{{{string.Join(" | ", Enum.GetValues(typeof(NestedTypeVisibility)))}}}");
                 Console.WriteLine($"\t/{nameof(baselink)}:{{base link path used if generating a links file}}");
                 Console.WriteLine($"\t/{nameof(linksfile)}:{{links file path}}");
                 Console.WriteLine($"\t/{nameof(externallinks)}:{{links files for element outside of this assembly, separated by '|'}}");

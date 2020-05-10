@@ -7,11 +7,9 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Version>0.6.2</Version>
+    <Version>0.6.3</Version>
     <PackageReleaseNotes>
-added DefaultDocumentationFileNameMode parameter to change the way documentation pages are named (possible values: FullName, Md5)
-      
-fixed invalid char in file name generation
+added DefaultDocumentationNestedTypeVisibility parameter to set where nested types are displayed (possible value: Namespace, DeclaringType,Everywhere)
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>

@@ -94,6 +94,16 @@ namespace DefaultDocumentation.Model
             writer.WriteDirectChildrenLink<MethodDocItem>("Methods");
             writer.WriteDirectChildrenLink<EventDocItem>("Events");
             writer.WriteDirectChildrenLink<OperatorDocItem>("Operators");
+
+            if (writer.NestedTypeVisibility == NestedTypeVisibility.DeclaringType
+                || writer.NestedTypeVisibility == NestedTypeVisibility.Everywhere)
+            {
+                writer.WriteDirectChildrenLink<ClassDocItem>("Classes");
+                writer.WriteDirectChildrenLink<StructDocItem>("Structs");
+                writer.WriteDirectChildrenLink<InterfaceDocItem>("Interfaces");
+                writer.WriteDirectChildrenLink<EnumDocItem>("Enums");
+                writer.WriteDirectChildrenLink<DelegateDocItem>("Delegates");
+            }
         }
     }
 }

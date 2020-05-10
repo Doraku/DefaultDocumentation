@@ -24,7 +24,15 @@ namespace DefaultDocumentation
         private readonly DocItem _mainItem;
         private readonly string _filePath;
 
-        public DocumentationWriter(FileNameMode fileNameMode, IReadOnlyDictionary<string, DocItem> items, IReadOnlyDictionary<string, string> links, string folderPath, DocItem item)
+        public NestedTypeVisibility NestedTypeVisibility { get; }
+
+        public DocumentationWriter(
+            FileNameMode fileNameMode,
+            NestedTypeVisibility nestedTypeVisibility,
+            IReadOnlyDictionary<string, DocItem> items,
+            IReadOnlyDictionary<string, string> links,
+            string folderPath,
+            DocItem item)
         {
             if (!_builders.TryDequeue(out _builder))
             {
@@ -32,6 +40,7 @@ namespace DefaultDocumentation
             }
 
             _fileNameMode = fileNameMode;
+            NestedTypeVisibility = nestedTypeVisibility;
             _items = items;
             _links = links;
             _mainItem = item;
