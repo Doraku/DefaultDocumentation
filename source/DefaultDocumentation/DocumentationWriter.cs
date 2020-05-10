@@ -171,6 +171,23 @@ namespace DefaultDocumentation
 
         public void Write(string title, XElement element, DocItem item)
         {
+            string GetSeeLink(XElement element)
+            {
+                string see = element.GetReferenceName();
+                if (see is null)
+                {
+                    see = element.GetLangWord();
+                    if (see is null)
+                    {
+                        return string.Empty;
+                    }
+
+                    return $"https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/{see}";
+                }
+
+                return GetLink(see);
+            }
+
             string WriteNodes(IEnumerable<XNode> nodes)
             {
                 return string.Concat(nodes.Select(node => node switch
@@ -178,7 +195,7 @@ namespace DefaultDocumentation
                     XText text => string.Join("  \n", text.Value.Split('\n')),
                     XElement element => element.Name.ToString() switch
                     {
-                        "see" => GetLink(element.GetReferenceName()),
+                        "see" => GetSeeLink(element),
                         "seealso" => GetLink(element.GetReferenceName()),
                         "typeparamref" => item.TryGetTypeParameterDocItem(element.GetName(), out TypeParameterDocItem typeParameter) ? GetInnerLink(typeParameter) : element.GetName(),
                         "paramref" => item.TryGetParameterDocItem(element.GetName(), out ParameterDocItem parameter) ? GetInnerLink(parameter) : element.GetName(),

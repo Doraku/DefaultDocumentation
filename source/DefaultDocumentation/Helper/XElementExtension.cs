@@ -23,6 +23,8 @@ namespace DefaultDocumentation.Helper
 
         public static string GetName(this XElement element) => element.Attribute("name")?.Value;
 
-        public static string GetReferenceName(this XElement element) => element.Attribute("cref").Value;
+        public static string GetReferenceName(this XElement element) => element.Attribute("cref")?.Value;
+
+        public static string GetLangWord(this XElement element) => element.Attribute("langword")?.Value;
     }
 }
