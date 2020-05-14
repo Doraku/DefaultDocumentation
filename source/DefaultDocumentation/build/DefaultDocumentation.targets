@@ -3,18 +3,18 @@
   <Target Name="DefaultDocumentation" AfterTargets="PostBuildEvent">
     <PropertyGroup>
       <DefaultDocumentationTool>dotnet "$(MSBuildThisFileDirectory)../tools/DefaultDocumentation.dll"</DefaultDocumentationTool>
-      <DefaultDocumentationTool Condition="'$(MSBuildRuntimeType)' == 'Mono'">mono "$(MSBuildThisFileDirectory)../tools/DefaultDocumentation.exe"</DefaultDocumentationTool>
-      <DefaultDocumentationTool Condition="'$(MSBuildRuntimeType)' == 'Full'">"$(MSBuildThisFileDirectory)../tools/DefaultDocumentation.exe"</DefaultDocumentationTool>
+      <DefaultDocumentationTool Condition="$([MSBuild]::IsOsPlatform('Windows'))">"$(MSBuildThisFileDirectory)../tools/DefaultDocumentation.exe"</DefaultDocumentationTool>
 
       <DocumentationFile Condition="'$(DocumentationFile)' != ''">$([System.IO.Path]::GetFullPath($(DocumentationFile)))</DocumentationFile>
+      
       <DefaultDocumentationFolder Condition="'$(DefaultDocumentationFolder)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationFolder)))</DefaultDocumentationFolder>
       <DefaultDocumentationFileNameMode Condition="'$(DefaultDocumentationFileNameMode)' == ''">FullName</DefaultDocumentationFileNameMode>
       <DefaultDocumentationNestedTypeVisibility Condition="'$(DefaultDocumentationNestedTypeVisibility)' == ''">Namespace</DefaultDocumentationNestedTypeVisibility>
       <DefaultDocumentationLinksFile Condition="'$(DefaultDocumentationLinksFile)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationLinksFile)))</DefaultDocumentationLinksFile>
-      
-      <DefaultDocumentationCommand>$(DefaultDocumentationTool) /assembly:"$(TargetPath)" /xml:"$(DocumentationFile)" /output:"$(DefaultDocumentationFolder)" /home:"$(DefaultDocumentationHome)" /fileNameMode:"$(DefaultDocumentationFileNameMode)" /nestedTypeVisibility:"$(DefaultDocumentationNestedTypeVisibility)"</DefaultDocumentationCommand>
-      <DefaultDocumentationCommandLinksParameters>/baselink:"$(DefaultDocumentationBaseLink)" /linksfile:"$(DefaultDocumentationLinksFile)"</DefaultDocumentationCommandLinksParameters>
+
+      <DefaultDocumentationArgs>/assembly:"$(TargetPath)" /xml:"$(DocumentationFile)"</DefaultDocumentationArgs>
+      <DefaultDocumentationOptionalArgs>/output:"$(DefaultDocumentationFolder)" /home:"$(DefaultDocumentationHome)" /fileNameMode:"$(DefaultDocumentationFileNameMode)" /nestedTypeVisibility:"$(DefaultDocumentationNestedTypeVisibility)"</DefaultDocumentationOptionalArgs>
     </PropertyGroup>
-    <Exec Command="$(DefaultDocumentationCommand) $(DefaultDocumentationCommandLinksParameters)"/>
+    <Exec Command="$(DefaultDocumentationTool) $(DefaultDocumentationArgs) $(DefaultDocumentationOptionalArgs)"/>
   </Target>
 </Project>
