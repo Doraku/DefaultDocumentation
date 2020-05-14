@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace DefaultDocumentation
@@ -128,8 +129,8 @@ namespace DefaultDocumentation
                 Console.WriteLine("optional parameters:");
                 Console.WriteLine($"\t/{nameof(output)}:{{DefaultDocumentation output folder}}");
                 Console.WriteLine($"\t/{nameof(home)}:{{DefaultDocumentation home page name}}");
-                Console.WriteLine($"\t/{nameof(fileNameMode)}:{{{string.Join(" | ", Enum.GetValues(typeof(FileNameMode)))}}}");
-                Console.WriteLine($"\t/{nameof(nestedTypeVisibility)}:{{{string.Join(" | ", Enum.GetValues(typeof(NestedTypeVisibility)))}}}");
+                Console.WriteLine($"\t/{nameof(fileNameMode)}:{{{string.Join(" | ", (IEnumerable<FileNameMode>)Enum.GetValues(typeof(FileNameMode)))}}}");
+                Console.WriteLine($"\t/{nameof(nestedTypeVisibility)}:{{{string.Join(" | ", (IEnumerable<NestedTypeVisibility>)Enum.GetValues(typeof(NestedTypeVisibility)))}}}");
                 Console.WriteLine($"\t/{nameof(baselink)}:{{base link path used if generating a links file}}");
                 Console.WriteLine($"\t/{nameof(linksfile)}:{{links file path}}");
                 Console.WriteLine($"\t/{nameof(externallinks)}:{{links files for element outside of this assembly, separated by '|'}}");
