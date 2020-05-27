@@ -84,8 +84,8 @@ namespace DefaultDocumentation.Model
                     writer.Break();
                 }
 
-                writer.Write("Derived" + Environment.NewLine + "&#8627; ");
-                writer.Write(string.Join(Environment.NewLine + "&#8627; ", derived.Select(t => writer.GetLink(t))));
+                writer.Write("Derived  " + Environment.NewLine + "&#8627; ");
+                writer.Write(string.Join("  " + Environment.NewLine + "&#8627; ", derived.Select(t => writer.GetLink(t))));
                 writer.WriteLine("  ");
                 needBreak = true;
             }

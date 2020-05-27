@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Version>0.6.4</Version>
+    <Version>0.6.5</Version>
     <PackageReleaseNotes>
 added derived types from the assembly on type pages
 
