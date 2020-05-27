@@ -24,6 +24,8 @@ namespace DefaultDocumentation
         private readonly DocItem _mainItem;
         private readonly string _filePath;
 
+        public IEnumerable<DocItem> KnownItems => _items.Values;
+
         public NestedTypeVisibility NestedTypeVisibility { get; }
 
         public DocumentationWriter(
@@ -50,7 +52,7 @@ namespace DefaultDocumentation
         private bool WriteChildrenLink<T>(DocItem parent, string title, bool includeInnerChildren)
         {
             bool hasTitle = title is null;
-            foreach (DocItem child in _items.Values.Where(i => i.Parent == parent).OrderBy(i => i.Id))
+            foreach (DocItem child in KnownItems.Where(i => i.Parent == parent).OrderBy(i => i.Id))
             {
                 if (child is T)
                 {
@@ -121,7 +123,7 @@ namespace DefaultDocumentation
 
         public void WriteHeader()
         {
-            HomeDocItem home = _items.Values.OfType<HomeDocItem>().Single();
+            HomeDocItem home = KnownItems.OfType<HomeDocItem>().Single();
             if (home.GeneratePage)
             {
                 WriteLine($"#### {GetLink(home)}");
@@ -163,7 +165,7 @@ namespace DefaultDocumentation
 
         public void WriteDocItems<T>(string title)
             where T : DocItem
-            => WriteDocItems(_items.Values.OfType<T>().Where(i => i.Parent == _mainItem), title);
+            => WriteDocItems(KnownItems.OfType<T>().Where(i => i.Parent == _mainItem), title);
 
         public void WriteLinkTarget(DocItem item) => WriteLine($"<a name='{item.GetLink(_fileNameMode)}'></a>");
 

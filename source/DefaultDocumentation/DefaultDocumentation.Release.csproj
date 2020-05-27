@@ -7,11 +7,9 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Version>0.6.3</Version>
+    <Version>0.6.4</Version>
     <PackageReleaseNotes>
-added DefaultDocumentationNestedTypeVisibility parameter to set where nested types are displayed (possible value: Namespace, DeclaringType,Everywhere)
-
-fixed see element with langword attribute usage
+added derived types from the assembly on type pages
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>

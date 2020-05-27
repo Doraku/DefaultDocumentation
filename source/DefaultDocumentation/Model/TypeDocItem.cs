@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Helper;
@@ -63,21 +64,41 @@ namespace DefaultDocumentation.Model
             writer.Break();
             writer.WriteLine("```");
 
+            bool needBreak = false;
+
             if (Type.Kind == TypeKind.Class)
             {
                 writer.Write("Inheritance ");
-                writer.Write(string.Join(" &gt; ", Type.GetNonInterfaceBaseTypes().Select(t => writer.GetTypeLink(this, t))));
+                writer.Write(string.Join(" &#129106; ", Type.GetNonInterfaceBaseTypes().Where(t => t != Type).Select(t => writer.GetTypeLink(this, t))));
+                writer.Write(" &#129106; ");
+                writer.Write(Name);
                 writer.WriteLine("  ");
-                if (interfaces.Count > 0)
+                needBreak = true;
+            }
+
+            List<TypeDocItem> derived = writer.KnownItems.OfType<TypeDocItem>().Where(i => i.Type.DirectBaseTypes.Select(t => t is ParameterizedType g ? g.GetDefinition() : t).Contains(Type)).OrderBy(i => i.FullName).ToList();
+            if (derived.Count > 0)
+            {
+                if (needBreak)
                 {
                     writer.Break();
                 }
+
+                writer.Write("Derived" + Environment.NewLine + "&#8627; ");
+                writer.Write(string.Join(Environment.NewLine + "&#8627; ", derived.Select(t => writer.GetLink(t))));
+                writer.WriteLine("  ");
+                needBreak = true;
             }
 
             // attribute
 
             if (interfaces.Count > 0)
             {
+                if (needBreak)
+                {
+                    writer.Break();
+                }
+
                 writer.Write("Implements ");
                 writer.Write(string.Join(", ", interfaces.Select(t => writer.GetTypeLink(this, t))));
                 writer.WriteLine("  ");
