@@ -52,7 +52,7 @@ namespace DefaultDocumentation.Model
             if (Property.ReturnType.Kind != TypeKind.Void)
             {
                 writer.WriteLine("#### Property Value");
-                writer.WriteLine(writer.GetTypeLink(this, Property.ReturnType) + "  ");
+                writer.WriteLine(writer.GetTypeLink(Property.ReturnType) + "  ");
                 writer.Write(this, Documentation.GetValue());
             }
 

@@ -38,7 +38,7 @@ namespace DefaultDocumentation.Model
             // todo attributes
 
             writer.WriteLine("#### Field Value");
-            writer.WriteLine($"{writer.GetTypeLink(this, Field.Type)}  ");
+            writer.WriteLine($"{writer.GetTypeLink(Field.Type)}  ");
 
             writer.Write("### Example", Documentation.GetExample(), this);
             writer.Write("### Remarks", Documentation.GetRemarks(), this);

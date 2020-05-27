@@ -69,7 +69,7 @@ namespace DefaultDocumentation.Model
             if (Type.Kind == TypeKind.Class)
             {
                 writer.Write("Inheritance ");
-                writer.Write(string.Join(" &#129106; ", Type.GetNonInterfaceBaseTypes().Where(t => t != Type).Select(t => writer.GetTypeLink(this, t))));
+                writer.Write(string.Join(" &#129106; ", Type.GetNonInterfaceBaseTypes().Where(t => t != Type).Select(writer.GetTypeLink)));
                 writer.Write(" &#129106; ");
                 writer.Write(Name);
                 writer.WriteLine("  ");
@@ -100,7 +100,7 @@ namespace DefaultDocumentation.Model
                 }
 
                 writer.Write("Implements ");
-                writer.Write(string.Join(", ", interfaces.Select(t => writer.GetTypeLink(this, t))));
+                writer.Write(string.Join(", ", interfaces.Select(writer.GetTypeLink)));
                 writer.WriteLine("  ");
             }
 

@@ -38,7 +38,7 @@ namespace DefaultDocumentation.Model
             // attributes
 
             writer.WriteLine("#### Event type");
-            writer.WriteLine(writer.GetTypeLink(this, Event.ReturnType));
+            writer.WriteLine(writer.GetTypeLink(Event.ReturnType));
 
             writer.Write("### Example", Documentation.GetExample(), this);
             writer.Write("### Remarks", Documentation.GetRemarks(), this);

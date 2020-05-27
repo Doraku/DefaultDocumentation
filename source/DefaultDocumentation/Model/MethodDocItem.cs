@@ -58,7 +58,7 @@ namespace DefaultDocumentation.Model
             if (Method.ReturnType.Kind != TypeKind.Void)
             {
                 writer.WriteLine("#### Returns");
-                writer.WriteLine(writer.GetTypeLink(this, Method.ReturnType) + "  ");
+                writer.WriteLine(writer.GetTypeLink(Method.ReturnType) + "  ");
                 writer.Write(this, Documentation.GetReturns());
             }
 

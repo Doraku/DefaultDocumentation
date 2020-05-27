@@ -20,7 +20,7 @@ namespace DefaultDocumentation.Model
         public override void WriteDocumentation(DocumentationWriter writer)
         {
             writer.WriteLinkTarget(this);
-            writer.WriteLine($"`{Parameter.Name}` {writer.GetTypeLink(this, Parameter.Type)}  ");
+            writer.WriteLine($"`{Parameter.Name}` {writer.GetTypeLink(Parameter.Type)}  ");
             writer.Write(this, Documentation);
         }
     }

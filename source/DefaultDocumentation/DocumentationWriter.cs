@@ -84,7 +84,7 @@ namespace DefaultDocumentation
             return $"[{displayedName ?? item.Name}]({(_mainItem == pagedDocItem ? string.Empty : $"./{pagedDocItem.GetLink(_fileNameMode)}.md")}#{item.GetLink(_fileNameMode)} '{item.FullName}')";
         }
 
-        public string GetTypeLink(DocItem item, IType type)
+        public string GetTypeLink(IType type)
         {
             string HandleParameterizedType(ParameterizedType genericType)
             {
@@ -92,20 +92,20 @@ namespace DefaultDocumentation
                 if (typeDefinition != null && _items.TryGetValue(typeDefinition.GetIdString(), out DocItem docItem) && docItem is TypeDocItem typeDocItem)
                 {
                     return GetLink(docItem, typeDocItem.Type.FullName + "&lt;")
-                        + string.Join(GetLink(docItem, ","), genericType.TypeArguments.Select(t => GetTypeLink(item, t)))
+                        + string.Join(GetLink(docItem, ","), genericType.TypeArguments.Select(GetTypeLink))
                         + GetLink(docItem, "&gt;");
                 }
 
                 return genericType.GenericType.ReflectionName.AsDotNetApiLink(genericType.FullName + "&lt;")
-                    + string.Join(genericType.GenericType.ReflectionName.AsDotNetApiLink(","), genericType.TypeArguments.Select(t => GetTypeLink(item, t)))
+                    + string.Join(genericType.GenericType.ReflectionName.AsDotNetApiLink(","), genericType.TypeArguments.Select(GetTypeLink))
                     + genericType.GenericType.ReflectionName.AsDotNetApiLink("&gt;");
             }
 
             return type.Kind switch
             {
-                TypeKind.Array when type is TypeWithElementType arrayType => GetTypeLink(item, arrayType.ElementType) + "System.Array".AsDotNetApiLink("[]"),
-                TypeKind.ByReference when type is TypeWithElementType innerType => GetTypeLink(item, innerType.ElementType),
-                TypeKind.TypeParameter => item.TryGetTypeParameterDocItem(type.Name, out TypeParameterDocItem typeParameter) ? GetInnerLink(typeParameter) : type.Name,
+                TypeKind.Array when type is TypeWithElementType arrayType => GetTypeLink(arrayType.ElementType) + "System.Array".AsDotNetApiLink("[]"),
+                TypeKind.ByReference when type is TypeWithElementType innerType => GetTypeLink(innerType.ElementType),
+                TypeKind.TypeParameter => _mainItem.TryGetTypeParameterDocItem(type.Name, out TypeParameterDocItem typeParameter) ? GetInnerLink(typeParameter) : type.Name,
                 TypeKind.Dynamic => "[dynamic](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/using-type-dynamic 'dynamic')",
                 _ when type is ParameterizedType genericType => HandleParameterizedType(genericType),
                 _ => GetLink(type.GetDefinition().GetIdString())
