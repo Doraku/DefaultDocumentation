@@ -28,7 +28,7 @@ namespace DefaultDocumentation
             NestedTypeVisibility nestedTypeVisibility,
             string linksFiles)
         {
-            _decompiler = new CSharpDecompiler(assemblyFilePath, new DecompilerSettings());
+            _decompiler = new CSharpDecompiler(assemblyFilePath, new DecompilerSettings { ThrowOnAssemblyResolveErrors = false });
             _documentationProvider = new XmlDocumentationProvider(documentationFilePath);
             _fileNameMode = fileNameMode;
             _nestedTypeVisibility = nestedTypeVisibility;

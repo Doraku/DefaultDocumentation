@@ -10,6 +10,8 @@
     <Version>0.6.4</Version>
     <PackageReleaseNotes>
 added derived types from the assembly on type pages
+
+fixed AssemblyResolutionException for dependencies
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>
