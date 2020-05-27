@@ -88,7 +88,23 @@ namespace DefaultDocumentation
             {
                 foreach (FileInfo file in output.GetFiles("*.md"))
                 {
-                    file.Delete();
+                    int i = 3;
+                start:
+                    try
+                    {
+                        file.Delete();
+                        continue;
+                    }
+                    catch
+                    {
+                        Console.WriteLine("welp");
+                        if (--i > 0)
+                        {
+                            goto start;
+                        }
+
+                        throw;
+                    }
                 }
             }
             else
