@@ -116,6 +116,7 @@ namespace DefaultDocumentation
                 TypeKind.TypeParameter => _mainItem.TryGetTypeParameterDocItem(type.Name, out TypeParameterDocItem typeParameter) ? GetInnerLink(typeParameter) : type.Name,
                 TypeKind.Dynamic => "[dynamic](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/using-type-dynamic 'dynamic')",
                 TypeKind.Tuple when type is TupleType tupleType => HandleTupleType(tupleType),
+                TypeKind.Unknown => type.FullName.AsDotNetApiLink(),
                 _ when type is ParameterizedType genericType => HandleParameterizedType(genericType),
                 _ => GetLink(type.GetDefinition().GetIdString())
             };

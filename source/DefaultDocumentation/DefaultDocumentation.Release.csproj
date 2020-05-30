@@ -7,10 +7,9 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Version>0.6.6</Version>
+    <Version>0.6.7</Version>
     <PackageReleaseNotes>
-fixed pointer member handling
-fixed ValueTuple member handling
+fixed missing types link generation
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>
