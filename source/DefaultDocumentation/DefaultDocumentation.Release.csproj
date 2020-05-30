@@ -10,6 +10,7 @@
     <Version>0.6.6</Version>
     <PackageReleaseNotes>
 fixed pointer member handling
+fixed ValueTuple member handling
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>

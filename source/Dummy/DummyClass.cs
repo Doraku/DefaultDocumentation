@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Dummy
 {
@@ -50,6 +51,18 @@ namespace Dummy
         /// <summary>
         /// dummy
         /// </summary>
+        /// <typeparam name="T">dummy</typeparam>
+        /// <param name="value">dummy</param>
+        /// <returns>dummy</returns>
+        public async Task<dynamic> DummyAsync<T>(T value)
+        {
+            await Task.Delay(0);
+            return value;
+        }
+
+        /// <summary>
+        /// dummy
+        /// </summary>
         public DummyClass()
         { }
 
@@ -58,7 +71,7 @@ namespace Dummy
         /// </summary>
         /// <param name="p">dummy</param>
         /// <returns>dummy</returns>
-        public unsafe int** Unsafe(int* p) => &p;
+        public unsafe int** Unsafe(void* p) => (int**)&p;
 
         /// <summary>
         /// dummy
@@ -70,6 +83,27 @@ namespace Dummy
             var t = this;
             t += 0;
         }
+
+        /// <summary>
+        /// dummy
+        /// </summary>
+        public TaskContinuationOptions DummyOption { get; }
+
+        /// <summary>
+        /// dummy
+        /// </summary>
+        /// <typeparam name="T2">dummy</typeparam>
+        /// <param name="pouet">dummy</param>
+        /// <returns>dummy</returns>
+        public (int, DummyClass) DummyTuple<T2>(T2 pouet) => (42, this);
+
+        /// <summary>
+        /// dummy
+        /// </summary>
+        /// <typeparam name="T2">dummy</typeparam>
+        /// <param name="pouet">dummy</param>
+        /// <returns>dummy</returns>
+        public ValueTuple<int, DummyClass> DummyExplicitTuple<T2>(T2 pouet) => (42, this);
 
         /// <summary>
         /// dummy

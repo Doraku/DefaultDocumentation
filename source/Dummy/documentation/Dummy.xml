@@ -45,12 +45,20 @@
             <param name="index"></param>
             <returns></returns>
         </member>
+        <member name="M:Dummy.DummyClass.DummyAsync``1(``0)">
+            <summary>
+            dummy
+            </summary>
+            <typeparam name="T">dummy</typeparam>
+            <param name="value">dummy</param>
+            <returns>dummy</returns>
+        </member>
         <member name="M:Dummy.DummyClass.#ctor">
             <summary>
             dummy
             </summary>
         </member>
-        <member name="M:Dummy.DummyClass.Unsafe(System.Int32*)">
+        <member name="M:Dummy.DummyClass.Unsafe(System.Void*)">
             <summary>
             dummy
             </summary>
@@ -63,6 +71,27 @@
             </summary>
             <param name="pouet">kikoo</param>
             <typeparam name="T2">lol</typeparam>
+        </member>
+        <member name="P:Dummy.DummyClass.DummyOption">
+            <summary>
+            dummy
+            </summary>
+        </member>
+        <member name="M:Dummy.DummyClass.DummyTuple``1(``0)">
+            <summary>
+            dummy
+            </summary>
+            <typeparam name="T2">dummy</typeparam>
+            <param name="pouet">dummy</param>
+            <returns>dummy</returns>
+        </member>
+        <member name="M:Dummy.DummyClass.DummyExplicitTuple``1(``0)">
+            <summary>
+            dummy
+            </summary>
+            <typeparam name="T2">dummy</typeparam>
+            <param name="pouet">dummy</param>
+            <returns>dummy</returns>
         </member>
         <member name="M:Dummy.DummyClass.op_Addition(Dummy.DummyClass,System.Int32)">
             <summary>

@@ -101,6 +101,13 @@ namespace DefaultDocumentation
                     + genericType.GenericType.ReflectionName.AsDotNetApiLink("&gt;");
             }
 
+            string HandleTupleType(TupleType tupleType)
+            {
+                return tupleType.FullName.AsDotNetApiLink(tupleType.FullName + "&lt;")
+                    + string.Join(tupleType.FullName.AsDotNetApiLink(","), tupleType.ElementTypes.Select(GetTypeLink))
+                    + tupleType.FullName.AsDotNetApiLink("&gt;");
+            }
+
             return type.Kind switch
             {
                 TypeKind.Array when type is TypeWithElementType arrayType => GetTypeLink(arrayType.ElementType) + "System.Array".AsDotNetApiLink("[]"),
@@ -108,6 +115,7 @@ namespace DefaultDocumentation
                 TypeKind.ByReference when type is TypeWithElementType innerType => GetTypeLink(innerType.ElementType),
                 TypeKind.TypeParameter => _mainItem.TryGetTypeParameterDocItem(type.Name, out TypeParameterDocItem typeParameter) ? GetInnerLink(typeParameter) : type.Name,
                 TypeKind.Dynamic => "[dynamic](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/using-type-dynamic 'dynamic')",
+                TypeKind.Tuple when type is TupleType tupleType => HandleTupleType(tupleType),
                 _ when type is ParameterizedType genericType => HandleParameterizedType(genericType),
                 _ => GetLink(type.GetDefinition().GetIdString())
             };
