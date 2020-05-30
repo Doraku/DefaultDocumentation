@@ -50,6 +50,13 @@
             dummy
             </summary>
         </member>
+        <member name="M:Dummy.DummyClass.Unsafe(System.Int32*)">
+            <summary>
+            dummy
+            </summary>
+            <param name="p">dummy</param>
+            <returns>dummy</returns>
+        </member>
         <member name="M:Dummy.DummyClass.DummyMethod``1(``0)">
             <summary>
             dummy

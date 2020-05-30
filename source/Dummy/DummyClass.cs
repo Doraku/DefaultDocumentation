@@ -56,6 +56,13 @@ namespace Dummy
         /// <summary>
         /// dummy
         /// </summary>
+        /// <param name="p">dummy</param>
+        /// <returns>dummy</returns>
+        public unsafe int** Unsafe(int* p) => &p;
+
+        /// <summary>
+        /// dummy
+        /// </summary>
         /// <param name="pouet">kikoo</param>
         /// <typeparam name="T2">lol</typeparam>
         public void DummyMethod<T2>(T2 pouet)

@@ -7,11 +7,9 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Version>0.6.5</Version>
+    <Version>0.6.6</Version>
     <PackageReleaseNotes>
-added derived types from the assembly on type pages
-
-fixed AssemblyResolutionException for dependencies
+fixed pointer member handling
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>

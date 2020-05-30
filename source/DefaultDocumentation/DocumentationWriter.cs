@@ -104,6 +104,7 @@ namespace DefaultDocumentation
             return type.Kind switch
             {
                 TypeKind.Array when type is TypeWithElementType arrayType => GetTypeLink(arrayType.ElementType) + "System.Array".AsDotNetApiLink("[]"),
+                TypeKind.Pointer when type is TypeWithElementType pointerType => GetTypeLink(pointerType.ElementType) + "*",
                 TypeKind.ByReference when type is TypeWithElementType innerType => GetTypeLink(innerType.ElementType),
                 TypeKind.TypeParameter => _mainItem.TryGetTypeParameterDocItem(type.Name, out TypeParameterDocItem typeParameter) ? GetInnerLink(typeParameter) : type.Name,
                 TypeKind.Dynamic => "[dynamic](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/using-type-dynamic 'dynamic')",
