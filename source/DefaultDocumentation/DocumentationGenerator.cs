@@ -160,9 +160,16 @@ namespace DefaultDocumentation
         {
             _docItems.Values.Where(i => i.GeneratePage).AsParallel().ForAll(i =>
             {
-                using DocumentationWriter writer = new DocumentationWriter(_fileNameMode, _nestedTypeVisibility, _docItems, _links, outputFolderPath, i);
+                try
+                {
+                    using DocumentationWriter writer = new DocumentationWriter(_fileNameMode, _nestedTypeVisibility, _docItems, _links, outputFolderPath, i);
 
-                i.WriteDocumentation(writer);
+                    i.WriteDocumentation(writer);
+                }
+                catch (Exception exception)
+                {
+                    throw new Exception($"Error while writing documentation for {i.FullName}", exception);
+                }
             });
         }
 
