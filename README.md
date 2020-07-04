@@ -22,6 +22,7 @@ Default home page name is `index` and can be changed by supplying a `<DefaultDoc
 
 The name of the documentation page will be generated with the full name of each member but it is possible to change this by setting a `DefaultDocumentationFileNameMode` element in your csproj with one of those values:
 - FullName: the default behavior, will use the fully qualified name of each member
+- Name: will only use type and member name without the namespace (experimental, you may get collision if you have multiple types with the same name in different namespaces)
 - Md5: will do a Md5 of the full name of each member to produce shorter name (experimental, you may get collision)
 
 By default, nested types are all visible on their namespace page. It is possible to change this behavior by setting a `DefaultDocumentationNestedTypeVisibility` element in your csproj with once of those values:

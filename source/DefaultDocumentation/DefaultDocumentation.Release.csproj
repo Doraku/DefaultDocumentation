@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Version>0.6.7</Version>
+    <Version>0.6.8</Version>
     <PackageReleaseNotes>
-fixed missing types link generation
+added Name FileNameMode (experimental, may generate name collission if multiple types have the same name in different namespaces)
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>

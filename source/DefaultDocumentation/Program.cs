@@ -97,7 +97,6 @@ namespace DefaultDocumentation
                     }
                     catch
                     {
-                        Console.WriteLine("welp");
                         if (--i > 0)
                         {
                             goto start;

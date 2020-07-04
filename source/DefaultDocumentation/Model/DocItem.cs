@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
@@ -22,6 +24,13 @@ namespace DefaultDocumentation.Model
                 | ConversionFlags.UseFullyQualifiedEntityNames
         };
 
+        private static readonly CSharpAmbience NameAmbience = new CSharpAmbience
+        {
+            ConversionFlags =
+                ConversionFlags.ShowParameterList
+                | ConversionFlags.ShowTypeParameterList
+        };
+
         private static readonly CSharpAmbience TypeNameAmbience = new CSharpAmbience
         {
             ConversionFlags =
@@ -31,13 +40,15 @@ namespace DefaultDocumentation.Model
                 | ConversionFlags.UseFullyQualifiedTypeNames
         };
 
-        private static readonly CSharpAmbience NameAmbience = new CSharpAmbience
+        private static readonly CSharpAmbience EntityNameAmbience = new CSharpAmbience
         {
             ConversionFlags =
                 ConversionFlags.ShowParameterList
                 | ConversionFlags.ShowTypeParameterList
                 | ConversionFlags.UseFullyQualifiedTypeNames
         };
+
+        private readonly IEntity _entity;
 
         public DocItem Parent { get; }
         public string Id { get; }
@@ -57,8 +68,10 @@ namespace DefaultDocumentation.Model
         }
 
         protected DocItem(DocItem parent, IEntity entity, XElement documentation)
-            : this(parent, entity.GetIdString(), GetFullName(entity), (entity is ITypeDefinition ? TypeNameAmbience : NameAmbience).ConvertSymbol(entity), documentation)
-        { }
+            : this(parent, entity.GetIdString(), GetFullName(entity), (entity is ITypeDefinition ? TypeNameAmbience : EntityNameAmbience).ConvertSymbol(entity), documentation)
+        {
+            _entity = entity;
+        }
 
         private static string GetFullName(IEntity entity)
         {
@@ -93,7 +106,21 @@ namespace DefaultDocumentation.Model
         public virtual string GetLink(FileNameMode fileNameMode) => (fileNameMode switch
         {
             FileNameMode.Md5 => Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(FullName))),
+            FileNameMode.Name => _entity is null ? FullName : string.Join(".", GetHierarchy().Reverse()),
             _ => FullName
         }).Clean();
+
+        private IEnumerable<string> GetHierarchy()
+        {
+            yield return NameAmbience.ConvertSymbol(_entity);
+
+            DocItem parent = Parent;
+            while (parent is TypeDocItem)
+            {
+                yield return NameAmbience.ConvertSymbol(parent._entity);
+
+                parent = parent.Parent;
+            }
+        }
     }
 }
