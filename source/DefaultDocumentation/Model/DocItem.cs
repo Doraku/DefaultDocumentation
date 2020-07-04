@@ -79,22 +79,22 @@ namespace DefaultDocumentation.Model
 
             if (entity.SymbolKind == SymbolKind.Operator)
             {
-                int index = fullName.IndexOf(".operator ") + 1;
-                if (index <= 0)
+                int offset = 17;
+                int index = fullName.IndexOf("implicit operator ");
+                if (index < 0)
                 {
-                    index = fullName.IndexOf(".implicit operator ") + 1;
-                    int offset = 17;
-                    if (index <= 0)
-                    {
-                        index = fullName.IndexOf(".explicit operator ") + 1;
-                        offset = 17;
-                    }
+                    index = fullName.IndexOf("explicit operator ");
 
-                    fullName = fullName.Substring(0, index) + entity.Name + fullName.Substring(index + offset);
+                    if (index < 0)
+                    {
+                        index = fullName.IndexOf("operator ");
+                        offset = fullName.IndexOf('(') - index;
+                    }
                 }
-                else
+
+                if (index >= 0)
                 {
-                    fullName = fullName.Substring(0, index) + entity.Name + fullName.Substring(fullName.IndexOf('('));
+                    fullName = fullName.Substring(0, index) + entity.Name + fullName.Substring(index + offset);
                 }
             }
 

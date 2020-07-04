@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Version>0.6.9</Version>
+    <Version>0.6.10</Version>
     <PackageReleaseNotes>
 added Name FileNameMode (experimental, may generate name collission if multiple types have the same name in different namespaces)
     </PackageReleaseNotes>
