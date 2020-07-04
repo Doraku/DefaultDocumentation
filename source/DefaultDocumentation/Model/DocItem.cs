@@ -68,14 +68,14 @@ namespace DefaultDocumentation.Model
         }
 
         protected DocItem(DocItem parent, IEntity entity, XElement documentation)
-            : this(parent, entity.GetIdString(), GetFullName(entity), (entity is ITypeDefinition ? TypeNameAmbience : EntityNameAmbience).ConvertSymbol(entity), documentation)
+            : this(parent, entity.GetIdString(), GetName(entity, FullNameAmbience), (entity is ITypeDefinition ? TypeNameAmbience : EntityNameAmbience).ConvertSymbol(entity), documentation)
         {
             _entity = entity;
         }
 
-        private static string GetFullName(IEntity entity)
+        private static string GetName(IEntity entity, CSharpAmbience ambience)
         {
-            string fullName = FullNameAmbience.ConvertSymbol(entity);
+            string fullName = ambience.ConvertSymbol(entity);
 
             if (entity.SymbolKind == SymbolKind.Operator)
             {
@@ -112,12 +112,12 @@ namespace DefaultDocumentation.Model
 
         private IEnumerable<string> GetHierarchy()
         {
-            yield return NameAmbience.ConvertSymbol(_entity);
+            yield return GetName(_entity, NameAmbience);
 
             DocItem parent = Parent;
             while (parent is TypeDocItem)
             {
-                yield return NameAmbience.ConvertSymbol(parent._entity);
+                yield return GetName(parent._entity, NameAmbience);
 
                 parent = parent.Parent;
             }
