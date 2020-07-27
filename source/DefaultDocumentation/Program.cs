@@ -88,6 +88,8 @@ namespace DefaultDocumentation
             {
                 foreach (FileInfo file in output.GetFiles("*.md"))
                 {
+                    if (file.Name.ToLower().Contains("readme"))
+                        continue;
                     int i = 3;
                 start:
                     try
