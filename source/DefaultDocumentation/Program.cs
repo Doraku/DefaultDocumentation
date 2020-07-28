@@ -88,8 +88,11 @@ namespace DefaultDocumentation
             {
                 foreach (FileInfo file in output.GetFiles("*.md"))
                 {
-                    if (file.Name.ToLower().Contains("readme"))
+                    if (string.Equals(file.Name, "readme.md", StringComparison.OrdinalIgnoreCase))
+                    {
                         continue;
+                    }
+
                     int i = 3;
                 start:
                     try
