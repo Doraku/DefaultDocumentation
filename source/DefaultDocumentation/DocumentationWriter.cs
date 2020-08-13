@@ -212,7 +212,7 @@ namespace DefaultDocumentation
                         "typeparamref" => item.TryGetTypeParameterDocItem(element.GetName(), out TypeParameterDocItem typeParameter) ? GetInnerLink(typeParameter) : element.GetName(),
                         "paramref" => item.TryGetParameterDocItem(element.GetName(), out ParameterDocItem parameter) ? GetInnerLink(parameter) : element.GetName(),
                         "c" => $"`{element.Value}`",
-                        "code" => $"```\n{element.Value}\n```\n",
+                        "code" => $"```csharp\n{element.Value}\n```\n",
                         "para" => $"\n\n{WriteNodes(element.Nodes())}\n\n",
                         _ => element.ToString()
                     },

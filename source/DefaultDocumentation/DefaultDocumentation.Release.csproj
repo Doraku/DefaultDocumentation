@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Version>0.6.11</Version>
+    <Version>0.6.12</Version>
     <PackageReleaseNotes>
-ignores readme.md files on deleting old markdowns
+added csharp declaration to code tag
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>
