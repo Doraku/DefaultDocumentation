@@ -13,7 +13,7 @@
       <DefaultDocumentationLinksFile Condition="'$(DefaultDocumentationLinksFile)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationLinksFile)))</DefaultDocumentationLinksFile>
 
       <DefaultDocumentationArgs>/assembly:"$(TargetPath)" /xml:"$(DocumentationFile)"</DefaultDocumentationArgs>
-      <DefaultDocumentationOptionalArgs>/output:"$(DefaultDocumentationFolder)" /home:"$(DefaultDocumentationHome)" /fileNameMode:"$(DefaultDocumentationFileNameMode)" /nestedTypeVisibility:"$(DefaultDocumentationNestedTypeVisibility)"</DefaultDocumentationOptionalArgs>
+      <DefaultDocumentationOptionalArgs>/output:"$(DefaultDocumentationFolder)" /home:"$(DefaultDocumentationHome)" /fileNameMode:"$(DefaultDocumentationFileNameMode)" /nestedTypeVisibility:"$(DefaultDocumentationNestedTypeVisibility)" /invalidCharReplacement:"$(DefaultDocumentationInvalidCharReplacement)"</DefaultDocumentationOptionalArgs>
     </PropertyGroup>
     <Exec Command="$(DefaultDocumentationTool) $(DefaultDocumentationArgs) $(DefaultDocumentationOptionalArgs)"/>
   </Target>

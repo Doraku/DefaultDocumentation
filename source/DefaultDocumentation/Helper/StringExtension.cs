@@ -6,7 +6,7 @@ namespace DefaultDocumentation.Helper
 {
     internal static class StringExtension
     {
-        private static readonly IReadOnlyDictionary<string, string> _invalidStrings =
+        private static readonly Dictionary<string, string> _invalidStrings =
             new Dictionary<string, string>(Path.GetInvalidFileNameChars().ToDictionary(c => $"{c}", _ => "-"))
             {
                 ["="] = string.Empty,
@@ -18,6 +18,17 @@ namespace DefaultDocumentation.Helper
                 ["&lt;"] = "-",
                 ["&gt;"] = "-",
             };
+
+        public static void ChangeInvalidReplacement(string value)
+        {
+            foreach (string key in _invalidStrings.Keys.ToList())
+            {
+                if (!string.IsNullOrEmpty(_invalidStrings[key]))
+                {
+                    _invalidStrings[key] = value;
+                }
+            }
+        }
 
         public static string Clean(this string value)
         {

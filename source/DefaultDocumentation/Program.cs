@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using DefaultDocumentation.Helper;
 
 namespace DefaultDocumentation
 {
@@ -14,9 +15,10 @@ namespace DefaultDocumentation
             string home = null;
             FileNameMode fileNameMode = FileNameMode.FullName;
             NestedTypeVisibility nestedTypeVisibility = NestedTypeVisibility.Namespace;
-            string baselink = null;
-            FileInfo linksfile = null;
-            string externallinks = null;
+            string invalidCharReplacement = null;
+            string baseLink = null;
+            FileInfo linksFile = null;
+            string externalLinks = null;
 
             try
             {
@@ -46,17 +48,21 @@ namespace DefaultDocumentation
                     {
                         nestedTypeVisibility = (NestedTypeVisibility)Enum.Parse(typeof(NestedTypeVisibility), argValue);
                     }
-                    else if (TryGetArgValue(arg, nameof(baselink), out argValue) && !string.IsNullOrWhiteSpace(argValue))
+                    else if (TryGetArgValue(arg, nameof(invalidCharReplacement), out argValue))
                     {
-                        baselink = argValue;
+                        invalidCharReplacement = argValue;
                     }
-                    else if (TryGetArgValue(arg, nameof(linksfile), out argValue) && !string.IsNullOrWhiteSpace(argValue))
+                    else if (TryGetArgValue(arg, nameof(baseLink), out argValue) && !string.IsNullOrWhiteSpace(argValue))
                     {
-                        linksfile = new FileInfo(argValue);
+                        baseLink = argValue;
                     }
-                    else if (TryGetArgValue(arg, nameof(externallinks), out argValue) && !string.IsNullOrWhiteSpace(argValue))
+                    else if (TryGetArgValue(arg, nameof(linksFile), out argValue) && !string.IsNullOrWhiteSpace(argValue))
                     {
-                        externallinks = argValue;
+                        linksFile = new FileInfo(argValue);
+                    }
+                    else if (TryGetArgValue(arg, nameof(externalLinks), out argValue) && !string.IsNullOrWhiteSpace(argValue))
+                    {
+                        externalLinks = argValue;
                     }
                 }
             }
@@ -116,18 +122,23 @@ namespace DefaultDocumentation
                 output.Create();
             }
 
-            DocumentationGenerator generator = new DocumentationGenerator(assembly.FullName, xml.FullName, home, fileNameMode, nestedTypeVisibility, externallinks);
+            if (!string.IsNullOrEmpty(invalidCharReplacement))
+            {
+                StringExtension.ChangeInvalidReplacement(invalidCharReplacement);
+            }
+
+            DocumentationGenerator generator = new DocumentationGenerator(assembly.FullName, xml.FullName, home, fileNameMode, nestedTypeVisibility, externalLinks);
 
             generator.WriteDocumentation(output.FullName);
 
-            if (linksfile != null)
+            if (linksFile != null)
             {
-                if (linksfile.Exists)
+                if (linksFile.Exists)
                 {
-                    linksfile.Delete();
+                    linksFile.Delete();
                 }
 
-                generator.WriteLinks(baselink, linksfile.FullName);
+                generator.WriteLinks(baseLink, linksFile.FullName);
             }
 
             static bool TryGetArgValue(string arg, string argName, out string value)
@@ -151,9 +162,10 @@ namespace DefaultDocumentation
                 Console.WriteLine($"\t/{nameof(home)}:{{DefaultDocumentation home page name}}");
                 Console.WriteLine($"\t/{nameof(fileNameMode)}:{{{string.Join(" | ", (IEnumerable<FileNameMode>)Enum.GetValues(typeof(FileNameMode)))}}}");
                 Console.WriteLine($"\t/{nameof(nestedTypeVisibility)}:{{{string.Join(" | ", (IEnumerable<NestedTypeVisibility>)Enum.GetValues(typeof(NestedTypeVisibility)))}}}");
-                Console.WriteLine($"\t/{nameof(baselink)}:{{base link path used if generating a links file}}");
-                Console.WriteLine($"\t/{nameof(linksfile)}:{{links file path}}");
-                Console.WriteLine($"\t/{nameof(externallinks)}:{{links files for element outside of this assembly, separated by '|'}}");
+                Console.WriteLine($"\t/{nameof(invalidCharReplacement)}:{{the string used to replace invalid char for file names}}");
+                Console.WriteLine($"\t/{nameof(baseLink)}:{{base link path used if generating a links file}}");
+                Console.WriteLine($"\t/{nameof(linksFile)}:{{links file path}}");
+                Console.WriteLine($"\t/{nameof(externalLinks)}:{{links files for element outside of this assembly, separated by '|'}}");
             }
         }
     }
