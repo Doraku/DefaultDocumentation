@@ -35,10 +35,22 @@ namespace DefaultDocumentation.Helper
             if (genericIndex > 0)
             {
                 int memberIndex = value.IndexOf('.', genericIndex);
-                value = $"{value.Substring(0, genericIndex)}&lt;&gt;{(memberIndex > 0 ? value.Substring(memberIndex) : string.Empty)}";
+                int argsIndex = value.IndexOf('(', genericIndex);
+                if (memberIndex > 0)
+                {
+                    value = $"{value.Substring(0, genericIndex)}&lt;&gt;{Prettify(value.Substring(memberIndex))}";
+                }
+                else if (argsIndex > 0)
+                {
+                    value = $"{value.Substring(0, genericIndex)}&lt;&gt;{Prettify(value.Substring(argsIndex))}";
+                }
+                else if (value.IndexOf('(') < 0)
+                {
+                    value = $"{value.Substring(0, genericIndex)}&lt;&gt;";
+                }
             }
 
-            return value;
+            return value.Replace('`', '@');
         }
 
         public static string AsLink(this string value, string displayedName) => $"[{displayedName.Prettify()}]({value} '{value}')";

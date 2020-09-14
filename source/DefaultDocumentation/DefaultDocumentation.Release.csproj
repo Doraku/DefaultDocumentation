@@ -9,6 +9,8 @@
   <PropertyGroup Label="Package">
     <Version>0.6.12</Version>
     <PackageReleaseNotes>
+fixed generic api link
+
 added csharp declaration to code tag
     </PackageReleaseNotes>
   </PropertyGroup>
