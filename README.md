@@ -30,6 +30,13 @@ By default, nested types are all visible on their namespace page. It is possible
 - DeclaringType: nested type links will be on their declaring type page
 - Everywhere: nested type links will be on both the namespace and their declaring type page
 
+By default, nested types are all visible on their namespace page. It is possible to change this behavior by setting a `DefaultDocumentationNestedTypeVisibility` element in your csproj with once of those values:
+- Namespace: nested type links will be on the namespace page
+- DeclaringType: nested type links will be on their declaring type page
+- Everywhere: nested type links will be on both the namespace and their declaring type page
+
+By default, invalid chars for file name are replaced by `-`, you can change this behavior by setting a `DefaultDocumentationInvalidCharReplacement` element in your csproj with the replacement of your choosing.
+
 <a name='Overview'></a>
 # Overview
 List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/recommended-tags-for-documentation-comments)
