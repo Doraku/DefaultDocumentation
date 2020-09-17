@@ -12,7 +12,7 @@ namespace DefaultDocumentation.Model
         {
             ConversionFlags =
                 ConversionFlags.ShowAccessibility
-                | ConversionFlags.ShowBody
+                | ConversionFlags.ShowReturnType
                 | ConversionFlags.ShowDefinitionKeyword
                 | ConversionFlags.ShowModifiers
         };
@@ -33,7 +33,7 @@ namespace DefaultDocumentation.Model
             writer.Write(this, Documentation.GetSummary());
 
             writer.WriteLine("```csharp");
-            writer.WriteLine(CodeAmbience.ConvertSymbol(Field));
+            writer.WriteLine($"{CodeAmbience.ConvertSymbol(Field)}{(Field.IsConst ? $" = {Field.GetConstantValue()}" : string.Empty)};");
             writer.WriteLine("```");
             // todo attributes
 
