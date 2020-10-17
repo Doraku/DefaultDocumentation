@@ -64,7 +64,8 @@ List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotn
 List of supported members taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/processing-the-xml-file)
 
 Assembly and Namespace documentation are available by adding a special class named `AssemblyDoc` in a namespace with the name of the assembly and `NamespaceDoc` into the namespace. Only `<summary>` and `<remarks>` are supported.  
-Empty namespace with no defined types will not appear in the generated documentation.
+Empty namespace with no defined types will not appear in the generated documentation.  
+It is possible to exclude the documentation generation of a namespace/type/member by adding a `<exclude/>` element in the xml documentation.
 ```
 namespace YourAssemblyName
 {

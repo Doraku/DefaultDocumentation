@@ -66,6 +66,12 @@ namespace DefaultDocumentation
             foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(t => t.Name != "NamespaceDoc" && t.Name != "AssemblyDoc"))
             {
                 bool showType = TryGetDocumentation(type, out XElement documentation);
+
+                if (documentation?.Descendants("exclude").Any() is true)
+                {
+                    continue;
+                }
+
                 bool newNamespace = false;
 
                 string namespaceId = $"N:{type.Namespace}";
@@ -77,6 +83,11 @@ namespace DefaultDocumentation
                         homeDocItem,
                         type.Namespace,
                         ConvertToDocumentation(_documentationProvider.GetDocumentation(namespaceId) ?? _documentationProvider.GetDocumentation($"T:{type.Namespace}.NamespaceDoc")));
+
+                    if (parentDocItem.Documentation?.Descendants("exclude").Any() is true)
+                    {
+                        continue;
+                    }
                 }
 
                 TypeDocItem typeDocItem = type.Kind switch
@@ -91,7 +102,7 @@ namespace DefaultDocumentation
 
                 foreach (IEntity entity in Enumerable.Empty<IEntity>().Concat(type.Fields).Concat(type.Properties).Concat(type.Methods).Concat(type.Events))
                 {
-                    if (TryGetDocumentation(entity, out documentation))
+                    if (TryGetDocumentation(entity, out documentation) && !documentation.Descendants("exclude").Any())
                     {
                         showType = true;
 
