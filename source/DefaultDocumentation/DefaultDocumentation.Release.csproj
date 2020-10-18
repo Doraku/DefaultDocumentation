@@ -7,13 +7,10 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Version>0.6.12</Version>
+    <Version>0.6.13</Version>
     <PackageReleaseNotes>
-fixed generic api link
-
-added csharp declaration to code tag
-added DefaultDocumentationInvalidCharReplacement parameters
-added constant field values
+add support to exclude namespace/type/members by adding a <exclude/> element in xml documentation
+added type constraints on generic type parameters
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>
