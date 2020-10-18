@@ -13,7 +13,6 @@ namespace DefaultDocumentation.Model
         {
             ConversionFlags =
                 ConversionFlags.ShowAccessibility
-                | ConversionFlags.ShowBody
                 | ConversionFlags.ShowModifiers
                 | ConversionFlags.ShowParameterDefaultValues
                 | ConversionFlags.ShowParameterList
@@ -47,7 +46,9 @@ namespace DefaultDocumentation.Model
             writer.Write(this, Documentation.GetSummary());
 
             writer.WriteLine("```csharp");
-            writer.WriteLine(CodeAmbience.ConvertSymbol(Method));
+            writer.Write(CodeAmbience.ConvertSymbol(Method));
+            writer.WriteConstraints(TypeParameters);
+            writer.WriteLine(";");
             writer.WriteLine("```");
 
             // attributes

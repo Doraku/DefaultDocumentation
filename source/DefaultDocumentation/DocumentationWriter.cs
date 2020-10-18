@@ -278,6 +278,43 @@ namespace DefaultDocumentation
             }
         }
 
+        public void WriteConstraints(IEnumerable<TypeParameterDocItem> items)
+        {
+            static IEnumerable<string> GetConstraints(ITypeParameter typeParameter)
+            {
+                if (typeParameter.HasReferenceTypeConstraint)
+                {
+                    yield return typeParameter.NullabilityConstraint == Nullability.Nullable ? "class?" : "class";
+                }
+                else if (typeParameter.HasValueTypeConstraint)
+                {
+                    yield return typeParameter.HasUnmanagedConstraint ? "unmanaged" : "struct";
+                }
+                else if (typeParameter.NullabilityConstraint == Nullability.NotNullable)
+                {
+                    yield return "notnull";
+                }
+                foreach (TypeConstraint typeConstraint in typeParameter.TypeConstraints.Where(c => !c.Type.IsObjectOrValueType()))
+                {
+                    yield return TypeDocItem.BaseTypeAmbience.ConvertType(typeConstraint.Type);
+                }
+                if (typeParameter.HasDefaultConstructorConstraint && !typeParameter.HasValueTypeConstraint)
+                {
+                    yield return "new()";
+                }
+            }
+
+            foreach (ITypeParameter typeParameter in items.Select(i => i.TypeParameter))
+            {
+                string constaints = string.Join(", ", GetConstraints(typeParameter));
+                if (!string.IsNullOrEmpty(constaints))
+                {
+                    Break();
+                    Write($"    where {typeParameter.Name} : {constaints}");
+                }
+            }
+        }
+
         public void Dispose()
         {
             File.WriteAllText(_filePath, _builder.ToString());

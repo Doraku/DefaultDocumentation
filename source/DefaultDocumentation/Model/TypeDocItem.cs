@@ -22,9 +22,14 @@ namespace DefaultDocumentation.Model
                 | ConversionFlags.ShowTypeParameterVarianceModifier
         };
 
-        private static readonly CSharpAmbience BaseTypeAmbience = new CSharpAmbience
+        public static readonly CSharpAmbience BaseTypeAmbience = new CSharpAmbience
         {
-            ConversionFlags = ConversionFlags.ShowTypeParameterList
+            ConversionFlags =
+                ConversionFlags.ShowParameterList
+                | ConversionFlags.ShowTypeParameterList
+                | ConversionFlags.UseFullyQualifiedTypeNames
+                | ConversionFlags.ShowDeclaringType
+                | ConversionFlags.UseFullyQualifiedEntityNames
         };
 
         public ITypeDefinition Type { get; }
@@ -61,6 +66,7 @@ namespace DefaultDocumentation.Model
                 baseType = Type;
                 writer.Write(BaseTypeAmbience.ConvertType(@interface));
             }
+            writer.WriteConstraints(TypeParameters);
             writer.Break();
             writer.WriteLine("```");
 
