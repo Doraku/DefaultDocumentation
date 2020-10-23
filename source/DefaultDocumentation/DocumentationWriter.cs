@@ -19,6 +19,7 @@ namespace DefaultDocumentation
 
         private readonly StringBuilder _builder;
         private readonly FileNameMode _fileNameMode;
+        private readonly bool _wikiLinks;
         private readonly IReadOnlyDictionary<string, DocItem> _items;
         private readonly IReadOnlyDictionary<string, string> _links;
         private readonly DocItem _mainItem;
@@ -31,6 +32,7 @@ namespace DefaultDocumentation
         public DocumentationWriter(
             FileNameMode fileNameMode,
             NestedTypeVisibility nestedTypeVisibility,
+            bool wikiLinks,
             IReadOnlyDictionary<string, DocItem> items,
             IReadOnlyDictionary<string, string> links,
             string folderPath,
@@ -42,6 +44,7 @@ namespace DefaultDocumentation
             }
 
             _fileNameMode = fileNameMode;
+            _wikiLinks = wikiLinks;
             NestedTypeVisibility = nestedTypeVisibility;
             _items = items;
             _links = links;
@@ -75,13 +78,13 @@ namespace DefaultDocumentation
         }
 
         public string GetLink(DocItem item, string displayedName = null) =>
-            item.GeneratePage ? $"[{displayedName ?? item.Name}](./{item.GetLink(_fileNameMode)}.md '{item.FullName}')" : GetInnerLink(item, displayedName);
+            item.GeneratePage ? $"[{displayedName ?? item.Name}]({(_wikiLinks ? "" : "./")}{item.GetLink(_fileNameMode)}{(_wikiLinks ? "" : ".md")} '{item.FullName}')" : GetInnerLink(item, displayedName);
 
         public string GetInnerLink(DocItem item, string displayedName = null)
         {
             DocItem pagedDocItem = item.GetPagedDocItem();
 
-            return $"[{displayedName ?? item.Name}]({(_mainItem == pagedDocItem ? string.Empty : $"./{pagedDocItem.GetLink(_fileNameMode)}.md")}#{item.GetLink(_fileNameMode)} '{item.FullName}')";
+            return $"[{displayedName ?? item.Name}]({(_mainItem == pagedDocItem ? string.Empty : $"{(_wikiLinks ? "" : "./")}{pagedDocItem.GetLink(_fileNameMode)}{(_wikiLinks ? "" : ".md")}")}#{item.GetLink(_fileNameMode)} '{item.FullName}')";
         }
 
         public string GetTypeLink(IType type)

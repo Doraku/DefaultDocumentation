@@ -19,6 +19,7 @@ namespace DefaultDocumentation
             string baseLink = null;
             FileInfo linksFile = null;
             string externalLinks = null;
+            bool wikiLinks = false;
 
             try
             {
@@ -63,6 +64,10 @@ namespace DefaultDocumentation
                     else if (TryGetArgValue(arg, nameof(externalLinks), out argValue) && !string.IsNullOrWhiteSpace(argValue))
                     {
                         externalLinks = argValue;
+                    }
+                    else if (TryGetArgValue(arg, nameof(wikiLinks), out argValue) && !string.IsNullOrWhiteSpace(argValue))
+                    {
+                        wikiLinks = bool.Parse(argValue);
                     }
                 }
             }
@@ -127,7 +132,7 @@ namespace DefaultDocumentation
                 StringExtension.ChangeInvalidReplacement(invalidCharReplacement);
             }
 
-            DocumentationGenerator generator = new DocumentationGenerator(assembly.FullName, xml.FullName, home, fileNameMode, nestedTypeVisibility, externalLinks);
+            DocumentationGenerator generator = new DocumentationGenerator(assembly.FullName, xml.FullName, home, fileNameMode, nestedTypeVisibility, wikiLinks, externalLinks);
 
             generator.WriteDocumentation(output.FullName);
 
@@ -138,7 +143,7 @@ namespace DefaultDocumentation
                     linksFile.Delete();
                 }
 
-                generator.WriteLinks(baseLink, linksFile.FullName);
+                generator.WriteLinks(baseLink, linksFile.FullName, wikiLinks);
             }
 
             static bool TryGetArgValue(string arg, string argName, out string value)
@@ -166,6 +171,7 @@ namespace DefaultDocumentation
                 Console.WriteLine($"\t/{nameof(baseLink)}:{{base link path used if generating a links file}}");
                 Console.WriteLine($"\t/{nameof(linksFile)}:{{links file path}}");
                 Console.WriteLine($"\t/{nameof(externalLinks)}:{{links files for element outside of this assembly, separated by '|'}}");
+                Console.WriteLine($"\t/{nameof(wikiLinks)}:{{uses github wiki link format (no relativity or file type suffix}}");
             }
         }
     }
