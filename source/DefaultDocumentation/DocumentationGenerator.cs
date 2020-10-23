@@ -17,6 +17,7 @@ namespace DefaultDocumentation
         private readonly XmlDocumentationProvider _documentationProvider;
         private readonly FileNameMode _fileNameMode;
         private readonly NestedTypeVisibility _nestedTypeVisibility;
+        private readonly bool _wikiLinks;
         private readonly Dictionary<string, DocItem> _docItems;
         private readonly Dictionary<string, string> _links;
 
@@ -26,12 +27,14 @@ namespace DefaultDocumentation
             string homePageName,
             FileNameMode fileNameMode,
             NestedTypeVisibility nestedTypeVisibility,
+            bool wikiLinks,
             string linksFiles)
         {
             _decompiler = new CSharpDecompiler(assemblyFilePath, new DecompilerSettings { ThrowOnAssemblyResolveErrors = false });
             _documentationProvider = new XmlDocumentationProvider(documentationFilePath);
             _fileNameMode = fileNameMode;
             _nestedTypeVisibility = nestedTypeVisibility;
+            _wikiLinks = wikiLinks;
 
             _docItems = new Dictionary<string, DocItem>();
             foreach (DocItem item in GetDocItems(homePageName))
@@ -173,7 +176,7 @@ namespace DefaultDocumentation
             {
                 try
                 {
-                    using DocumentationWriter writer = new DocumentationWriter(_fileNameMode, _nestedTypeVisibility, _docItems, _links, outputFolderPath, i);
+                    using DocumentationWriter writer = new DocumentationWriter(_fileNameMode, _nestedTypeVisibility, _wikiLinks, _docItems, _links, outputFolderPath, i);
 
                     i.WriteDocumentation(writer);
                 }
@@ -184,7 +187,7 @@ namespace DefaultDocumentation
             });
         }
 
-        public void WriteLinks(string baseLinkPath, string linksFilePath)
+        public void WriteLinks(string baseLinkPath, string linksFilePath, bool wikiLinks)
         {
             using StreamWriter writer = File.CreateText(linksFilePath);
 
@@ -201,11 +204,11 @@ namespace DefaultDocumentation
                         break;
 
                     case EnumFieldDocItem _:
-                        writer.WriteLine($"{item.Id} {item.Parent.GetLink(_fileNameMode)}.md#{item.GetLink(_fileNameMode)}");
+                        writer.WriteLine($"{item.Id} {item.Parent.GetLink(_fileNameMode)}{(wikiLinks ? "" : ".md")}#{item.GetLink(_fileNameMode)}");
                         break;
 
                     default:
-                        writer.WriteLine($"{item.Id} {item.GetLink(_fileNameMode)}.md");
+                        writer.WriteLine($"{item.Id} {item.GetLink(_fileNameMode)}{(wikiLinks ? "" : ".md")}");
                         break;
                 }
             }

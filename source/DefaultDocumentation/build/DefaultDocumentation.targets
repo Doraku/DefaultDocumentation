@@ -11,9 +11,10 @@
       <DefaultDocumentationFileNameMode Condition="'$(DefaultDocumentationFileNameMode)' == ''">FullName</DefaultDocumentationFileNameMode>
       <DefaultDocumentationNestedTypeVisibility Condition="'$(DefaultDocumentationNestedTypeVisibility)' == ''">Namespace</DefaultDocumentationNestedTypeVisibility>
       <DefaultDocumentationLinksFile Condition="'$(DefaultDocumentationLinksFile)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationLinksFile)))</DefaultDocumentationLinksFile>
+      <DefaultDocumentationWikiLinks Condition="'$(DefaultDocumentationWikiLinks)' == ''">false</DefaultDocumentationWikiLinks>
 
       <DefaultDocumentationArgs>/assembly:"$(TargetPath)" /xml:"$(DocumentationFile)"</DefaultDocumentationArgs>
-      <DefaultDocumentationOptionalArgs>/output:"$(DefaultDocumentationFolder)" /home:"$(DefaultDocumentationHome)" /fileNameMode:"$(DefaultDocumentationFileNameMode)" /nestedTypeVisibility:"$(DefaultDocumentationNestedTypeVisibility)" /invalidCharReplacement:"$(DefaultDocumentationInvalidCharReplacement)"</DefaultDocumentationOptionalArgs>
+      <DefaultDocumentationOptionalArgs>/output:"$(DefaultDocumentationFolder)" /home:"$(DefaultDocumentationHome)" /fileNameMode:"$(DefaultDocumentationFileNameMode)" /nestedTypeVisibility:"$(DefaultDocumentationNestedTypeVisibility)" /invalidCharReplacement:"$(DefaultDocumentationInvalidCharReplacement)" /wikiLinks:"$(DefaultDocumentationWikiLinks)"</DefaultDocumentationOptionalArgs>
     </PropertyGroup>
     <Exec Command="$(DefaultDocumentationTool) $(DefaultDocumentationArgs) $(DefaultDocumentationOptionalArgs)"/>
   </Target>
