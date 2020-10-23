@@ -4,6 +4,21 @@ using System.Threading.Tasks;
 namespace Dummy
 {
     /// <summary>
+    /// pouet
+    /// </summary>
+    public enum DummyEnum
+    {
+        /// <summary>
+        /// yay
+        /// </summary>
+        Kikoo,
+        /// <summary>
+        /// uo
+        /// </summary>
+        Lol
+    }
+
+    /// <summary>
     /// dummy
     /// </summary>
     public class DummyClass
@@ -29,9 +44,14 @@ namespace Dummy
         }
 
         /// <summary>
+        /// Dummy
+        /// </summary>
+        public const int ConstField = 42;
+
+        /// <summary>
         /// dummy
         /// </summary>
-        public int DummyField;
+        public static int DummyField;
 
         /// <summary>
         /// dummy
