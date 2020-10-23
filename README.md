@@ -37,6 +37,8 @@ By default, nested types are all visible on their namespace page. It is possible
 
 By default, invalid chars for file name are replaced by `-`, you can change this behavior by setting a `DefaultDocumentationInvalidCharReplacement` element in your csproj with the replacement of your choosing.
 
+By default, links are produced with the file extension but this is not compatible with github wiki pages. You can change this behavior by setting a `DefaultDocumentationWikiLinks` element in your csproj with the value `true`.
+
 <a name='Overview'></a>
 # Overview
 List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/recommended-tags-for-documentation-comments)

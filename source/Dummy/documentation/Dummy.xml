@@ -4,6 +4,21 @@
         <name>Dummy</name>
     </assembly>
     <members>
+        <member name="T:Dummy.DummyEnum">
+            <summary>
+            pouet
+            </summary>
+        </member>
+        <member name="F:Dummy.DummyEnum.Kikoo">
+            <summary>
+            yay
+            </summary>
+        </member>
+        <member name="F:Dummy.DummyEnum.Lol">
+            <summary>
+            uo
+            </summary>
+        </member>
         <member name="T:Dummy.DummyClass">
             <summary>
             dummy
@@ -26,6 +41,11 @@
         <member name="E:Dummy.DummyClass.DummyNested`1.Action">
             <summary>
             dummy
+            </summary>
+        </member>
+        <member name="F:Dummy.DummyClass.ConstField">
+            <summary>
+            Dummy
             </summary>
         </member>
         <member name="F:Dummy.DummyClass.DummyField">
