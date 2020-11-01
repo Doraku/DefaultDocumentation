@@ -21,12 +21,11 @@ jobs:
         source-url: https://nuget.pkg.github.com/Doraku/index.json
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        
-    - name: Compile
-      run: dotnet build source\DefaultDocumentation\DefaultDocumentation.csproj -c Release
 
     - name: Create package
-      run: dotnet pack source\DefaultDocumentation\DefaultDocumentation.csproj -c Release -o package -p:PackageReleaseNotes="${{ github.sha }}"
+      run: |
+        dotnet build source\DefaultDocumentation\DefaultDocumentation.csproj -c Release
+        dotnet pack source\DefaultDocumentation\DefaultDocumentation.csproj -c Release -o package --no-build -p:PackageReleaseNotes="${{ github.sha }}"
 
     - name: Publish package
       run: nuget push package\*.nupkg
