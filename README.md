@@ -3,6 +3,7 @@ As the name imply, this project lets you easily produce a markdown documentation
 
 [![NuGet](https://buildstats.info/nuget/DefaultDocumentation)](https://www.nuget.org/packages/DefaultDocumentation)
 ![continuous integration status](https://github.com/doraku/defaultdocumentation/workflows/continuous%20integration/badge.svg)
+[![preview package](https://img.shields.io/badge/preview-package-blue?style=flat&logo=github)](https://github.com/Doraku/DefaultDocumentation/packages/483535)
 
 - [Release note](./documentation/RELEASENOTES.md 'Release note')
 <a/>
