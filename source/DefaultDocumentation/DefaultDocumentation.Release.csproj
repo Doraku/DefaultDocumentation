@@ -1,17 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="DefaultDocumentation.targets" />
-  
+
   <PropertyGroup Label="Sign">
     <SignAssembly>True</SignAssembly>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' != 'true'">
     <AssemblyOriginatorKeyFile>..\..\..\ds.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
-  <PropertyGroup Label="Package">
-    <Version>0.6.13</Version>
-    <PackageReleaseNotes>
-added support to exclude namespace/type/members by adding a <exclude/> element in xml documentation
-added type constraints on generic type parameters
-added DefaultDocumentationWikiLinks parameter to produce links compatible with github wiki pages
-    </PackageReleaseNotes>
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <AssemblyOriginatorKeyFile>..\..\ds.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+
+  <Target Name="PreparePackageReleaseNotesFromFile" BeforeTargets="GenerateNuspec">
+    <ReadLinesFromFile File="../../documentation/NEXT_RELEASENOTES.txt" >
+      <Output TaskParameter="Lines" ItemName="ReleaseNotesLines"/>
+    </ReadLinesFromFile>
+    <PropertyGroup>
+      <PackageReleaseNotes>@(ReleaseNotesLines, '%0a')</PackageReleaseNotes>
+    </PropertyGroup>
+  </Target>
 </Project>

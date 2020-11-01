@@ -2,6 +2,10 @@
 As the name imply, this project lets you easily produce a markdown documentation from the generated assembly and its xml documentation produced by visual studio from comments.
 
 [![NuGet](https://buildstats.info/nuget/DefaultDocumentation)](https://www.nuget.org/packages/DefaultDocumentation)
+![continuous integration status](https://github.com/doraku/defaultdocumentation/workflows/continuous%20integration/badge.svg)
+
+- [Release note](./documentation/RELEASENOTES.md 'Release note')
+<a/>
 
 - [Requirement](#Requirement)
 - [Usage](#Usage)

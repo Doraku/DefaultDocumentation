@@ -11,13 +11,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		DefaultDocumentation\DefaultDocumentation.Release.csproj = DefaultDocumentation\DefaultDocumentation.Release.csproj
 		DefaultDocumentation\DefaultDocumentation.targets = DefaultDocumentation\DefaultDocumentation.targets
 		..\LICENSE.md = ..\LICENSE.md
+		..\documentation\NEXT_RELEASENOTES.txt = ..\documentation\NEXT_RELEASENOTES.txt
 		..\README.md = ..\README.md
 		..\Release.bat = ..\Release.bat
+		..\documentation\RELEASENOTES.md = ..\documentation\RELEASENOTES.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dummy", "Dummy\Dummy.csproj", "{4BBA3FDF-A296-4428-90C3-FC266D4EA45A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.Test", "DefaultDocumentation.Test\DefaultDocumentation.Test.csproj", "{42945395-C264-44D1-B1F7-8DE60223D6F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{B28829C0-EE3D-4BC4-A8C2-AAF6A3D360DE}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\ContinuousIntegration.yml = ..\.github\workflows\ContinuousIntegration.yml
+		..\.github\workflows\PullRequest.yml = ..\.github\workflows\PullRequest.yml
+		..\.github\workflows\Release.yml = ..\.github\workflows\Release.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +49,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B28829C0-EE3D-4BC4-A8C2-AAF6A3D360DE} = {AC68DCB5-418D-4573-8914-108195D7C6FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6F68382B-01C4-4F2C-A936-BCECA612D2FF}

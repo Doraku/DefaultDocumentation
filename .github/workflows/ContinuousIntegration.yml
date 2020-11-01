@@ -1,0 +1,32 @@
+name: continuous integration
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'source/DefaultDocumentation/**'
+
+jobs:
+  continuous_integration:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+        source-url: https://nuget.pkg.github.com/Doraku/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        
+    - name: Compile
+      run: dotnet build source\DefaultDocumentation\DefaultDocumentation.csproj -c Release
+
+    - name: Create package
+      run: dotnet pack source\DefaultDocumentation\DefaultDocumentation.csproj -c Release -o package -p:PackageReleaseNotes="${{ github.sha }}"
+
+    - name: Publish package
+      run: nuget push package\*.nupkg
