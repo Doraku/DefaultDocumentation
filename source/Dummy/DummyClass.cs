@@ -44,6 +44,18 @@ namespace Dummy
         }
 
         /// <summary>
+        /// dummy
+        /// </summary>
+        public unsafe delegate*<DummyClass, object, int> DummyFunctionPointer;
+
+        /// <summary>
+        /// dummy method with function pointer parameter
+        /// </summary>
+        /// <param name="_">dummy</param>
+        /// <param name="function">dummy</param>
+        public unsafe void DummyMethodFunctionPointer(int _, delegate*<void> function) => function();
+
+        /// <summary>
         /// Dummy
         /// </summary>
         public const int ConstField = 42;

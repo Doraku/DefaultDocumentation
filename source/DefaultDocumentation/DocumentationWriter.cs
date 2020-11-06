@@ -104,6 +104,15 @@ namespace DefaultDocumentation
                     + genericType.GenericType.ReflectionName.AsDotNetApiLink("&gt;");
             }
 
+            string HandleFunctionPointer(FunctionPointerType functionPointerType)
+            {
+                const string reference = "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/function-pointers";
+
+                return reference.AsLink("delegate*<")
+                    + string.Join(reference.AsLink(","), functionPointerType.ParameterTypes.Concat(Enumerable.Repeat(functionPointerType.ReturnType, 1)).Select(GetTypeLink))
+                    + reference.AsLink(">");
+            }
+
             string HandleTupleType(TupleType tupleType)
             {
                 return tupleType.FullName.AsDotNetApiLink(tupleType.FullName + "&lt;")
@@ -114,6 +123,7 @@ namespace DefaultDocumentation
             return type.Kind switch
             {
                 TypeKind.Array when type is TypeWithElementType arrayType => GetTypeLink(arrayType.ElementType) + "System.Array".AsDotNetApiLink("[]"),
+                TypeKind.FunctionPointer when type is FunctionPointerType functionPointerType => HandleFunctionPointer(functionPointerType),
                 TypeKind.Pointer when type is TypeWithElementType pointerType => GetTypeLink(pointerType.ElementType) + "*",
                 TypeKind.ByReference when type is TypeWithElementType innerType => GetTypeLink(innerType.ElementType),
                 TypeKind.TypeParameter => _mainItem.TryGetTypeParameterDocItem(type.Name, out TypeParameterDocItem typeParameter) ? GetInnerLink(typeParameter) : type.Name,
