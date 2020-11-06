@@ -50,10 +50,11 @@ List of supported balise taken from [here](https://docs.microsoft.com/en-us/dotn
 
 - [x] `<c>`
 - [x] `<code>`
-- [x] `cref attribute` in `<exception>`, `<see>` and `<seealso>` elements
+- [x] `cref attribute` in `<exception>`, `<inheritdoc>`, `<see>` and `<seealso>` elements
 - [x] `<example>`
 - [x] `<exception>`
 - [x] `<include>` (nothing to do)
+- [x] `<inheritdoc>`
 - [ ] `<list>` not yet
 - [x] `<para>`
 - [x] `<param>`
