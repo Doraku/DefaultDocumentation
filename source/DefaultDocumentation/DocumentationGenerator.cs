@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using DefaultDocumentation.Helper;
 using DefaultDocumentation.Model;
 using ICSharpCode.Decompiler;
 using ICSharpCode.Decompiler.CSharp;
@@ -57,6 +58,27 @@ namespace DefaultDocumentation
             {
                 documentation = ConvertToDocumentation(_documentationProvider.GetDocumentation(entity));
 
+                while (documentation.HasInheritDoc(out XElement inheritDoc))
+                {
+                    string referenceName = inheritDoc.GetReferenceName();
+
+                    documentation = ConvertToDocumentation(
+                        referenceName is null
+                        ? (entity switch
+                        {
+                            ITypeDefinition type => type
+                                .GetBaseTypeDefinitions()
+                                .Select(t => _documentationProvider.GetDocumentation(t)),
+                            _ => entity
+                                .DeclaringTypeDefinition
+                                .GetBaseTypeDefinitions()
+                                .Select(t => _documentationProvider.GetDocumentation(entity.GetIdString().Replace(
+                                    entity.DeclaringTypeDefinition.GetIdString().Substring(2),
+                                    t.GetIdString().Substring(2))))
+                        }).FirstOrDefault(d => d != null)
+                        : _documentationProvider.GetDocumentation(referenceName));
+                }
+
                 return documentation != null;
             }
 
@@ -70,7 +92,7 @@ namespace DefaultDocumentation
             {
                 bool showType = TryGetDocumentation(type, out XElement documentation);
 
-                if (documentation?.Descendants("exclude").Any() is true)
+                if (documentation?.HasExclude() is true)
                 {
                     continue;
                 }
@@ -87,7 +109,7 @@ namespace DefaultDocumentation
                         type.Namespace,
                         ConvertToDocumentation(_documentationProvider.GetDocumentation(namespaceId) ?? _documentationProvider.GetDocumentation($"T:{type.Namespace}.NamespaceDoc")));
 
-                    if (parentDocItem.Documentation?.Descendants("exclude").Any() is true)
+                    if (parentDocItem.Documentation?.HasExclude() is true)
                     {
                         continue;
                     }
@@ -105,7 +127,7 @@ namespace DefaultDocumentation
 
                 foreach (IEntity entity in Enumerable.Empty<IEntity>().Concat(type.Fields).Concat(type.Properties).Concat(type.Methods).Concat(type.Events))
                 {
-                    if (TryGetDocumentation(entity, out documentation) && !documentation.Descendants("exclude").Any())
+                    if (TryGetDocumentation(entity, out documentation) && !documentation.HasExclude())
                     {
                         showType = true;
 

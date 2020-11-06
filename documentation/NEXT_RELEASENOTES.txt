@@ -1,3 +1,4 @@
-added support to exclude namespace/type/members by adding a <exclude/> element in xml documentation
-added type constraints on generic type parameters
-added DefaultDocumentationWikiLinks parameter to produce links compatible with github wiki pages
+added support to exclude namespace/type/members by adding a <exclude/> element in xml documentation  
+added type constraints on generic type parameters  
+added DefaultDocumentationWikiLinks parameter to produce links compatible with github wiki pages  
+added <inheritdoc/> support  

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace DefaultDocumentation.Helper
@@ -26,5 +27,13 @@ namespace DefaultDocumentation.Helper
         public static string GetReferenceName(this XElement element) => element.Attribute("cref")?.Value;
 
         public static string GetLangWord(this XElement element) => element.Attribute("langword")?.Value;
+
+        public static bool HasExclude(this XElement element) => element.Descendants("exclude").Any();
+
+        public static bool HasInheritDoc(this XElement element, out XElement inheritDoc)
+        {
+            inheritDoc = element?.Descendants("inheritdoc").FirstOrDefault();
+            return inheritDoc != null;
+        }
     }
 }
