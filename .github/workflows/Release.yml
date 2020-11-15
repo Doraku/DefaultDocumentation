@@ -17,17 +17,17 @@ jobs:
         dotnet-version: 3.1.301
         source-url: https://api.nuget.org/v3/index.json
       env:
-        NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
-        
+        NUGET_AUTH_TOKEN: ${{ secrets.NUGET_API_KEY }}
+      
     - name: Decrypte snk file
-      run: gpg --quiet --batch --yes --decrypt --passphrase="$SNK_KEY" --output ds.snk ds.snk.gpg
       env:
         SNK_KEY: ${{ secrets.SNK_KEY }}
+      run: gpg --quiet --batch --yes --decrypt --passphrase="$env:SNK_KEY" --output ds.snk ds.snk.gpg
 
     - name: Create package
       run: |
-        dotnet build source\DefaultDocumentation\DefaultDocumentation.Release.csproj -c Release /p:Version=${{ github.event.release.tag_name }}
-        dotnet pack source\DefaultDocumentation\DefaultDocumentation.Release.csproj -c Release -o package --no-build
+        dotnet build source\DefaultDocumentation\DefaultDocumentation.csproj -c Release /p:Version=${{ github.event.release.tag_name }}
+        dotnet pack source\DefaultDocumentation\DefaultDocumentation.csproj -c Release -o package --no-build /p:Version=${{ github.event.release.tag_name }}
 
     - name: Create NEW_RELEASENOTES.txt
       run: |

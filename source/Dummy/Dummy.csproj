@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>preview</LangVersion>
+    <TargetFramework>net5.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 

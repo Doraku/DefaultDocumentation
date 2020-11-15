@@ -44,6 +44,11 @@ namespace Dummy
         }
 
         /// <summary>
+        /// dummy record
+        /// </summary>
+        public record DummyRecord(int Id, string Value);
+
+        /// <summary>
         /// dummy
         /// </summary>
         public unsafe delegate*<DummyClass, object, int> DummyFunctionPointer;

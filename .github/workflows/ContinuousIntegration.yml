@@ -5,6 +5,7 @@ on:
     branches:
       - master
     paths:
+      - '.github/workflows/ContinuousIntegration.yml'
       - 'source/DefaultDocumentation/**'
 
 jobs:
@@ -17,15 +18,20 @@ jobs:
     - name: Set up dotnet
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.301
+        dotnet-version: '5.0.100'
         source-url: https://nuget.pkg.github.com/Doraku/index.json
       env:
-        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+    - name: Decrypte snk file
+      env:
+        SNK_KEY: ${{ secrets.SNK_KEY }}
+      run: gpg --quiet --batch --yes --decrypt --passphrase="$env:SNK_KEY" --output ds.snk ds.snk.gpg
 
     - name: Create package
       run: |
-        dotnet build source\DefaultDocumentation\DefaultDocumentation.csproj -c Release
-        dotnet pack source\DefaultDocumentation\DefaultDocumentation.csproj -c Release -o package --no-build -p:PackageReleaseNotes="${{ github.sha }}"
+        dotnet build source\DefaultDocumentation\DefaultDocumentation.csproj -c Release /p:CI_VERSION=true
+        dotnet pack source\DefaultDocumentation\DefaultDocumentation.csproj -c Release -o package --no-build /p:CI_VERSION=true
 
     - name: Publish package
       run: nuget push package\*.nupkg

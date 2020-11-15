@@ -2,7 +2,7 @@
   "profiles": {
     "DefaultDocumentation": {
       "commandName": "Project",
-      "commandLineArgs": "/assembly:\"D:\\Projects\\DefaultDocumentation\\source\\Dummy\\bin\\Debug\\netstandard2.0\\Dummy.dll\" /xml:\"D:\\Projects\\DefaultDocumentation\\source\\Dummy\\documentation\\Dummy.xml\""
+      "commandLineArgs": "/assembly:\"D:\\Projects\\DefaultDocumentation\\source\\Dummy\\bin\\Debug\\net5.0\\Dummy.dll\" /xml:\"D:\\Projects\\DefaultDocumentation\\source\\Dummy\\documentation\\Dummy.xml\""
     }
   }
 }
