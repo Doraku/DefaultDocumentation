@@ -50,7 +50,6 @@
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' AND '$(TEST)' != 'true'">
     <SignAssembly>True</SignAssembly>
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <AssemblyOriginatorKeyFile>..\..\ds.snk</AssemblyOriginatorKeyFile>
     <Version Condition="'$(CI_VERSION)' == 'true'">0-ci$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</Version>
   </PropertyGroup>
