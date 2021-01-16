@@ -50,7 +50,7 @@ jobs:
       run: |
         echo "" | Out-File package\NEW_RELEASENOTES.txt -Append
         type documentation\RELEASENOTES.md | Out-File package\NEW_RELEASENOTES.txt -Append
-        type package\NEW_RELEASENOTES.txt | Out-File documentation\RELEASENOTES.md -Append
+        type package\NEW_RELEASENOTES.txt | Out-File documentation\RELEASENOTES.md
         echo "" | Out-File documentation\NEXT_RELEASENOTES.txt -NoNewLine
 
     - name: Publish package
