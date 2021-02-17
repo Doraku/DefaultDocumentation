@@ -1,1 +1,2 @@
-fixed error when GenerateDocumentationFile is set to false
+fixed error when GenerateDocumentationFile is set to false  
+fixed inheritdoc infinite loop  

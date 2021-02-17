@@ -7,6 +7,7 @@ using DefaultDocumentation.Helper;
 using DefaultDocumentation.Model;
 using ICSharpCode.Decompiler;
 using ICSharpCode.Decompiler.CSharp;
+using ICSharpCode.Decompiler.CSharp.Resolver;
 using ICSharpCode.Decompiler.Documentation;
 using ICSharpCode.Decompiler.TypeSystem;
 
@@ -16,6 +17,7 @@ namespace DefaultDocumentation
     {
         private readonly CSharpDecompiler _decompiler;
         private readonly XmlDocumentationProvider _documentationProvider;
+        private readonly CSharpResolver _resolver;
         private readonly FileNameMode _fileNameMode;
         private readonly NestedTypeVisibility _nestedTypeVisibility;
         private readonly bool _wikiLinks;
@@ -33,6 +35,7 @@ namespace DefaultDocumentation
         {
             _decompiler = new CSharpDecompiler(assemblyFilePath, new DecompilerSettings { ThrowOnAssemblyResolveErrors = false });
             _documentationProvider = new XmlDocumentationProvider(documentationFilePath);
+            _resolver = new CSharpResolver(_decompiler.TypeSystem);
             _fileNameMode = fileNameMode;
             _nestedTypeVisibility = nestedTypeVisibility;
             _wikiLinks = wikiLinks;
@@ -52,40 +55,67 @@ namespace DefaultDocumentation
 
         private IEnumerable<DocItem> GetDocItems(string homePageName)
         {
+            Dictionary<IModule, IDocumentationProvider> documentationProviders = new Dictionary<IModule, IDocumentationProvider>
+            {
+                [_resolver.Compilation.MainModule] = _documentationProvider
+            };
+
             static XElement ConvertToDocumentation(string documentationString) => documentationString is null ? null : XElement.Parse($"<doc>{documentationString}</doc>");
 
             bool TryGetDocumentation(IEntity entity, out XElement documentation)
             {
-                documentation = ConvertToDocumentation(_documentationProvider.GetDocumentation(entity));
+                if (entity is null)
+                {
+                    documentation = null;
+                    return false;
+                }
 
-                while (documentation.HasInheritDoc(out XElement inheritDoc))
+                if (!documentationProviders.TryGetValue(entity.ParentModule, out IDocumentationProvider documentationProvider))
+                {
+                    documentationProvider = XmlDocLoader.LoadDocumentation(entity.ParentModule.PEFile);
+                    documentationProviders.Add(entity.ParentModule, documentationProvider);
+                }
+
+                documentation = ConvertToDocumentation(documentationProvider?.GetDocumentation(entity));
+
+                if (documentation.HasInheritDoc(out XElement inheritDoc))
                 {
                     string referenceName = inheritDoc.GetReferenceName();
 
-                    documentation = ConvertToDocumentation(
-                        referenceName is null
-                        ? (entity switch
+                    if (referenceName is null)
+                    {
+                        XElement baseDocumentation = null;
+                        if (entity is ITypeDefinition type)
                         {
-                            ITypeDefinition type => type
-                                .GetBaseTypeDefinitions()
-                                .Select(t => _documentationProvider.GetDocumentation(t)),
-                            _ => entity
+                            type.GetBaseTypeDefinitions().FirstOrDefault(t => TryGetDocumentation(t, out baseDocumentation));
+                        }
+                        else
+                        {
+                            string id = entity.GetIdString().Substring(entity.DeclaringTypeDefinition.GetIdString().Length);
+                            entity
                                 .DeclaringTypeDefinition
                                 .GetBaseTypeDefinitions()
-                                .Select(t => _documentationProvider.GetDocumentation(entity.GetIdString().Replace(
-                                    entity.DeclaringTypeDefinition.GetIdString().Substring(2),
-                                    t.GetIdString().Substring(2))))
-                        }).FirstOrDefault(d => d != null)
-                        : _documentationProvider.GetDocumentation(referenceName));
+                                .SelectMany(t => t.Members)
+                                .FirstOrDefault(e => e.GetIdString().Substring(e.DeclaringTypeDefinition.GetIdString().Length) == id && TryGetDocumentation(e, out baseDocumentation));
+                        }
+
+                        documentation = baseDocumentation;
+                    }
+                    else
+                    {
+                        return TryGetDocumentation(IdStringProvider.FindEntity(referenceName, _resolver), out documentation);
+                    }
                 }
 
                 return documentation != null;
             }
 
+            XElement GetDocumentation(string id) => TryGetDocumentation(IdStringProvider.FindEntity(id, _resolver), out XElement documentation) ? documentation : null;
+
             HomeDocItem homeDocItem = new HomeDocItem(
                 homePageName,
                 _decompiler.TypeSystem.MainModule.AssemblyName,
-                ConvertToDocumentation(_documentationProvider.GetDocumentation($"T:{_decompiler.TypeSystem.MainModule.AssemblyName}.AssemblyDoc")));
+                GetDocumentation($"T:{_decompiler.TypeSystem.MainModule.AssemblyName}.AssemblyDoc"));
             yield return homeDocItem;
 
             foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(t => t.Name != "NamespaceDoc" && t.Name != "AssemblyDoc"))
@@ -107,7 +137,7 @@ namespace DefaultDocumentation
                     parentDocItem = new NamespaceDocItem(
                         homeDocItem,
                         type.Namespace,
-                        ConvertToDocumentation(_documentationProvider.GetDocumentation(namespaceId) ?? _documentationProvider.GetDocumentation($"T:{type.Namespace}.NamespaceDoc")));
+                        GetDocumentation($"T:{type.Namespace}.NamespaceDoc"));
 
                     if (parentDocItem.Documentation?.HasExclude() is true)
                     {
