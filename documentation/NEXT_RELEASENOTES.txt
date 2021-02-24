@@ -1,2 +1,4 @@
 fixed error when GenerateDocumentationFile is set to false  
 fixed inheritdoc infinite loop  
+
+added DisableDefaultDocumentation property to disable DefaultDocumentation  
