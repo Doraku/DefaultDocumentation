@@ -1,3 +1,11 @@
+## DefaultDocumentation 0.6.14
+fixed error when GenerateDocumentationFile is set to false  
+fixed inheritdoc infinite loop  
+
+added DisableDefaultDocumentation property to disable DefaultDocumentation  
+
+[nuget package](https://www.nuget.org/packages/DefaultDocumentation/0.6.14)
+
 ## DefaultDocumentation 0.6.13
 added support to exclude namespace/type/members by adding a <exclude/> element in xml documentation  
 added type constraints on generic type parameters  
