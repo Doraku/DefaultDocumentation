@@ -20,7 +20,7 @@ framework4.7.2 or netcoreapp3.0
 <a name='Usage'></a>
 # Usage
 Once referenced in your project, if there is a `<DocumentationFile>` or `<GenerateDocumentationFile>`, markdown pages will be produced next to the xml file on compilation.  
-Please be advised that existing `*.md` files in the directory will be deleted.
+Please be advised that existing `*.md` files in the directory will be deleted. You can also set a `<DisableDefaultDocumentation>` property to false to independently disable the DefaultDocumentation generation.
 
 Should you want the markdown files to be produced in a different directory, you can do so by adding a `<DefaultDocumentationFolder>` element in your csproj with the desired path.  
 Default home page name is `index` and can be changed by supplying a `<DefaultDocumentationHome>` element in your csproj with the desired file name.
