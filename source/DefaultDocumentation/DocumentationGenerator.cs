@@ -224,19 +224,19 @@ namespace DefaultDocumentation
 
         public void WriteDocumentation(string outputFolderPath)
         {
-            _docItems.Values.Where(i => i.GeneratePage).AsParallel().ForAll(i =>
+            foreach (DocItem item in _docItems.Values.Where(i => i.GeneratePage))
             {
                 try
                 {
-                    using DocumentationWriter writer = new DocumentationWriter(_fileNameMode, _nestedTypeVisibility, _wikiLinks, _docItems, _links, outputFolderPath, i);
+                    using DocumentationWriter writer = new DocumentationWriter(_fileNameMode, _nestedTypeVisibility, _wikiLinks, _docItems, _links, outputFolderPath, item);
 
-                    i.WriteDocumentation(writer);
+                    item.WriteDocumentation(writer);
                 }
                 catch (Exception exception)
                 {
-                    throw new Exception($"Error while writing documentation for {i.FullName}", exception);
+                    throw new Exception($"Error while writing documentation for {item.FullName}", exception);
                 }
-            });
+            }
         }
 
         public void WriteLinks(string baseLinkPath, string linksFilePath, bool wikiLinks)
