@@ -1,3 +1,8 @@
+## DefaultDocumentation 0.6.15
+fixed IOException when writing documentation
+
+[nuget package](https://www.nuget.org/packages/DefaultDocumentation/0.6.15)
+
 ## DefaultDocumentation 0.6.14
 fixed error when GenerateDocumentationFile is set to false  
 fixed inheritdoc infinite loop  
