@@ -239,6 +239,7 @@ namespace DefaultDocumentation
                     throw new FileNotFoundException($"Unable to find code documentation file '{documentationFile}' referenced in {_mainItem.FullName}.");
                 }
 
+                
                 string fileContent = File.ReadAllText(documentationFile);
                 if (string.IsNullOrEmpty(region))
                 {
@@ -252,7 +253,7 @@ namespace DefaultDocumentation
                     throw new InvalidOperationException($"Unable to find region '{region}' in file '{documentationFile}'.");
                 }
 
-                return FormatCode(regionContent);
+                return FormatCode(FixWhiteSpacesInCodeRegion(regionContent));
             }
 
             string WriteNodes(IEnumerable<XNode> nodes)
@@ -302,13 +303,93 @@ namespace DefaultDocumentation
                 ++firstLine;
             }
 
-            summary = string.Join(Environment.NewLine, lines.Skip(firstLine).Select(l => l.StartsWith(" ") ? l.Substring(Math.Min(l.Length, startIndex)) : l));
+            summary = JoinSummary(lines, firstLine, startIndex);
             while (summary.EndsWith(Environment.NewLine))
             {
                 summary = summary.Substring(0, summary.Length - Environment.NewLine.Length);
             }
 
             WriteLine(summary.TrimEnd() + "  ");
+        }
+
+        public static string FixWhiteSpacesInCodeRegion(string fromFile)
+        {
+            var joined = new StringBuilder();
+
+            string[] lines = fromFile.Split(Environment.NewLine);
+
+            int startIndex = PrefixedWhiteSpace(lines);
+
+            bool hasFirstLine = false;
+
+            foreach (var line in lines)
+            {
+                if (!hasFirstLine && string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+
+                string shortLine = line.Substring(Math.Min(line.Length, startIndex));
+                joined.Append(shortLine + "\n");
+
+                hasFirstLine = true;
+            }
+
+            return joined.ToString().TrimEnd();
+        }
+
+        public static int PrefixedWhiteSpace(string[] lines)
+        {
+            bool hasStartIndex = false;
+            int result = 0;
+            foreach (string line in lines)
+            {
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    int startIndex = line.Length - line.TrimStart().Length;
+
+                    if (!hasStartIndex || startIndex < result)
+                    {
+                        result = startIndex;
+                        hasStartIndex = true;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static string JoinSummary(string [] lines, int firstLine, int startIndex)
+        {
+            StringBuilder joined = new StringBuilder();
+
+            bool isInCodeSegment = false;
+
+            for(int i = firstLine; i < lines.Length; i++)
+            {
+                string line = lines[i];
+
+                if (isInCodeSegment)
+                {
+                    if (line.Trim().StartsWith("```"))
+                    {
+                        isInCodeSegment = false;
+                    }
+                }
+                else
+                {
+                    if (line.Trim().StartsWith("```csharp"))
+                    {
+                        isInCodeSegment = true;
+                    }
+
+                    line = line.StartsWith(" ") ? line.Substring(Math.Min(line.Length, startIndex)) : line;
+                }
+
+                joined.AppendLine(line);
+            }
+
+            return joined.ToString();
         }
 
         public void WriteExceptions(DocItem item)
