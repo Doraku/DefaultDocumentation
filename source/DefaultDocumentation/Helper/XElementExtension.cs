@@ -28,6 +28,9 @@ namespace DefaultDocumentation.Helper
 
         public static string GetLangWord(this XElement element) => element.Attribute("langword")?.Value;
 
+        public static string GetCodeSource(this XElement element) => element.Attribute("source")?.Value;
+        public static string GetCodeRegion(this XElement element) => element.Attribute("region")?.Value;
+
         public static bool HasExclude(this XElement element) => element.Descendants("exclude").Any();
 
         public static bool HasInheritDoc(this XElement element, out XElement inheritDoc)

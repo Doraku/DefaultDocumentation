@@ -3,7 +3,7 @@
     <OutputType>Exe</OutputType>
     <LangVersion>latest</LangVersion>
     <TargetFrameworks>
-      net472;
+      net5.0;
       netcoreapp3.1;
     </TargetFrameworks>
     <Optimize>true</Optimize>
@@ -16,13 +16,14 @@
 
   <ItemGroup>
     <None Remove="DefaultDocumentation.targets" />
-    <None Include="bin\Release\net472\*.dll" Pack="true" PackagePath="tools\" Visible="false" />
-    <Content Include="..\..\image\logo.png" PackagePath="\" Visible="false"/>
+    <None Include="bin\Release\net5.0\*.dll" Pack="true" PackagePath="tools\" Visible="false" />
+    <Content Include="..\..\image\logo.png" PackagePath="\" Visible="false" />
     <Content Include="build\DefaultDocumentation.targets" PackagePath="build\" />
   </ItemGroup>
 
   <ItemGroup Label="Reference">
     <PackageReference Include="ICSharpCode.Decompiler" Version="6.2.1.6137" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.9.0" />
   </ItemGroup>
 
   <PropertyGroup Label="Package">

@@ -3,7 +3,6 @@
   <Target Name="DefaultDocumentation" AfterTargets="PostBuildEvent" Condition="'$(GenerateDocumentationFile)' == 'true' AND '$(DisableDefaultDocumentation)' != 'true'">
     <PropertyGroup>
       <DefaultDocumentationTool>dotnet "$(MSBuildThisFileDirectory)../tools/DefaultDocumentation.dll"</DefaultDocumentationTool>
-      <DefaultDocumentationTool Condition="$([MSBuild]::IsOsPlatform('Windows'))">"$(MSBuildThisFileDirectory)../tools/DefaultDocumentation.exe"</DefaultDocumentationTool>
 
       <DocumentationFile Condition="'$(DocumentationFile)' != ''">$([System.IO.Path]::GetFullPath($(DocumentationFile)))</DocumentationFile>
 
@@ -14,7 +13,7 @@
       <DefaultDocumentationWikiLinks Condition="'$(DefaultDocumentationWikiLinks)' == ''">false</DefaultDocumentationWikiLinks>
 
       <DefaultDocumentationArgs>/assembly:"$(TargetPath)" /xml:"$(DocumentationFile)"</DefaultDocumentationArgs>
-      <DefaultDocumentationOptionalArgs>/output:"$(DefaultDocumentationFolder)" /home:"$(DefaultDocumentationHome)" /fileNameMode:"$(DefaultDocumentationFileNameMode)" /nestedTypeVisibility:"$(DefaultDocumentationNestedTypeVisibility)" /invalidCharReplacement:"$(DefaultDocumentationInvalidCharReplacement)" /wikiLinks:"$(DefaultDocumentationWikiLinks)"</DefaultDocumentationOptionalArgs>
+      <DefaultDocumentationOptionalArgs>/output:"$(DefaultDocumentationFolder)" /home:"$(DefaultDocumentationHome)" /fileNameMode:"$(DefaultDocumentationFileNameMode)" /nestedTypeVisibility:"$(DefaultDocumentationNestedTypeVisibility)" /invalidCharReplacement:"$(DefaultDocumentationInvalidCharReplacement)" /wikiLinks:"$(DefaultDocumentationWikiLinks)" /project:"$(ProjectPath)"</DefaultDocumentationOptionalArgs>
     </PropertyGroup>
     <Exec Command="$(DefaultDocumentationTool) $(DefaultDocumentationArgs) $(DefaultDocumentationOptionalArgs)"/>
   </Target>
