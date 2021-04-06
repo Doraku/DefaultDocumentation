@@ -36,12 +36,30 @@
             <typeparam name="T"></typeparam>
             <remarks>
             pouet
-            </remarks>
+            </remarks>        
+            <code source=""/>
         </member>
         <member name="E:Dummy.DummyClass.DummyNested`1.Action">
             <summary>
             dummy
             </summary>
+        </member>
+        <member name="T:Dummy.DummyClass.DummyRecord">
+            <summary>
+            dummy record
+            </summary>
+        </member>
+        <member name="M:Dummy.DummyClass.DummyRecord.#ctor(System.Int32,System.String)">
+            <summary>
+            dummy record
+            </summary>
+        </member>
+        <member name="M:Dummy.DummyClass.DummyMethodFunctionPointer(System.Int32,)">
+            <summary>
+            dummy method with function pointer parameter
+            </summary>
+            <param name="_">dummy</param>
+            <param name="function">dummy</param>
         </member>
         <member name="F:Dummy.DummyClass.ConstField">
             <summary>

@@ -10,6 +10,7 @@ using DefaultDocumentation.Model;
 using ICSharpCode.Decompiler.Documentation;
 using ICSharpCode.Decompiler.TypeSystem;
 using ICSharpCode.Decompiler.TypeSystem.Implementation;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace DefaultDocumentation
 {
@@ -24,6 +25,7 @@ namespace DefaultDocumentation
         private readonly IReadOnlyDictionary<string, string> _links;
         private readonly DocItem _mainItem;
         private readonly string _filePath;
+        private readonly string _project;
 
         public IEnumerable<DocItem> KnownItems => _items.Values;
 
@@ -33,6 +35,7 @@ namespace DefaultDocumentation
             FileNameMode fileNameMode,
             NestedTypeVisibility nestedTypeVisibility,
             bool wikiLinks,
+            string project,
             IReadOnlyDictionary<string, DocItem> items,
             IReadOnlyDictionary<string, string> links,
             string folderPath,
@@ -50,6 +53,7 @@ namespace DefaultDocumentation
             _links = links;
             _mainItem = item;
             _filePath = Path.Combine(folderPath, $"{item.GetLink(_fileNameMode)}.md");
+            _project = project;
         }
 
         private bool WriteChildrenLink<T>(DocItem parent, string title, bool includeInnerChildren)
@@ -213,6 +217,44 @@ namespace DefaultDocumentation
                 return GetLink(see);
             }
 
+            string GetCode(XElement element)
+            {
+                string source = element.GetCodeSource();
+                string region = element.GetCodeRegion();
+
+                string FormatCode(string code)
+                {
+                    return $"```csharp\n{code}\n```\n";
+                }
+
+                if (source is null || _project is null)
+                {
+                    return FormatCode(element.Value);
+                }
+
+                string documentationFile = Path.Combine(Path.GetDirectoryName(_project), source);
+
+                if (!File.Exists(documentationFile))
+                {
+                    throw new FileNotFoundException($"Unable to find code documentation file '{documentationFile}' referenced in {_mainItem.FullName}.");
+                }
+
+                string fileContent = File.ReadAllText(documentationFile);
+                if (string.IsNullOrEmpty(region))
+                {
+                    return FormatCode(fileContent);
+                }
+
+                string regionContent = CodeRegion.Get(fileContent, region);
+
+                if (regionContent is null)
+                {
+                    throw new InvalidOperationException($"Unable to find region '{region}' in file '{documentationFile}'.");
+                }
+
+                return FormatCode(regionContent);
+            }
+
             string WriteNodes(IEnumerable<XNode> nodes)
             {
                 return string.Concat(nodes.Select(node => node switch
@@ -225,7 +267,7 @@ namespace DefaultDocumentation
                         "typeparamref" => item.TryGetTypeParameterDocItem(element.GetName(), out TypeParameterDocItem typeParameter) ? GetInnerLink(typeParameter) : element.GetName(),
                         "paramref" => item.TryGetParameterDocItem(element.GetName(), out ParameterDocItem parameter) ? GetInnerLink(parameter) : element.GetName(),
                         "c" => $"`{element.Value}`",
-                        "code" => $"```csharp\n{element.Value}\n```\n",
+                        "code" => GetCode(element),
                         "para" => $"\n\n{WriteNodes(element.Nodes())}\n\n",
                         _ => element.ToString()
                     },

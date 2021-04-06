@@ -21,6 +21,7 @@ namespace DefaultDocumentation
         private readonly FileNameMode _fileNameMode;
         private readonly NestedTypeVisibility _nestedTypeVisibility;
         private readonly bool _wikiLinks;
+        private readonly string _project;
         private readonly Dictionary<string, DocItem> _docItems;
         private readonly Dictionary<string, string> _links;
 
@@ -31,7 +32,8 @@ namespace DefaultDocumentation
             FileNameMode fileNameMode,
             NestedTypeVisibility nestedTypeVisibility,
             bool wikiLinks,
-            string linksFiles)
+            string linksFiles,
+            string project)
         {
             _decompiler = new CSharpDecompiler(assemblyFilePath, new DecompilerSettings { ThrowOnAssemblyResolveErrors = false });
             _documentationProvider = new XmlDocumentationProvider(documentationFilePath);
@@ -39,6 +41,7 @@ namespace DefaultDocumentation
             _fileNameMode = fileNameMode;
             _nestedTypeVisibility = nestedTypeVisibility;
             _wikiLinks = wikiLinks;
+            _project = project;
 
             _docItems = new Dictionary<string, DocItem>();
             foreach (DocItem item in GetDocItems(homePageName))
@@ -228,7 +231,7 @@ namespace DefaultDocumentation
             {
                 try
                 {
-                    using DocumentationWriter writer = new DocumentationWriter(_fileNameMode, _nestedTypeVisibility, _wikiLinks, _docItems, _links, outputFolderPath, item);
+                    using DocumentationWriter writer = new DocumentationWriter(_fileNameMode, _nestedTypeVisibility, _wikiLinks, _project, _docItems, _links, outputFolderPath, item);
 
                     item.WriteDocumentation(writer);
                 }

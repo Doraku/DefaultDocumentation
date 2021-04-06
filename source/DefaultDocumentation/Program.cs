@@ -20,6 +20,7 @@ namespace DefaultDocumentation
             FileInfo linksFile = null;
             string externalLinks = null;
             bool wikiLinks = false;
+            string project = null;
 
             try
             {
@@ -68,6 +69,10 @@ namespace DefaultDocumentation
                     else if (TryGetArgValue(arg, nameof(wikiLinks), out argValue) && !string.IsNullOrWhiteSpace(argValue))
                     {
                         wikiLinks = bool.Parse(argValue);
+                    }
+                    else if (TryGetArgValue(arg, nameof(project), out argValue) && !string.IsNullOrWhiteSpace(argValue))
+                    {
+                        project = argValue;
                     }
                 }
             }
@@ -132,7 +137,12 @@ namespace DefaultDocumentation
                 StringExtension.ChangeInvalidReplacement(invalidCharReplacement);
             }
 
-            DocumentationGenerator generator = new DocumentationGenerator(assembly.FullName, xml.FullName, home, fileNameMode, nestedTypeVisibility, wikiLinks, externalLinks);
+            DocumentationGenerator generator = new DocumentationGenerator(assembly.FullName, xml.FullName, home,
+                fileNameMode,
+                nestedTypeVisibility,
+                wikiLinks,
+                externalLinks,
+                project);
 
             generator.WriteDocumentation(output.FullName);
 

@@ -34,7 +34,8 @@ namespace Dummy
         /// <typeparam name="T"></typeparam>
         /// <remarks>
         /// pouet
-        /// </remarks>
+        /// </remarks>        
+        /// <code source=""/>
         public class DummyNested<T>
         {
             /// <summary>
@@ -47,10 +48,7 @@ namespace Dummy
         /// dummy record
         /// </summary>
         public record DummyRecord(int Id, string Value);
-
-        /// <summary>
-        /// dummy
-        /// </summary>
+        
         public unsafe delegate*<DummyClass, object, int> DummyFunctionPointer;
 
         /// <summary>
