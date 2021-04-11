@@ -1,0 +1,30 @@
+﻿using System.Text;
+using System.Xml.Linq;
+using ICSharpCode.Decompiler.CSharp.OutputVisitor;
+using ICSharpCode.Decompiler.Output;
+using ICSharpCode.Decompiler.TypeSystem;
+
+namespace DefaultDocumentation.Model
+{
+    internal sealed class EventDocItem : DocItem, IDefinedDocItem
+    {
+        private static readonly CSharpAmbience CodeAmbience = new()
+        {
+            ConversionFlags =
+                ConversionFlags.ShowAccessibility
+                | ConversionFlags.ShowBody
+                | ConversionFlags.ShowDefinitionKeyword
+                | ConversionFlags.ShowModifiers
+        };
+
+        public IEvent Event { get; }
+
+        public EventDocItem(TypeDocItem parent, IEvent @event, XElement documentation)
+            : base(parent, @event, documentation)
+        {
+            Event = @event;
+        }
+
+        public void WriteDefinition(StringBuilder builder) => builder.AppendLine(CodeAmbience.ConvertSymbol(Event));
+    }
+}

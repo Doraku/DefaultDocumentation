@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="DefaultDocumentation.DefaultDocumentationTask" AssemblyFile="$(MSBuildThisFileDirectory)DefaultDocumentation.dll"/>
+
+  <Target Name="DefaultDocumentation" AfterTargets="PostBuildEvent" Condition="'$(GenerateDocumentationFile)' == 'true' AND '$(DisableDefaultDocumentation)' != 'true'">
+    <PropertyGroup>
+      <_DefaultDocumentationDocumentationFile Condition="'$(DocumentationFile)' != ''">$([System.IO.Path]::GetFullPath($(DocumentationFile)))</_DefaultDocumentationDocumentationFile>
+      <_DefaultDocumentationFolder Condition="'$(DefaultDocumentationFolder)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationFolder)))</_DefaultDocumentationFolder>
+    </PropertyGroup>
+
+    <DefaultDocumentationTask
+      AssemblyFilePath="$(TargetPath)"
+      DocumentationFilePath="$(_DefaultDocumentationDocumentationFile)"
+      ProjectDirectoryPath="$(ProjectPath)"
+      OutputDirectoryPath="$(_DefaultDocumentationFolder)"
+      InvalidCharReplacement="$(DefaultDocumentationInvalidCharReplacement)"
+      HomeName="$(DefaultDocumentationHome)"
+      FileNameMode="$(DefaultDocumentationFileNameMode)"
+      RemoveFileExtensionFromLinks="$(DefaultDocumentationWikiLinks)"
+      NestedTypeVisibility="$(DefaultDocumentationNestedTypeVisibility)"
+      GeneratedPages="$(DefaultDocumentationGeneratedPages)" />
+  </Target>
+</Project>

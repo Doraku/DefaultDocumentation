@@ -4,4 +4,4 @@
 /**/*.vspscc
 /**/*.user
 /**/*.snk
-/package
+/build

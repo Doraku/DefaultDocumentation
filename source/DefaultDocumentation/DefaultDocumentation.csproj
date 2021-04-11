@@ -1,66 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Compilation">
-    <OutputType>Exe</OutputType>
-    <LangVersion>latest</LangVersion>
-    <TargetFrameworks>
-      net5.0;
-      netcoreapp3.1;
-    </TargetFrameworks>
-    <Optimize>true</Optimize>
-  </PropertyGroup>
-
-  <PropertyGroup Label="Debug" Condition="'$(Configuration)'=='Debug'">
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG</DefineConstants>
+    <Description>Create a simple markdown documentation from the Visual Studio xml one.</Description>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <ContentTargetFolders>build</ContentTargetFolders>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);PackBuildOutputs</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="DefaultDocumentation.targets" />
-    <None Include="bin\Release\net5.0\*.dll" Pack="true" PackagePath="tools\" Visible="false" />
-    <Content Include="..\..\image\logo.png" PackagePath="\" Visible="false" />
-    <Content Include="build\DefaultDocumentation.targets" PackagePath="build\" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.9.0" />
   </ItemGroup>
 
-  <ItemGroup Label="Reference">
-    <PackageReference Include="ICSharpCode.Decompiler" Version="6.2.1.6137" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.9.0" />
+  <ItemGroup>
+    <ProjectReference Include="..\DefaultDocumentation.Common\DefaultDocumentation.Common.csproj" />
   </ItemGroup>
 
-  <PropertyGroup Label="Package">
-    <Authors>Paillat Laszlo</Authors>
-    <AssemblyName>DefaultDocumentation</AssemblyName>
-    <AssemblyTitle>DefaultDocumentation</AssemblyTitle>
-    <PackageId>DefaultDocumentation</PackageId>
-    <Description>Create a simple markdown documentation from the Visual Studio xml one.</Description>
-    <PackageIcon>logo.png</PackageIcon>
-    <PackageProjectUrl>https://github.com/Doraku/DefaultDocumentation</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/Doraku/DefaultDocumentation.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>markdown documentation</PackageTags>
+  <ItemGroup>
+    <None Update="DefaultDocumentation.targets" Pack="true" PackagePath="build\" />
+  </ItemGroup>
 
-    <IsTool>true</IsTool>
-    <DevelopmentDependency>true</DevelopmentDependency>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(LOCAL_VERSION)' == 'true'">
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\..\ds.snk</AssemblyOriginatorKeyFile>
-    <Version>0-local$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</Version>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' AND '$(TEST)' != 'true'">
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\ds.snk</AssemblyOriginatorKeyFile>
-    <Version Condition="'$(CI_VERSION)' == 'true'">0-ci$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</Version>
-  </PropertyGroup>
-
-  <Target Name="PreparePackageReleaseNotesFromFile" BeforeTargets="GenerateNuspec">
-    <ReadLinesFromFile File="../../documentation/NEXT_RELEASENOTES.txt">
-      <Output TaskParameter="Lines" ItemName="ReleaseNotesLines" />
-    </ReadLinesFromFile>
-    <PropertyGroup>
-      <PackageReleaseNotes>@(ReleaseNotesLines, '%0a')</PackageReleaseNotes>
-    </PropertyGroup>
+  <Target Name="PackBuildOutputs" DependsOnTargets="ResolveProjectReferences;SatelliteDllsProjectOutputGroup;DebugSymbolsProjectOutputGroup;SatelliteDllsProjectOutputGroupDependencies;ResolveAssemblyReferences">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="$(TargetPath)" PackagePath="build\" />
+      <TfmSpecificPackageFile Include="$(DepsFilePath)" PackagePath="build\" />
+      <TfmSpecificPackageFile Include="@(DebugSymbolsProjectOutputGroupOutput)" PackagePath="build\" />
+      <TfmSpecificPackageFile Include="%(_ResolvedProjectReferencePaths.Identity)" PackagePath="build\" />
+      <TfmSpecificPackageFile Include="@(ReferenceCopyLocalPaths)" Exclude="@(_ResolvedProjectReferencePaths)" PackagePath="build\%(ReferenceCopyLocalPaths.DestinationSubPath)" />
+    </ItemGroup>
   </Target>
 </Project>

@@ -1,0 +1,41 @@
+﻿using System.Linq;
+using System.Text;
+using System.Xml.Linq;
+using ICSharpCode.Decompiler.CSharp.OutputVisitor;
+using ICSharpCode.Decompiler.Output;
+using ICSharpCode.Decompiler.TypeSystem;
+
+namespace DefaultDocumentation.Model
+{
+    internal sealed class OperatorDocItem : DocItem, IParameterizedDocItem, IDefinedDocItem
+    {
+        private static readonly CSharpAmbience CodeAmbience = new()
+        {
+            ConversionFlags =
+                ConversionFlags.ShowAccessibility
+                | ConversionFlags.ShowBody
+                | ConversionFlags.ShowModifiers
+                | ConversionFlags.ShowParameterDefaultValues
+                | ConversionFlags.ShowParameterList
+                | ConversionFlags.ShowParameterModifiers
+                | ConversionFlags.ShowParameterNames
+                | ConversionFlags.ShowReturnType
+                | ConversionFlags.ShowTypeParameterList
+                | ConversionFlags.ShowTypeParameterVarianceModifier
+                | ConversionFlags.UseFullyQualifiedTypeNames
+        };
+
+        public IMethod Method { get; }
+
+        public ParameterDocItem[] Parameters { get; }
+
+        public OperatorDocItem(TypeDocItem parent, IMethod method, XElement documentation)
+            : base(parent, method, documentation)
+        {
+            Method = method;
+            Parameters = method.Parameters.Select(p => new ParameterDocItem(this, p, documentation)).ToArray();
+        }
+
+        public void WriteDefinition(StringBuilder builder) => builder.AppendLine(CodeAmbience.ConvertSymbol(Method));
+    }
+}

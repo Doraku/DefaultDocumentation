@@ -22,6 +22,9 @@ jobs:
         source-url: https://nuget.pkg.github.com/Doraku/index.json
       env:
         NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Run tests
+      run: dotnet test source\DefaultDocumentation.sln -c Release /p:TEST=true
       
     - name: Decrypte snk file
       env:
@@ -30,8 +33,7 @@ jobs:
 
     - name: Create package
       run: |
-        dotnet build source\DefaultDocumentation\DefaultDocumentation.csproj -c Release /p:CI_VERSION=true
-        dotnet pack source\DefaultDocumentation\DefaultDocumentation.csproj -c Release -o package --no-build /p:CI_VERSION=true
+        dotnet pack source\DefaultDocumentation.sln -c Release -o build /p:CI_VERSION=true
 
-    - name: Publish package
-      run: nuget push package\*.nupkg
+    - name: Publish packages
+      run: nuget push build\*.nupkg
