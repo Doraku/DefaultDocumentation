@@ -42,7 +42,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
       with:
-        release_name: DefaultEcs ${{ github.event.release.tag_name }}
+        release_name: DefaultDocumentation ${{ github.event.release.tag_name }}
         body_path: .\build\RELEASE.txt
         
     - name: Clear NEXT_RELEASENOTES.txt
