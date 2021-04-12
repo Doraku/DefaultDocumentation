@@ -7,6 +7,8 @@ on:
     paths:
       - '.github/workflows/ContinuousIntegration.yml'
       - 'source/DefaultDocumentation/**'
+      - 'source/DefaultDocumentation.Common/**'
+      - 'source/DefaultDocumentation.Console/**'
 
 jobs:
   continuous_integration:
@@ -23,6 +25,9 @@ jobs:
       env:
         NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
+    - name: Build
+      run: dotnet build source\DefaultDocumentation.sln -c Release /p:TEST=true
+
     - name: Run tests
       run: dotnet test source\DefaultDocumentation.sln -c Release /p:TEST=true
       
