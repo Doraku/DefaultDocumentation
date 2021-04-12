@@ -1,57 +1,69 @@
 ﻿using System.Collections.Generic;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Text;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace DefaultDocumentation.Helper
 {
     public static class CodeRegion
     {
+        private readonly static Regex _regionStartRegex = new("\r*^ *#region ", RegexOptions.Multiline);
+        private readonly static Regex _regionEndRegex = new("\r*^ *#endregion", RegexOptions.Multiline);
+        private readonly static Regex _commentStartRegex = new("/\\*", RegexOptions.Multiline);
+        private readonly static Regex _commentEndRegex = new("\\*/", RegexOptions.Multiline);
+
+        private static IEnumerable<(int, int)> GetComments(string fileContent)
+        {
+            Match commentStart = _commentStartRegex.Match(fileContent);
+
+            while (commentStart.Success)
+            {
+                Match commentEnd = _commentEndRegex.Match(fileContent, commentStart.Index + 2);
+
+                if (!commentEnd.Success)
+                {
+                    yield return (commentStart.Index, fileContent.Length);
+                    yield break;
+                }
+
+                yield return (commentStart.Index, commentEnd.Index);
+                commentStart = _commentStartRegex.Match(fileContent, commentEnd.Index + 2);
+            }
+        }
+
         public static string Extract(string fileContent, string region)
         {
-            SyntaxTree tree = CSharpSyntaxTree.ParseText(fileContent);
+            (int start, int end)[] comments = GetComments(fileContent).ToArray();
 
-            RegionDirectiveTriviaSyntax start = null;
+            bool IsInComments(int i) => comments.Any(c => i > c.start && i < c.end);
 
-            Stack<RegionDirectiveTriviaSyntax> innerRegions = new();
+            Match regionStart = Match.Empty;
+            Regex regionRegex = new($"\r*^ *#region *{region.Trim()} *\r*$", RegexOptions.Multiline);
 
-            foreach (SyntaxNode trivia in tree.GetRoot().DescendantNodes(_ => true, true))
+            do
             {
-                if (trivia is RegionDirectiveTriviaSyntax regionStart)
-                {
-                    if (start is null)
-                    {
-                        string regionName = regionStart.EndOfDirectiveToken.LeadingTrivia.ToString();
+                regionStart = regionRegex.Match(fileContent, regionStart.Index + regionStart.Length);
+            }
+            while (regionStart.Success && IsInComments(regionStart.Index));
 
-                        if (region == regionName)
-                        {
-                            start = regionStart;
-                        }
-                    }
-                    else
-                    {
-                        innerRegions.Push(regionStart);
-                    }
+            if (!regionStart.Success)
+            {
+                return null;
+            }
+
+            int regionStartIndex = regionStart.Index + regionStart.Value.Length + 1;
+
+            IEnumerable<Match> allRegionStarts = _regionStartRegex.Matches(fileContent, regionStartIndex).OfType<Match>().Where(m => m.Success && !IsInComments(m.Index));
+
+            int innerRegionCount = 0;
+
+            foreach (Match regionEnd in _regionEndRegex.Matches(fileContent, regionStartIndex).OfType<Match>().Where(m => m.Success && !IsInComments(m.Index)))
+            {
+                if (innerRegionCount == allRegionStarts.Count(m => m.Index < regionEnd.Index))
+                {
+                    return fileContent.Substring(regionStartIndex, regionEnd.Index - regionStartIndex);
                 }
 
-                if (start is null)
-                {
-                    continue;
-                }
-
-                if (trivia is EndRegionDirectiveTriviaSyntax regionEnd)
-                {
-                    if (innerRegions.Count == 0)
-                    {
-                        var span = new TextSpan(start.Span.End, regionEnd.Span.Start - start.Span.End);
-                        return tree.GetText().GetSubText(span).ToString();
-                    }
-                    else
-                    {
-                        innerRegions.Pop();
-                    }
-                }
+                ++innerRegionCount;
             }
 
             return null;

@@ -187,6 +187,7 @@ namespace DefaultDocumentation.Writer
                 else
                 {
                     int? previousStartIndex = startIndex;
+                    isNewLine = false;
                     startIndex = null;
 
                     WriteText(GetCode(source, element.GetRegionAttribute()));

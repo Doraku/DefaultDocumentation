@@ -49,7 +49,8 @@ namespace DefaultDocumentation.Writer
                 }
             }
 
-            return code;
+            // remove \r to be consistent with xml content
+            return code.Replace("\r", string.Empty);
         }
 
         protected bool HasOwnPage(DocItem item) => item switch
