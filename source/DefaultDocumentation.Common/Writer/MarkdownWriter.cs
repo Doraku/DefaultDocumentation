@@ -115,7 +115,7 @@ namespace DefaultDocumentation.Writer
                 string[] lines = text.Split('\n');
                 int currentLine = 0;
 
-                if (startIndex is null)
+                if (startIndex is null && isNewLine)
                 {
                     for (currentLine = 0; currentLine <= lines.Length; ++currentLine)
                     {
@@ -187,7 +187,7 @@ namespace DefaultDocumentation.Writer
                 else
                 {
                     int? previousStartIndex = startIndex;
-                    isNewLine = false;
+                    isNewLine = true;
                     startIndex = null;
 
                     WriteText(GetCode(source, element.GetRegionAttribute()));
@@ -218,6 +218,11 @@ namespace DefaultDocumentation.Writer
                         },
                         _ => throw new Exception($"unhandled node type in summary {node.NodeType}")
                     };
+
+                    if (node is XElement)
+                    {
+                        isNewLine = false;
+                    }
                 }
             }
 
