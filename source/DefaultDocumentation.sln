@@ -14,7 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		..\documentation\NEXT_RELEASENOTES.txt = ..\documentation\NEXT_RELEASENOTES.txt
 		..\README.md = ..\README.md
 		..\Release.bat = ..\Release.bat
-		..\documentation\RELEASENOTES.md = ..\documentation\RELEASENOTES.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dummy", "Dummy\Dummy.csproj", "{4BBA3FDF-A296-4428-90C3-FC266D4EA45A}"
@@ -30,9 +29,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Tests", "_Tests", "{CCDFB8FC-4910-4773-A55C-6A21576CA8CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultDocumentation.Common", "DefaultDocumentation.Common\DefaultDocumentation.Common.csproj", "{F594BD03-1FC5-4858-B0B3-D53C456566FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.Common", "DefaultDocumentation.Common\DefaultDocumentation.Common.csproj", "{F594BD03-1FC5-4858-B0B3-D53C456566FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultDocumentation.Console", "DefaultDocumentation.Console\DefaultDocumentation.Console.csproj", "{E28A96EB-0ED9-438B-9DE5-B435093D0B4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.Console", "DefaultDocumentation.Console\DefaultDocumentation.Console.csproj", "{E28A96EB-0ED9-438B-9DE5-B435093D0B4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -29,9 +29,9 @@ namespace DefaultDocumentation
         public bool RemoveFileExtensionFromLinks { get; set; }
 
         [Option(Required = false, HelpText = "Emplacement of nested types in documentation")]
-        public NestedTypeVisibility NestedTypeVisibility { get; set; }
+        public NestedTypeVisibilities NestedTypeVisibilities { get; set; }
 
         [Option(Required = false, HelpText = "State which elements should have their own page")]
-        public GeneratedPage GeneratedPages { get; set; }
+        public GeneratedPages GeneratedPages { get; set; }
     }
 }

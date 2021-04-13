@@ -3,7 +3,7 @@
 namespace DefaultDocumentation
 {
     [Flags]
-    public enum NestedTypeVisibility
+    public enum NestedTypeVisibilities
     {
         Default = 0,
         Namespace = 1,

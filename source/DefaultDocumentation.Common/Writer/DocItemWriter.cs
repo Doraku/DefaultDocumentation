@@ -55,13 +55,13 @@ namespace DefaultDocumentation.Writer
 
         protected bool HasOwnPage(DocItem item) => item switch
         {
-            HomeDocItem => !string.IsNullOrEmpty(_settings.HomeName) || item.Documentation != null || GetChildren<NamespaceDocItem>(item).Skip(1).Any(),
-            NamespaceDocItem => (_settings.GeneratedPages & GeneratedPage.Namespaces) != 0,
-            TypeDocItem => (_settings.GeneratedPages & GeneratedPage.Types) != 0,
+            HomeDocItem => (_settings.GeneratedPages & GeneratedPages.Home) != 0 || !string.IsNullOrEmpty(_settings.HomeName) || item.Documentation != null || GetChildren<NamespaceDocItem>(item).Skip(1).Any(),
+            NamespaceDocItem => (_settings.GeneratedPages & GeneratedPages.Namespaces) != 0,
+            TypeDocItem => (_settings.GeneratedPages & GeneratedPages.Types) != 0,
             TypeParameterDocItem => false,
             EnumFieldDocItem => false,
             ParameterDocItem => false,
-            _ => (_settings.GeneratedPages & GeneratedPage.Members) != 0
+            _ => (_settings.GeneratedPages & GeneratedPages.Members) != 0
         };
 
         protected string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i => _settings.PathCleaner.Clean(i is HomeDocItem ? i.FullName : _settings.FileNameMode switch
@@ -87,8 +87,8 @@ namespace DefaultDocumentation.Writer
 
             return (item switch
             {
-                NamespaceDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (_settings.NestedTypeVisibility & NestedTypeVisibility.Namespace) != 0 => GetAllChildren(item),
-                TypeDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (_settings.NestedTypeVisibility & NestedTypeVisibility.DeclaringType) == 0 => Enumerable.Empty<T>(),
+                NamespaceDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (_settings.NestedTypeVisibilities & NestedTypeVisibilities.Namespace) != 0 => GetAllChildren(item),
+                TypeDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (_settings.NestedTypeVisibilities & NestedTypeVisibilities.DeclaringType) == 0 => Enumerable.Empty<T>(),
                 _ => Items.Where(i => i.Parent == item)
             }).OfType<T>().OrderBy(c => c.Id);
         }

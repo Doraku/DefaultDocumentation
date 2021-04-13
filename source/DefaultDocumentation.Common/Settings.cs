@@ -6,8 +6,8 @@ namespace DefaultDocumentation
 {
     public sealed class Settings
     {
-        private const NestedTypeVisibility _defaultNestedTypeVisibility = NestedTypeVisibility.Namespace;
-        private const GeneratedPage _defaultGeneratedPage = GeneratedPage.Namespaces | GeneratedPage.Types | GeneratedPage.Members;
+        private const NestedTypeVisibilities _defaultNestedTypeVisibility = NestedTypeVisibilities.Namespace;
+        private const GeneratedPages _defaultGeneratedPage = GeneratedPages.Namespaces | GeneratedPages.Types | GeneratedPages.Members;
 
         public FileInfo AssemblyFile { get; }
 
@@ -25,9 +25,9 @@ namespace DefaultDocumentation
 
         public bool RemoveFileExtensionFromLinks { get; }
 
-        public NestedTypeVisibility NestedTypeVisibility { get; }
+        public NestedTypeVisibilities NestedTypeVisibilities { get; }
 
-        public GeneratedPage GeneratedPages { get; }
+        public GeneratedPages GeneratedPages { get; }
 
         public Settings(
             string assemblyFilePath,
@@ -38,8 +38,8 @@ namespace DefaultDocumentation
             string invalidCharReplacement,
             FileNameMode fileNameMode,
             bool removeFileExtensionFromLinks,
-            NestedTypeVisibility nestedTypeVisibility,
-            GeneratedPage generatedPages)
+            NestedTypeVisibilities nestedTypeVisibilities,
+            GeneratedPages generatedPages)
         {
             AssemblyFile = !string.IsNullOrEmpty(assemblyFilePath) ? new FileInfo(assemblyFilePath) : throw new ArgumentNullException(nameof(assemblyFilePath));
             DocumentationFile = string.IsNullOrEmpty(documentationFilePath) ? new FileInfo(Path.Combine(AssemblyFile.Directory.FullName, Path.GetFileNameWithoutExtension(AssemblyFile.Name) + ".xml")) : new FileInfo(documentationFilePath);
@@ -51,8 +51,8 @@ namespace DefaultDocumentation
             FileNameMode = fileNameMode;
             RemoveFileExtensionFromLinks = removeFileExtensionFromLinks;
 
-            NestedTypeVisibility = nestedTypeVisibility == NestedTypeVisibility.Default ? _defaultNestedTypeVisibility : nestedTypeVisibility;
-            GeneratedPages = generatedPages == GeneratedPage.Default ? _defaultGeneratedPage : generatedPages;
+            NestedTypeVisibilities = nestedTypeVisibilities == NestedTypeVisibilities.Default ? _defaultNestedTypeVisibility : nestedTypeVisibilities;
+            GeneratedPages = generatedPages == GeneratedPages.Default ? _defaultGeneratedPage : generatedPages;
         }
     }
 }

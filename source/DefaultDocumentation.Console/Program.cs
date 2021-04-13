@@ -19,7 +19,7 @@ namespace DefaultDocumentation
                         a.InvalidCharReplacement,
                         a.FileNameMode,
                         a.RemoveFileExtensionFromLinks,
-                        a.NestedTypeVisibility,
+                        a.NestedTypeVisibilities,
                         a.GeneratedPages));
                 });
         }

@@ -22,7 +22,7 @@ namespace DefaultDocumentation
 
         public bool RemoveFileExtensionFromLinks { get; set; }
 
-        public string NestedTypeVisibility { get; set; }
+        public string NestedTypeVisibilities { get; set; }
 
         public string GeneratedPages { get; set; }
 
@@ -42,8 +42,8 @@ namespace DefaultDocumentation
                 InvalidCharReplacement,
                 GetEnum<FileNameMode>(nameof(FileNameMode), FileNameMode),
                 RemoveFileExtensionFromLinks,
-                GetEnum<NestedTypeVisibility>(nameof(NestedTypeVisibility), NestedTypeVisibility),
-                GetEnum<GeneratedPage>(nameof(GeneratedPages), GeneratedPages)));
+                GetEnum<NestedTypeVisibilities>(nameof(NestedTypeVisibilities), NestedTypeVisibilities),
+                GetEnum<GeneratedPages>(nameof(GeneratedPages), GeneratedPages)));
 
             return true;
         }

@@ -17,7 +17,7 @@
       HomeName="$(DefaultDocumentationHome)"
       FileNameMode="$(DefaultDocumentationFileNameMode)"
       RemoveFileExtensionFromLinks="$(DefaultDocumentationWikiLinks)"
-      NestedTypeVisibility="$(DefaultDocumentationNestedTypeVisibility)"
+      NestedTypeVisibilities="$(DefaultDocumentationNestedTypeVisibilities)"
       GeneratedPages="$(DefaultDocumentationGeneratedPages)" />
   </Target>
 </Project>

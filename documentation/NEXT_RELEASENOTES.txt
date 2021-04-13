@@ -1,6 +1,7 @@
 breaking changes:
 changed file name generation for FullName and Name FileNameMode
 changed tool to msbuild task to remove runtime dependencies (#42)
+renamed DefaultDocumentationNestedTypeVisibility to DefaultDocumentationNestedTypeVisibilities
 
 added support for source and region attributes in code element (thanks to @basvanderlaken)
 added support for language attributes in code element
