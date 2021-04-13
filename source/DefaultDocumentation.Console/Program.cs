@@ -6,7 +6,7 @@ namespace DefaultDocumentation
     {
         private static void Main(string[] args)
         {
-            Parser.Default
+            new Parser(s => s.CaseSensitive = false)
                 .ParseArguments<SettingsArgs>(args)
                 .WithParsed(a =>
                 {

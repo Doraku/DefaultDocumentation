@@ -4,6 +4,7 @@
     <RootNamespace>DefaultDocumentation</RootNamespace>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
+    <ToolCommandName>defaultdocumentation</ToolCommandName>
     <PackAsTool>true</PackAsTool>
     <DevelopmentDependency>true</DevelopmentDependency>
     <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
