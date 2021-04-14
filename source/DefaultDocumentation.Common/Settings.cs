@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using DefaultDocumentation.Helper;
 
 namespace DefaultDocumentation
@@ -8,6 +10,9 @@ namespace DefaultDocumentation
     {
         private const NestedTypeVisibilities _defaultNestedTypeVisibility = NestedTypeVisibilities.Namespace;
         private const GeneratedPages _defaultGeneratedPage = GeneratedPages.Namespaces | GeneratedPages.Types | GeneratedPages.Members;
+
+        private static readonly char[] _patternChars = new[] { '*', '?' };
+        private static readonly char[] _folderChars = new[] { '/', '\\' };
 
         public FileInfo AssemblyFile { get; }
 
@@ -29,6 +34,12 @@ namespace DefaultDocumentation
 
         public GeneratedPages GeneratedPages { get; }
 
+        public FileInfo LinksOutputFile { get; }
+
+        public string LinksBaseUrl { get; }
+
+        public FileInfo[] ExternLinksFiles { get; }
+
         public Settings(
             string assemblyFilePath,
             string documentationFilePath,
@@ -39,7 +50,10 @@ namespace DefaultDocumentation
             FileNameMode fileNameMode,
             bool removeFileExtensionFromLinks,
             NestedTypeVisibilities nestedTypeVisibilities,
-            GeneratedPages generatedPages)
+            GeneratedPages generatedPages,
+            string linksOutputFile,
+            string linksBaseUrl,
+            string externlinksFilePaths)
         {
             AssemblyFile = !string.IsNullOrEmpty(assemblyFilePath) ? new FileInfo(assemblyFilePath) : throw new ArgumentNullException(nameof(assemblyFilePath));
             DocumentationFile = string.IsNullOrEmpty(documentationFilePath) ? new FileInfo(Path.Combine(AssemblyFile.Directory.FullName, Path.GetFileNameWithoutExtension(AssemblyFile.Name) + ".xml")) : new FileInfo(documentationFilePath);
@@ -53,6 +67,30 @@ namespace DefaultDocumentation
 
             NestedTypeVisibilities = nestedTypeVisibilities == NestedTypeVisibilities.Default ? _defaultNestedTypeVisibility : nestedTypeVisibilities;
             GeneratedPages = generatedPages == GeneratedPages.Default ? _defaultGeneratedPage : generatedPages;
+
+            LinksOutputFile = string.IsNullOrEmpty(linksOutputFile) ? null : new FileInfo(linksOutputFile);
+            LinksBaseUrl = linksBaseUrl ?? string.Empty;
+            ExternLinksFiles = (externlinksFilePaths ?? string.Empty).Split('|').SelectMany(GetFiles).Where(f => f.Exists && f.FullName != LinksOutputFile?.FullName).ToArray();
+        }
+
+        private static IEnumerable<FileInfo> GetFiles(string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                yield break;
+            }
+
+            if (filePath.IndexOfAny(_patternChars) < 0)
+            {
+                yield return new FileInfo(filePath);
+            }
+
+            int patternIndex = filePath.LastIndexOfAny(_folderChars) + 1;
+
+            foreach (string file in Directory.EnumerateFiles(filePath.Substring(0, patternIndex), filePath.Substring(patternIndex)))
+            {
+                yield return new FileInfo(file);
+            }
         }
     }
 }

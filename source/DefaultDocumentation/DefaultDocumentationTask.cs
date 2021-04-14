@@ -26,6 +26,12 @@ namespace DefaultDocumentation
 
         public string GeneratedPages { get; set; }
 
+        public string LinksOutputFilePath { get; set; }
+
+        public string LinksBaseUrl { get; set; }
+
+        public string ExternLinksFilePaths { get; set; }
+
         public override bool Execute()
         {
             static T GetEnum<T>(string argumentName, string stringValue) where T : struct =>
@@ -43,7 +49,10 @@ namespace DefaultDocumentation
                 GetEnum<FileNameMode>(nameof(FileNameMode), FileNameMode),
                 RemoveFileExtensionFromLinks,
                 GetEnum<NestedTypeVisibilities>(nameof(NestedTypeVisibilities), NestedTypeVisibilities),
-                GetEnum<GeneratedPages>(nameof(GeneratedPages), GeneratedPages)));
+                GetEnum<GeneratedPages>(nameof(GeneratedPages), GeneratedPages),
+                LinksOutputFilePath,
+                LinksBaseUrl,
+                ExternLinksFilePaths));
 
             return true;
         }

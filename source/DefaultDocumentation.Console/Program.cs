@@ -20,7 +20,10 @@ namespace DefaultDocumentation
                         a.FileNameMode,
                         a.RemoveFileExtensionFromLinks,
                         a.NestedTypeVisibilities,
-                        a.GeneratedPages));
+                        a.GeneratedPages,
+                        a.LinksOutputFilePath,
+                        a.LinksBaseUrl,
+                        a.ExternLinksFilePaths));
                 });
         }
     }

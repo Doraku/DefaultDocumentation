@@ -1,12 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <UsingTask TaskName="DefaultDocumentation.DefaultDocumentationTask" AssemblyFile="$(MSBuildThisFileDirectory)DefaultDocumentation.dll"/>
+  <UsingTask TaskName="EnsureDefaultDocumentationExternLinksFilesRooted" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" >
+    <ParameterGroup>
+      <ExternLinksFilePaths Required="true" />
+      <Result Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+          List<string> paths = new List<string>();
+          foreach (string path in (ExternLinksFilePaths ?? string.Empty).Split('|'))
+          {
+            if (!string.IsNullOrEmpty(path))
+            {
+              paths.Add(Path.IsPathRooted(path) ? path : Path.Combine(Environment.CurrentDirectory, path));
+            }
+          }
+        
+          Result = string.Join("|", paths);
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
 
   <Target Name="DefaultDocumentation" AfterTargets="PostBuildEvent" Condition="'$(GenerateDocumentationFile)' == 'true' AND '$(DisableDefaultDocumentation)' != 'true'">
     <PropertyGroup>
       <_DefaultDocumentationDocumentationFile Condition="'$(DocumentationFile)' != ''">$([System.IO.Path]::GetFullPath($(DocumentationFile)))</_DefaultDocumentationDocumentationFile>
       <_DefaultDocumentationFolder Condition="'$(DefaultDocumentationFolder)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationFolder)))</_DefaultDocumentationFolder>
+      <_DefaultDocumentationLinksOutputFile Condition="'$(DefaultDocumentationLinksOutputFile)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationLinksOutputFile)))</_DefaultDocumentationLinksOutputFile>
     </PropertyGroup>
+
+    <EnsureDefaultDocumentationExternLinksFilesRooted Condition="'$(DefaultDocumentationExternLinksFiles)' != ''" ExternLinksFilePaths="$(DefaultDocumentationExternLinksFiles)">
+      <Output PropertyName="_DefaultDocumentationExternLinksFiles" TaskParameter="Result" />
+    </EnsureDefaultDocumentationExternLinksFilesRooted>
 
     <DefaultDocumentationTask
       AssemblyFilePath="$(TargetPath)"
@@ -18,6 +45,9 @@
       FileNameMode="$(DefaultDocumentationFileNameMode)"
       RemoveFileExtensionFromLinks="$(DefaultDocumentationRemoveFileExtensionFromLinks)"
       NestedTypeVisibilities="$(DefaultDocumentationNestedTypeVisibilities)"
-      GeneratedPages="$(DefaultDocumentationGeneratedPages)" />
+      GeneratedPages="$(DefaultDocumentationGeneratedPages)"
+      LinksOutputFilePath="$(_DefaultDocumentationLinksOutputFile)"
+      LinksBaseUrl="$(DefaultDocumentationLinksBaseUrl)"
+      ExternLinksFilePaths="$(_DefaultDocumentationExternLinksFiles)"/>
   </Target>
 </Project>

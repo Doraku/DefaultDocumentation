@@ -19,7 +19,7 @@ namespace DefaultDocumentation
         [Option('c', Required = false, HelpText = "Replacement for url invalid char")]
         public string InvalidCharReplacement { get; set; }
 
-        [Option('n', Required = false, HelpText = "Name of the assembly documentaton file")]
+        [Option('A', Required = false, HelpText = "Name of the assembly documentaton file")]
         public string AssemblyPageName { get; set; }
 
         [Option('m', Required = false, HelpText = "Naming convention to use for documentation files")]
@@ -31,7 +31,16 @@ namespace DefaultDocumentation
         [Option('v', Required = false, HelpText = "Emplacement of nested types in documentation")]
         public NestedTypeVisibilities NestedTypeVisibilities { get; set; }
 
-        [Option('g', Required = false, HelpText = "State which elements should have their own page")]
+        [Option('P', Required = false, HelpText = "State which elements should have their own page")]
         public GeneratedPages GeneratedPages { get; set; }
+
+        [Option('l', Required = false, HelpText = "File path where the documentation will generate its links")]
+        public string LinksOutputFilePath { get; set; }
+
+        [Option('b', Required = false, HelpText = "Base url of the documentation for the generated links file")]
+        public string LinksBaseUrl { get; set; }
+
+        [Option('L', Required = false, HelpText = "| separated links files to use for external documentation")]
+        public string ExternLinksFilePaths { get; set; }
     }
 }

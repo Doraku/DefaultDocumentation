@@ -23,7 +23,8 @@ namespace DefaultDocumentation.Writer
         protected DocItemWriter(Settings settings)
         {
             _settings = settings;
-            _items = DocItemReader.GetItems(settings.AssemblyFile, settings.DocumentationFile, settings.AssemblyPageName);
+            _items = DocItemReader.GetItems(settings.AssemblyFile, settings.DocumentationFile, settings.AssemblyPageName, settings.ExternLinksFiles);
+
             _fileNames = new ConcurrentDictionary<DocItem, string>();
         }
 
@@ -104,6 +105,8 @@ namespace DefaultDocumentation.Writer
 
         protected abstract void Clean(DirectoryInfo directory);
 
+        protected abstract string GetUrl(DocItem item);
+
         protected abstract void WritePage(DirectoryInfo directory, DocItem item);
 
         public void Execute()
@@ -119,6 +122,23 @@ namespace DefaultDocumentation.Writer
                 catch (Exception exception)
                 {
                     throw new Exception($"Error while writing documentation for {item.FullName}", exception);
+                }
+            }
+
+            if (_settings.LinksOutputFile != null)
+            {
+                _settings.LinksOutputFile.Directory.Create();
+
+                using StreamWriter writer = _settings.LinksOutputFile.CreateText();
+
+                writer.WriteLine(_settings.LinksBaseUrl);
+                foreach (DocItem item in Items.Where(i => i is not ExternDocItem && i is not AssemblyDocItem))
+                {
+                    writer.Write(item.Id);
+                    writer.Write('|');
+                    writer.Write(GetUrl(item));
+                    writer.Write('|');
+                    writer.WriteLine(item.Name);
                 }
             }
         }

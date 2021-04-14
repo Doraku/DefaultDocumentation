@@ -30,6 +30,11 @@ namespace DefaultDocumentation.Writer
             _builder = new StringBuilder();
             _urlFactory = item =>
             {
+                if (item is ExternDocItem externItem)
+                {
+                    return externItem.Url;
+                }
+
                 DocItem pagedItem = item;
                 while (!HasOwnPage(pagedItem))
                 {
@@ -52,7 +57,7 @@ namespace DefaultDocumentation.Writer
 
         private static string ToLink(string url, string displayedName = null) => $"[{(displayedName ?? url).Prettify()}]({url} '{url}')";
 
-        private string GetLink(DocItem item, string displayedName = null) => $"[{displayedName ?? item.Name}]({_urls.GetOrAdd(item.Id, _ => _urlFactory(item))} '{item.FullName}')";
+        private string GetLink(DocItem item, string displayedName = null) => $"[{displayedName ?? item.Name}]({GetUrl(item)} '{item.FullName}')";
 
         private string GetLink(string id, string displayedName = null) => TryGetDocItem(id, out DocItem item) ? GetLink(item, displayedName) : $"[{(displayedName ?? id.Substring(2)).Prettify()}]({_urls.GetOrAdd(id, i => i.ToDotNetApiUrl())} '{id.Substring(2)}')";
 
@@ -264,7 +269,7 @@ namespace DefaultDocumentation.Writer
         {
             if (!HasOwnPage(item))
             {
-                string url = _urls.GetOrAdd(item.Id, _ => _urlFactory(item));
+                string url = GetUrl(item);
                 int startIndex = url.IndexOf('#') + 1;
                 _builder.Append("<a name='").Append(url, startIndex, url.Length - startIndex).AppendLine("'></a>");
             }
@@ -530,6 +535,8 @@ namespace DefaultDocumentation.Writer
                 directory.Create();
             }
         }
+
+        protected override string GetUrl(DocItem item) => _urls.GetOrAdd(item.Id, _ => _urlFactory(item));
 
         protected override void WritePage(DirectoryInfo directory, DocItem item)
         {

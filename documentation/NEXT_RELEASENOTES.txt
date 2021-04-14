@@ -10,4 +10,5 @@ added support for language attributes in code element
 added See Also section at the end of pages grouping all seealso element
 added support for see and seealso displayed text change with element value
 added dotnet tool package (#25)
-added DefaultDocumentationGeneratedPages property to set which element will have its own page (#36) 
+added DefaultDocumentationGeneratedPages property to set which element will have its own page (#36)
+added cross assembly documentation linking (#7)
