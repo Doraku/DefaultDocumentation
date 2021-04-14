@@ -16,7 +16,7 @@ namespace DefaultDocumentation
 
         public string InvalidCharReplacement { get; set; }
 
-        public string HomeName { get; set; }
+        public string AssemblyPageName { get; set; }
 
         public string FileNameMode { get; set; }
 
@@ -38,7 +38,7 @@ namespace DefaultDocumentation
                 DocumentationFilePath,
                 ProjectDirectoryPath,
                 OutputDirectoryPath,
-                HomeName,
+                AssemblyPageName,
                 InvalidCharReplacement,
                 GetEnum<FileNameMode>(nameof(FileNameMode), FileNameMode),
                 RemoveFileExtensionFromLinks,

@@ -1,13 +1,15 @@
 ﻿using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using DefaultDocumentation.Model.Parameter;
+using DefaultDocumentation.Model.Type;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
 using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 
-namespace DefaultDocumentation.Model
+namespace DefaultDocumentation.Model.Member
 {
-    internal sealed class OperatorDocItem : DocItem, IParameterizedDocItem, IDefinedDocItem
+    internal sealed class PropertyDocItem : DocItem, IParameterizedDocItem, IDefinedDocItem
     {
         private static readonly CSharpAmbience CodeAmbience = new()
         {
@@ -20,22 +22,20 @@ namespace DefaultDocumentation.Model
                 | ConversionFlags.ShowParameterModifiers
                 | ConversionFlags.ShowParameterNames
                 | ConversionFlags.ShowReturnType
-                | ConversionFlags.ShowTypeParameterList
-                | ConversionFlags.ShowTypeParameterVarianceModifier
                 | ConversionFlags.UseFullyQualifiedTypeNames
         };
 
-        public IMethod Method { get; }
+        public IProperty Property { get; }
 
         public ParameterDocItem[] Parameters { get; }
 
-        public OperatorDocItem(TypeDocItem parent, IMethod method, XElement documentation)
-            : base(parent, method, documentation)
+        public PropertyDocItem(TypeDocItem parent, IProperty property, XElement documentation)
+            : base(parent, property, documentation)
         {
-            Method = method;
-            Parameters = method.Parameters.Select(p => new ParameterDocItem(this, p, documentation)).ToArray();
+            Property = property;
+            Parameters = Property.Parameters.Select(p => new ParameterDocItem(this, p, documentation)).ToArray();
         }
 
-        public void WriteDefinition(StringBuilder builder) => builder.AppendLine(CodeAmbience.ConvertSymbol(Method));
+        public void WriteDefinition(StringBuilder builder) => builder.AppendLine(CodeAmbience.ConvertSymbol(Property));
     }
 }

@@ -3,7 +3,7 @@ using System.Xml.Linq;
 using DefaultDocumentation.Helper;
 using ICSharpCode.Decompiler.TypeSystem;
 
-namespace DefaultDocumentation.Model
+namespace DefaultDocumentation.Model.Parameter
 {
     internal sealed class ParameterDocItem : DocItem
     {

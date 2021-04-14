@@ -1,10 +1,11 @@
 ﻿using System.Text;
 using System.Xml.Linq;
+using DefaultDocumentation.Model.Type;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
 using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 
-namespace DefaultDocumentation.Model
+namespace DefaultDocumentation.Model.Member
 {
     internal sealed class FieldDocItem : DocItem, IDefinedDocItem
     {

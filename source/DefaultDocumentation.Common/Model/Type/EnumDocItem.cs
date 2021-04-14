@@ -4,7 +4,7 @@ using ICSharpCode.Decompiler.CSharp.OutputVisitor;
 using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 
-namespace DefaultDocumentation.Model
+namespace DefaultDocumentation.Model.Type
 {
     internal sealed class EnumDocItem : TypeDocItem
     {

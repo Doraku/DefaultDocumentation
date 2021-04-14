@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
 using ICSharpCode.Decompiler.TypeSystem;
 
-namespace DefaultDocumentation.Model
+namespace DefaultDocumentation.Model.Type
 {
     internal sealed class StructDocItem : TypeDocItem
     {

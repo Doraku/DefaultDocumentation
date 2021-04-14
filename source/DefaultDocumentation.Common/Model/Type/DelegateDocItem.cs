@@ -1,11 +1,12 @@
 ﻿using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using DefaultDocumentation.Model.Parameter;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
 using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 
-namespace DefaultDocumentation.Model
+namespace DefaultDocumentation.Model.Type
 {
     internal sealed class DelegateDocItem : TypeDocItem, IParameterizedDocItem
     {

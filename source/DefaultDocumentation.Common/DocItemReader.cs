@@ -5,6 +5,8 @@ using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Helper;
 using DefaultDocumentation.Model;
+using DefaultDocumentation.Model.Member;
+using DefaultDocumentation.Model.Type;
 using ICSharpCode.Decompiler;
 using ICSharpCode.Decompiler.CSharp;
 using ICSharpCode.Decompiler.CSharp.Resolver;
@@ -20,7 +22,7 @@ namespace DefaultDocumentation
         private readonly Dictionary<IModule, IDocumentationProvider> _documentationProviders;
         private readonly Dictionary<string, DocItem> _items;
 
-        private DocItemReader(FileInfo assemblyFile, FileInfo documentationFile, string homeName)
+        private DocItemReader(FileInfo assemblyFile, FileInfo documentationFile, string assemblyPageName)
         {
             _decompiler = new CSharpDecompiler(assemblyFile.FullName, new DecompilerSettings { ThrowOnAssemblyResolveErrors = false });
             _resolver = new CSharpResolver(_decompiler.TypeSystem);
@@ -31,11 +33,11 @@ namespace DefaultDocumentation
 
             _items = new Dictionary<string, DocItem>();
 
-            HomeDocItem homeDocItem = new(
-                homeName,
+            AssemblyDocItem assemblyDocItem = new(
+                assemblyPageName,
                 _decompiler.TypeSystem.MainModule.AssemblyName,
                 GetDocumentation($"T:{_decompiler.TypeSystem.MainModule.AssemblyName}.AssemblyDoc"));
-            Add(homeDocItem);
+            Add(assemblyDocItem);
 
             foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(t => t.Name != "NamespaceDoc" && t.Name != "AssemblyDoc"))
             {
@@ -54,7 +56,7 @@ namespace DefaultDocumentation
                     newNamespace = true;
 
                     parentDocItem = new NamespaceDocItem(
-                        homeDocItem,
+                        assemblyDocItem,
                         type.Namespace,
                         GetDocumentation($"T:{type.Namespace}.NamespaceDoc"));
 
@@ -160,6 +162,6 @@ namespace DefaultDocumentation
 
         private void Add(DocItem item) => _items.Add(item.Id, item);
 
-        public static Dictionary<string, DocItem> GetItems(FileInfo assemblyFile, FileInfo documentationFile, string homeName) => new DocItemReader(assemblyFile, documentationFile, homeName ?? "index")._items;
+        public static Dictionary<string, DocItem> GetItems(FileInfo assemblyFile, FileInfo documentationFile, string assemblyPageName) => new DocItemReader(assemblyFile, documentationFile, assemblyPageName ?? "index")._items;
     }
 }

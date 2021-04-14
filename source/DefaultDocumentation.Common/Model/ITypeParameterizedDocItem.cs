@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using DefaultDocumentation.Helper;
+using DefaultDocumentation.Model.Parameter;
+using DefaultDocumentation.Model.Type;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Model

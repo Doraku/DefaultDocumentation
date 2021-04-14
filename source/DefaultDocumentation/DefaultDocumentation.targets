@@ -14,9 +14,9 @@
       ProjectDirectoryPath="$(ProjectPath)"
       OutputDirectoryPath="$(_DefaultDocumentationFolder)"
       InvalidCharReplacement="$(DefaultDocumentationInvalidCharReplacement)"
-      HomeName="$(DefaultDocumentationHome)"
+      AssemblyPageName="$(DefaultDocumentationAssemblyPageName)"
       FileNameMode="$(DefaultDocumentationFileNameMode)"
-      RemoveFileExtensionFromLinks="$(DefaultDocumentationWikiLinks)"
+      RemoveFileExtensionFromLinks="$(DefaultDocumentationRemoveFileExtensionFromLinks)"
       NestedTypeVisibilities="$(DefaultDocumentationNestedTypeVisibilities)"
       GeneratedPages="$(DefaultDocumentationGeneratedPages)" />
   </Target>

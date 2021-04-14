@@ -44,7 +44,7 @@ namespace DefaultDocumentation.Model
             Documentation = documentation;
             FullName = fullName.Replace("<", "&lt;").Replace(">", "&gt;").Replace("this ", string.Empty);
             Name = name.Replace("<", "&lt;").Replace(">", "&gt;").Replace("this ", string.Empty);
-            LongName = (parent != null && parent is not HomeDocItem && parent is not NamespaceDocItem ? $"{parent.LongName}." : string.Empty) + Name;
+            LongName = (parent != null && parent is not AssemblyDocItem && parent is not NamespaceDocItem ? $"{parent.LongName}." : string.Empty) + Name;
         }
 
         protected DocItem(DocItem parent, IEntity entity, XElement documentation)

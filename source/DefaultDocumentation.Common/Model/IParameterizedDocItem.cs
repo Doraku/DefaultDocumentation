@@ -1,4 +1,6 @@
-﻿namespace DefaultDocumentation.Model
+﻿using DefaultDocumentation.Model.Parameter;
+
+namespace DefaultDocumentation.Model
 {
     internal interface IParameterizedDocItem
     {

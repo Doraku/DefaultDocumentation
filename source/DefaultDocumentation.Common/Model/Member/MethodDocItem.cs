@@ -1,11 +1,13 @@
 ﻿using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using DefaultDocumentation.Model.Parameter;
+using DefaultDocumentation.Model.Type;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
 using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 
-namespace DefaultDocumentation.Model
+namespace DefaultDocumentation.Model.Member
 {
     internal sealed class MethodDocItem : DocItem, ITypeParameterizedDocItem, IParameterizedDocItem, IDefinedDocItem
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using DefaultDocumentation.Model;
+using DefaultDocumentation.Model.Parameter;
 
 namespace DefaultDocumentation.Helper
 {

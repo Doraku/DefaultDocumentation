@@ -17,7 +17,7 @@ namespace DefaultDocumentation
 
         public DirectoryInfo OutputDirectory { get; }
 
-        public string HomeName { get; }
+        public string AssemblyPageName { get; }
 
         public PathCleaner PathCleaner { get; }
 
@@ -34,7 +34,7 @@ namespace DefaultDocumentation
             string documentationFilePath,
             string projectDirectoryPath,
             string outputDirectoryPath,
-            string homeName,
+            string assemblyPageName,
             string invalidCharReplacement,
             FileNameMode fileNameMode,
             bool removeFileExtensionFromLinks,
@@ -46,7 +46,7 @@ namespace DefaultDocumentation
             ProjectDirectory = string.IsNullOrEmpty(projectDirectoryPath) ? null : new DirectoryInfo(projectDirectoryPath);
             OutputDirectory = string.IsNullOrEmpty(outputDirectoryPath) ? DocumentationFile.Directory : new DirectoryInfo(outputDirectoryPath);
 
-            HomeName = homeName;
+            AssemblyPageName = assemblyPageName;
             PathCleaner = new PathCleaner(string.IsNullOrEmpty(invalidCharReplacement) ? "_" : invalidCharReplacement);
             FileNameMode = fileNameMode;
             RemoveFileExtensionFromLinks = removeFileExtensionFromLinks;

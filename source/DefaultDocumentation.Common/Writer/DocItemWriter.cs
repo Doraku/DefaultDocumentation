@@ -7,6 +7,8 @@ using System.Security.Cryptography;
 using System.Text;
 using DefaultDocumentation.Helper;
 using DefaultDocumentation.Model;
+using DefaultDocumentation.Model.Member;
+using DefaultDocumentation.Model.Type;
 
 namespace DefaultDocumentation.Writer
 {
@@ -21,7 +23,7 @@ namespace DefaultDocumentation.Writer
         protected DocItemWriter(Settings settings)
         {
             _settings = settings;
-            _items = DocItemReader.GetItems(settings.AssemblyFile, settings.DocumentationFile, settings.HomeName);
+            _items = DocItemReader.GetItems(settings.AssemblyFile, settings.DocumentationFile, settings.AssemblyPageName);
             _fileNames = new ConcurrentDictionary<DocItem, string>();
         }
 
@@ -55,16 +57,23 @@ namespace DefaultDocumentation.Writer
 
         protected bool HasOwnPage(DocItem item) => item switch
         {
-            HomeDocItem => (_settings.GeneratedPages & GeneratedPages.Home) != 0 || !string.IsNullOrEmpty(_settings.HomeName) || item.Documentation != null || GetChildren<NamespaceDocItem>(item).Skip(1).Any(),
+            AssemblyDocItem => (_settings.GeneratedPages & GeneratedPages.Assembly) != 0 || !string.IsNullOrEmpty(_settings.AssemblyPageName) || item.Documentation != null || GetChildren<NamespaceDocItem>(item).Skip(1).Any(),
             NamespaceDocItem => (_settings.GeneratedPages & GeneratedPages.Namespaces) != 0,
-            TypeDocItem => (_settings.GeneratedPages & GeneratedPages.Types) != 0,
-            TypeParameterDocItem => false,
-            EnumFieldDocItem => false,
-            ParameterDocItem => false,
-            _ => (_settings.GeneratedPages & GeneratedPages.Members) != 0
+            ClassDocItem => (_settings.GeneratedPages & GeneratedPages.Classes) != 0,
+            DelegateDocItem => (_settings.GeneratedPages & GeneratedPages.Delegates) != 0,
+            EnumDocItem => (_settings.GeneratedPages & GeneratedPages.Enums) != 0,
+            InterfaceDocItem => (_settings.GeneratedPages & GeneratedPages.Interfaces) != 0,
+            StructDocItem => (_settings.GeneratedPages & GeneratedPages.Structs) != 0,
+            ConstructorDocItem => (_settings.GeneratedPages & GeneratedPages.Constructors) != 0,
+            EventDocItem => (_settings.GeneratedPages & GeneratedPages.Events) != 0,
+            FieldDocItem => (_settings.GeneratedPages & GeneratedPages.Fields) != 0,
+            MethodDocItem => (_settings.GeneratedPages & GeneratedPages.Methods) != 0,
+            OperatorDocItem => (_settings.GeneratedPages & GeneratedPages.Operators) != 0,
+            PropertyDocItem => (_settings.GeneratedPages & GeneratedPages.Properties) != 0,
+            _ => false
         };
 
-        protected string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i => _settings.PathCleaner.Clean(i is HomeDocItem ? i.FullName : _settings.FileNameMode switch
+        protected string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i => _settings.PathCleaner.Clean(i is AssemblyDocItem ? i.FullName : _settings.FileNameMode switch
         {
             FileNameMode.Md5 => Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(i.FullName))),
             FileNameMode.Name => i.LongName,

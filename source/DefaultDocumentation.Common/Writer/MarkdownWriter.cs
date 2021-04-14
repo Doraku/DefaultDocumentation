@@ -8,6 +8,9 @@ using System.Threading;
 using System.Xml.Linq;
 using DefaultDocumentation.Helper;
 using DefaultDocumentation.Model;
+using DefaultDocumentation.Model.Member;
+using DefaultDocumentation.Model.Parameter;
+using DefaultDocumentation.Model.Type;
 using ICSharpCode.Decompiler.Documentation;
 using ICSharpCode.Decompiler.TypeSystem;
 using ICSharpCode.Decompiler.TypeSystem.Implementation;
@@ -239,14 +242,14 @@ namespace DefaultDocumentation.Writer
 
         private void WriteHeader(DocItem item)
         {
-            HomeDocItem home = Items.OfType<HomeDocItem>().Single();
-            if (HasOwnPage(home))
+            AssemblyDocItem assembly = Items.OfType<AssemblyDocItem>().Single();
+            if (HasOwnPage(assembly))
             {
-                _builder.Append("#### ").AppendLine(GetLink(home));
+                _builder.Append("#### ").AppendLine(GetLink(assembly));
             }
 
             Stack<DocItem> parents = new();
-            for (DocItem parent = item?.Parent; parent != home && parent != null; parent = parent.Parent)
+            for (DocItem parent = item?.Parent; parent != assembly && parent != null; parent = parent.Parent)
             {
                 parents.Push(parent);
             }

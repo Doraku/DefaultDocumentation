@@ -2,9 +2,9 @@
 
 namespace DefaultDocumentation.Model
 {
-    internal sealed class HomeDocItem : DocItem
+    internal sealed class AssemblyDocItem : DocItem
     {
-        public HomeDocItem(string pageName, string name, XElement documentation)
+        public AssemblyDocItem(string pageName, string name, XElement documentation)
             : base(null, string.Empty, pageName ?? "index", name, documentation)
         { }
     }

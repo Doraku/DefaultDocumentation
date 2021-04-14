@@ -15,7 +15,7 @@ namespace DefaultDocumentation
                         a.DocumentationFilePath,
                         a.ProjectDirectoryPath,
                         a.OutputDirectoryPath,
-                        a.HomeName,
+                        a.AssemblyPageName,
                         a.InvalidCharReplacement,
                         a.FileNameMode,
                         a.RemoveFileExtensionFromLinks,

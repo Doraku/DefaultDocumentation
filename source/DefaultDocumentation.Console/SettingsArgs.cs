@@ -16,16 +16,16 @@ namespace DefaultDocumentation
         [Option('o', Required = false, HelpText = "Path to the output folder, if not specified the documentation will be generated in the same folder as the xml documentation file")]
         public string OutputDirectoryPath { get; set; }
 
-        [Option('i', Required = false, HelpText = "Replacement for url invalid char")]
+        [Option('c', Required = false, HelpText = "Replacement for url invalid char")]
         public string InvalidCharReplacement { get; set; }
 
-        [Option('n', Required = false, HelpText = "Name of the home documentaton file")]
-        public string HomeName { get; set; }
+        [Option('n', Required = false, HelpText = "Name of the assembly documentaton file")]
+        public string AssemblyPageName { get; set; }
 
-        [Option('f', Required = false, HelpText = "Naming convention to use for documentation files")]
+        [Option('m', Required = false, HelpText = "Naming convention to use for documentation files")]
         public FileNameMode FileNameMode { get; set; }
 
-        [Option('r', Required = false, HelpText = "If true skip file extension in generated page links")]
+        [Option('x', Required = false, HelpText = "If true skip file extension in generated page links")]
         public bool RemoveFileExtensionFromLinks { get; set; }
 
         [Option('v', Required = false, HelpText = "Emplacement of nested types in documentation")]
