@@ -5,6 +5,8 @@ renamed DefaultDocumentationNestedTypeVisibility to DefaultDocumentationNestedTy
 renamed DefaultDocumentationWikiLinks to DefaultDocumentationRemoveFileExtensionFromLinks
 renamed DefaultDocumentationHome to DefaultDocumentationAssemblyPageName
 
+fixed see link for await, false and true langword values
+
 added support for source and region attributes in code element (#40 thanks to @basvanderlaken)
 added support for language attributes in code element
 added See Also section at the end of pages grouping all seealso elements

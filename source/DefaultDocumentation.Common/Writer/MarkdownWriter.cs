@@ -175,7 +175,15 @@ namespace DefaultDocumentation.Writer
                 @ref = element.GetLangWordAttribute();
                 if (@ref is not null)
                 {
-                    return _builder.Append(ToLink($"https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/{@ref}", element.Value.NullIfEmpty() ?? @ref));
+                    return _builder.Append(ToLink(
+                        @ref switch
+                        {
+                            "await" => "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/await",
+                            "false" => "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool",
+                            "true" => "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool",
+                            _ => $"https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/{@ref}"
+                        },
+                        element.Value.NullIfEmpty() ?? @ref));
                 }
 
                 return _builder;
