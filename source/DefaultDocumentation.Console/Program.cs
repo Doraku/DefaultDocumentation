@@ -1,4 +1,5 @@
-﻿using CommandLine;
+﻿using System;
+using CommandLine;
 
 namespace DefaultDocumentation
 {
@@ -6,7 +7,11 @@ namespace DefaultDocumentation
     {
         private static void Main(string[] args)
         {
-            new Parser(s => s.CaseSensitive = false)
+            new Parser(s =>
+            {
+                s.CaseSensitive = false;
+                s.HelpWriter = Console.Out;
+            })
                 .ParseArguments<SettingsArgs>(args)
                 .WithParsed(a =>
                 {
