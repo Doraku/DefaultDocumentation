@@ -32,7 +32,7 @@ namespace DefaultDocumentation.Writer
 
         protected string GetCode(string source, string region = null)
         {
-            if (!Path.IsPathRooted(source))
+            if (!Path.IsPathRooted(source) && _settings.ProjectDirectory != null)
             {
                 source = Path.Combine(_settings.ProjectDirectory.FullName, source);
             }
