@@ -28,6 +28,8 @@ namespace DefaultDocumentation.Helper
 
         public static string GetCRefAttribute(this XElement element) => element.Attribute("cref")?.Value;
 
+        public static string GetHRefAttribute(this XElement element) => element.Attribute("href")?.Value;
+
         public static string GetLangWordAttribute(this XElement element) => element.Attribute("langword")?.Value;
 
         public static string GetSourceAttribute(this XElement element) => element.Attribute("source")?.Value;

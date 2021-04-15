@@ -7,8 +7,9 @@ renamed DefaultDocumentationHome to DefaultDocumentationAssemblyPageName
 
 added support for source and region attributes in code element (#40 thanks to @basvanderlaken)
 added support for language attributes in code element
-added See Also section at the end of pages grouping all seealso element
+added See Also section at the end of pages grouping all seealso elements
 added support for see and seealso displayed text change with element value
 added dotnet tool package (#25)
 added DefaultDocumentationGeneratedPages property to set which element will have its own page (#36)
 added cross assembly documentation linking (#7)
+added support for href attribute in see and seealso element

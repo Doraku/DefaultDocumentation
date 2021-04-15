@@ -160,16 +160,22 @@ namespace DefaultDocumentation.Writer
 
             StringBuilder WriteSee(XElement element)
             {
-                string see = element.GetCRefAttribute();
-                if (see is not null)
+                string @ref = element.GetCRefAttribute();
+                if (@ref is not null)
                 {
-                    return _builder.Append(GetLink(see, element.Value.NullIfEmpty()));
+                    return _builder.Append(GetLink(@ref, element.Value.NullIfEmpty()));
                 }
 
-                see = element.GetLangWordAttribute();
-                if (see is not null)
+                @ref = element.GetHRefAttribute();
+                if (@ref is not null)
                 {
-                    return _builder.Append(ToLink($"https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/{see}", element.Value.NullIfEmpty() ?? see));
+                    return _builder.Append(ToLink(@ref, element.Value.NullIfEmpty()));
+                }
+
+                @ref = element.GetLangWordAttribute();
+                if (@ref is not null)
+                {
+                    return _builder.Append(ToLink($"https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/{@ref}", element.Value.NullIfEmpty() ?? @ref));
                 }
 
                 return _builder;
@@ -430,7 +436,18 @@ namespace DefaultDocumentation.Writer
                     _builder.AppendLine("#### See Also");
                 }
 
-                _builder.Append("- ").AppendLine(GetLink(seeAlso.GetCRefAttribute(), seeAlso.Value.NullIfEmpty()));
+                string @ref = seeAlso.GetCRefAttribute();
+                if (@ref is not null)
+                {
+                    _builder.Append("- ").AppendLine(GetLink(@ref, seeAlso.Value.NullIfEmpty()));
+                    continue;
+                }
+
+                @ref = seeAlso.GetHRefAttribute();
+                if (@ref is not null)
+                {
+                    _builder.Append("- ").AppendLine(ToLink(@ref, seeAlso.Value.NullIfEmpty()));
+                }
             }
         }
 
