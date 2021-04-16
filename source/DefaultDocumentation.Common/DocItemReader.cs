@@ -148,7 +148,7 @@ namespace DefaultDocumentation
 
             if (!_documentationProviders.TryGetValue(entity.ParentModule, out IDocumentationProvider documentationProvider))
             {
-                documentationProvider = XmlDocLoader.LoadDocumentation(entity.ParentModule.PEFile);
+                documentationProvider = XmlDocLoader.LoadDocumentation(entity.ParentModule.PEFile) ?? XmlDocLoader.MscorlibDocumentation;
                 _documentationProviders.Add(entity.ParentModule, documentationProvider);
             }
 
@@ -164,6 +164,10 @@ namespace DefaultDocumentation
                     if (entity is ITypeDefinition type)
                     {
                         type.GetBaseTypeDefinitions().FirstOrDefault(t => TryGetDocumentation(t, out baseDocumentation));
+                    }
+                    else if (entity is IMember member && member.IsExplicitInterfaceImplementation)
+                    {
+                        return TryGetDocumentation(member.ExplicitlyImplementedInterfaceMembers.FirstOrDefault(), out documentation);
                     }
                     else
                     {
