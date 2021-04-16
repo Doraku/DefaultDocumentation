@@ -1,10 +1,12 @@
 # DefaultDocumentation
 As the name imply, this project lets you easily produce a markdown documentation from the generated assembly and its xml documentation produced by visual studio from comments.
 
+![continuous integration status](https://github.com/doraku/defaultdocumentation/workflows/continuous%20integration/badge.svg)  
+msbuild task
 [![NuGet msbuild task](https://buildstats.info/nuget/DefaultDocumentation)](https://www.nuget.org/packages/DefaultDocumentation)
+[![preview msbuild task](https://img.shields.io/badge/preview-package-blue?style=flat&logo=github)](https://github.com/Doraku/DefaultDocumentation/packages/483535)  
+dotnet tool
 [![NuGet dotnet tool](https://buildstats.info/nuget/DefaultDocumentation.Console)](https://www.nuget.org/packages/DefaultDocumentation.Console)
-![continuous integration status](https://github.com/doraku/defaultdocumentation/workflows/continuous%20integration/badge.svg)
-[![preview msbuild task](https://img.shields.io/badge/preview-package-blue?style=flat&logo=github)](https://github.com/Doraku/DefaultDocumentation/packages/483535)
 [![preview dotnet tool](https://img.shields.io/badge/preview-package-blue?style=flat&logo=github)](https://github.com/Doraku/DefaultDocumentation/packages/724598)
 
 - [Requirement](#Requirement)
