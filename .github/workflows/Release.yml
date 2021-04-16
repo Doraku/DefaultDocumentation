@@ -34,8 +34,8 @@ jobs:
       run: |
         type documentation\NEXT_RELEASENOTES.txt | Out-File build\RELEASE.txt
         echo "" | Out-File build\RELEASE.txt -Append
-        echo "[nuget package](https://www.nuget.org/packages/DefaultDocumentation/${{ github.event.release.tag_name }})" | Out-File build\RELEASE.txt -Append
-        echo "[nuget package](https://www.nuget.org/packages/DefaultDocumentation.Console/${{ github.event.release.tag_name }})" | Out-File build\RELEASE.txt -Append
+        echo "[msbuild task nuget package](https://www.nuget.org/packages/DefaultDocumentation/${{ github.event.release.tag_name }})" | Out-File build\RELEASE.txt -Append
+        echo "[dotnet tool nuget package](https://www.nuget.org/packages/DefaultDocumentation.Console/${{ github.event.release.tag_name }})" | Out-File build\RELEASE.txt -Append
 
     - name: Update release
       uses: tubone24/update_release@v1.1.0
