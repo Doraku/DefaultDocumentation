@@ -410,10 +410,10 @@ namespace DefaultDocumentation.Writer
                 List<TypeDocItem> derived = Items.OfType<TypeDocItem>().Where(i => i.Type.DirectBaseTypes.Select(t => t is ParameterizedType g ? g.GetDefinition() : t).Contains(typeItem.Type)).OrderBy(i => i.FullName).ToList();
                 if (derived.Count > 0)
                 {
-                    _builder.AppendLine().Append("Derived  ");
+                    _builder.AppendLine().Append("Derived");
                     foreach (TypeDocItem t in derived)
                     {
-                        _builder.Append(Environment.NewLine).Append("&#8627; ").Append(GetLink(t));
+                        _builder.Append("  ").Append(Environment.NewLine).Append("&#8627; ").Append(GetLink(t));
                     }
                     _builder.AppendLine("  ");
                 }
