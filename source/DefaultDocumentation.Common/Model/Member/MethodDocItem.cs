@@ -11,7 +11,7 @@ namespace DefaultDocumentation.Model.Member
 {
     internal sealed class MethodDocItem : DocItem, ITypeParameterizedDocItem, IParameterizedDocItem, IDefinedDocItem
     {
-        private static readonly CSharpAmbience CodeAmbience = new()
+        public static readonly CSharpAmbience CodeAmbience = new()
         {
             ConversionFlags =
                 ConversionFlags.ShowAccessibility

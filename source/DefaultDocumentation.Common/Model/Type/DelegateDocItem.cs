@@ -10,9 +10,7 @@ namespace DefaultDocumentation.Model.Type
 {
     internal sealed class DelegateDocItem : TypeDocItem, IParameterizedDocItem
     {
-        public IMethod InvokeMethod { get; }
-
-        private static readonly CSharpAmbience CodeAmbience = new()
+        new public static readonly CSharpAmbience CodeAmbience = new()
         {
             ConversionFlags =
                 ConversionFlags.ShowAccessibility
@@ -28,6 +26,8 @@ namespace DefaultDocumentation.Model.Type
                 | ConversionFlags.ShowTypeParameterVarianceModifier
                 | ConversionFlags.UseFullyQualifiedTypeNames
         };
+
+        public IMethod InvokeMethod { get; }
 
         public ParameterDocItem[] Parameters { get; }
 

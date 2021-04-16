@@ -8,7 +8,7 @@ namespace DefaultDocumentation.Model.Type
 {
     internal sealed class EnumDocItem : TypeDocItem
     {
-        private static readonly CSharpAmbience CodeAmbience = new()
+        new public static readonly CSharpAmbience CodeAmbience = new()
         {
             ConversionFlags =
                 ConversionFlags.ShowAccessibility

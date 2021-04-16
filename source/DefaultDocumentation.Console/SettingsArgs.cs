@@ -41,7 +41,7 @@ namespace DefaultDocumentation
         [Option('b', nameof(LinksBaseUrl), Required = false, HelpText = "Base url of the documentation for the generated links file")]
         public string LinksBaseUrl { get; set; }
 
-        [Option('L', nameof(ExternLinksFilePaths), Required = false, HelpText = "| separated links files to use for external documentation")]
+        [Option('L', nameof(ExternLinksFilePaths), Required = false, HelpText = "Links files to use for external documentation")]
         public IEnumerable<string> ExternLinksFilePaths { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace DefaultDocumentation.Model
 {
     internal abstract class DocItem
     {
-        private static readonly CSharpAmbience FullNameAmbience = new()
+        public static readonly CSharpAmbience FullNameAmbience = new()
         {
             ConversionFlags =
                 ConversionFlags.ShowParameterList
@@ -18,7 +18,7 @@ namespace DefaultDocumentation.Model
                 | ConversionFlags.UseFullyQualifiedEntityNames
         };
 
-        private static readonly CSharpAmbience NameAmbience = new()
+        public static readonly CSharpAmbience NameAmbience = new()
         {
             ConversionFlags =
                 ConversionFlags.ShowParameterList

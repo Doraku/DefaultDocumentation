@@ -61,14 +61,14 @@ namespace DefaultDocumentation.Writer
 
         private string GetLink(string id, string displayedName = null) => TryGetDocItem(id, out DocItem item) ? GetLink(item, displayedName) : $"[{(displayedName ?? id.Substring(2)).Prettify()}]({_urls.GetOrAdd(id, i => i.ToDotNetApiUrl())} '{id.Substring(2)}')";
 
-        private string GetTypeLink(DocItem item, IType type)
+        private string GetLink(DocItem item, INamedElement element)
         {
             string HandleParameterizedType(ParameterizedType genericType)
             {
-                string id = genericType.GetDefinition()?.GetIdString() ?? "T:" + genericType.GenericType.ReflectionName;
+                string id = genericType.GetDefinition().GetIdString();
 
                 return GetLink(id, genericType.FullName + "&lt;")
-                    + string.Join(GetLink(id, ","), genericType.TypeArguments.Select(t => GetTypeLink(item, t)))
+                    + string.Join(GetLink(id, ","), genericType.TypeArguments.Select(t => GetLink(item, t)))
                     + GetLink(id, "&gt;");
             }
 
@@ -77,29 +77,35 @@ namespace DefaultDocumentation.Writer
                 const string reference = "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/function-pointers";
 
                 return ToLink(reference, "delegate*<")
-                    + string.Join(ToLink(reference, ","), functionPointerType.ParameterTypes.Concat(Enumerable.Repeat(functionPointerType.ReturnType, 1)).Select(t => GetTypeLink(item, t)))
+                    + string.Join(ToLink(reference, ","), functionPointerType.ParameterTypes.Concat(Enumerable.Repeat(functionPointerType.ReturnType, 1)).Select(t => GetLink(item, t)))
                     + ToLink(reference, ">");
             }
 
             string HandleTupleType(TupleType tupleType)
             {
                 return GetLink("T:" + tupleType.FullName, "&lt;")
-                    + string.Join(GetLink("T:" + tupleType.FullName, ","), tupleType.ElementTypes.Select(t => GetTypeLink(item, t)))
+                    + string.Join(GetLink("T:" + tupleType.FullName, ","), tupleType.ElementTypes.Select(t => GetLink(item, t)))
                     + GetLink("T:" + tupleType.FullName, "&gt;");
             }
 
-            return type.Kind switch
+            return element switch
             {
-                TypeKind.Array when type is TypeWithElementType arrayType => GetTypeLink(item, arrayType.ElementType) + GetLink("T:System.Array", "[]"),
-                TypeKind.FunctionPointer when type is FunctionPointerType functionPointerType => HandleFunctionPointer(functionPointerType),
-                TypeKind.Pointer when type is TypeWithElementType pointerType => GetTypeLink(item, pointerType.ElementType) + "*",
-                TypeKind.ByReference when type is TypeWithElementType innerType => GetTypeLink(item, innerType.ElementType),
-                TypeKind.TypeParameter => item.TryGetTypeParameterDocItem(type.Name, out TypeParameterDocItem typeParameter) ? GetLink(typeParameter) : type.Name,
-                TypeKind.Dynamic => ToLink("https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/using-type-dynamic", "dynamic"),
-                TypeKind.Tuple when type is TupleType tupleType => HandleTupleType(tupleType),
-                TypeKind.Unknown => GetLink("?:" + type.FullName),
-                _ when type is ParameterizedType genericType => HandleParameterizedType(genericType),
-                _ => GetLink(type.GetDefinition().GetIdString())
+                IType type => type.Kind switch
+                {
+                    TypeKind.Array when type is TypeWithElementType arrayType => GetLink(item, arrayType.ElementType) + GetLink("T:System.Array", "[]"),
+                    TypeKind.FunctionPointer when type is FunctionPointerType functionPointerType => HandleFunctionPointer(functionPointerType),
+                    TypeKind.Pointer when type is TypeWithElementType pointerType => GetLink(item, pointerType.ElementType) + "*",
+                    TypeKind.ByReference when type is TypeWithElementType innerType => GetLink(item, innerType.ElementType),
+                    TypeKind.TypeParameter => item.TryGetTypeParameterDocItem(type.Name, out TypeParameterDocItem typeParameter) ? GetLink(typeParameter) : type.Name,
+                    TypeKind.Dynamic => ToLink("https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/using-type-dynamic", "dynamic"),
+                    TypeKind.Tuple when type is TupleType tupleType => HandleTupleType(tupleType),
+                    TypeKind.Unknown => GetLink("?:" + type.FullName),
+                    _ when type is ParameterizedType genericType => HandleParameterizedType(genericType),
+                    _ => GetLink(type.GetDefinition().GetIdString())
+                },
+                IMember member => GetLink(member.MemberDefinition.GetIdString(), DocItem.NameAmbience.ConvertSymbol(member)),
+                IEntity entity => GetLink(entity.GetIdString(), DocItem.NameAmbience.ConvertSymbol(entity)),
+                _ => element.FullName
             };
         }
 
@@ -151,7 +157,7 @@ namespace DefaultDocumentation.Writer
                     isNewLine = currentLine < lines.Length - 1;
                     if (isNewLine)
                     {
-                        _builder.Append("  ").AppendLine();
+                        _builder.AppendLine("  ");
                     }
                 }
 
@@ -298,8 +304,10 @@ namespace DefaultDocumentation.Writer
                 MethodDocItem => $"## {item.LongName} Method",
                 OperatorDocItem => $"## {item.LongName} Operator",
                 PropertyDocItem => $"## {item.LongName} Property",
+                ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IMethod => $"## {item.LongName} Method",
+                ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IProperty => $"## {item.LongName} Property",
                 EnumFieldDocItem enumFiedItem => $"`{item.Name}` {enumFiedItem.Field.GetConstantValue()}  ",
-                ParameterDocItem parameterItem => $"`{item.Name}` {GetTypeLink(item, parameterItem.Parameter.Type)}  ",
+                ParameterDocItem parameterItem => $"`{item.Name}` {GetLink(item, parameterItem.Parameter.Type)}  ",
                 TypeParameterDocItem typeParameterItem => $"`{typeParameterItem.TypeParameter.Name}`  ",
                 _ => null
             };
@@ -318,54 +326,6 @@ namespace DefaultDocumentation.Writer
                 definedItem.WriteDefinition(_builder);
                 _builder.AppendLine("```");
             }
-
-            if (item is TypeDocItem typeItem)
-            {
-                Action newSection = null;
-
-                if (typeItem.Type.Kind == TypeKind.Class)
-                {
-                    _builder.Append("Inheritance ");
-                    foreach (ITypeDefinition t in typeItem.Type.GetNonInterfaceBaseTypes().Where(t => t != typeItem.Type))
-                    {
-                        _builder.Append(GetTypeLink(item, t)).Append(" &#129106; ");
-                    }
-                    _builder.Append(item.Name).AppendLine("  ");
-
-                    newSection = () => _builder.AppendLine();
-                }
-
-                List<TypeDocItem> derived = Items.OfType<TypeDocItem>().Where(i => i.Type.DirectBaseTypes.Select(t => t is ParameterizedType g ? g.GetDefinition() : t).Contains(typeItem.Type)).OrderBy(i => i.FullName).ToList();
-                if (derived.Count > 0)
-                {
-                    newSection?.Invoke();
-
-                    _builder.Append("Derived  ");
-                    foreach (TypeDocItem t in derived)
-                    {
-                        _builder.Append(Environment.NewLine).Append("&#8627; ").Append(GetLink(t));
-                    }
-                    _builder.AppendLine("  ");
-
-                    newSection = () => _builder.AppendLine();
-                }
-
-                // attribute
-
-                List<IType> interfaces = typeItem.Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface && t.GetDefinition().Accessibility == Accessibility.Public).ToList();
-                if (interfaces.Count > 0)
-                {
-                    newSection?.Invoke();
-
-                    _builder.Append("Implements ");
-                    foreach (IType t in interfaces)
-                    {
-                        _builder.Append(GetTypeLink(item, t)).Append(", ");
-                    }
-                    _builder.Length -= 2;
-                    _builder.AppendLine("  ");
-                }
-            }
         }
 
         private void WriteReturns(DocItem item)
@@ -381,7 +341,7 @@ namespace DefaultDocumentation.Writer
             if (returnType != null && returnType.Kind != TypeKind.Void)
             {
                 _builder.AppendLine("#### Returns");
-                _builder.Append(GetTypeLink(item, returnType)).AppendLine("  ");
+                _builder.Append(GetLink(item, returnType)).AppendLine("  ");
                 WriteText(item, item.Documentation.GetReturns());
             }
         }
@@ -391,7 +351,7 @@ namespace DefaultDocumentation.Writer
             if (item is EventDocItem eventItem)
             {
                 _builder.AppendLine("#### Event Type");
-                _builder.AppendLine(GetTypeLink(item, eventItem.Event.ReturnType));
+                _builder.AppendLine(GetLink(item, eventItem.Event.ReturnType));
             }
         }
 
@@ -400,7 +360,7 @@ namespace DefaultDocumentation.Writer
             if (item is FieldDocItem fieldItem)
             {
                 _builder.AppendLine("#### Field Value");
-                _builder.AppendLine(GetTypeLink(item, fieldItem.Field.Type));
+                _builder.AppendLine(GetLink(item, fieldItem.Field.Type));
             }
         }
 
@@ -409,7 +369,7 @@ namespace DefaultDocumentation.Writer
             if (item is PropertyDocItem propertyItem)
             {
                 _builder.AppendLine("#### Property Value");
-                _builder.AppendLine(GetTypeLink(item, propertyItem.Property.ReturnType));
+                _builder.AppendLine(GetLink(item, propertyItem.Property.ReturnType));
                 WriteText(item, item.Documentation.GetValue());
             }
         }
@@ -430,6 +390,56 @@ namespace DefaultDocumentation.Writer
                 _builder.Append(GetLink(cref)).AppendLine("  ");
 
                 WriteText(item, exception);
+            }
+        }
+
+        private void WriteInheritances(DocItem item)
+        {
+            if (item is TypeDocItem typeItem)
+            {
+                if (typeItem.Type.Kind == TypeKind.Class)
+                {
+                    _builder.AppendLine().Append("Inheritance ");
+                    foreach (ITypeDefinition t in typeItem.Type.GetNonInterfaceBaseTypes().Where(t => t != typeItem.Type))
+                    {
+                        _builder.Append(GetLink(item, t)).Append(" &#129106; ");
+                    }
+                    _builder.Append(item.Name).AppendLine("  ");
+                }
+
+                List<TypeDocItem> derived = Items.OfType<TypeDocItem>().Where(i => i.Type.DirectBaseTypes.Select(t => t is ParameterizedType g ? g.GetDefinition() : t).Contains(typeItem.Type)).OrderBy(i => i.FullName).ToList();
+                if (derived.Count > 0)
+                {
+                    _builder.AppendLine().Append("Derived  ");
+                    foreach (TypeDocItem t in derived)
+                    {
+                        _builder.Append(Environment.NewLine).Append("&#8627; ").Append(GetLink(t));
+                    }
+                    _builder.AppendLine("  ");
+                }
+            }
+        }
+
+        private void WriteImplements(DocItem item)
+        {
+            List<INamedElement> implementations = (item switch
+            {
+                TypeDocItem typeItem => typeItem.Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface && t.GetDefinition().Accessibility == Accessibility.Public).OfType<INamedElement>(),
+                PropertyDocItem propertyItem => Enumerable.Empty<INamedElement>(),
+                MethodDocItem methodItem => Enumerable.Empty<INamedElement>(),
+                ExplicitInterfaceImplementationDocItem explicitItem => explicitItem.Member.ExplicitlyImplementedInterfaceMembers,
+                _ => Enumerable.Empty<INamedElement>()
+            }).ToList();
+
+            if (implementations.Count > 0)
+            {
+                _builder.AppendLine().Append("Implements ");
+                foreach (INamedElement i in implementations)
+                {
+                    _builder.Append(GetLink(item, i)).Append(", ");
+                }
+                _builder.Length -= 2;
+                _builder.AppendLine("  ");
             }
         }
 
@@ -504,6 +514,9 @@ namespace DefaultDocumentation.Writer
             WritePropertyValue(item);
             WriteReturns(item);
             WriteExceptions(item);
+            WriteInheritances(item);
+            // todo: attribute
+            WriteImplements(item);
 
             WriteText(item, item.Documentation.GetExample(), "### Example");
             WriteText(item, item.Documentation.GetRemarks(), "### Remarks");
@@ -514,6 +527,7 @@ namespace DefaultDocumentation.Writer
             WriteItems(GetChildren<MethodDocItem>(item), "### Methods");
             WriteItems(GetChildren<EventDocItem>(item), "### Events");
             WriteItems(GetChildren<OperatorDocItem>(item), "### Operators");
+            WriteItems(GetChildren<ExplicitInterfaceImplementationDocItem>(item), "### Explicit Interface Implementations");
 
             WriteItems(GetChildren<ClassDocItem>(item), "### Classes");
             WriteItems(GetChildren<StructDocItem>(item), "### Structs");

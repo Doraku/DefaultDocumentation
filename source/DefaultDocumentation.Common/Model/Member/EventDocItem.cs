@@ -9,7 +9,7 @@ namespace DefaultDocumentation.Model.Member
 {
     internal sealed class EventDocItem : DocItem, IDefinedDocItem
     {
-        private static readonly CSharpAmbience CodeAmbience = new()
+        public static readonly CSharpAmbience CodeAmbience = new()
         {
             ConversionFlags =
                 ConversionFlags.ShowAccessibility

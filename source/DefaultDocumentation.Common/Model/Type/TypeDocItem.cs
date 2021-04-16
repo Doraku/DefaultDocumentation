@@ -10,7 +10,7 @@ namespace DefaultDocumentation.Model.Type
 {
     internal abstract class TypeDocItem : DocItem, ITypeParameterizedDocItem, IDefinedDocItem
     {
-        private static readonly CSharpAmbience CodeAmbience = new()
+        public static readonly CSharpAmbience CodeAmbience = new()
         {
             ConversionFlags =
                 ConversionFlags.ShowAccessibility

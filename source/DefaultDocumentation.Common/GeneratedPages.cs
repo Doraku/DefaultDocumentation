@@ -20,6 +20,7 @@ namespace DefaultDocumentation
         Methods = 1 << 10,
         Operators = 1 << 11,
         Properties = 1 << 12,
-        Members = Constructors | Events | Fields | Methods | Operators | Properties
+        ExplicitInterfaceImplementations = 1 << 13,
+        Members = Constructors | Events | Fields | Methods | Operators | Properties | ExplicitInterfaceImplementations
     }
 }

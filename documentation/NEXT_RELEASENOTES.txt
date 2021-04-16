@@ -15,3 +15,4 @@ added dotnet tool package (#25)
 added DefaultDocumentationGeneratedPages property to set which element will have its own page (#36)
 added cross assembly documentation linking (#7)
 added support for href attribute in see and seealso element
+added ExplicitInterfaceImplementations items to documentation

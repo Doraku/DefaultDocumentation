@@ -71,6 +71,7 @@ namespace DefaultDocumentation.Writer
             MethodDocItem => (_settings.GeneratedPages & GeneratedPages.Methods) != 0,
             OperatorDocItem => (_settings.GeneratedPages & GeneratedPages.Operators) != 0,
             PropertyDocItem => (_settings.GeneratedPages & GeneratedPages.Properties) != 0,
+            ExplicitInterfaceImplementationDocItem => (_settings.GeneratedPages & GeneratedPages.ExplicitInterfaceImplementations) != 0,
             _ => false
         };
 

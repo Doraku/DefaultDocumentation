@@ -86,7 +86,9 @@ namespace DefaultDocumentation
                         {
                             IField field when typeDocItem is EnumDocItem enumDocItem => new EnumFieldDocItem(enumDocItem, field, documentation),
                             IField field => new FieldDocItem(typeDocItem, field, documentation),
+                            IProperty property when property.IsExplicitInterfaceImplementation => new ExplicitInterfaceImplementationDocItem(typeDocItem, property, documentation),
                             IProperty property => new PropertyDocItem(typeDocItem, property, documentation),
+                            IMethod method when method.IsExplicitInterfaceImplementation => new ExplicitInterfaceImplementationDocItem(typeDocItem, method, documentation),
                             IMethod method when method.IsConstructor => new ConstructorDocItem(typeDocItem, method, documentation),
                             IMethod method when method.IsOperator => new OperatorDocItem(typeDocItem, method, documentation),
                             IMethod method => new MethodDocItem(typeDocItem, method, documentation),
