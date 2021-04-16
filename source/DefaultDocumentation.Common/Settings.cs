@@ -53,7 +53,7 @@ namespace DefaultDocumentation
             GeneratedPages generatedPages,
             string linksOutputFile,
             string linksBaseUrl,
-            string externlinksFilePaths)
+            IEnumerable<string> externlinksFilePaths)
         {
             AssemblyFile = !string.IsNullOrEmpty(assemblyFilePath) ? new FileInfo(assemblyFilePath) : throw new ArgumentNullException(nameof(assemblyFilePath));
             DocumentationFile = string.IsNullOrEmpty(documentationFilePath) ? new FileInfo(Path.Combine(AssemblyFile.Directory.FullName, Path.GetFileNameWithoutExtension(AssemblyFile.Name) + ".xml")) : new FileInfo(documentationFilePath);
@@ -70,7 +70,7 @@ namespace DefaultDocumentation
 
             LinksOutputFile = string.IsNullOrEmpty(linksOutputFile) ? null : new FileInfo(linksOutputFile);
             LinksBaseUrl = linksBaseUrl ?? string.Empty;
-            ExternLinksFiles = (externlinksFilePaths ?? string.Empty).Split('|').SelectMany(GetFiles).Where(f => f.Exists && f.FullName != LinksOutputFile?.FullName).ToArray();
+            ExternLinksFiles = (externlinksFilePaths ?? Enumerable.Empty<string>()).SelectMany(GetFiles).Where(f => f.Exists && f.FullName != LinksOutputFile?.FullName).ToArray();
         }
 
         private static IEnumerable<FileInfo> GetFiles(string filePath)

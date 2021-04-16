@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CommandLine;
 
 namespace DefaultDocumentation
@@ -7,6 +8,18 @@ namespace DefaultDocumentation
     {
         private static void Main(string[] args)
         {
+            static T GetEnum<T>(IEnumerable<T> values)
+                where T : Enum, IConvertible
+            {
+                int value = 0;
+                foreach (T flag in values)
+                {
+                    value |= flag.ToInt32(null);
+                }
+
+                return (T)(object)value;
+            }
+
             new Parser(s =>
             {
                 s.CaseSensitive = false;
@@ -24,8 +37,8 @@ namespace DefaultDocumentation
                         a.InvalidCharReplacement,
                         a.FileNameMode,
                         a.RemoveFileExtensionFromLinks,
-                        a.NestedTypeVisibilities,
-                        a.GeneratedPages,
+                        GetEnum(a.NestedTypeVisibilities),
+                        GetEnum(a.GeneratedPages),
                         a.LinksOutputFilePath,
                         a.LinksBaseUrl,
                         a.ExternLinksFilePaths));

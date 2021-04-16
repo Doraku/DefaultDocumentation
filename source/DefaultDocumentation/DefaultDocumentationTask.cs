@@ -52,7 +52,7 @@ namespace DefaultDocumentation
                 GetEnum<GeneratedPages>(nameof(GeneratedPages), GeneratedPages),
                 LinksOutputFilePath,
                 LinksBaseUrl,
-                ExternLinksFilePaths));
+                (ExternLinksFilePaths ?? string.Empty).Split('|')));
 
             return true;
         }

@@ -1,4 +1,5 @@
-﻿using CommandLine;
+﻿using System.Collections.Generic;
+using CommandLine;
 
 namespace DefaultDocumentation
 {
@@ -29,10 +30,10 @@ namespace DefaultDocumentation
         public bool RemoveFileExtensionFromLinks { get; set; }
 
         [Option('v', nameof(NestedTypeVisibilities), Required = false, HelpText = "Emplacement of nested types in documentation")]
-        public NestedTypeVisibilities NestedTypeVisibilities { get; set; }
+        public IEnumerable<NestedTypeVisibilities> NestedTypeVisibilities { get; set; }
 
         [Option('P', nameof(GeneratedPages), Required = false, HelpText = "State which elements should have their own page")]
-        public GeneratedPages GeneratedPages { get; set; }
+        public IEnumerable<GeneratedPages> GeneratedPages { get; set; }
 
         [Option('l', nameof(LinksOutputFilePath), Required = false, HelpText = "File path where the documentation will generate its links")]
         public string LinksOutputFilePath { get; set; }
@@ -41,6 +42,6 @@ namespace DefaultDocumentation
         public string LinksBaseUrl { get; set; }
 
         [Option('L', nameof(ExternLinksFilePaths), Required = false, HelpText = "| separated links files to use for external documentation")]
-        public string ExternLinksFilePaths { get; set; }
+        public IEnumerable<string> ExternLinksFilePaths { get; set; }
     }
 }
