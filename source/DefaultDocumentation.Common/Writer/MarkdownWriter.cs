@@ -151,7 +151,7 @@ namespace DefaultDocumentation.Writer
                     isNewLine = currentLine < lines.Length - 1;
                     if (isNewLine)
                     {
-                        _builder.AppendLine();
+                        _builder.Append("  ").AppendLine();
                     }
                 }
 
@@ -471,7 +471,8 @@ namespace DefaultDocumentation.Writer
 
                 if (HasOwnPage(item))
                 {
-                    _builder.Append("- ").AppendLine(GetLink(item));
+                    _builder.AppendLine().AppendLine("***").AppendLine(GetLink(item)).AppendLine();
+                    WriteText(item, item.Documentation.GetSummary());
                 }
                 else
                 {
