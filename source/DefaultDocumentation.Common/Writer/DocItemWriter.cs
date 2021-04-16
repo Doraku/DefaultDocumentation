@@ -101,7 +101,7 @@ namespace DefaultDocumentation.Writer
                 NamespaceDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (_settings.NestedTypeVisibilities & NestedTypeVisibilities.Namespace) != 0 => GetAllChildren(item),
                 TypeDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (_settings.NestedTypeVisibilities & NestedTypeVisibilities.DeclaringType) == 0 => Enumerable.Empty<T>(),
                 _ => Items.Where(i => i.Parent == item)
-            }).OfType<T>().OrderBy(c => c.Id);
+            }).OfType<T>().OrderBy(c => c.FullName);
         }
 
         protected abstract void Clean(DirectoryInfo directory);

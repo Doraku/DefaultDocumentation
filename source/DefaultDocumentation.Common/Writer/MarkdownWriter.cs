@@ -471,6 +471,15 @@ namespace DefaultDocumentation.Writer
 
         private void WriteItems(IEnumerable<DocItem> items, string title = null)
         {
+            static IEnumerable<DocItem> GetAllDeclaringTypes(DocItem item)
+            {
+                while (item is TypeDocItem)
+                {
+                    yield return item;
+                    item = item.Parent;
+                }
+            }
+
             foreach (DocItem item in items ?? Enumerable.Empty<DocItem>())
             {
                 if (title is not null)
@@ -481,7 +490,18 @@ namespace DefaultDocumentation.Writer
 
                 if (HasOwnPage(item))
                 {
-                    _builder.AppendLine().AppendLine("***").AppendLine(GetLink(item)).AppendLine();
+                    _builder
+                        .AppendLine()
+                        .AppendLine("***")
+                        .AppendLine(GetLink(
+                            item,
+                            item switch
+                            {
+                                TypeDocItem => string.Join(".", GetAllDeclaringTypes(item).Reverse().Select(i => i.Name)),
+                                _ => null
+                            }))
+                        .AppendLine();
+
                     WriteText(item, item.Documentation.GetSummary());
                 }
                 else
