@@ -1,1 +1,3 @@
+added implementations for methods and properties if any (#46)
+---
 fixed derived line return

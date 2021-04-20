@@ -422,11 +422,23 @@ namespace DefaultDocumentation.Writer
 
         private void WriteImplements(DocItem item)
         {
+            IEnumerable<INamedElement> GetImplementation(IMember member)
+            {
+                string id = member.GetIdString().Substring(member.DeclaringTypeDefinition.GetIdString().Length);
+
+                return member
+                    .DeclaringTypeDefinition
+                    .GetBaseTypeDefinitions()
+                    .Where(t => t.Kind == TypeKind.Interface && t.GetDefinition().Accessibility == Accessibility.Public)
+                    .SelectMany(t => t.Members)
+                    .Where(e => e.GetIdString().Substring(e.DeclaringTypeDefinition.GetIdString().Length) == id);
+            }
+
             List<INamedElement> implementations = (item switch
             {
                 TypeDocItem typeItem => typeItem.Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface && t.GetDefinition().Accessibility == Accessibility.Public).OfType<INamedElement>(),
-                PropertyDocItem propertyItem => Enumerable.Empty<INamedElement>(),
-                MethodDocItem methodItem => Enumerable.Empty<INamedElement>(),
+                PropertyDocItem propertyItem => GetImplementation(propertyItem.Property),
+                MethodDocItem methodItem => GetImplementation(methodItem.Method),
                 ExplicitInterfaceImplementationDocItem explicitItem => explicitItem.Member.ExplicitlyImplementedInterfaceMembers,
                 _ => Enumerable.Empty<INamedElement>()
             }).ToList();
