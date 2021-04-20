@@ -163,7 +163,7 @@ namespace DefaultDocumentation
                     XElement baseDocumentation = null;
                     if (entity is ITypeDefinition type)
                     {
-                        type.GetBaseTypeDefinitions().FirstOrDefault(t => TryGetDocumentation(t, out baseDocumentation));
+                        _ = type.GetBaseTypeDefinitions().FirstOrDefault(t => TryGetDocumentation(t, out baseDocumentation));
                     }
                     else if (entity is IMember member && member.IsExplicitInterfaceImplementation)
                     {
@@ -172,7 +172,7 @@ namespace DefaultDocumentation
                     else
                     {
                         string id = entity.GetIdString().Substring(entity.DeclaringTypeDefinition.GetIdString().Length);
-                        entity
+                        _ = entity
                             .DeclaringTypeDefinition
                             .GetBaseTypeDefinitions()
                             .SelectMany(t => t.Members)

@@ -37,4 +37,10 @@
       <PackageReleaseNotes>@(ReleaseNotesLines, '%0a')</PackageReleaseNotes>
     </PropertyGroup>
   </Target>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3" />
+    <PackageReference Include="Roslynator.Analyzers" Version="3.1.0" />
+    <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="1.0.0" />
+  </ItemGroup>
 </Project>
