@@ -20,7 +20,7 @@ namespace DefaultDocumentation
         [Option('c', nameof(InvalidCharReplacement), Required = false, HelpText = "Replacement for url invalid char")]
         public string InvalidCharReplacement { get; set; }
 
-        [Option('A', nameof(AssemblyPageName), Required = false, HelpText = "Name of the assembly documentaton file")]
+        [Option('n', nameof(AssemblyPageName), Required = false, HelpText = "Name of the assembly documentaton file")]
         public string AssemblyPageName { get; set; }
 
         [Option('m', nameof(FileNameMode), Required = false, HelpText = "Naming convention to use for documentation files")]
@@ -32,7 +32,7 @@ namespace DefaultDocumentation
         [Option('v', nameof(NestedTypeVisibilities), Required = false, HelpText = "Emplacement of nested types in documentation")]
         public IEnumerable<NestedTypeVisibilities> NestedTypeVisibilities { get; set; }
 
-        [Option('P', nameof(GeneratedPages), Required = false, HelpText = "State which elements should have their own page")]
+        [Option('g', nameof(GeneratedPages), Required = false, HelpText = "State which elements should have their own page")]
         public IEnumerable<GeneratedPages> GeneratedPages { get; set; }
 
         [Option('l', nameof(LinksOutputFilePath), Required = false, HelpText = "File path where the documentation will generate its links")]
@@ -41,7 +41,7 @@ namespace DefaultDocumentation
         [Option('b', nameof(LinksBaseUrl), Required = false, HelpText = "Base url of the documentation for the generated links file")]
         public string LinksBaseUrl { get; set; }
 
-        [Option('L', nameof(ExternLinksFilePaths), Required = false, HelpText = "Links files to use for external documentation")]
+        [Option('e', nameof(ExternLinksFilePaths), Required = false, HelpText = "Links files to use for external documentation")]
         public IEnumerable<string> ExternLinksFilePaths { get; set; }
     }
 }

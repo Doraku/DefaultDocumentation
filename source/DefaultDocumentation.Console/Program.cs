@@ -23,6 +23,7 @@ namespace DefaultDocumentation
             new Parser(s =>
             {
                 s.CaseSensitive = false;
+                s.CaseInsensitiveEnumValues = true;
                 s.HelpWriter = Console.Out;
             })
                 .ParseArguments<SettingsArgs>(args)
