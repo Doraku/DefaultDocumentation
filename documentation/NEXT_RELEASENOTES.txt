@@ -2,3 +2,4 @@ added implementations for methods and properties if any (#46)
 ---
 fixed derived line return
 fixed dotnet tool options with the same short name (#48)
+fixed inheritance error for non ITypeDefinition type (#48)

@@ -400,14 +400,14 @@ namespace DefaultDocumentation.Writer
                 if (typeItem.Type.Kind == TypeKind.Class)
                 {
                     _builder.AppendLine().Append("Inheritance ");
-                    foreach (ITypeDefinition t in typeItem.Type.GetNonInterfaceBaseTypes().Where(t => t != typeItem.Type))
+                    foreach (IType t in typeItem.Type.GetNonInterfaceBaseTypes().Where(t => t != typeItem.Type))
                     {
                         _builder.Append(GetLink(item, t)).Append(" &#129106; ");
                     }
                     _builder.Append(item.Name).AppendLine("  ");
                 }
 
-                List<TypeDocItem> derived = Items.OfType<TypeDocItem>().Where(i => i.Type.DirectBaseTypes.Select(t => t is ParameterizedType g ? g.GetDefinition() : t).Contains(typeItem.Type)).OrderBy(i => i.FullName).ToList();
+                List<TypeDocItem> derived = Items.OfType<TypeDocItem>().Where(i => i.Type.DirectBaseTypes.Select(t => t.GetDefinition() ?? t).Contains(typeItem.Type)).OrderBy(i => i.FullName).ToList();
                 if (derived.Count > 0)
                 {
                     _builder.AppendLine().Append("Derived");
