@@ -6,6 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup Label="Reference">
-    <PackageReference Include="ICSharpCode.Decompiler" Version="6.2.1.6137" />
+    <PackageReference Include="ICSharpCode.Decompiler" Version="7.0.0.6488" />
   </ItemGroup>
 </Project>
