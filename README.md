@@ -175,4 +175,5 @@ Links files have no defined extension.
 
 <a name='Sample'></a>
 # Sample
-You can see the result of DefaultDocumentation applied to a project [here](https://github.com/Doraku/DefaultEcs/blob/master/documentation/api/index.md).
+- [DefaultEcs api](https://github.com/Doraku/DefaultEcs/blob/master/documentation/api/DefaultEcs.md)
+- [DefaultUnDo api](https://github.com/Doraku/DefaultUnDo/blob/master/documentation/api/DefaultUnDo.md)
