@@ -37,6 +37,7 @@ Here are some DefaultDocumentation specific properties you can set to configure 
   - `FullName`: use the fully qualified name of each member
   - `Name`: remove the namespace (collisions can happen if there is multiple types with the same name in different namespaces)
   - `Md5`: use a Md5 of the full name of each member to produce shorter name, collisions can happen
+  - `NameAndMd5Mix`: remove the namespace and use a Md5 for parameters
 - `<DefaultDocumentationRemoveFileExtensionFromLinks>`: remove the `.md` extension from the links in the generated documentation, some wikies don't like those.
 - `<DefaultDocumentationNestedTypeVisibilities>`: where to show nested types, `Namespace` by default. You can give multiple value separated by a `,`.
   - `Namespace`: nested types will appear on their namespace page
@@ -67,21 +68,21 @@ Here are some DefaultDocumentation specific properties you can set to configure 
 DefaultDocumentation is also available as a [dotnet tool](https://www.nuget.org/packages/DefaultDocumentation.Console) if you need to control when to produce the documentation. The tool command is simply `defaultdocumentation`.  
 Here is the tool help, most of the parameters have the same fonctionalities as their equivalent `<DefaultDocumentation...>` property:
 ```
--a, --AssemblyFilePath                Required. Path to the assembly file
--d, --DocumentationFilePath           Path to the xml documentation file, if not specified DefaultDocumentation will assume it is in the same folder as the assembly
--p, --ProjectDirectoryPath            Path to the project source folder
--o, --OutputDirectoryPath             Path to the output folder, if not specified the documentation will be generated in the same folder as the xml documentation file
--c, --InvalidCharReplacement          Replacement for url invalid char
--A, --AssemblyPageName                Name of the assembly documentaton file
--m, --FileNameMode                    Naming convention to use for documentation files
--x, --RemoveFileExtensionFromLinks    If true skip file extension in generated page links
--v, --NestedTypeVisibilities          Emplacement of nested types in documentation
--P, --GeneratedPages                  State which elements should have their own page
--l, --LinksOutputFilePath             File path where the documentation will generate its links
--b, --LinksBaseUrl                    Base url of the documentation for the generated links file
--L, --ExternLinksFilePaths            Links files to use for external documentation
---help                                Display this help screen.
---version                             Display version information.
+  -a, --AssemblyFilePath                Required. Path to the assembly file
+  -d, --DocumentationFilePath           Path to the xml documentation file, if not specified DefaultDocumentation will assume it is in the same folder as the assembly
+  -p, --ProjectDirectoryPath            Path to the project source folder
+  -o, --OutputDirectoryPath             Path to the output folder, if not specified the documentation will be generated in the same folder as the xml documentation file
+  -c, --InvalidCharReplacement          Replacement for url invalid char
+  -n, --AssemblyPageName                Name of the assembly documentaton file
+  -m, --FileNameMode                    Naming convention to use for documentation files
+  -x, --RemoveFileExtensionFromLinks    If true skip file extension in generated page links
+  -v, --NestedTypeVisibilities          Emplacement of nested types in documentation
+  -g, --GeneratedPages                  State which elements should have their own page
+  -l, --LinksOutputFilePath             File path where the documentation will generate its links
+  -b, --LinksBaseUrl                    Base url of the documentation for the generated links file
+  -e, --ExternLinksFilePaths            Links files to use for external documentation
+  --help                                Display this help screen.
+  --version                             Display version information.
 ```
 To install the tool simply use this command:
 ```

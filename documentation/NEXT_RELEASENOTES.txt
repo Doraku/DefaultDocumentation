@@ -1,0 +1,1 @@
+added NameAndMd5Mix file name mode (#50)

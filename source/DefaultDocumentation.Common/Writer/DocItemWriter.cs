@@ -77,6 +77,18 @@ namespace DefaultDocumentation.Writer
 
         protected string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i => _settings.PathCleaner.Clean(i is AssemblyDocItem ? i.FullName : _settings.FileNameMode switch
         {
+            FileNameMode.NameAndMd5Mix => item is not IParameterizedDocItem parameterizedItem || parameterizedItem.Parameters.Length is 0
+                ? item.LongName
+                : (item.Parent.LongName + '.' + item switch
+                {
+                    ConstructorDocItem constructorItem => constructorItem.Method.Name,
+                    ExplicitInterfaceImplementationDocItem explicitItem => explicitItem.Member.Name,
+                    MethodDocItem methodItem => methodItem.Method.Name,
+                    OperatorDocItem operatorItem => operatorItem.Method.Name,
+                    PropertyDocItem propertyItem => propertyItem.Property.Name,
+                    DelegateDocItem delegateItem => delegateItem.InvokeMethod.Name,
+                    _ => string.Empty
+                } + '.' + Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(i.FullName)))),
             FileNameMode.Md5 => Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(i.FullName))),
             FileNameMode.Name => i.LongName,
             _ => i.FullName

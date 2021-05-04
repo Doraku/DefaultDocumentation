@@ -4,6 +4,7 @@
     {
         FullName,
         Name,
-        Md5
+        Md5,
+        NameAndMd5Mix
     }
 }
