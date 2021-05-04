@@ -588,6 +588,12 @@ namespace DefaultDocumentation.Writer
                     try
                     {
                         file.Delete();
+
+                        while (file.Exists && --i > 0)
+                        {
+                            Thread.Sleep(100);
+                        }
+
                         continue;
                     }
                     catch

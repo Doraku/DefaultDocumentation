@@ -1,1 +1,5 @@
 added NameAndMd5Mix file name mode (#50)
+
+---
+
+fixed File use by an other process IOException (#52)
