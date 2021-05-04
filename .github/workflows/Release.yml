@@ -43,6 +43,7 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
       with:
         release_name: DefaultDocumentation ${{ github.event.release.tag_name }}
+        prerelease: ${{ contains(github.event.release.tag_name, '-') }}
         body_path: .\build\RELEASE.txt
         
     - name: Clear NEXT_RELEASENOTES.txt
