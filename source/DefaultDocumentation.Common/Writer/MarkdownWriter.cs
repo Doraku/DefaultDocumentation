@@ -109,7 +109,7 @@ namespace DefaultDocumentation.Writer
             };
         }
 
-        private void WriteText(DocItem item, XElement element, string title = null)
+        private void WriteText(DocItem item, XElement element, string title = null, bool isPreview = false)
         {
             if (element is null)
             {
@@ -121,6 +121,7 @@ namespace DefaultDocumentation.Writer
                 _builder.AppendLine(title);
             }
 
+            int textStart = _builder.Length;
             int? startIndex = default;
             bool isNewLine = true;
 
@@ -157,7 +158,14 @@ namespace DefaultDocumentation.Writer
                     isNewLine = currentLine < lines.Length - 1;
                     if (isNewLine)
                     {
-                        _builder.AppendLine("  ");
+                        if (isPreview)
+                        {
+                            _builder.Append("<br/>");
+                        }
+                        else
+                        {
+                            _builder.AppendLine("  ");
+                        }
                     }
                 }
 
@@ -197,9 +205,16 @@ namespace DefaultDocumentation.Writer
 
             StringBuilder WritePara(XElement element)
             {
-                _builder.AppendLine().AppendLine();
+                Func<StringBuilder> lineBreak = isPreview ? () => _builder.Append("<br/><br/>") : () => _builder.AppendLine().AppendLine();
+
+                if (textStart < _builder.Length)
+                {
+                    lineBreak();
+                }
+
                 WriteNodes(element.Nodes());
-                return _builder.AppendLine().AppendLine();
+
+                return lineBreak();
             }
 
             StringBuilder WriteCode(XElement element)
@@ -240,8 +255,10 @@ namespace DefaultDocumentation.Writer
                             "typeparamref" => _builder.Append(item.TryGetTypeParameterDocItem(element.GetNameAttribute(), out TypeParameterDocItem typeParameter) ? GetLink(typeParameter) : element.GetNameAttribute()),
                             "paramref" => _builder.Append(item.TryGetParameterDocItem(element.GetNameAttribute(), out ParameterDocItem parameter) ? GetLink(parameter) : element.GetNameAttribute()),
                             "c" => _builder.Append('`').Append(element.Value).Append('`'),
-                            "code" => WriteCode(element),
+                            "code" when !isPreview => WriteCode(element),
                             "para" => WritePara(element),
+                            "br" when isPreview => _builder.Append(element.ToString()),
+                            _ when isPreview => _builder,
                             _ => _builder.Append(element.ToString())
                         },
                         _ => throw new Exception($"unhandled node type in summary {node.NodeType}")
@@ -255,13 +272,17 @@ namespace DefaultDocumentation.Writer
             }
 
             WriteNodes(element.Nodes());
-            _builder.AppendLine();
 
-            int builderLength = -1;
-            while (_builder.Length != builderLength && _builder.Length > Environment.NewLine.Length * 2)
+            if (!isPreview)
             {
-                builderLength = _builder.Length;
-                _builder.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine, builderLength - (Environment.NewLine.Length * 2), Environment.NewLine.Length * 2);
+                _builder.AppendLine();
+
+                int builderLength = -1;
+                while (_builder.Length != builderLength && _builder.Length > Environment.NewLine.Length * 2)
+                {
+                    builderLength = _builder.Length;
+                    _builder.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine, builderLength - (Environment.NewLine.Length * 2), Environment.NewLine.Length * 2);
+                }
             }
         }
 
@@ -496,25 +517,27 @@ namespace DefaultDocumentation.Writer
             {
                 if (title is not null)
                 {
-                    _builder.AppendLine(title);
+                    if (HasOwnPage(item))
+                    {
+                        _builder.AppendLine().Append("| ").Append(title.Trim('#', ' ')).AppendLine(" | |").AppendLine("| :--- | :--- |");
+                    }
+                    else
+                    {
+                        _builder.AppendLine(title);
+                    }
                     title = null;
                 }
 
                 if (HasOwnPage(item))
                 {
                     _builder
-                        .AppendLine()
-                        .AppendLine("***")
-                        .AppendLine(GetLink(
-                            item,
-                            item switch
-                            {
-                                TypeDocItem => string.Join(".", GetAllDeclaringTypes(item).Reverse().Select(i => i.Name)),
-                                _ => null
-                            }))
-                        .AppendLine();
+                        .Append("| ")
+                        .Append(GetLink(item, item is TypeDocItem ? string.Join(".", GetAllDeclaringTypes(item).Reverse().Select(i => i.Name)) : null))
+                        .Append(" | ");
 
-                    WriteText(item, item.Documentation.GetSummary());
+                    WriteText(item, item.Documentation.GetSummary(), null, true);
+
+                    _builder.AppendLine(" |");
                 }
                 else
                 {

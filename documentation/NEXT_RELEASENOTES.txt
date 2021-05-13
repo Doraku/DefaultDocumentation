@@ -1,4 +1,5 @@
 added NameAndMd5Mix file name mode (#50)
+changed display of members with pages as table (#51)
 
 ---
 
