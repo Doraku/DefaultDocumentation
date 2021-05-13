@@ -70,10 +70,11 @@ namespace DefaultDocumentation
 
             LinksOutputFile = string.IsNullOrEmpty(linksOutputFile) ? null : new FileInfo(linksOutputFile);
             LinksBaseUrl = linksBaseUrl ?? string.Empty;
-            ExternLinksFiles = (externlinksFilePaths ?? Enumerable.Empty<string>()).SelectMany(GetFiles).Where(f => f.Exists && f.FullName != LinksOutputFile?.FullName).ToArray();
+
+            ExternLinksFiles = (externlinksFilePaths ?? Enumerable.Empty<string>()).SelectMany(GetFilePaths).Distinct().Select(f => new FileInfo(f)).Where(f => f.Exists && f.FullName != LinksOutputFile?.FullName).ToArray();
         }
 
-        private static IEnumerable<FileInfo> GetFiles(string filePath)
+        private static IEnumerable<string> GetFilePaths(string filePath)
         {
             if (string.IsNullOrEmpty(filePath))
             {
@@ -82,7 +83,7 @@ namespace DefaultDocumentation
 
             if (filePath.IndexOfAny(_patternChars) < 0)
             {
-                yield return new FileInfo(filePath);
+                yield return filePath;
                 yield break;
             }
 
@@ -90,7 +91,7 @@ namespace DefaultDocumentation
 
             foreach (string file in Directory.EnumerateFiles(filePath.Substring(0, folderIndex), filePath.Substring(folderIndex)))
             {
-                yield return new FileInfo(file);
+                yield return file;
             }
         }
     }
