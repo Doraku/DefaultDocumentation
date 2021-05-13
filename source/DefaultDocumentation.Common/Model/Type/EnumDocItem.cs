@@ -19,6 +19,8 @@ namespace DefaultDocumentation.Model.Type
                 | ConversionFlags.ShowTypeParameterVarianceModifier
         };
 
+        public override GeneratedPages Page => GeneratedPages.Enums;
+
         public EnumDocItem(DocItem parent, ITypeDefinition type, XElement documentation)
             : base(parent, type, documentation)
         { }

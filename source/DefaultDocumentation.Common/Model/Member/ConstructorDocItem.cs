@@ -27,7 +27,10 @@ namespace DefaultDocumentation.Model.Member
                 | ConversionFlags.UseFullyQualifiedTypeNames
         };
 
+        public override GeneratedPages Page => GeneratedPages.Constructors;
+
         public IMethod Method { get; }
+
         public ParameterDocItem[] Parameters { get; }
 
         public ConstructorDocItem(TypeDocItem parent, IMethod method, XElement documentation)

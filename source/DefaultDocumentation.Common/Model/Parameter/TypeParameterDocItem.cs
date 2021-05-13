@@ -7,6 +7,8 @@ namespace DefaultDocumentation.Model.Parameter
 {
     internal sealed class TypeParameterDocItem : DocItem
     {
+        public override GeneratedPages Page => GeneratedPages.Default;
+
         public ITypeParameter TypeParameter { get; }
 
         public TypeParameterDocItem(DocItem parent, ITypeParameter entity, XElement documentation)

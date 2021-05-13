@@ -26,6 +26,8 @@ namespace DefaultDocumentation.Model.Member
                 | ConversionFlags.UseFullyQualifiedTypeNames
         };
 
+        public override GeneratedPages Page => GeneratedPages.Methods;
+
         public IMethod Method { get; }
 
         public TypeParameterDocItem[] TypeParameters { get; }

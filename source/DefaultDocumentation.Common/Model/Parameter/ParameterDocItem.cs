@@ -7,6 +7,8 @@ namespace DefaultDocumentation.Model.Parameter
 {
     internal sealed class ParameterDocItem : DocItem
     {
+        public override GeneratedPages Page => GeneratedPages.Default;
+
         public IParameter Parameter { get; }
 
         public ParameterDocItem(DocItem parent, IParameter entity, XElement documentation)

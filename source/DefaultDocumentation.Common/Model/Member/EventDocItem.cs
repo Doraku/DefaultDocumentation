@@ -18,6 +18,8 @@ namespace DefaultDocumentation.Model.Member
                 | ConversionFlags.ShowModifiers
         };
 
+        public override GeneratedPages Page => GeneratedPages.Events;
+
         public IEvent Event { get; }
 
         public EventDocItem(TypeDocItem parent, IEvent @event, XElement documentation)

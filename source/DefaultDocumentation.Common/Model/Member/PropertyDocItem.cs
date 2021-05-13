@@ -25,6 +25,8 @@ namespace DefaultDocumentation.Model.Member
                 | ConversionFlags.UseFullyQualifiedTypeNames
         };
 
+        public override GeneratedPages Page => GeneratedPages.Properties;
+
         public IProperty Property { get; }
 
         public ParameterDocItem[] Parameters { get; }

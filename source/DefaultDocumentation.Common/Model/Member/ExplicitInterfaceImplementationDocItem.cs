@@ -10,6 +10,8 @@ namespace DefaultDocumentation.Model.Member
 {
     internal sealed class ExplicitInterfaceImplementationDocItem : DocItem, ITypeParameterizedDocItem, IParameterizedDocItem, IDefinedDocItem
     {
+        public override GeneratedPages Page => GeneratedPages.ExplicitInterfaceImplementations;
+
         public IMember Member { get; }
 
         public TypeParameterDocItem[] TypeParameters { get; }

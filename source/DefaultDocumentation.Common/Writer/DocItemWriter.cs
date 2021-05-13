@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Text;
 using DefaultDocumentation.Helper;
 using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Member;
 using DefaultDocumentation.Model.Type;
 
 namespace DefaultDocumentation.Writer
@@ -58,37 +57,15 @@ namespace DefaultDocumentation.Writer
 
         protected bool HasOwnPage(DocItem item) => item switch
         {
-            AssemblyDocItem => (_settings.GeneratedPages & GeneratedPages.Assembly) != 0 || !string.IsNullOrEmpty(_settings.AssemblyPageName) || item.Documentation != null || GetChildren<NamespaceDocItem>(item).Skip(1).Any(),
-            NamespaceDocItem => (_settings.GeneratedPages & GeneratedPages.Namespaces) != 0,
-            ClassDocItem => (_settings.GeneratedPages & GeneratedPages.Classes) != 0,
-            DelegateDocItem => (_settings.GeneratedPages & GeneratedPages.Delegates) != 0,
-            EnumDocItem => (_settings.GeneratedPages & GeneratedPages.Enums) != 0,
-            InterfaceDocItem => (_settings.GeneratedPages & GeneratedPages.Interfaces) != 0,
-            StructDocItem => (_settings.GeneratedPages & GeneratedPages.Structs) != 0,
-            ConstructorDocItem => (_settings.GeneratedPages & GeneratedPages.Constructors) != 0,
-            EventDocItem => (_settings.GeneratedPages & GeneratedPages.Events) != 0,
-            FieldDocItem => (_settings.GeneratedPages & GeneratedPages.Fields) != 0,
-            MethodDocItem => (_settings.GeneratedPages & GeneratedPages.Methods) != 0,
-            OperatorDocItem => (_settings.GeneratedPages & GeneratedPages.Operators) != 0,
-            PropertyDocItem => (_settings.GeneratedPages & GeneratedPages.Properties) != 0,
-            ExplicitInterfaceImplementationDocItem => (_settings.GeneratedPages & GeneratedPages.ExplicitInterfaceImplementations) != 0,
-            _ => false
+            AssemblyDocItem when !string.IsNullOrEmpty(_settings.AssemblyPageName) || item.Documentation != null || GetChildren<NamespaceDocItem>(item).Skip(1).Any() => true,
+            _ => (_settings.GeneratedPages & item.Page) != 0
         };
 
         protected string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i => _settings.PathCleaner.Clean(i is AssemblyDocItem ? i.FullName : _settings.FileNameMode switch
         {
             FileNameMode.NameAndMd5Mix => item is not IParameterizedDocItem parameterizedItem || parameterizedItem.Parameters.Length is 0
                 ? item.LongName
-                : (item.Parent.LongName + '.' + item switch
-                {
-                    ConstructorDocItem constructorItem => constructorItem.Method.Name,
-                    ExplicitInterfaceImplementationDocItem explicitItem => explicitItem.Member.Name,
-                    MethodDocItem methodItem => methodItem.Method.Name,
-                    OperatorDocItem operatorItem => operatorItem.Method.Name,
-                    PropertyDocItem propertyItem => propertyItem.Property.Name,
-                    DelegateDocItem delegateItem => delegateItem.InvokeMethod.Name,
-                    _ => string.Empty
-                } + '.' + Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(i.FullName)))),
+                : (item.Parent.LongName + '.' + item.Entity.Name + '.' + Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(i.FullName)))),
             FileNameMode.Md5 => Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(i.FullName))),
             FileNameMode.Name => i.LongName,
             _ => i.FullName

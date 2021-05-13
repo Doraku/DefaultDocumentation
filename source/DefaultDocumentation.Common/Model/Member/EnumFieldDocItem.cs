@@ -6,6 +6,8 @@ namespace DefaultDocumentation.Model.Member
 {
     internal sealed class EnumFieldDocItem : DocItem
     {
+        public override GeneratedPages Page => GeneratedPages.Default;
+
         public IField Field { get; }
 
         public EnumFieldDocItem(EnumDocItem parent, IField field, XElement documentation)

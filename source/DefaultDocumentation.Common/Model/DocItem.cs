@@ -37,6 +37,10 @@ namespace DefaultDocumentation.Model
 
         public string Name { get; }
 
+        public IEntity Entity { get; }
+
+        public abstract GeneratedPages Page { get; }
+
         protected DocItem(DocItem parent, string id, string fullName, string name, XElement documentation)
         {
             Parent = parent;
@@ -49,7 +53,9 @@ namespace DefaultDocumentation.Model
 
         protected DocItem(DocItem parent, IEntity entity, XElement documentation)
             : this(parent, entity.GetIdString(), GetFullName(entity), NameAmbience.ConvertSymbol(entity), documentation)
-        { }
+        {
+            Entity = entity;
+        }
 
         private static string GetFullName(IEntity entity)
         {

@@ -18,6 +18,8 @@ namespace DefaultDocumentation.Model.Member
                 | ConversionFlags.ShowModifiers
         };
 
+        public override GeneratedPages Page => GeneratedPages.Fields;
+
         public IField Field { get; }
 
         public FieldDocItem(TypeDocItem parent, IField field, XElement documentation)
