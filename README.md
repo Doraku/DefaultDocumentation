@@ -152,15 +152,15 @@ Should you need some extra support feel free to ask or even do it yourself in a 
 
 <a name='Links'></a>
 # Extern links
-When using the `cref` attribute, you may reference item from an other assemblies, which DefaultDocumentation does not  have access to their documentation. By default, it will try to generate a dotnet api link but you may reference a completely different assembly.  
-To remedy this, DefaultDocumentation use links files with a simple format:
+When using `cref` attributes, you may refer items from other assemblies which DefaultDocumentation has no knowledge of their documentation location. By default, it will try to generate a dotnet api link but you may reference a completely different assembly.  
+To remedy this, DefaultDocumentation use links files with the following simple format:
 ```
 http://extern/assembly/documentation/base/url/
 T:ExternAssembly.ExternType|extern_type.html|ExternType
 M:ExternAssembly.ExternType.ExternMethod|extern_type_extern_method.html|ExternType
 ```
 The first element is the base url that will be put before each following documentation page.  
-After that, you can have as many items with the following format: `entity id`|`base url relative link to the documentation page`|`display name to use`. The last display name can be ommited.  
+After that, you can have as many items with the following format: `entity id`|`base url relative link to the documentation page`|`display name to use (optional)`.  
 You can change the base url in the same file for the following items.
 ```
 http://extern/assembly/documentation/base/url/

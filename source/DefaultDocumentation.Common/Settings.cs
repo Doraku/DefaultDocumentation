@@ -83,11 +83,12 @@ namespace DefaultDocumentation
             if (filePath.IndexOfAny(_patternChars) < 0)
             {
                 yield return new FileInfo(filePath);
+                yield break;
             }
 
-            int patternIndex = filePath.LastIndexOfAny(_folderChars) + 1;
+            int folderIndex = filePath.LastIndexOfAny(_folderChars) + 1;
 
-            foreach (string file in Directory.EnumerateFiles(filePath.Substring(0, patternIndex), filePath.Substring(patternIndex)))
+            foreach (string file in Directory.EnumerateFiles(filePath.Substring(0, folderIndex), filePath.Substring(folderIndex)))
             {
                 yield return new FileInfo(file);
             }
