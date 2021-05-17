@@ -38,7 +38,7 @@
     <DefaultDocumentationTask
       AssemblyFilePath="$(TargetPath)"
       DocumentationFilePath="$(_DefaultDocumentationDocumentationFile)"
-      ProjectDirectoryPath="$(ProjectPath)"
+      ProjectDirectoryPath="$(ProjectDir)"
       OutputDirectoryPath="$(_DefaultDocumentationFolder)"
       InvalidCharReplacement="$(DefaultDocumentationInvalidCharReplacement)"
       AssemblyPageName="$(DefaultDocumentationAssemblyPageName)"
