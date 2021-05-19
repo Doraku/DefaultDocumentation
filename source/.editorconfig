@@ -1,4 +1,0 @@
-﻿[*.cs]
-
-# IDE0057: Use range operator
-csharp_style_prefer_range_operator = false:suggestion

@@ -16,6 +16,7 @@ dotnet tool
 - [Overview](#Overview)
 - [Extern links](#Links)
 - [Sample](#Sample)
+- [Dependencies](#Dependencies)
 
 <a name='Requirement'></a>
 # Requirement
@@ -178,3 +179,16 @@ Links files have no defined extension.
 # Sample
 - [DefaultEcs api](https://github.com/Doraku/DefaultEcs/blob/master/documentation/api/DefaultEcs.md)
 - [DefaultUnDo api](https://github.com/Doraku/DefaultUnDo/blob/master/documentation/api/DefaultUnDo.md)
+
+<a name='Dependencies'></a>
+# Dependencies
+DefaultDocumentation is only made possible thanks to those awesome projects:
+- [CommandLineParser](https://github.com/commandlineparser/commandline)
+- [ICSharpCode.Decompiler](https://github.com/icsharpcode/ILSpy)
+
+CI, tests and code quality rely on those awesome projects:
+- [Coverlet](https://github.com/coverlet-coverage/coverlet)
+- [NFulent](https://github.com/tpierrain/NFluent)
+- [NSubstitute](https://github.com/nsubstitute/NSubstitute)
+- [Roslynator](https://github.com/JosefPihrt/Roslynator)
+- [XUnit](https://github.com/xunit/xunit)

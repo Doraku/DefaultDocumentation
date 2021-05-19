@@ -3,6 +3,6 @@ changed display of members with pages as table (#51)
 
 ---
 
-fixed File use by an other process IOException (#52)
+fixed File used by an other process IOException (#52)
 fixed external links throwing ArgumentException (#54)
 fixed msbuild task source directory (#56 thanks to @basvanderlaken)
