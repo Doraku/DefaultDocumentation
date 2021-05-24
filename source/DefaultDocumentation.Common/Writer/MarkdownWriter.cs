@@ -599,25 +599,17 @@ namespace DefaultDocumentation.Writer
         {
             if (directory.Exists)
             {
-                foreach (FileInfo file in directory.GetFiles("*.md"))
-                {
-                    if (string.Equals(file.Name, "readme.md", StringComparison.OrdinalIgnoreCase))
-                    {
-                        continue;
-                    }
+                IEnumerable<FileInfo> files = directory.EnumerateFiles("*.md").Where(f => !string.Equals(f.Name, "readme.md", StringComparison.OrdinalIgnoreCase));
 
-                    int i = 3;
+                int i;
+
+                foreach (FileInfo file in files)
+                {
+                    i = 3;
                 start:
                     try
                     {
                         file.Delete();
-
-                        while (file.Exists && --i > 0)
-                        {
-                            Thread.Sleep(100);
-                        }
-
-                        continue;
                     }
                     catch
                     {
@@ -629,6 +621,12 @@ namespace DefaultDocumentation.Writer
 
                         throw;
                     }
+                }
+
+                i = 3;
+                while (files.Any() && i-- > 0)
+                {
+                    Thread.Sleep(1000);
                 }
             }
             else
