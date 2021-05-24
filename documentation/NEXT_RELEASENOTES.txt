@@ -1,8 +1,0 @@
-added NameAndMd5Mix file name mode (#50)
-changed display of members with pages as table (#51)
-
----
-
-fixed File used by an other process IOException (#52)
-fixed external links throwing ArgumentException (#54)
-fixed msbuild task source directory (#56 thanks to @basvanderlaken)
