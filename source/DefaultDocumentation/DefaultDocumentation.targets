@@ -46,6 +46,7 @@
       RemoveFileExtensionFromLinks="$(DefaultDocumentationRemoveFileExtensionFromLinks)"
       NestedTypeVisibilities="$(DefaultDocumentationNestedTypeVisibilities)"
       GeneratedPages="$(DefaultDocumentationGeneratedPages)"
+      GeneratedAccessModifiers="$(DefaultDocumentationGeneratedAccessModifiers)"
       LinksOutputFilePath="$(_DefaultDocumentationLinksOutputFile)"
       LinksBaseUrl="$(DefaultDocumentationLinksBaseUrl)"
       ExternLinksFilePaths="$(_DefaultDocumentationExternLinksFiles)"/>

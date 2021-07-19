@@ -22,7 +22,7 @@ namespace DefaultDocumentation.Writer
         protected DocItemWriter(Settings settings)
         {
             _settings = settings;
-            _items = DocItemReader.GetItems(settings.AssemblyFile, settings.DocumentationFile, settings.AssemblyPageName, settings.ExternLinksFiles);
+            _items = DocItemReader.GetItems(settings);
 
             _fileNames = new ConcurrentDictionary<DocItem, string>();
         }

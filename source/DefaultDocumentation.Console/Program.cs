@@ -40,6 +40,7 @@ namespace DefaultDocumentation
                         a.RemoveFileExtensionFromLinks,
                         GetEnum(a.NestedTypeVisibilities),
                         GetEnum(a.GeneratedPages),
+                        GetEnum(a.GeneratedAccessModifiers),
                         a.LinksOutputFilePath,
                         a.LinksBaseUrl,
                         a.ExternLinksFilePaths));

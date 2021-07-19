@@ -43,7 +43,7 @@ Here are some DefaultDocumentation specific properties you can set to configure 
 - `<DefaultDocumentationNestedTypeVisibilities>`: where to show nested types, `Namespace` by default. You can give multiple value separated by a `,`.
   - `Namespace`: nested types will appear on their namespace page
   - `DeclaringType`: nested types will appear on their declaring type page
-- `<DefaultDocumentationGeneratedPages>`: which item should have their own pages, if not their documentation will be inlined in their parent's one, `Namespaces, Types, Members` by default. You can give multiple value separated by a `,`.
+- `<DefaultDocumentationGeneratedPages>`: which item should have their own pages, if not their documentation will be inlined in their parent's one, `Namespaces, Types, Members` by default. You can give multiple values separated by a `,`.
   - `Assembly`: the assembly should have its own page, note that if you have multiple namespaces, provided a `<DefaultDocumentationAssemblyPageName>` property or a `AssemblyDoc` type documentation, the assembly page will be generated regardless of this flag being present
   - `Namespaces`: namespaces should have their own pages
   - `Classes`: classes should have their own pages
@@ -60,6 +60,13 @@ Here are some DefaultDocumentation specific properties you can set to configure 
   - `Properties`: properties should have their own pages
   - `ExplicitInterfaceImplementations`: property and method explicit interface implementations should have their own pages
   - `Members`: equivalent to `Constructors, Events, Fields, Methods, Operators, Properties, ExplicitInterfaceImplementations`
+- `<DefaultDocumentationGeneratedAccessModifiers>`: members with which access modifiers should be generated, by default generate everything. You can give multiple values separated by a `,`.
+  - `Private`: generate documentation of `private` members.
+  - `Protected`: generate documentation of `protected` members.
+  - `Internal`: generate documentation of `internal` members.
+  - `Public`: generate documentation of `public` members.
+  - `ProtectedInternal`: generate documentation of `protected internal` members.
+  - `PrivateProtected`: generate documentation of `private protected` members.
 - `<DefaultDocumentationLinksOutputFile>`: where to generate the links file, see [Extern links](#Links), empty by default and does not generate the links file.
 - `<DefaultDocumentationLinksBaseUrl>`: the base url to use for the links file, see [Extern links](#Links).
 - `<DefaultDocumentationExternLinksFiles>`: the list of links files separated by `|` to use when generating the documentation, see [Extern links](#Links). You can use pattern, ex: `.\myfolder\*.txt`.
@@ -79,6 +86,7 @@ Here is the tool help, most of the parameters have the same fonctionalities as t
   -x, --RemoveFileExtensionFromLinks    If true skip file extension in generated page links
   -v, --NestedTypeVisibilities          Emplacement of nested types in documentation
   -g, --GeneratedPages                  State which elements should have their own page
+  -s, --GeneratedAccessModifiers        State elements with which access modifier should be generated
   -l, --LinksOutputFilePath             File path where the documentation will generate its links
   -b, --LinksBaseUrl                    Base url of the documentation for the generated links file
   -e, --ExternLinksFilePaths            Links files to use for external documentation

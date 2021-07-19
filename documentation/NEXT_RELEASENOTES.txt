@@ -1,0 +1,5 @@
+added DefaultDocumentationGeneratedAccessModifiers property to set members of which accessibility should be generated (#59)
+
+---
+
+fixed multiple element with same id from different extern link files

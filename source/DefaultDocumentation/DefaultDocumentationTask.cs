@@ -26,6 +26,8 @@ namespace DefaultDocumentation
 
         public string GeneratedPages { get; set; }
 
+        public string GeneratedAccessModifiers { get; set; }
+
         public string LinksOutputFilePath { get; set; }
 
         public string LinksBaseUrl { get; set; }
@@ -50,6 +52,7 @@ namespace DefaultDocumentation
                 RemoveFileExtensionFromLinks,
                 GetEnum<NestedTypeVisibilities>(nameof(NestedTypeVisibilities), NestedTypeVisibilities),
                 GetEnum<GeneratedPages>(nameof(GeneratedPages), GeneratedPages),
+                GetEnum<GeneratedAccessModifiers>(nameof(GeneratedAccessModifiers), GeneratedAccessModifiers),
                 LinksOutputFilePath,
                 LinksBaseUrl,
                 (ExternLinksFilePaths ?? string.Empty).Split('|')));

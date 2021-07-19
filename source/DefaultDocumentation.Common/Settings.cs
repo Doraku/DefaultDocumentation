@@ -8,8 +8,9 @@ namespace DefaultDocumentation
 {
     public sealed class Settings
     {
-        private const NestedTypeVisibilities _defaultNestedTypeVisibility = NestedTypeVisibilities.Namespace;
-        private const GeneratedPages _defaultGeneratedPage = GeneratedPages.Namespaces | GeneratedPages.Types | GeneratedPages.Members;
+        private const NestedTypeVisibilities _defaultNestedTypeVisibilities = NestedTypeVisibilities.Namespace;
+        private const GeneratedPages _defaultGeneratedPages = GeneratedPages.Namespaces | GeneratedPages.Types | GeneratedPages.Members;
+        private const GeneratedAccessModifiers _defaultGeneratedAccessModifiers = GeneratedAccessModifiers.Public | GeneratedAccessModifiers.Private | GeneratedAccessModifiers.Protected | GeneratedAccessModifiers.Internal | GeneratedAccessModifiers.ProtectedInternal | GeneratedAccessModifiers.PrivateProtected;
 
         private static readonly char[] _patternChars = new[] { '*', '?' };
         private static readonly char[] _folderChars = new[] { '/', '\\' };
@@ -34,6 +35,8 @@ namespace DefaultDocumentation
 
         public GeneratedPages GeneratedPages { get; }
 
+        public GeneratedAccessModifiers GeneratedAccessModifiers { get; }
+
         public FileInfo LinksOutputFile { get; }
 
         public string LinksBaseUrl { get; }
@@ -51,6 +54,7 @@ namespace DefaultDocumentation
             bool removeFileExtensionFromLinks,
             NestedTypeVisibilities nestedTypeVisibilities,
             GeneratedPages generatedPages,
+            GeneratedAccessModifiers generatedAccessModifiers,
             string linksOutputFile,
             string linksBaseUrl,
             IEnumerable<string> externlinksFilePaths)
@@ -65,8 +69,9 @@ namespace DefaultDocumentation
             FileNameMode = fileNameMode;
             RemoveFileExtensionFromLinks = removeFileExtensionFromLinks;
 
-            NestedTypeVisibilities = nestedTypeVisibilities == NestedTypeVisibilities.Default ? _defaultNestedTypeVisibility : nestedTypeVisibilities;
-            GeneratedPages = generatedPages == GeneratedPages.Default ? _defaultGeneratedPage : generatedPages;
+            NestedTypeVisibilities = nestedTypeVisibilities == NestedTypeVisibilities.Default ? _defaultNestedTypeVisibilities : nestedTypeVisibilities;
+            GeneratedPages = generatedPages == GeneratedPages.Default ? _defaultGeneratedPages : generatedPages;
+            GeneratedAccessModifiers = generatedAccessModifiers == GeneratedAccessModifiers.Default ? _defaultGeneratedAccessModifiers : generatedAccessModifiers;
 
             LinksOutputFile = string.IsNullOrEmpty(linksOutputFile) ? null : new FileInfo(linksOutputFile);
             LinksBaseUrl = linksBaseUrl ?? string.Empty;

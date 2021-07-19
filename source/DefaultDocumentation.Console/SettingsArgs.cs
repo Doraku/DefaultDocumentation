@@ -35,6 +35,9 @@ namespace DefaultDocumentation
         [Option('g', nameof(GeneratedPages), Required = false, HelpText = "State which elements should have their own page")]
         public IEnumerable<GeneratedPages> GeneratedPages { get; set; }
 
+        [Option('s', nameof(GeneratedAccessModifiers), Required = false, HelpText = "State elements with which access modifier should be generated")]
+        public IEnumerable<GeneratedAccessModifiers> GeneratedAccessModifiers { get; set; }
+
         [Option('l', nameof(LinksOutputFilePath), Required = false, HelpText = "File path where the documentation will generate its links")]
         public string LinksOutputFilePath { get; set; }
 

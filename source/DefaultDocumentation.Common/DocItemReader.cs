@@ -22,24 +22,35 @@ namespace DefaultDocumentation
         private readonly Dictionary<IModule, IDocumentationProvider> _documentationProviders;
         private readonly Dictionary<string, DocItem> _items;
 
-        private DocItemReader(FileInfo assemblyFile, FileInfo documentationFile, string assemblyPageName, IEnumerable<FileInfo> externLinksFiles)
+        private DocItemReader(Settings settings)
         {
-            _decompiler = new CSharpDecompiler(assemblyFile.FullName, new DecompilerSettings { ThrowOnAssemblyResolveErrors = false });
+            bool IsGenerated(IEntity entity) => entity.Accessibility switch
+            {
+                Accessibility.Public => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Public) != 0,
+                Accessibility.Private => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Private) != 0,
+                Accessibility.Protected => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Protected) != 0,
+                Accessibility.Internal => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Internal) != 0,
+                Accessibility.ProtectedOrInternal => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.ProtectedInternal) != 0,
+                Accessibility.ProtectedAndInternal => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.PrivateProtected) != 0,
+                _ => false
+            };
+
+            _decompiler = new CSharpDecompiler(settings.AssemblyFile.FullName, new DecompilerSettings { ThrowOnAssemblyResolveErrors = false });
             _resolver = new CSharpResolver(_decompiler.TypeSystem);
             _documentationProviders = new Dictionary<IModule, IDocumentationProvider>
             {
-                [_resolver.Compilation.MainModule] = new XmlDocumentationProvider(documentationFile.FullName)
+                [_resolver.Compilation.MainModule] = new XmlDocumentationProvider(settings.DocumentationFile.FullName)
             };
 
             _items = new Dictionary<string, DocItem>();
 
             AssemblyDocItem assemblyDocItem = new(
-                assemblyPageName,
+                settings.AssemblyPageName ?? "index",
                 _decompiler.TypeSystem.MainModule.AssemblyName,
                 GetDocumentation($"T:{_decompiler.TypeSystem.MainModule.AssemblyName}.AssemblyDoc"));
             Add(assemblyDocItem);
 
-            foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(t => t.Name != "NamespaceDoc" && t.Name != "AssemblyDoc"))
+            foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(t => t.Name != "NamespaceDoc" && t.Name != "AssemblyDoc" && IsGenerated(t)))
             {
                 bool showType = TryGetDocumentation(type, out XElement documentation);
 
@@ -78,7 +89,7 @@ namespace DefaultDocumentation
 
                 foreach (IEntity entity in Enumerable.Empty<IEntity>().Concat(type.Fields).Concat(type.Properties).Concat(type.Methods).Concat(type.Events))
                 {
-                    if (TryGetDocumentation(entity, out documentation) && !documentation.HasExclude())
+                    if (IsGenerated(entity) && TryGetDocumentation(entity, out documentation) && !documentation.HasExclude())
                     {
                         showType = true;
 
@@ -109,7 +120,7 @@ namespace DefaultDocumentation
                 }
             }
 
-            foreach (FileInfo linksFile in externLinksFiles)
+            foreach (FileInfo linksFile in settings.ExternLinksFiles)
             {
                 using StreamReader reader = linksFile.OpenText();
 
@@ -192,9 +203,14 @@ namespace DefaultDocumentation
 
         private XElement GetDocumentation(string id) => TryGetDocumentation(IdStringProvider.FindEntity(id, _resolver), out XElement documentation) ? documentation : null;
 
-        private void Add(DocItem item) => _items.Add(item.Id, item);
+        private void Add(DocItem item)
+        {
+            if (!_items.ContainsKey(item.Id))
+            {
+                _items.Add(item.Id, item);
+            }
+        }
 
-        public static Dictionary<string, DocItem> GetItems(FileInfo assemblyFile, FileInfo documentationFile, string assemblyPageName, IEnumerable<FileInfo> externLinksFiles)
-            => new DocItemReader(assemblyFile, documentationFile, assemblyPageName ?? "index", externLinksFiles)._items;
+        public static Dictionary<string, DocItem> GetItems(Settings settings) => new DocItemReader(settings)._items;
     }
 }
