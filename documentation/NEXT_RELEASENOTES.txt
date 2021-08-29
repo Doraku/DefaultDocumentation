@@ -5,3 +5,4 @@ added LTS netcoreapp3.1 target to dotnet tool (#66)
 ---
 
 fixed multiple element with same id from different extern link files
+fixed usage of DefaultDocumentationExternLinksFiles msbuild property on non windows platforms (#68)
