@@ -1,6 +1,7 @@
 added DefaultDocumentationGeneratedAccessModifiers property to set members of which accessibility should be generated (#59)
 added separator to dotnet tool arguments parsing so the format is the same as the msbuild task property one (#73)
 added LTS netcoreapp3.1 target to dotnet tool (#66)
+removed extra space when writing self closing tag
 
 ---
 

@@ -643,6 +643,8 @@ namespace DefaultDocumentation.Writer
 
             WriteItem(item);
 
+            _builder.Replace(" />", "/>");
+
             File.WriteAllText(Path.Combine(directory.FullName, GetFileName(item) + ".md"), _builder.ToString());
         }
     }
