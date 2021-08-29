@@ -29,13 +29,13 @@ namespace DefaultDocumentation
         [Option('x', nameof(RemoveFileExtensionFromLinks), Required = false, HelpText = "If true skip file extension in generated page links")]
         public bool RemoveFileExtensionFromLinks { get; set; }
 
-        [Option('v', nameof(NestedTypeVisibilities), Required = false, HelpText = "Emplacement of nested types in documentation")]
+        [Option('v', nameof(NestedTypeVisibilities), Required = false, Separator = ',', HelpText = "Emplacement of nested types in documentation")]
         public IEnumerable<NestedTypeVisibilities> NestedTypeVisibilities { get; set; }
 
-        [Option('g', nameof(GeneratedPages), Required = false, HelpText = "State which elements should have their own page")]
+        [Option('g', nameof(GeneratedPages), Required = false, Separator = ',', HelpText = "State which elements should have their own page")]
         public IEnumerable<GeneratedPages> GeneratedPages { get; set; }
 
-        [Option('s', nameof(GeneratedAccessModifiers), Required = false, HelpText = "State elements with which access modifier should be generated")]
+        [Option('s', nameof(GeneratedAccessModifiers), Required = false, Separator = ',', HelpText = "State elements with which access modifier should be generated")]
         public IEnumerable<GeneratedAccessModifiers> GeneratedAccessModifiers { get; set; }
 
         [Option('l', nameof(LinksOutputFilePath), Required = false, HelpText = "File path where the documentation will generate its links")]
@@ -44,7 +44,7 @@ namespace DefaultDocumentation
         [Option('b', nameof(LinksBaseUrl), Required = false, HelpText = "Base url of the documentation for the generated links file")]
         public string LinksBaseUrl { get; set; }
 
-        [Option('e', nameof(ExternLinksFilePaths), Required = false, HelpText = "Links files to use for external documentation")]
+        [Option('e', nameof(ExternLinksFilePaths), Required = false, Separator = '|', HelpText = "Links files to use for external documentation")]
         public IEnumerable<string> ExternLinksFilePaths { get; set; }
     }
 }
