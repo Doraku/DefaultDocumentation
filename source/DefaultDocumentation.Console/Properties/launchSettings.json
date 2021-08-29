@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DefaultDocumentation.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "-a D:\\Projects\\DefaultDocumentation\\source\\Dummy\\bin\\Debug\\net5.0\\Dummy.dll"
+    }
+  }
+}

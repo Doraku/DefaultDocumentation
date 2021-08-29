@@ -255,11 +255,9 @@ namespace DefaultDocumentation.Writer
                             "typeparamref" => _builder.Append(item.TryGetTypeParameterDocItem(element.GetNameAttribute(), out TypeParameterDocItem typeParameter) ? GetLink(typeParameter) : element.GetNameAttribute()),
                             "paramref" => _builder.Append(item.TryGetParameterDocItem(element.GetNameAttribute(), out ParameterDocItem parameter) ? GetLink(parameter) : element.GetNameAttribute()),
                             "c" => _builder.Append('`').Append(element.Value).Append('`'),
-                            "code" when !isPreview => WriteCode(element),
+                            "code" => isPreview ? _builder : WriteCode(element),
                             "para" => WritePara(element),
-                            "br" when isPreview => _builder.Append(element.ToString()),
-                            _ when isPreview => _builder,
-                            _ => _builder.Append(element.ToString())
+                            _ => WriteText(element.ToString()),
                         },
                         _ => throw new Exception($"unhandled node type in summary {node.NodeType}")
                     };

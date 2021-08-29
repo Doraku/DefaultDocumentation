@@ -19,7 +19,7 @@ namespace Dummy
     }
 
     /// <summary>
-    /// pouet<br />pouet<br/>pouet
+    /// pouet<br />pouet<br/>pouet<b>kapoue</b>
     /// </summary>
     public class DummyClass
     {
