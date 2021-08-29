@@ -3,7 +3,10 @@
     <Description>Create a simple markdown documentation from the Visual Studio xml one.</Description>
     <RootNamespace>DefaultDocumentation</RootNamespace>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFrameworks>
+      netcoreapp3.1;
+      net5.0;
+    </TargetFrameworks>
     <ToolCommandName>defaultdocumentation</ToolCommandName>
     <PackAsTool>true</PackAsTool>
     <DevelopmentDependency>true</DevelopmentDependency>
