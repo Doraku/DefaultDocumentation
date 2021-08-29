@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace Dummy
 {
     /// <summary>
-    /// pouet
+    /// pouet<br />pouet<br/>pouet
     /// </summary>
     public enum DummyEnum
     {
@@ -19,7 +19,7 @@ namespace Dummy
     }
 
     /// <summary>
-    /// dummy
+    /// pouet<br />pouet<br/>pouet
     /// </summary>
     public class DummyClass
     {
