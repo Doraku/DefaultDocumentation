@@ -37,6 +37,8 @@ namespace DefaultDocumentation
 
         public GeneratedAccessModifiers GeneratedAccessModifiers { get; }
 
+        public bool IgnoreLineBreak { get; }
+
         public FileInfo LinksOutputFile { get; }
 
         public string LinksBaseUrl { get; }
@@ -55,6 +57,7 @@ namespace DefaultDocumentation
             NestedTypeVisibilities nestedTypeVisibilities,
             GeneratedPages generatedPages,
             GeneratedAccessModifiers generatedAccessModifiers,
+            bool ignoreLineBreak,
             string linksOutputFile,
             string linksBaseUrl,
             IEnumerable<string> externlinksFilePaths)
@@ -72,6 +75,8 @@ namespace DefaultDocumentation
             NestedTypeVisibilities = nestedTypeVisibilities == NestedTypeVisibilities.Default ? _defaultNestedTypeVisibilities : nestedTypeVisibilities;
             GeneratedPages = generatedPages == GeneratedPages.Default ? _defaultGeneratedPages : generatedPages;
             GeneratedAccessModifiers = generatedAccessModifiers == GeneratedAccessModifiers.Default ? _defaultGeneratedAccessModifiers : generatedAccessModifiers;
+
+            IgnoreLineBreak = ignoreLineBreak;
 
             LinksOutputFile = string.IsNullOrEmpty(linksOutputFile) ? null : new FileInfo(linksOutputFile);
             LinksBaseUrl = linksBaseUrl ?? string.Empty;

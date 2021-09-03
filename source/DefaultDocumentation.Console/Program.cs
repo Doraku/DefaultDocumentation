@@ -41,6 +41,7 @@ namespace DefaultDocumentation
                         GetEnum(a.NestedTypeVisibilities),
                         GetEnum(a.GeneratedPages),
                         GetEnum(a.GeneratedAccessModifiers),
+                        a.IgnoreLineBreak,
                         a.LinksOutputFilePath,
                         a.LinksBaseUrl,
                         a.ExternLinksFilePaths));

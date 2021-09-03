@@ -47,6 +47,7 @@
       NestedTypeVisibilities="$(DefaultDocumentationNestedTypeVisibilities)"
       GeneratedPages="$(DefaultDocumentationGeneratedPages)"
       GeneratedAccessModifiers="$(DefaultDocumentationGeneratedAccessModifiers)"
+      IgnoreLineBreak="$(DefaultDocumentationIgnoreLineBreak)"
       LinksOutputFilePath="$(_DefaultDocumentationLinksOutputFile)"
       LinksBaseUrl="$(DefaultDocumentationLinksBaseUrl)"
       ExternLinksFilePaths="$(_DefaultDocumentationExternLinksFiles)"/>

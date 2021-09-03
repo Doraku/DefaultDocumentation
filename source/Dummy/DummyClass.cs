@@ -3,8 +3,10 @@ using System.Threading.Tasks;
 
 namespace Dummy
 {
-    /// <summary>
-    /// pouet<br />pouet<br/>pouet
+    /// <summary ignorelinebreak="true">
+    /// pouet
+    /// pouet
+    /// pouet
     /// </summary>
     public enum DummyEnum
     {

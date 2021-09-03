@@ -67,6 +67,7 @@ Here are some DefaultDocumentation specific properties you can set to configure 
   - `Public`: generate documentation of `public` members.
   - `ProtectedInternal`: generate documentation of `protected internal` members.
   - `PrivateProtected`: generate documentation of `private protected` members.
+- `<DefaultDocumentationIgnoreLineBreak>`: state if line break in the documentation should be ignored and written as is or transformed as markdown line break (two space at the end of a line), false by default.
 - `<DefaultDocumentationLinksOutputFile>`: where to generate the links file, see [Extern links](#Links), empty by default and does not generate the links file.
 - `<DefaultDocumentationLinksBaseUrl>`: the base url to use for the links file, see [Extern links](#Links).
 - `<DefaultDocumentationExternLinksFiles>`: the list of links files separated by `|` to use when generating the documentation, see [Extern links](#Links). You can use pattern, ex: `.\myfolder\*.txt`.
@@ -87,6 +88,7 @@ Here is the tool help, most of the parameters have the same fonctionalities as t
   -v, --NestedTypeVisibilities          Emplacement of nested types in documentation
   -g, --GeneratedPages                  State which elements should have their own page
   -s, --GeneratedAccessModifiers        State elements with which access modifier should be generated
+  -i, --IgnoreLineBreak                 If true line break in the documentation are no longer transformed as a markdown line break (two space at the end of a line)
   -l, --LinksOutputFilePath             File path where the documentation will generate its links
   -b, --LinksBaseUrl                    Base url of the documentation for the generated links file
   -e, --ExternLinksFilePaths            Links files to use for external documentation
@@ -108,19 +110,25 @@ List of supported balises and attributes taken from [here](https://docs.microsof
   - [x] `source` attribute used to reference code from a specific file
   - [x] `region` attribute used to reference a specific `#region` from the source
 - [x] [`<example>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/example)
+  - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
 - [x] [`<exception>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/exception)
   - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/cref-attribute) attribute
+  - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
 - [x] `<exclude>` used to exclude an element and all its members from the documentation
 - [x] [`<include>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/include)
 - [x] [`<inheritdoc>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/inheritdoc)
   - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/cref-attribute) attribute
 - [ ] [`<list>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/list) not supported yet
 - [x] [`<para>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/para)
+  - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
 - [x] [`<param>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/param)
+  - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
 - [x] [`<paramref>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/paramref)
 - [ ] [`<permission>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/permission) not supported yet
 - [x] [`<remarks>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/remarks)
+  - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
 - [x] [`<returns>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/returns)
+  - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
 - [x] [`<see>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/see)
   - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/cref-attribute) attribute
   - [x] `href` attribute
@@ -129,9 +137,12 @@ List of supported balises and attributes taken from [here](https://docs.microsof
   - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/cref-attribute) attribute
   - [x] `href` attribute
 - [x] [`<summary>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/summary)
+  - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
 - [x] [`<typeparam>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/typeparam)
+  - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
 - [x] [`<typeparamref>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/typeparamref)
 - [x] [`<value>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/value)
+  - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
 
 List of supported members taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/processing-the-xml-file)
 

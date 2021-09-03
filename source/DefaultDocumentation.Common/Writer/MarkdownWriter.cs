@@ -23,6 +23,8 @@ namespace DefaultDocumentation.Writer
         private readonly StringBuilder _builder;
         private readonly Func<DocItem, string> _urlFactory;
 
+        private bool _ignoreLineBreak;
+
         public MarkdownWriter(Settings settings)
             : base(settings)
         {
@@ -53,6 +55,8 @@ namespace DefaultDocumentation.Writer
 
                 return url;
             };
+
+            _ignoreLineBreak = settings.IgnoreLineBreak;
         }
 
         private static string ToLink(string url, string displayedName = null) => $"[{(displayedName ?? url).Prettify()}]({url} '{url}')";
@@ -160,7 +164,18 @@ namespace DefaultDocumentation.Writer
                     {
                         if (isPreview)
                         {
-                            _builder.Append("<br/>");
+                            if (_ignoreLineBreak)
+                            {
+                                _builder.Append(' ');
+                            }
+                            else
+                            {
+                                _builder.Append("<br/>");
+                            }
+                        }
+                        else if (_ignoreLineBreak)
+                        {
+                            _builder.AppendLine();
                         }
                         else
                         {
@@ -212,13 +227,15 @@ namespace DefaultDocumentation.Writer
                     lineBreak();
                 }
 
-                WriteNodes(element.Nodes());
+                WriteNodes(element);
 
                 return lineBreak();
             }
 
             StringBuilder WriteCode(XElement element)
             {
+                using RollbackSetter<bool> _ = new(() => ref _ignoreLineBreak, true);
+
                 _builder.Append("```").AppendLine(element.GetLanguageAttribute() ?? "csharp");
 
                 string source = element.GetSourceAttribute();
@@ -241,35 +258,38 @@ namespace DefaultDocumentation.Writer
                 return _builder.AppendLine("```");
             }
 
-            void WriteNodes(IEnumerable<XNode> nodes)
+            void WriteNodes(XElement parent)
             {
-                foreach (XNode node in nodes)
+                using (new RollbackSetter<bool>(() => ref _ignoreLineBreak, parent.GetIgnoreLineBreak() ?? _ignoreLineBreak))
                 {
-                    _ = node switch
+                    foreach (XNode node in parent.Nodes())
                     {
-                        XText text => WriteText(text.Value),
-                        XElement element => element.Name.ToString() switch
+                        _ = node switch
                         {
-                            "see" => WriteSee(element),
-                            "seealso" => _builder,
-                            "typeparamref" => _builder.Append(item.TryGetTypeParameterDocItem(element.GetNameAttribute(), out TypeParameterDocItem typeParameter) ? GetLink(typeParameter) : element.GetNameAttribute()),
-                            "paramref" => _builder.Append(item.TryGetParameterDocItem(element.GetNameAttribute(), out ParameterDocItem parameter) ? GetLink(parameter) : element.GetNameAttribute()),
-                            "c" => _builder.Append('`').Append(element.Value).Append('`'),
-                            "code" => isPreview ? _builder : WriteCode(element),
-                            "para" => WritePara(element),
-                            _ => WriteText(element.ToString()),
-                        },
-                        _ => throw new Exception($"unhandled node type in summary {node.NodeType}")
-                    };
+                            XText text => WriteText(text.Value),
+                            XElement element => element.Name.ToString() switch
+                            {
+                                "see" => WriteSee(element),
+                                "seealso" => _builder,
+                                "typeparamref" => _builder.Append(item.TryGetTypeParameterDocItem(element.GetNameAttribute(), out TypeParameterDocItem typeParameter) ? GetLink(typeParameter) : element.GetNameAttribute()),
+                                "paramref" => _builder.Append(item.TryGetParameterDocItem(element.GetNameAttribute(), out ParameterDocItem parameter) ? GetLink(parameter) : element.GetNameAttribute()),
+                                "c" => _builder.Append('`').Append(element.Value).Append('`'),
+                                "code" => isPreview ? _builder : WriteCode(element),
+                                "para" => WritePara(element),
+                                _ => WriteText(element.ToString()),
+                            },
+                            _ => throw new Exception($"unhandled node type in summary {node.NodeType}")
+                        };
 
-                    if (node is XElement)
-                    {
-                        isNewLine = false;
+                        if (node is XElement)
+                        {
+                            isNewLine = false;
+                        }
                     }
                 }
             }
 
-            WriteNodes(element.Nodes());
+            WriteNodes(element);
 
             if (!isPreview)
             {

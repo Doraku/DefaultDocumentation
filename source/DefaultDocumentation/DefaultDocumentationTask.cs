@@ -28,6 +28,8 @@ namespace DefaultDocumentation
 
         public string GeneratedAccessModifiers { get; set; }
 
+        public bool IgnoreLineBreak { get; set; }
+
         public string LinksOutputFilePath { get; set; }
 
         public string LinksBaseUrl { get; set; }
@@ -53,6 +55,7 @@ namespace DefaultDocumentation
                 GetEnum<NestedTypeVisibilities>(nameof(NestedTypeVisibilities), NestedTypeVisibilities),
                 GetEnum<GeneratedPages>(nameof(GeneratedPages), GeneratedPages),
                 GetEnum<GeneratedAccessModifiers>(nameof(GeneratedAccessModifiers), GeneratedAccessModifiers),
+                IgnoreLineBreak,
                 LinksOutputFilePath,
                 LinksBaseUrl,
                 (ExternLinksFilePaths ?? string.Empty).Split('|')));
