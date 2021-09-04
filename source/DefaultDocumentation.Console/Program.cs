@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CommandLine;
+using NLog.Targets;
 
 namespace DefaultDocumentation
 {
@@ -30,6 +31,8 @@ namespace DefaultDocumentation
                 .WithParsed(a =>
                 {
                     Generator.Execute(new Settings(
+                        new ConsoleTarget("Console"),
+                        a.LogLevel,
                         a.AssemblyFilePath,
                         a.DocumentationFilePath,
                         a.ProjectDirectoryPath,

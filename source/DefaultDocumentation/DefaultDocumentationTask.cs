@@ -5,6 +5,8 @@ namespace DefaultDocumentation
 {
     public sealed class DefaultDocumentationTask : Microsoft.Build.Utilities.Task
     {
+        public string LogLevel { get; set; }
+
         [Required]
         public string AssemblyFilePath { get; set; }
 
@@ -44,6 +46,8 @@ namespace DefaultDocumentation
                 : (Enum.TryParse(stringValue, out T value) ? value : throw new ArgumentException($"Unknown value \"{stringValue}\"", argumentName));
 
             Generator.Execute(new Settings(
+                new TaskTarget("Task", Log),
+                LogLevel,
                 AssemblyFilePath,
                 DocumentationFilePath,
                 ProjectDirectoryPath,

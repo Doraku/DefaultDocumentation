@@ -5,6 +5,9 @@ namespace DefaultDocumentation
 {
     internal sealed class SettingsArgs
     {
+        [Option('h', nameof(LogLevel), Required = false, HelpText = "Minimum level of the logs to display")]
+        public string LogLevel { get; set; }
+
         [Option('a', nameof(AssemblyFilePath), Required = true, HelpText = "Path to the assembly file")]
         public string AssemblyFilePath { get; set; }
 

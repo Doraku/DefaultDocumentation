@@ -36,6 +36,7 @@
     </EnsureDefaultDocumentationExternLinksFilesRooted>
 
     <DefaultDocumentationTask
+      LogLevel="$(DefaultDocumentationLogLevel)"
       AssemblyFilePath="$(TargetPath)"
       DocumentationFilePath="$(_DefaultDocumentationDocumentationFile)"
       ProjectDirectoryPath="$(ProjectDir)"

@@ -8,8 +8,12 @@ namespace DefaultDocumentation.Helper
     {
         private readonly Dictionary<string, string> _invalidStrings;
 
+        public string InvalidCharReplacement { get; }
+
         public PathCleaner(string invalidCharReplacement)
         {
+            InvalidCharReplacement = invalidCharReplacement;
+
             _invalidStrings = new Dictionary<string, string>(Path.GetInvalidFileNameChars().ToDictionary(c => $"{c}", _ => invalidCharReplacement))
             {
                 ["="] = string.Empty,

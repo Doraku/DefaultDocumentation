@@ -1,0 +1,6 @@
+added logging (#69)
+
+---
+
+fixed accessibility check of nested types
+fixed generation of nested types when declaring types are excluded

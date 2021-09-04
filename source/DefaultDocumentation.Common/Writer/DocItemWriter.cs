@@ -101,12 +101,14 @@ namespace DefaultDocumentation.Writer
 
         public void Execute()
         {
+            _settings.Logger.Debug($"Cleaning output folder \"{_settings.OutputDirectory}\"");
             Clean(_settings.OutputDirectory);
 
             foreach (DocItem item in Items.Where(HasOwnPage))
             {
                 try
                 {
+                    _settings.Logger.Debug($"Writing DocItem \"{item}\" with id \"{item.Id}\"");
                     WritePage(_settings.OutputDirectory, item);
                 }
                 catch (Exception exception)
@@ -117,6 +119,8 @@ namespace DefaultDocumentation.Writer
 
             if (_settings.LinksOutputFile != null)
             {
+                _settings.Logger.Debug($"Writing links to file \"{_settings.LinksOutputFile.FullName}\"");
+
                 _settings.LinksOutputFile.Directory.Create();
 
                 using StreamWriter writer = _settings.LinksOutputFile.CreateText();
@@ -131,6 +135,8 @@ namespace DefaultDocumentation.Writer
                     writer.WriteLine(item.Name);
                 }
             }
+
+            _settings.Logger.Info($"Documentation generated to output folder \"{_settings.OutputDirectory}\"");
         }
     }
 }
