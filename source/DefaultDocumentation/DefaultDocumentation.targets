@@ -24,9 +24,9 @@
     </Task>
   </UsingTask>
 
-  <Target Name="DefaultDocumentation" AfterTargets="PostBuildEvent" Condition="'$(GenerateDocumentationFile)' == 'true' AND '$(DisableDefaultDocumentation)' != 'true'">
+  <Target Name="DefaultDocumentation" AfterTargets="PostBuildEvent" Condition="'$(DocumentationFile)' != '' AND '$(DisableDefaultDocumentation)' != 'true'">
     <PropertyGroup>
-      <_DefaultDocumentationDocumentationFile Condition="'$(DocumentationFile)' != ''">$([System.IO.Path]::GetFullPath($(DocumentationFile)))</_DefaultDocumentationDocumentationFile>
+      <_DefaultDocumentationDocumentationFile>$([System.IO.Path]::GetFullPath($(DocumentationFile)))</_DefaultDocumentationDocumentationFile>
       <_DefaultDocumentationFolder Condition="'$(DefaultDocumentationFolder)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationFolder)))</_DefaultDocumentationFolder>
       <_DefaultDocumentationLinksOutputFile Condition="'$(DefaultDocumentationLinksOutputFile)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationLinksOutputFile)))</_DefaultDocumentationLinksOutputFile>
     </PropertyGroup>
