@@ -1,9 +1,0 @@
-added logging (#69)
-
----
-
-fixed accessibility check of nested types
-fixed generation of nested types when declaring types are excluded
-fixed multiple DefaultDocumentation running with multiple TargetFrameworks
-fixed msbuild task not used in csproj with old format
-fixed ignorelinebreak attribute detection
