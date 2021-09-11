@@ -31,6 +31,14 @@ DefaultDocumentation is available in two flavour, an msbuild task automatically 
 Simply reference the [DefaultDocumentation](https://www.nuget.org/packages/DefaultDocumentation) package in the projet you want to generate documentation for (don't worry it's only a development dependencies, no dlls will be added to your project). If the property `<DocumentationFile>` or `<GenerateDocumentationFile>` are set, the markdown pages will be produced automatically after a successfull build, that's it!  
 Here are some DefaultDocumentation specific properties you can set to configure the generation:
 - `<DisableDefaultDocumentation>`: if set to `true`, disable the DefaultDocumentation generation even if `<DocumentationFile>` or `<GenerateDocumentationFile>` are set.
+- `<DefaultDocumentationLogLevel>`: The minimum level of the log you wish to be displayed to help resolve errors, `Info` by default.
+  - `Trace`: Trace log level
+  - `Debug`: Debug log level
+  - `Info`: Info log level
+  - `Warn`: Warn log level
+  - `Error`: Error log level
+  - `Fatal`: Fatal log level
+  - `Off`: no log
 - `<DefaultDocumentationFolder>`: where the markdown pages should be generated. If not specified, the pages will be generated in the same folder as the xml documentation file. All existing `.md` files except `readme.md` if present will be removed.
 - `<DefaultDocumentationInvalidCharReplacement>`: the value to use to replace invalid char for file names, `_` by default.
 - `<DefaultDocumentationAssemblyPageName>`: the name of the page for the assembly documentation, `index` by default.
@@ -77,6 +85,7 @@ Here are some DefaultDocumentation specific properties you can set to configure 
 DefaultDocumentation is also available as a [dotnet tool](https://www.nuget.org/packages/DefaultDocumentation.Console) if you need to control when to produce the documentation. The tool command is simply `defaultdocumentation`.  
 Here is the tool help, most of the parameters have the same fonctionalities as their equivalent `<DefaultDocumentation...>` property:
 ```
+  -h, --LogLevel                        Minimum level of the logs to display
   -a, --AssemblyFilePath                Required. Path to the assembly file
   -d, --DocumentationFilePath           Path to the xml documentation file, if not specified DefaultDocumentation will assume it is in the same folder as the assembly
   -p, --ProjectDirectoryPath            Path to the project source folder
