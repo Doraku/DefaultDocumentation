@@ -111,49 +111,48 @@ dotnet tool install DefaultDocumentation.Console -g
 
 <a name='Overview'></a>
 # Overview
-List of supported balises and attributes taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/recommended-tags-for-documentation-comments) with some additions.
+List of supported balises and attributes taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags) with some additions.
 
-- [x] [`<c>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/code-inline)
-- [x] [`<code>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/code)
+- [x] [`<c>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#c)
+- [x] [`<code>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#code)
   - [x] `language` attribute used to declare the languge of the code
   - [x] `source` attribute used to reference code from a specific file
   - [x] `region` attribute used to reference a specific `#region` from the source
-- [x] [`<example>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/example)
+- [x] [`<example>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#example)
   - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
-- [x] [`<exception>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/exception)
-  - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/cref-attribute) attribute
+- [x] [`<exception>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#exception)
+  - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#cref-attribute) attribute
   - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
 - [x] `<exclude>` used to exclude an element and all its members from the documentation
-- [x] [`<include>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/include)
-- [x] [`<inheritdoc>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/inheritdoc)
-  - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/cref-attribute) attribute
-- [ ] [`<list>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/list) not supported yet
-- [x] [`<para>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/para)
+- [x] [`<include>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#include)
+- [x] [`<inheritdoc>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#inheritdoc)
+  - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#cref-attribute) attribute
+- [ ] [`<list>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#list) not supported yet
+- [x] [`<para>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#para)
   - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
-- [x] [`<param>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/param)
+- [x] [`<param>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#param)
   - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
-- [x] [`<paramref>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/paramref)
-- [ ] [`<permission>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/permission) not supported yet
-- [x] [`<remarks>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/remarks)
+- [x] [`<paramref>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#paramref)
+- [x] [`<remarks>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#remarks)
   - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
-- [x] [`<returns>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/returns)
+- [x] [`<returns>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#returns)
   - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
-- [x] [`<see>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/see)
-  - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/cref-attribute) attribute
+- [x] [`<see>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#see)
+  - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#cref-attribute) attribute
   - [x] `href` attribute
   - [x] `langword` attribute
-- [x] [`<seealso>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/seealso)
-  - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/cref-attribute) attribute
+- [x] [`<seealso>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#seealso)
+  - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#cref-attribute) attribute
   - [x] `href` attribute
-- [x] [`<summary>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/summary)
+- [x] [`<summary>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#summary)
   - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
-- [x] [`<typeparam>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/typeparam)
+- [x] [`<typeparam>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#typeparam)
   - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
-- [x] [`<typeparamref>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/typeparamref)
-- [x] [`<value>`](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/value)
+- [x] [`<typeparamref>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#typeparamref)
+- [x] [`<value>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#value)
   - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
 
-List of supported members taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/processing-the-xml-file)
+List of supported members taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/#id-strings)
 
 Only elements with a xml documentation will appear in the generated documentation.
 
