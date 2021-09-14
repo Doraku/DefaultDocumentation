@@ -77,6 +77,8 @@ namespace DefaultDocumentation
 
             Logger.Info("Starting DefaultDocumentation with those settings");
 
+            Logger.Info($"{nameof(LogLevel)}: {logLevel}");
+
             AssemblyFile = !string.IsNullOrEmpty(assemblyFilePath) ? new FileInfo(assemblyFilePath) : throw new ArgumentNullException(nameof(assemblyFilePath));
             Logger.Info($"{nameof(AssemblyFile)}: {AssemblyFile.FullName}");
 

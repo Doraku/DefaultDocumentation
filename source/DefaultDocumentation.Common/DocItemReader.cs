@@ -225,7 +225,7 @@ namespace DefaultDocumentation
 
             if (!_documentationProviders.TryGetValue(entity.ParentModule, out IDocumentationProvider documentationProvider))
             {
-                _logger.Trace($"adding documentation provider for \"{entity.ParentModule.FullAssemblyName}\"");
+                _logger.Trace($"loading documentation provider for \"{entity.ParentModule.PEFile.FileName}\"");
                 documentationProvider = XmlDocLoader.LoadDocumentation(entity.ParentModule.PEFile) ?? XmlDocLoader.MscorlibDocumentation;
                 _documentationProviders.Add(entity.ParentModule, documentationProvider);
             }
