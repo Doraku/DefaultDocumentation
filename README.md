@@ -156,7 +156,7 @@ List of supported balises and attributes taken from [here](https://docs.microsof
 
 List of supported members taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/#id-strings)
 
-Only elements with a xml documentation will appear in the generated documentation.
+Only elements with a xml documentation will appear in the generated documentation. This behavior can be changed with the `<DefaultDocumentationIncludeUndocumentedItems>` property.
 
 Assembly and Namespace documentation are available by adding a special class named `AssemblyDoc` in a namespace with the name of the assembly and `NamespaceDoc` into the namespace. You should only use `<summary>` and `<remarks>` elements.  
 Empty namespace with no defined types will not appear in the generated documentation.  
