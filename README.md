@@ -75,6 +75,7 @@ Here are some DefaultDocumentation specific properties you can set to configure 
   - `Public`: generate documentation of `public` members.
   - `ProtectedInternal`: generate documentation of `protected internal` members.
   - `PrivateProtected`: generate documentation of `private protected` members.
+- `<DefaultDocumentationIncludeUndocumentedItems>`: state if types and members with no documentation should also be included in the generated documentation, false by default.
 - `<DefaultDocumentationIgnoreLineBreak>`: state if line break in the documentation should be ignored and written as is or transformed as markdown line break (two space at the end of a line), false by default.
 - `<DefaultDocumentationLinksOutputFile>`: where to generate the links file, see [Extern links](#Links), empty by default and does not generate the links file.
 - `<DefaultDocumentationLinksBaseUrl>`: the base url to use for the links file, see [Extern links](#Links).
@@ -97,6 +98,7 @@ Here is the tool help, most of the parameters have the same fonctionalities as t
   -v, --NestedTypeVisibilities          Emplacement of nested types in documentation
   -g, --GeneratedPages                  State which elements should have their own page
   -s, --GeneratedAccessModifiers        State elements with which access modifier should be generated
+  -u, --IncludeUndocumentedItems        If true items with no documentation will also be included
   -i, --IgnoreLineBreak                 If true line break in the documentation are no longer transformed as a markdown line break (two space at the end of a line)
   -l, --LinksOutputFilePath             File path where the documentation will generate its links
   -b, --LinksBaseUrl                    Base url of the documentation for the generated links file
