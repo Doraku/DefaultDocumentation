@@ -41,6 +41,9 @@ namespace DefaultDocumentation
         [Option('s', nameof(GeneratedAccessModifiers), Required = false, Separator = ',', HelpText = "State elements with which access modifier should be generated")]
         public IEnumerable<GeneratedAccessModifiers> GeneratedAccessModifiers { get; set; }
 
+        [Option('u', nameof(IncludeUndocumentedItems), Required = false, HelpText = "If true items with no documentation will also be included")]
+        public bool IncludeUndocumentedItems { get; set; }
+
         [Option('i', nameof(IgnoreLineBreak), Required = false, HelpText = "If true line break in the documentation are no longer transformed as a markdown line break (two space at the end of a line)")]
         public bool IgnoreLineBreak { get; set; }
 

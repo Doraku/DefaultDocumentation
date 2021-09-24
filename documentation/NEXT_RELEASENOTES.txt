@@ -1,1 +1,5 @@
+added DefaultDocumentationIncludeUndocumentedItems property / IncludeUndocumentatedItems arg to include types and members with no documentation (#81)
+
+---
+
 fixed mutex creation on linux (#80)

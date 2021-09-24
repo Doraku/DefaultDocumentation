@@ -30,6 +30,8 @@ namespace DefaultDocumentation
 
         public string GeneratedAccessModifiers { get; set; }
 
+        public bool IncludeUndocumentedItems { get; set; }
+
         public bool IgnoreLineBreak { get; set; }
 
         public string LinksOutputFilePath { get; set; }
@@ -59,6 +61,7 @@ namespace DefaultDocumentation
                 GetEnum<NestedTypeVisibilities>(nameof(NestedTypeVisibilities), NestedTypeVisibilities),
                 GetEnum<GeneratedPages>(nameof(GeneratedPages), GeneratedPages),
                 GetEnum<GeneratedAccessModifiers>(nameof(GeneratedAccessModifiers), GeneratedAccessModifiers),
+                IncludeUndocumentedItems,
                 IgnoreLineBreak,
                 LinksOutputFilePath,
                 LinksBaseUrl,

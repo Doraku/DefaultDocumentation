@@ -42,6 +42,8 @@ namespace DefaultDocumentation
 
         public GeneratedAccessModifiers GeneratedAccessModifiers { get; }
 
+        public bool IncludeUndocumentedItems { get; }
+
         public bool IgnoreLineBreak { get; }
 
         public FileInfo LinksOutputFile { get; }
@@ -64,6 +66,7 @@ namespace DefaultDocumentation
             NestedTypeVisibilities nestedTypeVisibilities,
             GeneratedPages generatedPages,
             GeneratedAccessModifiers generatedAccessModifiers,
+            bool includeUndocumentedItems,
             bool ignoreLineBreak,
             string linksOutputFile,
             string linksBaseUrl,
@@ -111,6 +114,9 @@ namespace DefaultDocumentation
 
             GeneratedAccessModifiers = generatedAccessModifiers == GeneratedAccessModifiers.Default ? _defaultGeneratedAccessModifiers : generatedAccessModifiers;
             Logger.Info($"{nameof(GeneratedAccessModifiers)}: {GeneratedAccessModifiers}");
+
+            IncludeUndocumentedItems = includeUndocumentedItems;
+            Logger.Info($"{nameof(IncludeUndocumentedItems)}: {IncludeUndocumentedItems}");
 
             IgnoreLineBreak = ignoreLineBreak;
             Logger.Info($"{nameof(IgnoreLineBreak)}: {IgnoreLineBreak}");

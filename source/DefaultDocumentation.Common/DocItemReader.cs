@@ -114,7 +114,7 @@ namespace DefaultDocumentation
                     continue;
                 }
 
-                bool showType = typeDocItem.Documentation != null;
+                bool showType = typeDocItem.Documentation != null || settings.IncludeUndocumentedItems;
 
                 foreach (IEntity entity in Enumerable.Empty<IEntity>().Concat(type.Fields).Concat(type.Properties).Concat(type.Methods).Concat(type.Events))
                 {
@@ -126,7 +126,7 @@ namespace DefaultDocumentation
                         continue;
                     }
 
-                    if (!TryGetDocumentation(entity, out XElement documentation))
+                    if (!TryGetDocumentation(entity, out XElement documentation) && !settings.IncludeUndocumentedItems)
                     {
                         _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": no documentation");
                         continue;
