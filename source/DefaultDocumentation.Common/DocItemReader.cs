@@ -29,7 +29,12 @@ namespace DefaultDocumentation
             bool IsGenerated(IEntity entity) => entity.EffectiveAccessibility() switch
             {
                 Accessibility.Public => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Public) != 0,
-                Accessibility.Private => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Private) != 0,
+                Accessibility.Private => entity switch
+                {
+                    IProperty property when property.IsExplicitInterfaceImplementation => IsGenerated(property.ExplicitlyImplementedInterfaceMembers.First().DeclaringTypeDefinition),
+                    IMethod method when method.IsExplicitInterfaceImplementation => IsGenerated(method.ExplicitlyImplementedInterfaceMembers.First().DeclaringTypeDefinition),
+                    _ => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Private) != 0
+                },
                 Accessibility.Protected => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Protected) != 0,
                 Accessibility.Internal => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Internal) != 0,
                 Accessibility.ProtectedOrInternal => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.ProtectedInternal) != 0,
@@ -55,13 +60,19 @@ namespace DefaultDocumentation
 
             foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(t => t.Name != "NamespaceDoc" && t.Name != "AssemblyDoc"))
             {
+                _logger.Debug($"handling type \"{type.FullName}\"");
+
+                if (type.IsCompilerGenerated())
+                {
+                    _logger.Debug($"Skipping documentation for type \"{type.FullName}\": compiler generated");
+                    continue;
+                }
+
                 if (!IsGenerated(type))
                 {
                     _logger.Debug($"Skipping documentation for type \"{type.FullName}\": accessibility \"{type.EffectiveAccessibility()}\" not generated");
                     continue;
                 }
-
-                _logger.Debug($"handling type \"{type.FullName}\"");
 
                 List<ITypeDefinition> declaringTypes = new(type.GetDeclaringTypeDefinitions().Skip(1).Reverse());
                 List<DocItem> docItemsToAdd = new();
@@ -108,7 +119,7 @@ namespace DefaultDocumentation
 
                 TypeDocItem typeDocItem = GetDocItem(type, parentDocItem);
 
-                if (typeDocItem.Documentation?.HasExclude() is true)
+                if (typeDocItem.Documentation.HasExclude())
                 {
                     _logger.Debug($"Skipping documentation for type \"{type.FullName}\": exclude tag found in documentation");
                     continue;
@@ -116,43 +127,58 @@ namespace DefaultDocumentation
 
                 bool showType = typeDocItem.Documentation != null || settings.IncludeUndocumentedItems;
 
-                foreach (IEntity entity in Enumerable.Empty<IEntity>().Concat(type.Fields).Concat(type.Properties).Concat(type.Methods).Concat(type.Events))
+                if (typeDocItem is not DelegateDocItem)
                 {
-                    _logger.Debug($"handling member \"{entity.FullName}\"");
-
-                    if (!IsGenerated(entity))
+                    foreach (IEntity entity in Enumerable.Empty<IEntity>().Concat(type.Fields).Concat(type.Properties).Concat(type.Methods).Concat(type.Events))
                     {
-                        _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": accessibility \"{entity.EffectiveAccessibility()}\" not generated");
-                        continue;
+                        _logger.Debug($"handling member \"{entity.FullName}\"");
+
+                        if (entity.IsCompilerGenerated())
+                        {
+                            _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": compiler generated");
+                            continue;
+                        }
+
+                        if (entity.IsDefaultConstructor())
+                        {
+                            _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": default constructor");
+                            continue;
+                        }
+
+                        if (!IsGenerated(entity))
+                        {
+                            _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": accessibility \"{entity.EffectiveAccessibility()}\" not generated");
+                            continue;
+                        }
+
+                        if (!TryGetDocumentation(entity, out XElement documentation) && !settings.IncludeUndocumentedItems)
+                        {
+                            _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": no documentation");
+                            continue;
+                        }
+
+                        if (documentation.HasExclude())
+                        {
+                            _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": exclude tag found in documentation");
+                            continue;
+                        }
+
+                        showType = true;
+
+                        Add(entity switch
+                        {
+                            IField field when typeDocItem is EnumDocItem enumDocItem => new EnumFieldDocItem(enumDocItem, field, documentation),
+                            IField field => new FieldDocItem(typeDocItem, field, documentation),
+                            IProperty property when property.IsExplicitInterfaceImplementation => new ExplicitInterfaceImplementationDocItem(typeDocItem, property, documentation),
+                            IProperty property => new PropertyDocItem(typeDocItem, property, documentation),
+                            IMethod method when method.IsExplicitInterfaceImplementation => new ExplicitInterfaceImplementationDocItem(typeDocItem, method, documentation),
+                            IMethod method when method.IsConstructor => new ConstructorDocItem(typeDocItem, method, documentation),
+                            IMethod method when method.IsOperator => new OperatorDocItem(typeDocItem, method, documentation),
+                            IMethod method => new MethodDocItem(typeDocItem, method, documentation),
+                            IEvent @event => new EventDocItem(typeDocItem, @event, documentation),
+                            _ => throw new NotSupportedException()
+                        });
                     }
-
-                    if (!TryGetDocumentation(entity, out XElement documentation) && !settings.IncludeUndocumentedItems)
-                    {
-                        _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": no documentation");
-                        continue;
-                    }
-
-                    if (documentation.HasExclude())
-                    {
-                        _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": exclude tag found in documentation");
-                        continue;
-                    }
-
-                    showType = true;
-
-                    Add(entity switch
-                    {
-                        IField field when typeDocItem is EnumDocItem enumDocItem => new EnumFieldDocItem(enumDocItem, field, documentation),
-                        IField field => new FieldDocItem(typeDocItem, field, documentation),
-                        IProperty property when property.IsExplicitInterfaceImplementation => new ExplicitInterfaceImplementationDocItem(typeDocItem, property, documentation),
-                        IProperty property => new PropertyDocItem(typeDocItem, property, documentation),
-                        IMethod method when method.IsExplicitInterfaceImplementation => new ExplicitInterfaceImplementationDocItem(typeDocItem, method, documentation),
-                        IMethod method when method.IsConstructor => new ConstructorDocItem(typeDocItem, method, documentation),
-                        IMethod method when method.IsOperator => new OperatorDocItem(typeDocItem, method, documentation),
-                        IMethod method => new MethodDocItem(typeDocItem, method, documentation),
-                        IEvent @event => new EventDocItem(typeDocItem, @event, documentation),
-                        _ => throw new NotSupportedException()
-                    });
                 }
 
                 if (showType)

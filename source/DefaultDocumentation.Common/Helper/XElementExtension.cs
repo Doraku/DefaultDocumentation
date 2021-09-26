@@ -40,7 +40,7 @@ namespace DefaultDocumentation.Helper
 
         public static bool? GetIgnoreLineBreak(this XElement element) => bool.TryParse(element.Attribute("ignorelinebreak")?.Value, out bool ignoreLineBreak) ? ignoreLineBreak : null;
 
-        public static bool HasExclude(this XElement element) => element.Descendants("exclude").Any();
+        public static bool HasExclude(this XElement element) => element?.Descendants("exclude").Any() ?? false;
 
         public static bool HasInheritDoc(this XElement element, out XElement inheritDoc)
         {
