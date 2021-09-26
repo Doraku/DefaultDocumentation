@@ -118,6 +118,7 @@ namespace DefaultDocumentation
                 }
 
                 TypeDocItem typeDocItem = GetDocItem(type, parentDocItem);
+                docItemsToAdd.Add(typeDocItem);
 
                 if (typeDocItem.Documentation.HasExclude())
                 {
@@ -167,6 +168,7 @@ namespace DefaultDocumentation
 
                         Add(entity switch
                         {
+                            IField field when typeDocItem is EnumDocItem enumDocItem && field.Name == "value__" => null,
                             IField field when typeDocItem is EnumDocItem enumDocItem => new EnumFieldDocItem(enumDocItem, field, documentation),
                             IField field => new FieldDocItem(typeDocItem, field, documentation),
                             IProperty property when property.IsExplicitInterfaceImplementation => new ExplicitInterfaceImplementationDocItem(typeDocItem, property, documentation),
@@ -187,8 +189,6 @@ namespace DefaultDocumentation
                     {
                         Add(docItem);
                     }
-
-                    Add(typeDocItem);
                 }
                 else
                 {
@@ -304,14 +304,17 @@ namespace DefaultDocumentation
 
         private void Add(DocItem item)
         {
-            if (!_items.ContainsKey(item.Id))
+            if (item != null)
             {
-                _logger.Debug($"adding DocItem \"{item}\" with id \"{item.Id}\"");
-                _items.Add(item.Id, item);
-            }
-            else
-            {
-                _logger.Warn($"duplicate DocItem \"{item}\" with id \"{item.Id}\" ignored");
+                if (!_items.ContainsKey(item.Id))
+                {
+                    _logger.Debug($"adding DocItem \"{item}\" with id \"{item.Id}\"");
+                    _items.Add(item.Id, item);
+                }
+                else
+                {
+                    _logger.Warn($"duplicate DocItem \"{item}\" with id \"{item.Id}\" ignored");
+                }
             }
         }
 
