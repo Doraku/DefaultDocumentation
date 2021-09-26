@@ -134,15 +134,10 @@ namespace DefaultDocumentation
                     {
                         _logger.Debug($"handling member \"{entity.FullName}\"");
 
-                        if (entity.IsCompilerGenerated())
+                        if (entity.IsCompilerGenerated()
+                            || (entity is IField && typeDocItem is EnumDocItem && entity.Name == "value__"))
                         {
                             _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": compiler generated");
-                            continue;
-                        }
-
-                        if (entity.IsDefaultConstructor())
-                        {
-                            _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": default constructor");
                             continue;
                         }
 
@@ -164,11 +159,16 @@ namespace DefaultDocumentation
                             continue;
                         }
 
+                        if (entity.IsDefaultConstructor() && documentation is null)
+                        {
+                            _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": default constructor");
+                            continue;
+                        }
+
                         showType = true;
 
                         Add(entity switch
                         {
-                            IField field when typeDocItem is EnumDocItem enumDocItem && field.Name == "value__" => null,
                             IField field when typeDocItem is EnumDocItem enumDocItem => new EnumFieldDocItem(enumDocItem, field, documentation),
                             IField field => new FieldDocItem(typeDocItem, field, documentation),
                             IProperty property when property.IsExplicitInterfaceImplementation => new ExplicitInterfaceImplementationDocItem(typeDocItem, property, documentation),
@@ -304,17 +304,14 @@ namespace DefaultDocumentation
 
         private void Add(DocItem item)
         {
-            if (item != null)
+            if (!_items.ContainsKey(item.Id))
             {
-                if (!_items.ContainsKey(item.Id))
-                {
-                    _logger.Debug($"adding DocItem \"{item}\" with id \"{item.Id}\"");
-                    _items.Add(item.Id, item);
-                }
-                else
-                {
-                    _logger.Warn($"duplicate DocItem \"{item}\" with id \"{item.Id}\" ignored");
-                }
+                _logger.Debug($"adding DocItem \"{item}\" with id \"{item.Id}\"");
+                _items.Add(item.Id, item);
+            }
+            else
+            {
+                _logger.Warn($"duplicate DocItem \"{item}\" with id \"{item.Id}\" ignored");
             }
         }
 
