@@ -62,9 +62,15 @@ namespace DefaultDocumentation
             {
                 _logger.Debug($"handling type \"{type.FullName}\"");
 
-                if (type.IsCompilerGenerated())
+                if (type.IsCompilerGenerated() || type.IsCompilerGeneratedOrIsInCompilerGeneratedClass())
                 {
                     _logger.Debug($"Skipping documentation for type \"{type.FullName}\": compiler generated");
+                    continue;
+                }
+
+                if (String.IsNullOrWhiteSpace(type.Namespace))
+                {
+                    _logger.Debug($"Skipping documentation for type \"{type.FullName}\": empty namespace");
                     continue;
                 }
 
@@ -135,6 +141,7 @@ namespace DefaultDocumentation
                         _logger.Debug($"handling member \"{entity.FullName}\"");
 
                         if (entity.IsCompilerGenerated()
+                            || entity.IsCompilerGeneratedOrIsInCompilerGeneratedClass()
                             || (entity is IField && typeDocItem is EnumDocItem && entity.Name == "value__"))
                         {
                             _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": compiler generated");
