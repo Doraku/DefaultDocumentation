@@ -62,7 +62,7 @@ namespace DefaultDocumentation
             {
                 _logger.Debug($"handling type \"{type.FullName}\"");
 
-                if (type.IsCompilerGenerated() || type.IsCompilerGeneratedOrIsInCompilerGeneratedClass())
+                if (type.IsCompilerGenerated())
                 {
                     _logger.Debug($"Skipping documentation for type \"{type.FullName}\": compiler generated");
                     continue;
@@ -105,6 +105,13 @@ namespace DefaultDocumentation
                     {
                         declaringTypeDocItem = GetDocItem(currentType, parentDocItem);
 
+                        if (currentType.IsCompilerGenerated())
+                        {
+                            _logger.Debug($"Skipping documentation for type \"{type.FullName}\": declaring type \"{declaringTypeDocItem.FullName}\" is compiler generated");
+                            parentDocItem = null;
+                            break;
+                        }
+
                         if (declaringTypeDocItem.Documentation?.HasExclude() is true)
                         {
                             _logger.Debug($"Skipping documentation for type \"{type.FullName}\": exclude tag found in declaring type \"{declaringTypeDocItem.FullName}\" documentation");
@@ -141,7 +148,6 @@ namespace DefaultDocumentation
                         _logger.Debug($"handling member \"{entity.FullName}\"");
 
                         if (entity.IsCompilerGenerated()
-                            || entity.IsCompilerGeneratedOrIsInCompilerGeneratedClass()
                             || (entity is IField && typeDocItem is EnumDocItem && entity.Name == "value__"))
                         {
                             _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": compiler generated");
