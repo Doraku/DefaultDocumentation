@@ -24,6 +24,7 @@ namespace DefaultDocumentation.Writer
         private readonly Func<DocItem, string> _urlFactory;
 
         private bool _ignoreLineBreak;
+        private bool _displayAsSingleLine;
 
         public MarkdownWriter(Settings settings)
             : base(settings)
@@ -57,6 +58,7 @@ namespace DefaultDocumentation.Writer
             };
 
             _ignoreLineBreak = settings.IgnoreLineBreak;
+            _displayAsSingleLine = false;
         }
 
         private static string ToLink(string url, string displayedName = null) => $"[{(displayedName ?? url).Prettify()}]({url} '{url}')";
@@ -113,7 +115,7 @@ namespace DefaultDocumentation.Writer
             };
         }
 
-        private void WriteText(DocItem item, XElement element, string title = null, bool isPreview = false)
+        private void WriteText(DocItem item, XElement element, string title = null)
         {
             if (element is null)
             {
@@ -162,7 +164,7 @@ namespace DefaultDocumentation.Writer
                     isNewLine = currentLine < lines.Length - 1;
                     if (isNewLine)
                     {
-                        if (isPreview)
+                        if (_displayAsSingleLine)
                         {
                             if (_ignoreLineBreak)
                             {
@@ -220,7 +222,7 @@ namespace DefaultDocumentation.Writer
 
             StringBuilder WritePara(XElement element)
             {
-                Func<StringBuilder> lineBreak = isPreview ? () => _builder.Append("<br/><br/>") : () => _builder.AppendLine().AppendLine();
+                Func<StringBuilder> lineBreak = _displayAsSingleLine ? () => _builder.Append("<br/><br/>") : () => _builder.AppendLine().AppendLine();
 
                 if (textStart < _builder.Length)
                 {
@@ -234,6 +236,11 @@ namespace DefaultDocumentation.Writer
 
             StringBuilder WriteCode(XElement element)
             {
+                if (_displayAsSingleLine)
+                {
+                    return _builder;
+                }
+
                 using RollbackSetter<bool> _ = new(() => ref _ignoreLineBreak, true);
 
                 _builder.Append("```").AppendLine(element.GetLanguageAttribute() ?? "csharp");
@@ -258,40 +265,118 @@ namespace DefaultDocumentation.Writer
                 return _builder.AppendLine("```");
             }
 
+            StringBuilder WriteBulletList(XElement element)
+            {
+                if (_displayAsSingleLine)
+                {
+                    return _builder;
+                }
+
+                using RollbackSetter<bool> _ = new(() => ref _displayAsSingleLine, true);
+
+                foreach (XElement item in element.GetItems())
+                {
+                    _builder.Append("- ");
+                    WriteNodes(item);
+                    _builder.AppendLine();
+                }
+
+                return _builder.AppendLine();
+            }
+
+            StringBuilder WriteNumberList(XElement element)
+            {
+                if (_displayAsSingleLine)
+                {
+                    return _builder;
+                }
+
+                using RollbackSetter<bool> _ = new(() => ref _displayAsSingleLine, true);
+                int count = 1;
+
+                foreach (XElement item in element.GetItems())
+                {
+                    _builder.Append(count++).Append(". ");
+                    WriteNodes(item);
+                    _builder.AppendLine();
+                }
+
+                return _builder.AppendLine();
+            }
+
+            StringBuilder WriteTableList(XElement element)
+            {
+                if (_displayAsSingleLine)
+                {
+                    return _builder;
+                }
+
+                using RollbackSetter<bool> _ = new(() => ref _displayAsSingleLine, true);
+                int columnCount = 0;
+
+                foreach (XElement description in element.GetListHeader().GetDescriptions())
+                {
+                    _builder.Append('|');
+                    WriteNodes(description);
+                    ++columnCount;
+                }
+                _builder.AppendLine("|");
+
+                while (columnCount-- > 0)
+                {
+                    _builder.Append("|-");
+                }
+                _builder.AppendLine("|");
+
+                foreach (XElement item in element.GetItems())
+                {
+                    foreach (XElement description in item.GetDescriptions())
+                    {
+                        _builder.Append('|');
+                        WriteNodes(description);
+                    }
+                    _builder.AppendLine("|");
+                }
+
+                return _builder.AppendLine();
+            }
+
             void WriteNodes(XElement parent)
             {
-                using (new RollbackSetter<bool>(() => ref _ignoreLineBreak, parent.GetIgnoreLineBreak() ?? _ignoreLineBreak))
-                {
-                    foreach (XNode node in parent.Nodes())
-                    {
-                        _ = node switch
-                        {
-                            XText text => WriteText(text.Value),
-                            XElement element => element.Name.ToString() switch
-                            {
-                                "see" => WriteSee(element),
-                                "seealso" => _builder,
-                                "typeparamref" => _builder.Append(item.TryGetTypeParameterDocItem(element.GetNameAttribute(), out TypeParameterDocItem typeParameter) ? GetLink(typeParameter) : element.GetNameAttribute()),
-                                "paramref" => _builder.Append(item.TryGetParameterDocItem(element.GetNameAttribute(), out ParameterDocItem parameter) ? GetLink(parameter) : element.GetNameAttribute()),
-                                "c" => _builder.Append('`').Append(element.Value).Append('`'),
-                                "code" => isPreview ? _builder : WriteCode(element),
-                                "para" => WritePara(element),
-                                _ => WriteText(element.ToString()),
-                            },
-                            _ => throw new Exception($"unhandled node type in summary {node.NodeType}")
-                        };
+                using RollbackSetter<bool> __ = new(() => ref _ignoreLineBreak, parent.GetIgnoreLineBreak() ?? _ignoreLineBreak);
 
-                        if (node is XElement)
+                foreach (XNode node in parent.Nodes())
+                {
+                    _ = node switch
+                    {
+                        XText text => WriteText(text.Value),
+                        XElement element => element.Name.ToString() switch
                         {
-                            isNewLine = false;
-                        }
+                            "see" => WriteSee(element),
+                            "seealso" => _builder,
+                            "typeparamref" => _builder.Append(item.TryGetTypeParameterDocItem(element.GetNameAttribute(), out TypeParameterDocItem typeParameter) ? GetLink(typeParameter) : element.GetNameAttribute()),
+                            "paramref" => _builder.Append(item.TryGetParameterDocItem(element.GetNameAttribute(), out ParameterDocItem parameter) ? GetLink(parameter) : element.GetNameAttribute()),
+                            "c" => _builder.Append('`').Append(element.Value).Append('`'),
+                            "code" => WriteCode(element),
+                            "para" => WritePara(element),
+                            "list" when element.GetTypeAttribute() == "bullet" => WriteBulletList(element),
+                            "list" when element.GetTypeAttribute() == "number" => WriteNumberList(element),
+                            "list" when element.GetTypeAttribute() == "table" => WriteTableList(element),
+                            _ => WriteText(element.ToString()),
+                        },
+                        _ => throw new Exception($"unhandled node type in summary {node.NodeType}")
+                    };
+
+                    if (node is XElement)
+                    {
+                        isNewLine = false;
                     }
                 }
             }
 
             WriteNodes(element);
 
-            if (!isPreview)
+            if (!_displayAsSingleLine)
             {
                 _builder.AppendLine();
 
@@ -553,7 +638,9 @@ namespace DefaultDocumentation.Writer
                         .Append(GetLink(item, item is TypeDocItem ? string.Join(".", GetAllDeclaringTypes(item).Reverse().Select(i => i.Name)) : null))
                         .Append(" | ");
 
-                    WriteText(item, item.Documentation.GetSummary(), null, true);
+                    using RollbackSetter<bool> _ = new(() => ref _displayAsSingleLine, true);
+
+                    WriteText(item, item.Documentation.GetSummary(), null);
 
                     _builder.AppendLine(" |");
                 }

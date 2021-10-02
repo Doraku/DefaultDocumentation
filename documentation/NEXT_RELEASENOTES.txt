@@ -1,1 +1,5 @@
 fixed nested types in generated types and empty namespace showing when using IncludeUndocumentedItems (thanks to @hairlesshobo)
+
+---
+
+added support for list (type bullet, number or table) elements (#44)

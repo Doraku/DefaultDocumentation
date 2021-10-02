@@ -21,7 +21,29 @@ namespace Dummy
     }
 
     /// <summary>
-    /// pouet<br />pouet<br/>pouet<b>kapoue</b>
+    /// pouet<br />pouet<br/>pouet<b>kapoue</b>.
+    /// <list type="bullet">
+    /// <item>pouet</item>
+    /// <item>pouet</item>
+    /// </list>
+    /// <list type="number">
+    /// <item>pouet</item>
+    /// <item>pouet</item>
+    /// </list>
+    /// <list type="table">
+    /// <listheader>
+    /// <description>kikoo</description>
+    /// <description>lol</description>
+    /// </listheader>
+    /// <item>
+    /// <description>pouet</description>
+    /// <description>pouet</description>
+    /// </item>
+    /// <item>
+    /// <description>pouet</description>
+    /// <description>pouet</description>
+    /// </item>
+    /// </list>
     /// </summary>
     public class DummyClass
     {
@@ -50,7 +72,7 @@ namespace Dummy
         /// dummy record
         /// </summary>
         public record DummyRecord(int Id, string Value);
-        
+
         public unsafe delegate*<DummyClass, object, int> DummyFunctionPointer;
 
         /// <summary>
