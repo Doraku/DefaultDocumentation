@@ -50,6 +50,12 @@ namespace DefaultDocumentation
 
         public string LinksBaseUrl { get; }
 
+        /// <summary>
+        /// The file where the item list will be written.
+        /// </summary>
+        /// <value>Item/member list file?</value>
+        public FileInfo ItemListFile { get; }
+
         public FileInfo[] ExternLinksFiles { get; }
 
         public Settings(
@@ -70,6 +76,7 @@ namespace DefaultDocumentation
             bool ignoreLineBreak,
             string linksOutputFile,
             string linksBaseUrl,
+            string itemListFile,
             IEnumerable<string> externlinksFilePaths)
         {
             LoggingConfiguration logConfiguration = new();
@@ -126,6 +133,9 @@ namespace DefaultDocumentation
 
             LinksBaseUrl = linksBaseUrl ?? string.Empty;
             Logger.Info($"{nameof(LinksBaseUrl)}: {LinksBaseUrl}");
+
+            ItemListFile = string.IsNullOrEmpty(itemListFile) ? null : new FileInfo(itemListFile);
+            Logger.Info($"{nameof(ItemListFile)}: {ItemListFile.FullName}");
 
             ExternLinksFiles = (externlinksFilePaths ?? Enumerable.Empty<string>()).SelectMany(GetFilePaths).Distinct().Select(f => new FileInfo(f)).Where(f => f.Exists && f.FullName != LinksOutputFile?.FullName).ToArray();
             Logger.Info($"{nameof(ExternLinksFiles)}:{string.Concat(ExternLinksFiles.Select(f => $"{Environment.NewLine}\t{f.FullName}"))}");

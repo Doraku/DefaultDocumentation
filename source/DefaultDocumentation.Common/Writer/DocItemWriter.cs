@@ -117,7 +117,7 @@ namespace DefaultDocumentation.Writer
                 }
             }
 
-            if (_settings.LinksOutputFile != null)
+            if (_settings.LinksOutputFile is not null)
             {
                 _settings.Logger.Debug($"Writing links to file \"{_settings.LinksOutputFile.FullName}\"");
 
@@ -136,7 +136,51 @@ namespace DefaultDocumentation.Writer
                 }
             }
 
+            if (_settings.ItemListFile is not null)
+            {
+                _settings.Logger.Debug($"Writing item list to file \"{_settings.ItemListFile.FullName}\"");
+
+                _settings.ItemListFile.Directory.Create();
+
+                using StreamWriter writer = _settings.ItemListFile.CreateText();
+
+                // Write assembly as doc item
+                DocItem assembly = Items.First(x => x.Parent is null);
+
+                WriteListedItem(writer, assembly);
+            }
+
             _settings.Logger.Info($"Documentation generated to output folder \"{_settings.OutputDirectory}\"");
+        }
+        /// <summary>
+        /// Writes item and its children to a list file.
+        /// </summary>
+        /// <param name="writer">The writer of the list file</param>
+        /// <param name="item">The item to write</param>
+        /// <param name="indent">The indent at the start of the item</param>
+        private void WriteListedItem(StreamWriter writer, DocItem item, string indent = "")
+        {
+            // Determine whether to write this item into the list and indent its children
+            bool itemHasPage = HasOwnPage(item);
+            string childIndent = itemHasPage ? indent + "  " : indent;
+
+            if(itemHasPage)
+            {
+                writer.Write(indent);
+                writer.Write("- [");
+                writer.Write(item.Name);
+                writer.Write("](");
+                writer.Write(GetUrl(item));
+                writer.Write(" '");
+                writer.Write(item.FullName);
+                writer.WriteLine("')");
+            }
+
+            // Recursive: Write parent's children as well, but more indented
+            foreach(DocItem child in item.Children.Where(HasOwnPage))
+            {
+                WriteListedItem(writer, child, childIndent);
+            }
         }
     }
 }

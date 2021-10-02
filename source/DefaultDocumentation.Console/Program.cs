@@ -48,6 +48,7 @@ namespace DefaultDocumentation
                         a.IgnoreLineBreak,
                         a.LinksOutputFilePath,
                         a.LinksBaseUrl,
+                        a.ItemListFile,
                         a.ExternLinksFilePaths));
                 });
         }

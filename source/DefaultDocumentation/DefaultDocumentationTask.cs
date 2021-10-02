@@ -38,6 +38,12 @@ namespace DefaultDocumentation
 
         public string LinksBaseUrl { get; set; }
 
+        /// <summary>
+        /// The file where the item list will be written.
+        /// </summary>
+        /// <value>Item/member list file?</value>
+        public string ItemListFile { get; set; }
+
         public string ExternLinksFilePaths { get; set; }
 
         public override bool Execute()
@@ -65,6 +71,7 @@ namespace DefaultDocumentation
                 IgnoreLineBreak,
                 LinksOutputFilePath,
                 LinksBaseUrl,
+                ItemListFile,
                 (ExternLinksFilePaths ?? string.Empty).Split('|')));
 
             return true;
