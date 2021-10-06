@@ -341,6 +341,40 @@ namespace DefaultDocumentation.Writer
                 return _builder.AppendLine();
             }
 
+            StringBuilder WriteNote(XElement element)
+            {
+                string type = element.GetTypeAttribute()?.ToLower();
+                string prefix = type switch
+                {
+                    "note" or "tip" or "caution" or "warning" or "important" or "security" or "security note" => char.ToUpper(type.First()) + type.Substring(1),
+                    "implement" => "Implementing",
+                    "inherit" => "Inheriting",
+                    "caller" => "Calling",
+                    
+                    "cs" or "csharp" or "c#" or "visual c#" or "visual c# note" => "C# only",
+                    "vb" or "vbnet" or "vb.net" or "visualbasic" or "visual basic" or "visual basic note" => "VB.NET only",
+                    "fs" or "fsharp" or "f#" => "F# only",
+                    // Legacy languages; SandCastle supported
+                    // "cpp" or "c++" or "visual c++" or "visual c++ note" => "C++ only",
+                    // "jsharp" or "j#" or "visual j#" or "visual j# note" => "J# only",
+
+                    _ => string.Empty
+                };
+
+                using RollbackSetter<bool> _ = new(() => ref _displayAsSingleLine, true);
+
+                _builder.Append("> ");
+
+                // type="note" -> **Note:** ...
+                if(!string.IsNullOrEmpty(prefix))
+                    _builder.Append("**").Append(prefix).Append(":** ");
+                
+                WriteNodes(element);
+
+                // Append 2 lines to prevent from notes merging or taking paragraphs inside notes
+                return _builder.AppendLine().AppendLine();
+            }
+
             void WriteNodes(XElement parent)
             {
                 using RollbackSetter<bool> __ = new(() => ref _ignoreLineBreak, parent.GetIgnoreLineBreak() ?? _ignoreLineBreak);
@@ -362,6 +396,7 @@ namespace DefaultDocumentation.Writer
                             "list" when element.GetTypeAttribute() == "bullet" => WriteBulletList(element),
                             "list" when element.GetTypeAttribute() == "number" => WriteNumberList(element),
                             "list" when element.GetTypeAttribute() == "table" => WriteTableList(element),
+                            "note" => WriteNote(element),
                             _ => WriteText(element.ToString()),
                         },
                         _ => throw new Exception($"unhandled node type in summary {node.NodeType}")

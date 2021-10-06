@@ -58,6 +58,14 @@ namespace Dummy
         /// <typeparam name="T"></typeparam>
         /// <remarks>
         /// pouet
+        /// <note type="note">Fizz</note>
+        /// <note type="C#">Buzz</note>
+        /// <note type="VB.NET">Foo</note>
+        /// <note type="security">
+        /// <p>Bar</p>
+        /// <p>Testo
+        /// Testus</p>
+        /// </note>
         /// </remarks>        
         /// <code source=""/>
         public class DummyNested<T>
