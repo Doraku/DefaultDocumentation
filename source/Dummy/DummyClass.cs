@@ -62,9 +62,48 @@ namespace Dummy
         /// <note type="C#">Buzz</note>
         /// <note type="VB.NET">Foo</note>
         /// <note type="security">
-        /// <p>Bar</p>
-        /// <p>Testo
-        /// Testus</p>
+        /// <para>Bar</para>
+        /// <para>Testo
+        /// Testus</para>
+        /// </note>
+        /// <list type="bullet">
+        /// <item>
+        /// <para>Abc</para>
+        /// <note>Def</note>
+        /// <note type="security">Ghi</note>
+        /// </item>
+        /// </list>
+        /// <note>
+        /// <code language="csharp">
+        /// test
+        /// </code>
+        /// <list type="bullet">
+        /// <item>
+        /// <para>Abc</para>
+        /// <note>Def</note>
+        /// <note type="security">Ghi</note>
+        /// </item>
+        /// <item>
+        /// <para>Item in a list that is in a note</para>
+        /// </item>
+        /// </list>
+        /// <list type="table">
+        /// <listheader>
+        /// <description></description>
+        /// <description>A</description>
+        /// <description>a</description>
+        /// </listheader>
+        /// <item>
+        /// <description>A</description>
+        /// <description>AA</description>
+        /// <description>Aa</description>
+        /// </item>
+        /// <item>
+        /// <description>a</description>
+        /// <description>Aa</description>
+        /// <description>aa</description>
+        /// </item>
+        /// </list>
         /// </note>
         /// </remarks>        
         /// <code source=""/>

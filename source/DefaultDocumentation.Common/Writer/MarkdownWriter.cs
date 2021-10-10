@@ -131,7 +131,7 @@ namespace DefaultDocumentation.Writer
             int? startIndex = default;
             bool isNewLine = true;
 
-            StringBuilder WriteText(string text)
+            StringBuilder WriteText(string text, string prefix = null)
             {
                 string[] lines = text.Split('\n');
                 int currentLine = 0;
@@ -177,11 +177,11 @@ namespace DefaultDocumentation.Writer
                         }
                         else if (_ignoreLineBreak)
                         {
-                            _builder.AppendLine();
+                            _builder.AppendPrefixedLine(prefix);
                         }
                         else
                         {
-                            _builder.AppendLine("  ");
+                            _builder.AppendPrefixedLine("  ", prefix);
                         }
                     }
                 }
@@ -220,36 +220,45 @@ namespace DefaultDocumentation.Writer
                 return _builder;
             }
 
-            StringBuilder WritePara(XElement element)
+            StringBuilder WritePara(XElement element, int i, string prefix = null)
             {
-                Func<StringBuilder> lineBreak = _displayAsSingleLine ? () => _builder.Append("<br/><br/>") : () => _builder.AppendLine().AppendLine();
+                Func<StringBuilder> lineBreak = _displayAsSingleLine ? () => _builder.Append("<br/><br/>") : () => _builder.AppendPrefixedLine(prefix).AppendLine();
 
-                if (textStart < _builder.Length)
+                if (i != 0)
                 {
-                    lineBreak();
+                    if (textStart < _builder.Length)
+                    {
+                        lineBreak();
+                    }
+                    // Don't append the prefix if it's not first, because parent
+                    // will append it instead.
+                    _builder.Append(prefix);
                 }
 
-                WriteNodes(element);
+                WriteNodes(element, prefix);
 
                 return lineBreak();
             }
 
-            StringBuilder WriteCode(XElement element)
+            StringBuilder WriteCode(XElement element, int i, string prefix = null)
             {
                 if (_displayAsSingleLine)
                 {
                     return _builder;
                 }
 
-                using RollbackSetter<bool> _ = new(() => ref _ignoreLineBreak, true);
+                // Don't append the prefix if it's not first, because parent
+                // will append it instead.
+                if (i != 0)
+                    _builder.Append(prefix);
 
-                _builder.Append("```").AppendLine(element.GetLanguageAttribute() ?? "csharp");
+                _builder.Append("```").AppendPrefixedLine(element.GetLanguageAttribute() ?? "csharp", prefix);
 
                 string source = element.GetSourceAttribute();
 
                 if (source is null)
                 {
-                    WriteText(element.Value);
+                    WriteText(element.Value, prefix);
                 }
                 else
                 {
@@ -257,7 +266,7 @@ namespace DefaultDocumentation.Writer
                     isNewLine = true;
                     startIndex = null;
 
-                    WriteText(GetCode(source, element.GetRegionAttribute()));
+                    WriteText(GetCode(source, element.GetRegionAttribute()), prefix);
 
                     startIndex = previousStartIndex;
                 }
@@ -265,26 +274,35 @@ namespace DefaultDocumentation.Writer
                 return _builder.AppendLine("```");
             }
 
-            StringBuilder WriteBulletList(XElement element)
+            StringBuilder WriteBulletList(XElement element, int i, string prefix = null)
             {
                 if (_displayAsSingleLine)
                 {
                     return _builder;
                 }
 
-                using RollbackSetter<bool> _ = new(() => ref _displayAsSingleLine, true);
+                string newPrefix = prefix + "  ";
+
+                bool needsPrefix = false;
 
                 foreach (XElement item in element.GetItems())
                 {
+                    // Don't append the prefix if it's not first, because parent
+                    // will append it instead.
+                    if (i != 0 || needsPrefix)
+                        _builder.Append(prefix);
+                    else
+                        needsPrefix = true;
+
                     _builder.Append("- ");
-                    WriteNodes(item);
-                    _builder.AppendLine();
+                    WriteNodes(item, newPrefix);
+                    _builder.AppendLine(newPrefix);
                 }
 
-                return _builder.AppendLine();
+                return _builder.AppendLine(prefix);
             }
 
-            StringBuilder WriteNumberList(XElement element)
+            StringBuilder WriteNumberList(XElement element, int i, string prefix = null)
             {
                 if (_displayAsSingleLine)
                 {
@@ -292,19 +310,25 @@ namespace DefaultDocumentation.Writer
                 }
 
                 using RollbackSetter<bool> _ = new(() => ref _displayAsSingleLine, true);
+                string newPrefix = prefix + "  ";
                 int count = 1;
 
                 foreach (XElement item in element.GetItems())
                 {
+                    // Don't append the prefix if it's not first, because parent
+                    // will append it instead.
+                    if (i != 0 || count != 1)
+                        _builder.Append(prefix);
+
                     _builder.Append(count++).Append(". ");
-                    WriteNodes(item);
-                    _builder.AppendLine();
+                    WriteNodes(item, newPrefix);
+                    _builder.AppendLine(prefix);
                 }
 
                 return _builder.AppendLine();
             }
 
-            StringBuilder WriteTableList(XElement element)
+            StringBuilder WriteTableList(XElement element, int i, string prefix = null)
             {
                 if (_displayAsSingleLine)
                 {
@@ -314,43 +338,51 @@ namespace DefaultDocumentation.Writer
                 using RollbackSetter<bool> _ = new(() => ref _displayAsSingleLine, true);
                 int columnCount = 0;
 
+                // Don't append the prefix if it's not first, because parent
+                // will append it instead.
+                if (i != 0)
+                    _builder.Append(prefix);
+
                 foreach (XElement description in element.GetListHeader().GetDescriptions())
                 {
                     _builder.Append('|');
-                    WriteNodes(description);
+                    WriteNodes(description, prefix);
                     ++columnCount;
                 }
-                _builder.AppendLine("|");
+                _builder.AppendPrefixedLine("|", prefix);
 
                 while (columnCount-- > 0)
                 {
                     _builder.Append("|-");
                 }
-                _builder.AppendLine("|");
+                _builder.AppendPrefixedLine("|", prefix);
 
                 foreach (XElement item in element.GetItems())
                 {
                     foreach (XElement description in item.GetDescriptions())
                     {
                         _builder.Append('|');
-                        WriteNodes(description);
+                        WriteNodes(description, prefix);
                     }
-                    _builder.AppendLine("|");
+                    _builder.AppendPrefixedLine("|", prefix);
                 }
 
-                return _builder.AppendLine();
+                return _builder.AppendPrefixedLine(prefix);
             }
 
-            StringBuilder WriteNote(XElement element)
+            StringBuilder WriteNote(XElement element, int i, string prefix = null)
             {
+                // Don't display it in tables
+                if (_displayAsSingleLine) return _builder;
+
                 string type = element.GetTypeAttribute()?.ToLower();
-                string prefix = type switch
+                string notePrefix = type switch
                 {
-                    "note" or "tip" or "caution" or "warning" or "important" or "security" or "security note" => char.ToUpper(type.First()) + type.Substring(1),
+                    "note" or "tip" or "caution" or "warning" or "important" or "security" or "security note" => char.ToUpper(type[0]) + type.Substring(1),
                     "implement" => "Implementing",
                     "inherit" => "Inheriting",
                     "caller" => "Calling",
-                    
+
                     "cs" or "csharp" or "c#" or "visual c#" or "visual c# note" => "C# only",
                     "vb" or "vbnet" or "vb.net" or "visualbasic" or "visual basic" or "visual basic note" => "VB.NET only",
                     "fs" or "fsharp" or "f#" => "F# only",
@@ -360,30 +392,37 @@ namespace DefaultDocumentation.Writer
 
                     _ => string.Empty
                 };
-
-                using RollbackSetter<bool> _ = new(() => ref _displayAsSingleLine, true);
-
-                _builder.Append("> ");
+                string newPrefix = prefix + "> ";
 
                 // type="note" -> **Note:** ...
-                if(!string.IsNullOrEmpty(prefix))
-                    _builder.Append("**").Append(prefix).Append(":** ");
-                
-                WriteNodes(element);
+                if(!string.IsNullOrEmpty(notePrefix))
+                {
+                    // Don't append the prefix if it's not first, because parent
+                    // will append it instead.
+                    if (i != 0)
+                        _builder.Append(prefix);
+                    _builder.Append("> ").Append("**").Append(notePrefix).AppendLine(":** ");
+                }
+
+                _builder.Append(newPrefix);
+
+                WriteNodes(element, newPrefix);
 
                 // Append 2 lines to prevent from notes merging or taking paragraphs inside notes
-                return _builder.AppendLine().AppendLine();
+                return _builder.AppendPrefixedLine(prefix).AppendLine();
             }
 
-            void WriteNodes(XElement parent)
+            void WriteNodes(XElement parent, string prefix = null)
             {
                 using RollbackSetter<bool> __ = new(() => ref _ignoreLineBreak, parent.GetIgnoreLineBreak() ?? _ignoreLineBreak);
 
-                foreach (XNode node in parent.Nodes())
+                IEnumerable<XNode> nodes = parent.Nodes();
+                for(int i = 0; i < nodes.Count(); i++)
                 {
+                    XNode node = nodes.ElementAt(i);
                     _ = node switch
                     {
-                        XText text => WriteText(text.Value),
+                        XText text => WriteText(text.Value, prefix),
                         XElement element => element.Name.ToString() switch
                         {
                             "see" => WriteSee(element),
@@ -391,12 +430,12 @@ namespace DefaultDocumentation.Writer
                             "typeparamref" => _builder.Append(item.TryGetTypeParameterDocItem(element.GetNameAttribute(), out TypeParameterDocItem typeParameter) ? GetLink(typeParameter) : element.GetNameAttribute()),
                             "paramref" => _builder.Append(item.TryGetParameterDocItem(element.GetNameAttribute(), out ParameterDocItem parameter) ? GetLink(parameter) : element.GetNameAttribute()),
                             "c" => _builder.Append('`').Append(element.Value).Append('`'),
-                            "code" => WriteCode(element),
-                            "para" => WritePara(element),
-                            "list" when element.GetTypeAttribute() == "bullet" => WriteBulletList(element),
-                            "list" when element.GetTypeAttribute() == "number" => WriteNumberList(element),
-                            "list" when element.GetTypeAttribute() == "table" => WriteTableList(element),
-                            "note" => WriteNote(element),
+                            "code" => WriteCode(element, i, prefix),
+                            "para" => WritePara(element, i, prefix),
+                            "list" when element.GetTypeAttribute() == "bullet" => WriteBulletList(element, i, prefix),
+                            "list" when element.GetTypeAttribute() == "number" => WriteNumberList(element, i, prefix),
+                            "list" when element.GetTypeAttribute() == "table" => WriteTableList(element, i, prefix),
+                            "note" => WriteNote(element, i, prefix),
                             _ => WriteText(element.ToString()),
                         },
                         _ => throw new Exception($"unhandled node type in summary {node.NodeType}")
