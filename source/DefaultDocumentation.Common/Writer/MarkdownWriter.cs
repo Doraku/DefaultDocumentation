@@ -378,17 +378,18 @@ namespace DefaultDocumentation.Writer
                 string type = element.GetTypeAttribute()?.ToLower();
                 string notePrefix = type switch
                 {
-                    "note" or "tip" or "caution" or "warning" or "important" or "security" or "security note" => char.ToUpper(type[0]) + type.Substring(1),
-                    "implement" => "Implementing",
-                    "inherit" => "Inheriting",
-                    "caller" => "Calling",
+                    "note" or "tip" or "caution" or "warning" or "important" => char.ToUpper(type[0]) + type.Substring(1),
+                    "security" or "security note" => "Security Note",
+                    "implement" => "Notes to Implementers",
+                    "inherit" => "Notes to Inheritors",
+                    "caller" => "Notes to Callers",
 
-                    "cs" or "csharp" or "c#" or "visual c#" or "visual c# note" => "C# only",
-                    "vb" or "vbnet" or "vb.net" or "visualbasic" or "visual basic" or "visual basic note" => "VB.NET only",
-                    "fs" or "fsharp" or "f#" => "F# only",
+                    "cs" or "csharp" or "c#" or "visual c#" or "visual c# note" => "C# Note",
+                    "vb" or "vbnet" or "vb.net" or "visualbasic" or "visual basic" or "visual basic note" => "VB.NET Note",
+                    "fs" or "fsharp" or "f#" => "F# Note",
                     // Legacy languages; SandCastle supported
-                    // "cpp" or "c++" or "visual c++" or "visual c++ note" => "C++ only",
-                    // "jsharp" or "j#" or "visual j#" or "visual j# note" => "J# only",
+                    "cpp" or "c++" or "visual c++" or "visual c++ note" => "C++ Note",
+                    "jsharp" or "j#" or "visual j#" or "visual j# note" => "J# Note",
 
                     _ => string.Empty
                 };
