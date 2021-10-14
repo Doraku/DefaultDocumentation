@@ -222,7 +222,7 @@ namespace DefaultDocumentation.Writer
 
             StringBuilder WritePara(XElement element, int i, string prefix = null)
             {
-                Func<StringBuilder> lineBreak = _displayAsSingleLine ? () => _builder.Append("<br/><br/>") : () => _builder.AppendPrefixedLine(prefix).AppendLine();
+                Func<StringBuilder> lineBreak = _displayAsSingleLine ? () => _builder.Append("<br/><br/>") : () => _builder.AppendPrefixedLine(prefix).AppendPrefixedLine(prefix);
 
                 if (i != 0)
                 {
@@ -295,7 +295,7 @@ namespace DefaultDocumentation.Writer
                         needsPrefix = true;
 
                     _builder.Append("- ");
-                    WriteNodes(item, newPrefix);
+                    WriteListItem(item, newPrefix);
                     _builder.AppendLine(newPrefix);
                 }
 
@@ -321,11 +321,28 @@ namespace DefaultDocumentation.Writer
                         _builder.Append(prefix);
 
                     _builder.Append(count++).Append(". ");
-                    WriteNodes(item, newPrefix);
+                    WriteListItem(item, newPrefix);
                     _builder.AppendLine(prefix);
                 }
 
                 return _builder.AppendLine();
+            }
+
+            void WriteListItem(XElement element, string prefix)
+            {
+                XElement desc = element.GetDescription(),
+                         term = element.GetTerm();
+
+                if (term is not null)
+                {
+                    // TODO: Render only inlines
+                    WriteNodes(term, prefix);
+                    // Separate description and term
+                    WriteText(" — ");
+                }
+
+                if (desc is not null) WriteNodes(desc, prefix);
+                else WriteNodes(element, prefix);
             }
 
             StringBuilder WriteTableList(XElement element, int i, string prefix = null)
@@ -343,23 +360,31 @@ namespace DefaultDocumentation.Writer
                 if (i != 0)
                     _builder.Append(prefix);
 
-                foreach (XElement description in element.GetListHeader().GetDescriptions())
-                {
-                    _builder.Append('|');
-                    WriteNodes(description, prefix);
-                    ++columnCount;
-                }
-                _builder.AppendPrefixedLine("|", prefix);
+                var header = element.GetListHeader();
 
-                while (columnCount-- > 0)
+                if (header is not null)
                 {
-                    _builder.Append("|-");
+                    // Include descriptions and terms
+                    foreach (XElement item in header.Elements())
+                    {
+                        _builder.Append('|');
+                        WriteNodes(item);
+
+                        ++columnCount;
+                    }
+                    _builder.AppendPrefixedLine("|", prefix);
+
+                    while (columnCount-- > 0)
+                    {
+                        _builder.Append("|-");
+                    }
+                    _builder.AppendPrefixedLine("|", prefix);
                 }
-                _builder.AppendPrefixedLine("|", prefix);
 
                 foreach (XElement item in element.GetItems())
                 {
-                    foreach (XElement description in item.GetDescriptions())
+                    // Include both term and description
+                    foreach (XElement description in item.Elements())
                     {
                         _builder.Append('|');
                         WriteNodes(description, prefix);

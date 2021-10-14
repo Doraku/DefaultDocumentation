@@ -18,8 +18,6 @@ namespace DefaultDocumentation.Helper
 
         public static IEnumerable<XElement> GetItems(this XElement element) => element?.Descendants("item") ?? Enumerable.Empty<XElement>();
 
-        public static IEnumerable<XElement> GetDescriptions(this XElement element) => element?.Descendants("description") ?? Enumerable.Empty<XElement>();
-
         public static XElement GetReturns(this XElement element) => element?.Element("returns");
 
         public static XElement GetRemarks(this XElement element) => element?.Element("remarks");
@@ -29,6 +27,10 @@ namespace DefaultDocumentation.Helper
         public static XElement GetValue(this XElement element) => element?.Element("value");
 
         public static XElement GetListHeader(this XElement element) => element?.Element("listheader");
+
+        public static XElement GetDescription(this XElement element) => element?.Element("description");
+
+        public static XElement GetTerm(this XElement element) => element?.Element("term");
 
         public static string GetNameAttribute(this XElement element) => element.Attribute("name")?.Value;
 

@@ -44,6 +44,45 @@ namespace Dummy
     /// <description>pouet</description>
     /// </item>
     /// </list>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>
+    /// <see cref="DummyEnum"/>
+    /// </term>
+    /// <description>Description</description>
+    /// </item>
+    /// <item>
+    /// <term>Term</term>
+    /// <description>
+    /// <para>Para 1</para>
+    /// <para>Para 2</para>
+    /// </description>
+    /// </item>
+    /// <item>
+    /// <term>
+    /// <para>Para 1</para>
+    /// <para>Para 2</para>
+    /// </term>
+    /// <description>
+    /// <para>Para 3</para>
+    /// <para>Para 4</para>
+    /// </description>
+    /// </item>
+    /// </list>
+    /// <list type="table">
+    /// <listheader>
+    /// <term>Number</term>
+    /// <description>Description</description>
+    /// </listheader>
+    /// <item>
+    /// <term>0</term>
+    /// <description>Description</description>
+    /// </item>
+    /// <item>
+    /// <term>1</term>
+    /// <description>Description</description>
+    /// </item>
+    /// </list>
     /// </summary>
     public class DummyClass
     {
