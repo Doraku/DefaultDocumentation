@@ -11,7 +11,9 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Name_should_be_para() => Check.That(Name).IsEqualTo("para");
 
         [Fact]
-        public void Write_should_write() => Test(new XElement("para", "test"), $"test{Environment.NewLine}{Environment.NewLine}");
+        public void Write_should_write() => Test(
+            new XElement("para", "test"),
+            $"test{Environment.NewLine}{Environment.NewLine}");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(

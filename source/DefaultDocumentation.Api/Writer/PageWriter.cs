@@ -14,7 +14,6 @@ namespace DefaultDocumentation.Writer
     {
         private readonly StringBuilder _builder;
 
-        private bool _needPrefix;
         private bool _startingNewLine;
         private int? _textStartIndex;
         private string _linePrefix;
@@ -35,7 +34,6 @@ namespace DefaultDocumentation.Writer
         {
             _builder = builder;
 
-            _needPrefix = true;
             _startingNewLine = true;
             _linePrefix = string.Empty;
 
@@ -56,7 +54,7 @@ namespace DefaultDocumentation.Writer
 
         public PageWriter EnsureLineStart()
         {
-            if (!_needPrefix)
+            if (_builder.Length > 0 && (!_builder.EndsWith(Environment.NewLine) || (DisplayAsSingleLine && !_builder.EndsWith("<br/>"))))
             {
                 AppendLine();
             }
@@ -68,10 +66,9 @@ namespace DefaultDocumentation.Writer
         {
             if (!string.IsNullOrEmpty(text))
             {
-                if (_needPrefix)
+                if (_builder.Length is 0 || _builder.EndsWith(Environment.NewLine))
                 {
                     _builder.Append(_linePrefix);
-                    _needPrefix = false;
                 }
 
                 _builder.Append(text);
@@ -91,7 +88,6 @@ namespace DefaultDocumentation.Writer
                 else
                 {
                     _builder.AppendLine(IgnoreLineBreak ?? true ? string.Empty : "  ");
-                    _needPrefix = true;
                 }
             }
 
@@ -259,16 +255,21 @@ namespace DefaultDocumentation.Writer
 
                 while (true)
                 {
-                    if (_builder.Length > 2 && _builder.ToString(_builder.Length - 2, 2) == "  ")
+                    if (_builder.EndsWith(" "))
                     {
-                        _builder.Length -= 2;
+                        --_builder.Length;
                         continue;
                     }
 
-                    if (_builder.Length > Environment.NewLine.Length && _builder.ToString(_builder.Length - Environment.NewLine.Length, Environment.NewLine.Length) == Environment.NewLine)
+                    if (_builder.EndsWith("<br/>"))
+                    {
+                        _builder.Length -= 5;
+                        continue;
+                    }
+
+                    if (_builder.EndsWith(Environment.NewLine))
                     {
                         _builder.Length -= Environment.NewLine.Length;
-                        _needPrefix = false;
                         continue;
                     }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Xml.Linq;
 using DefaultDocumentation.Model;
@@ -16,15 +17,18 @@ namespace DefaultDocumentation.Markdown.Elements
         private readonly PageWriter _writer;
         private readonly T _elementWriter;
 
+        protected readonly string _tempFolder;
+
         public string Name => _elementWriter.Name;
 
-        public AElementWriterTest()
+        protected AElementWriterTest()
         {
+            _tempFolder = Path.GetTempPath();
             _builder = new StringBuilder();
             _docItem = new ExternDocItem("test", "test", "test");
             _writer = new PageWriter(
                 new DocumentationContext(
-                    new Settings(null, null, "test.dll", null, null, null, null, null, FileNameMode.FullName, false, NestedTypeVisibilities.Default, GeneratedPages.Default, GeneratedAccessModifiers.Default, false, false, null, null, null),
+                    new Settings(null, null, "test.dll", null, _tempFolder, null, null, null, FileNameMode.FullName, false, NestedTypeVisibilities.Default, GeneratedPages.Default, GeneratedAccessModifiers.Default, false, false, null, null, null),
                     GetSectionWriters(),
                     GetElementWriters(),
                     GetItems()),

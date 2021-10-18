@@ -43,7 +43,7 @@ namespace DefaultDocumentation.Markdown.Elements
                 return;
             }
 
-            using IDisposable _ = writer.ChangeIgnoreLineBreak(true);
+            writer = writer.With(writer.CurrentItem);
 
             writer
                 .EnsureLineStart()
@@ -52,18 +52,8 @@ namespace DefaultDocumentation.Markdown.Elements
 
             string source = element.GetSourceAttribute();
 
-            if (source is null)
-            {
-                writer.AppendMultiline(element.Value);
-            }
-            else
-            {
-                writer
-                    .With(writer.CurrentItem)
-                    .AppendMultiline(GetCode(writer.Context.Settings, source, element.GetRegionAttribute()));
-            }
-
             writer
+                .AppendMultiline(source is null ? element.Value : GetCode(writer.Context.Settings, source, element.GetRegionAttribute()))
                 .EnsureLineStart()
                 .AppendLine("```");
         }
