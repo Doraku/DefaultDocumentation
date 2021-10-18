@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <RootNamespace>DefaultDocumentation</RootNamespace>
     <TargetFramework>netstandard2.0</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DefaultDocumentation.Markdown\DefaultDocumentation.Markdown.csproj" />
+    <ProjectReference Include="..\DefaultDocumentation.Api\DefaultDocumentation.Api.csproj" />
   </ItemGroup>
 </Project>

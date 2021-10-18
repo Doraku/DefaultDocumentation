@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Internal;
 
 namespace DefaultDocumentation
 {
