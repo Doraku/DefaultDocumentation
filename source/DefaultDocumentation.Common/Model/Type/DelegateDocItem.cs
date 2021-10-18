@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using DefaultDocumentation.Model.Parameter;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
@@ -40,6 +39,6 @@ namespace DefaultDocumentation.Model.Type
             Parameters = InvokeMethod.Parameters.Select(p => new ParameterDocItem(this, p, documentation)).ToArray();
         }
 
-        public override void WriteDefinition(StringBuilder builder) => builder.AppendLine(CodeAmbience.ConvertSymbol(Type));
+        public override XElement Definition => new("code", CodeAmbience.ConvertSymbol(Type));
     }
 }

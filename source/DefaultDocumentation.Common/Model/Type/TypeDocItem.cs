@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using DefaultDocumentation.Model.Parameter;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
@@ -42,20 +41,22 @@ namespace DefaultDocumentation.Model.Type
             TypeParameters = Type.TypeParameters.Select(p => new TypeParameterDocItem(this, p, documentation)).ToArray();
         }
 
-        public virtual void WriteDefinition(StringBuilder builder)
+        public virtual XElement Definition
         {
-            builder.Append(CodeAmbience.ConvertSymbol(Type));
-            IType baseType = Type.DirectBaseTypes.FirstOrDefault(t => t.Kind == TypeKind.Class && !t.IsKnownType(KnownTypeCode.Object) && !t.IsKnownType(KnownTypeCode.ValueType));
-            if (baseType != null)
+            get
             {
-                builder.Append(" : ").Append(BaseTypeAmbience.ConvertType(baseType));
+                IType baseType = Type.DirectBaseTypes.FirstOrDefault(t => t.Kind == TypeKind.Class && !t.IsKnownType(KnownTypeCode.Object) && !t.IsKnownType(KnownTypeCode.ValueType));
+
+                return new(
+                    "code",
+                    CodeAmbience.ConvertSymbol(Type)
+                        + (baseType is null ? string.Empty : $" : {BaseTypeAmbience.ConvertType(baseType)}")
+                        + string.Concat(
+                            Type.DirectBaseTypes
+                                .Where(t => t.Kind == TypeKind.Interface && t.GetDefinition().Accessibility == Accessibility.Public)
+                                .Select(i => $"{(baseType is null ? " :" : ",")}\n{BaseTypeAmbience.ConvertType(baseType = i)}"))
+                        + this.GetConstraints());
             }
-            foreach (IType @interface in Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface && t.GetDefinition().Accessibility == Accessibility.Public))
-            {
-                builder.AppendLine(baseType is null ? " :" : ",").Append(BaseTypeAmbience.ConvertType(@interface));
-                baseType = Type;
-            }
-            builder.AppendLine(this.GetConstraints());
         }
     }
 }

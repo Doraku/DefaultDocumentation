@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
 using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
@@ -25,11 +24,14 @@ namespace DefaultDocumentation.Model.Type
             : base(parent, type, documentation)
         { }
 
-        public override void WriteDefinition(StringBuilder builder)
+        public override XElement Definition
         {
-            builder.AppendLine(CodeAmbience.ConvertSymbol(Type));
-            IType enumType = Type.GetEnumUnderlyingType();
-            builder.AppendLine(enumType.IsKnownType(KnownTypeCode.Int32) ? string.Empty : " : " + enumType.FullName);
+            get
+            {
+                IType enumType = Type.GetEnumUnderlyingType();
+
+                return new("code", CodeAmbience.ConvertSymbol(Type) + (enumType.IsKnownType(KnownTypeCode.Int32) ? string.Empty : " : " + enumType.FullName));
+            }
         }
     }
 }

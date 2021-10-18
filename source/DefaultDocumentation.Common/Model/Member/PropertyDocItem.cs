@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using DefaultDocumentation.Model.Parameter;
 using DefaultDocumentation.Model.Type;
@@ -38,6 +37,6 @@ namespace DefaultDocumentation.Model.Member
             Parameters = Property.Parameters.Select(p => new ParameterDocItem(this, p, documentation)).ToArray();
         }
 
-        public void WriteDefinition(StringBuilder builder) => builder.AppendLine(CodeAmbience.ConvertSymbol(Property));
+        public XElement Definition => new("code", CodeAmbience.ConvertSymbol(Property));
     }
 }

@@ -1,115 +1,166 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
+using System.Reflection;
 using System.Text;
-using DefaultDocumentation.Helper;
+using System.Threading;
 using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Type;
 
 namespace DefaultDocumentation.Writer
 {
-    internal abstract class DocItemWriter
+    internal sealed class DocItemWriter
     {
-        private readonly Settings _settings;
-        private readonly Dictionary<string, DocItem> _items;
-        private readonly ConcurrentDictionary<DocItem, string> _fileNames;
-
-        protected IEnumerable<DocItem> Items => _items.Values;
-
-        protected DocItemWriter(Settings settings)
+        private static readonly string[] _sections = new[]
         {
-            _settings = settings;
-            _items = DocItemReader.GetItems(settings);
-
-            _fileNames = new ConcurrentDictionary<DocItem, string>();
-        }
-
-        protected bool TryGetDocItem(string id, out DocItem item) => _items.TryGetValue(id, out item);
-
-        protected string GetCode(string source, string region = null)
-        {
-            if (!Path.IsPathRooted(source) && _settings.ProjectDirectory != null)
-            {
-                source = Path.Combine(_settings.ProjectDirectory.FullName, source);
-            }
-
-            if (!File.Exists(source))
-            {
-                throw new FileNotFoundException($"Unable to find code documentation file \"{source}\".");
-            }
-
-            string code = File.ReadAllText(source);
-            if (!string.IsNullOrEmpty(region))
-            {
-                code = CodeRegion.Extract(code, region);
-                if (code is null)
-                {
-                    throw new InvalidOperationException($"Unable to find region \"{region}\" in file \"{source}\".");
-                }
-            }
-
-            // remove \r to be consistent with xml content
-            return code.Replace("\r", string.Empty);
-        }
-
-        protected bool HasOwnPage(DocItem item) => item switch
-        {
-            AssemblyDocItem when !string.IsNullOrEmpty(_settings.AssemblyPageName) || item.Documentation != null || GetChildren<NamespaceDocItem>(item).Skip(1).Any() => true,
-            _ => (_settings.GeneratedPages & item.Page) != 0
+            "title",
+            "summary",
+            "definition",
+            "typeparameters",
+            "parameters",
+            "enumfields",
+            "eventtype",
+            "fieldvalue",
+            "propertyvalue",
+            "returns",
+            "exception",
+            "inheritance",
+            "derived",
+            "implement",
+            "example",
+            "remarks",
+            "constructors",
+            "fields",
+            "properties",
+            "methods",
+            "events",
+            "operators",
+            "explicitinterfaceimplementations",
+            "classes",
+            "structs",
+            "interfaces",
+            "enums",
+            "delegates",
+            "namespaces",
+            "seealso"
         };
 
-        protected string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i => _settings.PathCleaner.Clean(i is AssemblyDocItem ? i.FullName : _settings.FileNameMode switch
-        {
-            FileNameMode.NameAndMd5Mix => item is not IParameterizedDocItem parameterizedItem || parameterizedItem.Parameters.Length is 0
-                ? item.LongName
-                : (item.Parent.LongName + '.' + item.Entity.Name + '.' + Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(i.FullName)))),
-            FileNameMode.Md5 => Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(i.FullName))),
-            FileNameMode.Name => i.LongName,
-            _ => i.FullName
-        }));
+        private readonly DocumentationContext _context;
 
-        protected IEnumerable<T> GetChildren<T>(DocItem item) where T : DocItem
+        public DocItemWriter(Settings settings)
         {
-            IEnumerable<DocItem> GetAllChildren(DocItem item)
-            {
-                foreach (DocItem child in Items.Where(i => i.Parent == item))
-                {
-                    yield return child;
-                    foreach (DocItem indirectChild in GetAllChildren(child))
-                    {
-                        yield return indirectChild;
-                    }
-                }
-            }
+            Dictionary<string, SectionWriter> sectionWriters = Assembly
+                .LoadFrom("DefaultDocumentation.Common.dll")
+                .GetTypes()
+                .Where(t => typeof(SectionWriter).IsAssignableFrom(t) && !t.IsAbstract)
+                .Select(t => (SectionWriter)Activator.CreateInstance(t))
+                .GroupBy(w => w.Name)
+                .ToDictionary(w => w.Key, w => w.Last());
 
-            return (item switch
-            {
-                NamespaceDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (_settings.NestedTypeVisibilities & NestedTypeVisibilities.Namespace) != 0 => GetAllChildren(item),
-                TypeDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (_settings.NestedTypeVisibilities & NestedTypeVisibilities.DeclaringType) == 0 => Enumerable.Empty<T>(),
-                _ => Items.Where(i => i.Parent == item)
-            }).OfType<T>().OrderBy(c => c.FullName);
+            _context = new DocumentationContext(
+                settings,
+                _sections.Select(s => sectionWriters.TryGetValue(s, out SectionWriter writer) ? writer : null).Where(w => w != null).ToArray(),
+                Assembly
+                    .LoadFrom("DefaultDocumentation.Common.dll")
+                    .GetTypes()
+                    .Where(t => typeof(ElementWriter).IsAssignableFrom(t) && !t.IsAbstract)
+                    .Select(t => (ElementWriter)Activator.CreateInstance(t))
+                    .GroupBy(w => w.Name)
+                    .ToDictionary(w => w.Key, w => w.Last()));
         }
 
-        protected abstract void Clean(DirectoryInfo directory);
+        private void Clean()
+        {
+            _context.Settings.Logger.Debug($"Cleaning output folder \"{_context.Settings.OutputDirectory}\"");
 
-        protected abstract string GetUrl(DocItem item);
+            if (_context.Settings.OutputDirectory.Exists)
+            {
+                IEnumerable<FileInfo> files = _context.Settings.OutputDirectory.EnumerateFiles("*.md").Where(f => !string.Equals(f.Name, "readme.md", StringComparison.OrdinalIgnoreCase));
 
-        protected abstract void WritePage(DirectoryInfo directory, DocItem item);
+                int i;
+
+                foreach (FileInfo file in files)
+                {
+                    i = 3;
+                start:
+                    try
+                    {
+                        file.Delete();
+                    }
+                    catch
+                    {
+                        if (--i > 0)
+                        {
+                            Thread.Sleep(100);
+                            goto start;
+                        }
+
+                        throw;
+                    }
+                }
+
+                i = 3;
+                while (files.Any() && i-- > 0)
+                {
+                    Thread.Sleep(1000);
+                }
+            }
+            else
+            {
+                _context.Settings.OutputDirectory.Create();
+            }
+        }
+
+        private void WritePage(DocItem item, StringBuilder builder)
+        {
+            _context.Settings.Logger.Debug($"Writing DocItem \"{item}\" with id \"{item.Id}\"");
+            builder.Clear();
+
+            foreach (SectionWriter sectionWriter in _context.SectionWriters)
+            {
+                PageWriter writer = new(_context, builder, item);
+
+                sectionWriter.Write(writer);
+                writer.EnsureLineStart();
+            }
+
+            builder.Replace(" />", "/>");
+
+            File.WriteAllText(Path.Combine(_context.Settings.OutputDirectory.FullName, _context.GetFileName(item) + ".md"), builder.ToString());
+        }
+
+        private void WriteLinks()
+        {
+            if (_context.Settings.LinksOutputFile != null)
+            {
+                _context.Settings.Logger.Debug($"Writing links to file \"{_context.Settings.LinksOutputFile.FullName}\"");
+                _context.Settings.LinksOutputFile.Directory.Create();
+
+                using StreamWriter writer = _context.Settings.LinksOutputFile.CreateText();
+
+                writer.WriteLine(_context.Settings.LinksBaseUrl);
+                foreach (DocItem item in _context.Items.Where(i => i is not ExternDocItem && i is not AssemblyDocItem))
+                {
+                    writer.Write(item.Id);
+                    writer.Write('|');
+                    writer.Write(_context.GetUrl(item));
+                    writer.Write('|');
+                    writer.WriteLine(item.Name);
+                }
+            }
+        }
 
         public void Execute()
         {
-            _settings.Logger.Debug($"Cleaning output folder \"{_settings.OutputDirectory}\"");
-            Clean(_settings.OutputDirectory);
+            Clean();
 
-            foreach (DocItem item in Items.Where(HasOwnPage))
+            StringBuilder builder = new();
+
+            foreach (DocItem item in _context.Items.Where(_context.HasOwnPage))
             {
                 try
                 {
-                    _settings.Logger.Debug($"Writing DocItem \"{item}\" with id \"{item.Id}\"");
-                    WritePage(_settings.OutputDirectory, item);
+                    WritePage(item, builder);
                 }
                 catch (Exception exception)
                 {
@@ -117,26 +168,9 @@ namespace DefaultDocumentation.Writer
                 }
             }
 
-            if (_settings.LinksOutputFile != null)
-            {
-                _settings.Logger.Debug($"Writing links to file \"{_settings.LinksOutputFile.FullName}\"");
+            WriteLinks();
 
-                _settings.LinksOutputFile.Directory.Create();
-
-                using StreamWriter writer = _settings.LinksOutputFile.CreateText();
-
-                writer.WriteLine(_settings.LinksBaseUrl);
-                foreach (DocItem item in Items.Where(i => i is not ExternDocItem && i is not AssemblyDocItem))
-                {
-                    writer.Write(item.Id);
-                    writer.Write('|');
-                    writer.Write(GetUrl(item));
-                    writer.Write('|');
-                    writer.WriteLine(item.Name);
-                }
-            }
-
-            _settings.Logger.Info($"Documentation generated to output folder \"{_settings.OutputDirectory}\"");
+            _context.Settings.Logger.Info($"Documentation generated to output folder \"{_context.Settings.OutputDirectory}\"");
         }
     }
 }

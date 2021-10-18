@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using DefaultDocumentation.Model.Parameter;
 using DefaultDocumentation.Model.Type;
@@ -34,18 +33,13 @@ namespace DefaultDocumentation.Model.Member
             Parameters = method.Parameters.Select(p => new ParameterDocItem(this, p, documentation)).ToArray();
         }
 
-        public void WriteDefinition(StringBuilder builder)
-        {
-            if (Member is IProperty)
+        public XElement Definition => new(
+            "code",
+            Member switch
             {
-                builder.AppendLine(PropertyDocItem.CodeAmbience.ConvertSymbol(Member));
-            }
-            else if (Member is IMethod)
-            {
-                builder.Append(MethodDocItem.CodeAmbience.ConvertSymbol(Member));
-                builder.Append(this.GetConstraints());
-                builder.AppendLine(";");
-            }
-        }
+                IProperty => PropertyDocItem.CodeAmbience.ConvertSymbol(Member),
+                IMethod => $"{MethodDocItem.CodeAmbience.ConvertSymbol(Member)}{this.GetConstraints()};",
+                _ => string.Empty
+            });
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using DefaultDocumentation.Model.Type;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
 using ICSharpCode.Decompiler.Output;
@@ -28,6 +27,6 @@ namespace DefaultDocumentation.Model.Member
             Event = @event;
         }
 
-        public void WriteDefinition(StringBuilder builder) => builder.AppendLine(CodeAmbience.ConvertSymbol(Event));
+        public XElement Definition => new("code", CodeAmbience.ConvertSymbol(Event));
     }
 }

@@ -16,7 +16,7 @@ namespace DefaultDocumentation
 
             try
             {
-                new MarkdownWriter(settings).Execute();
+                new DocItemWriter(settings).Execute();
             }
             finally
             {

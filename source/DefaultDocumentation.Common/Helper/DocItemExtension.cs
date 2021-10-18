@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Parameter;
 
@@ -36,6 +37,17 @@ namespace DefaultDocumentation.Helper
             }
 
             return parameterDocItem != null;
+        }
+
+        public static IEnumerable<DocItem> GetParents(this DocItem item)
+        {
+            Stack<DocItem> parents = new();
+            for (DocItem parent = item?.Parent; parent != null; parent = parent.Parent)
+            {
+                parents.Push(parent);
+            }
+
+            return parents;
         }
     }
 }

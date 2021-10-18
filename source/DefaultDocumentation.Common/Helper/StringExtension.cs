@@ -23,7 +23,7 @@
                 }
             }
 
-            return value.Replace('`', '@');
+            return value.Replace('`', '@').Replace("<", "&lt;").Replace(">", "&gt;");
         }
 
         public static string NullIfEmpty(this string value) => string.IsNullOrEmpty(value) ? null : value;

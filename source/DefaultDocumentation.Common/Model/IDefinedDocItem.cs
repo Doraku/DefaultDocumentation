@@ -1,9 +1,9 @@
-﻿using System.Text;
+﻿using System.Xml.Linq;
 
 namespace DefaultDocumentation.Model
 {
     internal interface IDefinedDocItem
     {
-        void WriteDefinition(StringBuilder builder);
+        XElement Definition { get; }
     }
 }

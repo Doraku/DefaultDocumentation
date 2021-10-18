@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using DefaultDocumentation.Model.Type;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
 using ICSharpCode.Decompiler.Output;
@@ -28,6 +27,6 @@ namespace DefaultDocumentation.Model.Member
             Field = field;
         }
 
-        public void WriteDefinition(StringBuilder builder) => builder.Append(CodeAmbience.ConvertSymbol(Field)).Append(Field.IsConst ? $" = {Field.GetConstantValue()}" : string.Empty).AppendLine(";");
+        public XElement Definition => new("code", $"{CodeAmbience.ConvertSymbol(Field)}{(Field.IsConst ? $" = {Field.GetConstantValue()}" : string.Empty)};");
     }
 }

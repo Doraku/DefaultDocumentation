@@ -48,7 +48,7 @@ namespace DefaultDocumentation.Model
                     string constaints = string.Join(", ", GetTypeConstraints(typeParameter));
                     if (!string.IsNullOrEmpty(constaints))
                     {
-                        yield return $"{Environment.NewLine}    where {typeParameter.Name} : {constaints}";
+                        yield return $"\n    where {typeParameter.Name} : {constaints}";
                     }
                 }
             }
