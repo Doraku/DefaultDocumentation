@@ -3,15 +3,13 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class DefinitionWriter : SectionWriter
+    public sealed class DefinitionWriter : ISectionWriter
     {
-        public DefinitionWriter()
-            : base("definition")
-        { }
+        public string Name => "definition";
 
-        public override void Write(PageWriter writer)
+        public void Write(PageWriter writer)
         {
-            if (writer.CurrentItem is IDefinedDocItem definedItem && writer.Context.ElementWriters.TryGetValue("code", out ElementWriter codeWriter))
+            if (writer.CurrentItem is IDefinedDocItem definedItem && writer.Context.ElementWriters.TryGetValue("code", out IElementWriter codeWriter))
             {
                 codeWriter.Write(writer, definedItem.Definition);
             }

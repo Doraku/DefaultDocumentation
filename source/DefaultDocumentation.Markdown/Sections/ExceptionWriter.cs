@@ -3,13 +3,11 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class ExceptionWriter : SectionWriter
+    public sealed class ExceptionWriter : ISectionWriter
     {
-        public ExceptionWriter()
-            : base("exception")
-        { }
+        public string Name => "exception";
 
-        public override void Write(PageWriter writer)
+        public void Write(PageWriter writer)
         {
             bool titleWritten = false;
             foreach (XElement exception in writer.CurrentItem.Documentation.GetExceptions())

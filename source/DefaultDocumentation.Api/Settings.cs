@@ -71,10 +71,14 @@ namespace DefaultDocumentation
             string linksBaseUrl,
             IEnumerable<string> externlinksFilePaths)
         {
-            LoggingConfiguration logConfiguration = new();
-            logConfiguration.AddTarget(loggerTarget);
-            logConfiguration.AddRule(LogLevel.FromString(string.IsNullOrEmpty(logLevel) ? nameof(LogLevel.Info) : logLevel), LogLevel.Fatal, loggerTarget);
-            LogManager.Configuration = logConfiguration;
+            if (loggerTarget != null)
+            {
+                LoggingConfiguration logConfiguration = new();
+                logConfiguration.AddTarget(loggerTarget);
+                logConfiguration.AddRule(LogLevel.FromString(string.IsNullOrEmpty(logLevel) ? nameof(LogLevel.Info) : logLevel), LogLevel.Fatal, loggerTarget);
+                LogManager.Configuration = logConfiguration;
+            }
+
             Logger = LogManager.GetLogger("DefaultDocumentation");
 
             Logger.Info("Starting DefaultDocumentation with those settings");

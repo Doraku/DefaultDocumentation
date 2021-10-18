@@ -3,13 +3,11 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class EventTypeWriter : SectionWriter
+    public sealed class EventTypeWriter : ISectionWriter
     {
-        public EventTypeWriter()
-            : base("eventtype")
-        { }
+        public string Name => "eventtype";
 
-        public override void Write(PageWriter writer)
+        public void Write(PageWriter writer)
         {
             if (writer.CurrentItem is EventDocItem eventItem)
             {

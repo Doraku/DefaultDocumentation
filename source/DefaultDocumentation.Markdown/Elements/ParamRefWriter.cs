@@ -5,13 +5,11 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class ParamRefWriter : ElementWriter
+    public sealed class ParamRefWriter : IElementWriter
     {
-        public ParamRefWriter()
-            : base("paramref")
-        { }
+        public string Name => "paramref";
 
-        public override void Write(PageWriter writer, XElement element)
+        public void Write(PageWriter writer, XElement element)
         {
             string name = element.GetNameAttribute();
 

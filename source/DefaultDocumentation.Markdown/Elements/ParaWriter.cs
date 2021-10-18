@@ -3,13 +3,11 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class ParaWriter : ElementWriter
+    public sealed class ParaWriter : IElementWriter
     {
-        public ParaWriter()
-            : base("para")
-        { }
+        public string Name => "para";
 
-        public override void Write(PageWriter writer, XElement element)
+        public void Write(PageWriter writer, XElement element)
         {
             writer
                 .EnsureLineStart()

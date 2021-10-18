@@ -3,13 +3,11 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class ExampleWriter : SectionWriter
+    public sealed class ExampleWriter : ISectionWriter
     {
-        public ExampleWriter()
-            : base("example")
-        { }
+        public string Name => "example";
 
-        public override void Write(PageWriter writer)
+        public void Write(PageWriter writer)
         {
             XElement example = writer.CurrentItem.Documentation.GetExample();
 

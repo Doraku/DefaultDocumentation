@@ -4,13 +4,11 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class SeeAlsoWriter : SectionWriter
+    public sealed class SeeAlsoWriter : ISectionWriter
     {
-        public SeeAlsoWriter()
-            : base("seealso")
-        { }
+        public string Name => "seealso";
 
-        public override void Write(PageWriter writer)
+        public void Write(PageWriter writer)
         {
             bool titleWritten = false;
             foreach (XElement seeAlso in writer.CurrentItem.Documentation.GetSeeAlsos())

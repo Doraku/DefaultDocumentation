@@ -6,13 +6,11 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class DerivedWriter : SectionWriter
+    public sealed class DerivedWriter : ISectionWriter
     {
-        public DerivedWriter()
-            : base("derived")
-        { }
+        public string Name => "derived";
 
-        public override void Write(PageWriter writer)
+        public void Write(PageWriter writer)
         {
             if (writer.CurrentItem is TypeDocItem typeItem)
             {

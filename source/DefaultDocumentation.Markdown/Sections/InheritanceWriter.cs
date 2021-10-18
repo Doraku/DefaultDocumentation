@@ -5,13 +5,11 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class InheritanceWriter : SectionWriter
+    public sealed class InheritanceWriter : ISectionWriter
     {
-        public InheritanceWriter()
-            : base("inheritance")
-        { }
+        public string Name => "inheritance";
 
-        public override void Write(PageWriter writer)
+        public void Write(PageWriter writer)
         {
             if (writer.CurrentItem is TypeDocItem typeItem && typeItem.Type.Kind == TypeKind.Class)
             {

@@ -8,13 +8,11 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class TitleWriter : SectionWriter
+    public sealed class TitleWriter : ISectionWriter
     {
-        public TitleWriter()
-            : base("title")
-        { }
+        public string Name => "title";
 
-        public override void Write(PageWriter writer)
+        public void Write(PageWriter writer)
         {
             if (writer.PageItem == writer.CurrentItem)
             {

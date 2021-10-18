@@ -5,12 +5,8 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class ListWriter : ElementWriter
+    public sealed class ListWriter : IElementWriter
     {
-        public ListWriter()
-            : base("list")
-        { }
-
         private static void WriteBullet(PageWriter writer, XElement element)
         {
             foreach (XElement item in element.GetItems())
@@ -90,7 +86,9 @@ namespace DefaultDocumentation.Markdown.Elements
             }
         }
 
-        public override void Write(PageWriter writer, XElement element)
+        public string Name => "list";
+
+        public void Write(PageWriter writer, XElement element)
         {
             switch (element.GetTypeAttribute())
             {

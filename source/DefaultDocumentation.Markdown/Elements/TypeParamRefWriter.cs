@@ -5,13 +5,11 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class TypeParamRefWriter : ElementWriter
+    public sealed class TypeParamRefWriter : IElementWriter
     {
-        public TypeParamRefWriter()
-            : base("typeparamref")
-        { }
+        public string Name => "typeparamref";
 
-        public override void Write(PageWriter writer, XElement element)
+        public void Write(PageWriter writer, XElement element)
         {
             string name = element.GetNameAttribute();
 

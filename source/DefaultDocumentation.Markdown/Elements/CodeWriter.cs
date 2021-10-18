@@ -6,12 +6,8 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class CodeWriter : ElementWriter
+    public sealed class CodeWriter : IElementWriter
     {
-        public CodeWriter()
-            : base("code")
-        { }
-
         private static string GetCode(Settings settings, string source, string region = null)
         {
             if (!Path.IsPathRooted(source) && settings.ProjectDirectory != null)
@@ -38,7 +34,9 @@ namespace DefaultDocumentation.Markdown.Elements
             return code.Replace("\r", string.Empty);
         }
 
-        public override void Write(PageWriter writer, XElement element)
+        public string Name => "code";
+
+        public void Write(PageWriter writer, XElement element)
         {
             if (writer.DisplayAsSingleLine)
             {

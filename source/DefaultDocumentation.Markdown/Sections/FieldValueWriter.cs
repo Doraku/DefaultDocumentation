@@ -3,13 +3,11 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class FieldValueWriter : SectionWriter
+    public sealed class FieldValueWriter : ISectionWriter
     {
-        public FieldValueWriter()
-            : base("fieldvalue")
-        { }
+        public string Name => "fieldvalue";
 
-        public override void Write(PageWriter writer)
+        public void Write(PageWriter writer)
         {
             if (writer.CurrentItem is FieldDocItem fieldItem)
             {

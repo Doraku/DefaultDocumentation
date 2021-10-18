@@ -21,13 +21,13 @@ namespace DefaultDocumentation
 
         public Settings Settings { get; }
 
-        public SectionWriter[] SectionWriters { get; }
+        public ISectionWriter[] SectionWriters { get; }
 
-        public IReadOnlyDictionary<string, ElementWriter> ElementWriters { get; }
+        public IReadOnlyDictionary<string, IElementWriter> ElementWriters { get; }
 
         public IEnumerable<DocItem> Items => _items.Values;
 
-        public DocumentationContext(Settings settings, SectionWriter[] sectionWriters, IReadOnlyDictionary<string, ElementWriter> elementWriters, IReadOnlyDictionary<string, DocItem> items)
+        public DocumentationContext(Settings settings, ISectionWriter[] sectionWriters, IReadOnlyDictionary<string, IElementWriter> elementWriters, IReadOnlyDictionary<string, DocItem> items)
         {
             _items = items;
             _fileNames = new ConcurrentDictionary<DocItem, string>();

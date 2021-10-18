@@ -3,13 +3,11 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class CWriter : ElementWriter
+    public sealed class CWriter : IElementWriter
     {
-        public CWriter()
-            : base("c")
-        { }
+        public string Name => "c";
 
-        public override void Write(PageWriter writer, XElement element)
+        public void Write(PageWriter writer, XElement element)
         {
             writer
                 .Append("`")

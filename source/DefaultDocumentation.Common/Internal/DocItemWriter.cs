@@ -50,34 +50,34 @@ namespace DefaultDocumentation.Internal
 
         public DocItemWriter(Settings settings)
         {
-            Dictionary<string, SectionWriter> sectionWriters = Assembly
+            Dictionary<string, ISectionWriter> sectionWriters = Assembly
                 .LoadFrom("DefaultDocumentation.Markdown.dll")
                 .GetTypes()
-                .Where(t => typeof(SectionWriter).IsAssignableFrom(t) && !t.IsAbstract)
-                .Select(t => (SectionWriter)Activator.CreateInstance(t))
+                .Where(t => typeof(ISectionWriter).IsAssignableFrom(t) && !t.IsAbstract)
+                .Select(t => (ISectionWriter)Activator.CreateInstance(t))
                 .GroupBy(w => w.Name)
                 .ToDictionary(w => w.Key, w => w.Last());
 
             _context = new DocumentationContext(
                 settings,
-                _sections.Select(s => sectionWriters.TryGetValue(s, out SectionWriter writer) ? writer : null).Where(w => w != null).ToArray(),
+                _sections.Select(s => sectionWriters.TryGetValue(s, out ISectionWriter writer) ? writer : null).Where(w => w != null).ToArray(),
                 Assembly
                     .LoadFrom("DefaultDocumentation.Markdown.dll")
                     .GetTypes()
-                    .Where(t => typeof(ElementWriter).IsAssignableFrom(t) && !t.IsAbstract)
-                    .Select(t => (ElementWriter)Activator.CreateInstance(t))
+                    .Where(t => typeof(IElementWriter).IsAssignableFrom(t) && !t.IsAbstract)
+                    .Select(t => (IElementWriter)Activator.CreateInstance(t))
                     .GroupBy(w => w.Name)
                     .ToDictionary(w => w.Key, w => w.Last()),
                 DocItemReader.GetItems(settings));
 
             _context.Settings.Logger.Debug("SectionWriters used:");
-            foreach (SectionWriter section in _context.SectionWriters)
+            foreach (ISectionWriter section in _context.SectionWriters)
             {
                 _context.Settings.Logger.Debug($"\t{section.Name}: {section}");
             }
 
             _context.Settings.Logger.Debug("ElementWriters used:");
-            foreach (ElementWriter element in _context.ElementWriters.Values)
+            foreach (IElementWriter element in _context.ElementWriters.Values)
             {
                 _context.Settings.Logger.Debug($"\t{element.Name}: {element}");
             }
@@ -130,7 +130,7 @@ namespace DefaultDocumentation.Internal
             _context.Settings.Logger.Debug($"Writing DocItem \"{item}\" with id \"{item.Id}\"");
             builder.Clear();
 
-            foreach (SectionWriter sectionWriter in _context.SectionWriters)
+            foreach (ISectionWriter sectionWriter in _context.SectionWriters)
             {
                 PageWriter writer = new(_context, builder, item);
 

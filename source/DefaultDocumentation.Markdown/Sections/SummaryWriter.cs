@@ -4,13 +4,11 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class SummaryWriter : SectionWriter
+    public sealed class SummaryWriter : ISectionWriter
     {
-        public SummaryWriter()
-            : base("summary")
-        { }
+        public string Name => "summary";
 
-        public override void Write(PageWriter writer)
+        public void Write(PageWriter writer)
         {
             writer
                 .EnsureLineStart()

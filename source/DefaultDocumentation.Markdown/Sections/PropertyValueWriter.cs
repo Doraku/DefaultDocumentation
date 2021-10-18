@@ -4,13 +4,11 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class PropertyValueWriter : SectionWriter
+    public sealed class PropertyValueWriter : ISectionWriter
     {
-        public PropertyValueWriter()
-            : base("propertyvalue")
-        { }
+        public string Name => "propertyvalue";
 
-        public override void Write(PageWriter writer)
+        public void Write(PageWriter writer)
         {
             if (writer.CurrentItem is PropertyDocItem propertyItem)
             {

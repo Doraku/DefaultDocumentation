@@ -66,13 +66,16 @@ namespace DefaultDocumentation.Writer
 
         public PageWriter Append(string text)
         {
-            if (_needPrefix)
+            if (!string.IsNullOrEmpty(text))
             {
-                _builder.Append(_linePrefix);
-                _needPrefix = false;
-            }
+                if (_needPrefix)
+                {
+                    _builder.Append(_linePrefix);
+                    _needPrefix = false;
+                }
 
-            _builder.Append(text);
+                _builder.Append(text);
+            }
 
             return this;
         }
@@ -236,7 +239,7 @@ namespace DefaultDocumentation.Writer
                             AppendMultiline(text.Value);
                             break;
 
-                        case XElement element when Context.ElementWriters.TryGetValue(element.Name.ToString(), out ElementWriter writer):
+                        case XElement element when Context.ElementWriters.TryGetValue(element.Name.ToString(), out IElementWriter writer):
                             writer.Write(this, element);
                             break;
 
@@ -252,6 +255,24 @@ namespace DefaultDocumentation.Writer
                     {
                         _startingNewLine = false;
                     }
+                }
+
+                while (true)
+                {
+                    if (_builder.Length > 2 && _builder.ToString(_builder.Length - 2, 2) == "  ")
+                    {
+                        _builder.Length -= 2;
+                        continue;
+                    }
+
+                    if (_builder.Length > Environment.NewLine.Length && _builder.ToString(_builder.Length - Environment.NewLine.Length, Environment.NewLine.Length) == Environment.NewLine)
+                    {
+                        _builder.Length -= Environment.NewLine.Length;
+                        _needPrefix = false;
+                        continue;
+                    }
+
+                    break;
                 }
             }
 

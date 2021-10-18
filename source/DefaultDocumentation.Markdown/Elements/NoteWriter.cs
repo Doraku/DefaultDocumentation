@@ -3,13 +3,11 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class NoteWriter : ElementWriter
+    public sealed class NoteWriter : IElementWriter
     {
-        public NoteWriter()
-            : base("note")
-        { }
+        public string Name => "note";
 
-        public override void Write(PageWriter writer, XElement element)
+        public void Write(PageWriter writer, XElement element)
         {
             if (writer.DisplayAsSingleLine)
             {

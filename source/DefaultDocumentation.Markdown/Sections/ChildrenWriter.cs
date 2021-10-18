@@ -10,20 +10,22 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public abstract class ChildrenWriter<T> : SectionWriter
+    public abstract class ChildrenWriter<T> : ISectionWriter
         where T : DocItem
     {
         private readonly string _title;
 
         protected ChildrenWriter(string name, string title)
-            : base(name)
         {
+            Name = name;
             _title = title;
         }
 
         protected virtual IEnumerable<T> GetChildren(DocumentationContext context, DocItem item) => context.GetChildren<T>(item);
 
-        public override void Write(PageWriter writer)
+        public string Name { get; }
+
+        public void Write(PageWriter writer)
         {
             bool titleWritten = false;
             foreach (DocItem item in GetChildren(writer.Context, writer.CurrentItem) ?? Array.Empty<T>())
@@ -68,7 +70,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 }
                 else
                 {
-                    foreach (SectionWriter sectionWriter in writer.Context.SectionWriters)
+                    foreach (ISectionWriter sectionWriter in writer.Context.SectionWriters)
                     {
                         PageWriter childWriter = writer.With(item);
 

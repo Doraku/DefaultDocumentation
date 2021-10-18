@@ -6,13 +6,11 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class ReturnsWriter : SectionWriter
+    public sealed class ReturnsWriter : ISectionWriter
     {
-        public ReturnsWriter()
-            : base("returns")
-        { }
+        public string Name => "returns";
 
-        public override void Write(PageWriter writer)
+        public void Write(PageWriter writer)
         {
             IType returnType = writer.CurrentItem switch
             {

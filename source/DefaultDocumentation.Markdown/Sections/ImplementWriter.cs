@@ -8,13 +8,11 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class ImplementWriter : SectionWriter
+    public sealed class ImplementWriter : ISectionWriter
     {
-        public ImplementWriter()
-            : base("implement")
-        { }
+        public string Name => "implement";
 
-        public override void Write(PageWriter writer)
+        public void Write(PageWriter writer)
         {
             IEnumerable<INamedElement> GetImplementation(IMember member)
             {

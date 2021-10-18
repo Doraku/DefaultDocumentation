@@ -3,13 +3,11 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class RemarksWriter : SectionWriter
+    public sealed class RemarksWriter : ISectionWriter
     {
-        public RemarksWriter()
-            : base("remarks")
-        { }
+        public string Name => "remarks";
 
-        public override void Write(PageWriter writer)
+        public void Write(PageWriter writer)
         {
             XElement remarks = writer.CurrentItem.Documentation.GetRemarks();
 

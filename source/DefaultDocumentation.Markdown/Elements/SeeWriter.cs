@@ -4,13 +4,11 @@ using DefaultDocumentation.Writer;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class SeeWriter : ElementWriter
+    public sealed class SeeWriter : IElementWriter
     {
-        public SeeWriter()
-            : base("see")
-        { }
+        public string Name => "see";
 
-        public override void Write(PageWriter writer, XElement element)
+        public void Write(PageWriter writer, XElement element)
         {
             string @ref = element.GetCRefAttribute();
             if (@ref is not null)
