@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
@@ -10,7 +10,7 @@ namespace DefaultDocumentation.Markdown.Sections
     {
         public string Name => "derived";
 
-        public void Write(PageWriter writer)
+        public void Write(IWriter writer)
         {
             if (writer.CurrentItem is TypeDocItem typeItem)
             {

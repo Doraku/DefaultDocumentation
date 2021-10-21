@@ -40,5 +40,7 @@ namespace System.Xml.Linq
         public static string GetLanguageAttribute(this XElement element) => element.Attribute("language")?.Value;
 
         public static string GetTypeAttribute(this XElement element) => element.Attribute("type")?.Value;
+
+        public static bool? GetIgnoreLineBreak(this XElement element) => bool.TryParse(element.Attribute("ignorelinebreak")?.Value, out bool ignoreLineBreak) ? ignoreLineBreak : null;
     }
 }

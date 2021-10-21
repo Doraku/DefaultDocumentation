@@ -1,5 +1,5 @@
 ﻿using DefaultDocumentation.Model;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
@@ -7,11 +7,11 @@ namespace DefaultDocumentation.Markdown.Sections
     {
         public string Name => "definition";
 
-        public void Write(PageWriter writer)
+        public void Write(IWriter writer)
         {
-            if (writer.CurrentItem is IDefinedDocItem definedItem && writer.Context.ElementWriters.TryGetValue("code", out IElementWriter codeWriter))
+            if (writer.CurrentItem is IDefinedDocItem definedItem)
             {
-                codeWriter.Write(writer, definedItem.Definition);
+                writer.Append(definedItem.Definition);
             }
         }
     }

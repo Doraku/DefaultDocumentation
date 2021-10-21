@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml.Linq;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
@@ -8,7 +8,7 @@ namespace DefaultDocumentation.Markdown.Elements
     {
         public string Name => "see";
 
-        public void Write(PageWriter writer, XElement element)
+        public void Write(IWriter writer, XElement element)
         {
             string @ref = element.GetCRefAttribute();
             if (@ref is not null)

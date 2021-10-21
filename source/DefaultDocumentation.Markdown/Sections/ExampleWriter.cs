@@ -1,5 +1,5 @@
 ﻿using System.Xml.Linq;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
@@ -7,7 +7,7 @@ namespace DefaultDocumentation.Markdown.Sections
     {
         public string Name => "example";
 
-        public void Write(PageWriter writer)
+        public void Write(IWriter writer)
         {
             XElement example = writer.CurrentItem.Documentation.GetExample();
 
@@ -16,8 +16,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 writer
                     .EnsureLineStart()
                     .AppendLine("### Example")
-                    .Append(example)
-                    .AppendLine();
+                    .AppendAsMarkdown(example);
             }
         }
     }

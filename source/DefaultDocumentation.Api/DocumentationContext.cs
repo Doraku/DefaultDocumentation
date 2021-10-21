@@ -7,7 +7,7 @@ using System.Text;
 using DefaultDocumentation.Internal;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation
 {

@@ -1,5 +1,5 @@
 ﻿using System.Xml.Linq;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
@@ -7,7 +7,7 @@ namespace DefaultDocumentation.Markdown.Elements
     {
         public string Name => "c";
 
-        public void Write(PageWriter writer, XElement element)
+        public void Write(IWriter writer, XElement element)
         {
             writer
                 .Append("`")

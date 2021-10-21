@@ -1,11 +1,11 @@
 ﻿using System.Xml.Linq;
 
-namespace DefaultDocumentation.Writer
+namespace DefaultDocumentation.Writers
 {
     public interface IElementWriter
     {
         string Name { get; }
 
-        void Write(PageWriter writer, XElement element);
+        void Write(IWriter writer, XElement element);
     }
 }

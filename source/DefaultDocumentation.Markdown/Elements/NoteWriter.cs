@@ -1,5 +1,5 @@
 ﻿using System.Xml.Linq;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
@@ -7,9 +7,9 @@ namespace DefaultDocumentation.Markdown.Elements
     {
         public string Name => "note";
 
-        public void Write(PageWriter writer, XElement element)
+        public void Write(IWriter writer, XElement element)
         {
-            if (writer.DisplayAsSingleLine)
+            if (writer.GetDisplayAsSingleLine())
             {
                 return;
             }
@@ -35,18 +35,16 @@ namespace DefaultDocumentation.Markdown.Elements
 
             writer.EnsureLineStart();
 
-            using (writer.AddLinePrefix("> "))
+            IWriter prefixedWriter = writer.ToPrefixedWriter("> ");
+            if (!string.IsNullOrEmpty(notePrefix))
             {
-                if (!string.IsNullOrEmpty(notePrefix))
-                {
-                    writer
-                        .Append("**")
-                        .Append(notePrefix)
-                        .AppendLine(":**");
-                }
-
-                writer.Append(element);
+                prefixedWriter
+                    .Append("**")
+                    .Append(notePrefix)
+                    .AppendLine(":**");
             }
+
+            prefixedWriter.Append(element);
 
             writer
                 .EnsureLineStart()

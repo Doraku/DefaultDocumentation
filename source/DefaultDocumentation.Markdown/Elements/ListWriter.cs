@@ -1,29 +1,24 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Xml.Linq;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
     public sealed class ListWriter : IElementWriter
     {
-        private static void WriteBullet(PageWriter writer, XElement element)
+        private static void WriteBullet(IWriter writer, XElement element)
         {
             foreach (XElement item in element.GetItems())
             {
                 writer
                     .EnsureLineStart()
-                    .Append("- ");
-
-                using IDisposable _ = writer.AddLinePrefix("  ");
-
-                writer.Append(item);
+                    .Append("- ")
+                    .ToPrefixedWriter("  ")
+                    .AppendAsMarkdown(item);
             }
-
-            writer.AppendLine();
         }
 
-        private static void WriteNumber(PageWriter writer, XElement element)
+        private static void WriteNumber(IWriter writer, XElement element)
         {
             int count = 1;
 
@@ -32,80 +27,80 @@ namespace DefaultDocumentation.Markdown.Elements
                 writer
                     .EnsureLineStart()
                     .Append(count++.ToString(CultureInfo.InvariantCulture))
-                    .Append(". ");
-
-                using IDisposable _ = writer.AddLinePrefix("  ");
-
-                writer.Append(item);
+                    .Append(". ")
+                    .ToPrefixedWriter("  ")
+                    .AppendAsMarkdown(item);
             }
-
-            writer.AppendLine();
         }
 
-        private static void WriteTable(PageWriter writer, XElement element)
+        private static void WriteTable(IWriter writer, XElement element)
         {
             int columnCount = 0;
+
+            writer
+                .EnsureLineStart()
+                .Append("|");
 
             foreach (XElement description in element.GetListHeader().GetDescriptions())
             {
                 ++columnCount;
 
                 writer
-                    .EnsureLineStart()
+                    .SetDisplayAsSingleLine(true)
+                    .AppendAsMarkdown(description)
+                    .SetDisplayAsSingleLine(false)
                     .Append("|");
-
-                using IDisposable _ = writer.ChangeDisplayAsSingleLine(true);
-
-                writer.Append(description);
             }
 
             if (columnCount > 0)
             {
-                writer.AppendLine("|");
+                writer
+                    .EnsureLineStart()
+                    .Append("|");
 
                 while (columnCount-- > 0)
                 {
-                    writer.Append("|-");
+                    writer.Append("-|");
                 }
-                writer.AppendLine("|");
 
                 foreach (XElement item in element.GetItems())
                 {
+                    writer
+                        .EnsureLineStart()
+                        .Append("|");
+
                     foreach (XElement description in item.GetDescriptions())
                     {
-                        writer.Append("|");
-
-                        using IDisposable _ = writer.ChangeDisplayAsSingleLine(true);
-
-                        writer.Append(description);
+                        writer
+                            .SetDisplayAsSingleLine(true)
+                            .AppendAsMarkdown(description)
+                            .SetDisplayAsSingleLine(false)
+                            .Append("|");
                     }
-                    writer.AppendLine("|");
                 }
-
-                writer.AppendLine();
             }
         }
 
         public string Name => "list";
 
-        public void Write(PageWriter writer, XElement element)
+        public void Write(IWriter writer, XElement element)
         {
             switch (element.GetTypeAttribute())
             {
-                case "bullet" when !writer.DisplayAsSingleLine:
+                case "bullet" when !writer.GetDisplayAsSingleLine():
                     WriteBullet(writer, element);
                     break;
 
-                case "number" when !writer.DisplayAsSingleLine:
+                case "number" when !writer.GetDisplayAsSingleLine():
                     WriteNumber(writer, element);
                     break;
 
-                case "table" when !writer.DisplayAsSingleLine:
+                case "table" when !writer.GetDisplayAsSingleLine():
                     WriteTable(writer, element);
                     break;
 
                 default:
-                    writer.AppendMultiline(element.ToString());
+                    writer.Append(element);
                     break;
             }
         }

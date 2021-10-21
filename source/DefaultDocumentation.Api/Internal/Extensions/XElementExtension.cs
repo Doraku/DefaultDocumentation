@@ -11,7 +11,5 @@ namespace System.Xml.Linq
         public static IEnumerable<XElement> GetParameters(this XElement element) => element?.Elements("param") ?? Enumerable.Empty<XElement>();
 
         public static string GetNameAttribute(this XElement element) => element.Attribute("name")?.Value;
-
-        public static bool? GetIgnoreLineBreak(this XElement element) => bool.TryParse(element.Attribute("ignorelinebreak")?.Value, out bool ignoreLineBreak) ? ignoreLineBreak : null;
     }
 }

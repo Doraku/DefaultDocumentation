@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using DefaultDocumentation.Model;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Internal
 {
@@ -130,12 +130,11 @@ namespace DefaultDocumentation.Internal
             _context.Settings.Logger.Debug($"Writing DocItem \"{item}\" with id \"{item.Id}\"");
             builder.Clear();
 
+            PageWriter writer = new(builder, _context, item);
+
             foreach (ISectionWriter sectionWriter in _context.SectionWriters)
             {
-                PageWriter writer = new(_context, builder, item);
-
                 sectionWriter.Write(writer);
-                writer.EnsureLineStart();
             }
 
             builder.Replace(" />", "/>");

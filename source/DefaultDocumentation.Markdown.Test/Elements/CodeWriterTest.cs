@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Linq;
+using DefaultDocumentation.Writers;
 using NFluent;
 using Xunit;
 
@@ -105,20 +106,20 @@ namespace Code
 
         [Fact]
         public void Write_should_not_write_when_DisplayAsSingleLine_is_true() => Test(
-            w => w.ChangeDisplayAsSingleLine(true),
+            w => w.SetDisplayAsSingleLine(true),
             new XElement("code", "test"),
             string.Empty);
 
         [Fact]
         public void Write_should_write() => Test(
             new XElement("code", "test"),
-            $"```csharp{Environment.NewLine}test{Environment.NewLine}```{Environment.NewLine}");
+            $"```csharp{Environment.NewLine}test{Environment.NewLine}```");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
             w => w.Append("pouet"),
             new XElement("code", "test"),
-            $"pouet{Environment.NewLine}```csharp{Environment.NewLine}test{Environment.NewLine}```{Environment.NewLine}");
+            $"pouet{Environment.NewLine}```csharp{Environment.NewLine}test{Environment.NewLine}```");
 
         [Fact]
         public void Write_should_not_write_newline_When_not_needed() => Test(
@@ -126,12 +127,12 @@ namespace Code
                 .Append("pouet")
                 .AppendLine(),
             new XElement("code", "test\n"),
-            $"pouet{Environment.NewLine}```csharp{Environment.NewLine}test{Environment.NewLine}```{Environment.NewLine}");
+            $"pouet{Environment.NewLine}```csharp{Environment.NewLine}test{Environment.NewLine}```");
 
         [Fact]
         public void Write_should_write_language_When_attribute_present() => Test(
             new XElement("code", new XAttribute("language", "pouet"), "test"),
-            $"```pouet{Environment.NewLine}test{Environment.NewLine}```{Environment.NewLine}");
+            $"```pouet{Environment.NewLine}test{Environment.NewLine}```");
 
         [Fact]
         public void Write_should_throw_When_source_does_not_exist()
@@ -148,7 +149,7 @@ namespace Code
 
             Test(
                 new XElement("code", new XAttribute("source", file.Info.FullName)),
-                $"```csharp{Environment.NewLine}test{Environment.NewLine}```{Environment.NewLine}");
+                $"```csharp{Environment.NewLine}test{Environment.NewLine}```");
         }
 
         [Fact]
@@ -158,7 +159,7 @@ namespace Code
 
             Test(
                 new XElement("code", new XAttribute("source", file.Info.Name)),
-                $"```csharp{Environment.NewLine}test{Environment.NewLine}```{Environment.NewLine}");
+                $"```csharp{Environment.NewLine}test{Environment.NewLine}```");
         }
 
         [Fact]
@@ -178,7 +179,7 @@ namespace Code
 
             Test(
                 new XElement("code", new XAttribute("source", file.Info.FullName), new XAttribute("region", "Foo")),
-                $"```csharp{Environment.NewLine}{SingleRegion_Foo}{Environment.NewLine}```{Environment.NewLine}");
+                $"```csharp{Environment.NewLine}{SingleRegion_Foo}{Environment.NewLine}```");
         }
 
         [Fact]
@@ -188,7 +189,7 @@ namespace Code
 
             Test(
                 new XElement("code", new XAttribute("source", file.Info.FullName), new XAttribute("region", "The Bar Region")),
-                $"```csharp{Environment.NewLine}{DoubleRegion_The_Bar_Region}{Environment.NewLine}```{Environment.NewLine}");
+                $"```csharp{Environment.NewLine}{DoubleRegion_The_Bar_Region}{Environment.NewLine}```");
         }
 
         [Fact]
@@ -198,7 +199,7 @@ namespace Code
 
             Test(
                 new XElement("code", new XAttribute("source", file.Info.FullName), new XAttribute("region", "Foo")),
-                $"```csharp{Environment.NewLine}{DoubleRegion_Foo}{Environment.NewLine}```{Environment.NewLine}");
+                $"```csharp{Environment.NewLine}{DoubleRegion_Foo}{Environment.NewLine}```");
         }
 
         [Fact]
@@ -208,7 +209,7 @@ namespace Code
 
             Test(
                 new XElement("code", new XAttribute("source", file.Info.FullName), new XAttribute("region", "Foo")),
-                $"```csharp{Environment.NewLine}{RegionInComment_Foo}{Environment.NewLine}```{Environment.NewLine}");
+                $"```csharp{Environment.NewLine}{RegionInComment_Foo}{Environment.NewLine}```");
         }
 
         [Fact]

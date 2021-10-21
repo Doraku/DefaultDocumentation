@@ -1,0 +1,30 @@
+name: code coverage
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/CodeCoverage.yml'
+      - 'source/**'
+
+jobs:
+  code_coverage:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.100'
+
+    - name: Collect coverage for net5.0
+      run: dotnet test source\DefaultDocumentation.sln -c Release -p:CollectCoverage=true -p:CoverletOutputFormat=lcov -p:CoverletOutput=..\build\lcov.info /p:TEST=true
+
+    - name: Upload to coverall
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: 'build\lcov.net5.0.info'

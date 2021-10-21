@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using DefaultDocumentation.Markdown.Writers;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Member;
 using DefaultDocumentation.Model.Parameter;
 using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
@@ -25,7 +26,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         public string Name { get; }
 
-        public void Write(PageWriter writer)
+        public void Write(IWriter writer)
         {
             bool titleWritten = false;
             foreach (DocItem item in GetChildren(writer.Context, writer.CurrentItem) ?? Array.Empty<T>())
@@ -52,30 +53,24 @@ namespace DefaultDocumentation.Markdown.Sections
                     titleWritten = true;
                 }
 
+                IWriter childWriter = new ChildWriter(writer, item);
+
                 if (writer.Context.HasOwnPage(item))
                 {
-                    PageWriter childWriter = writer.With(item);
-
                     childWriter
                         .Append("| ")
                         .AppendLink(item, item is TypeDocItem ? string.Join(".", item.GetParents().OfType<TypeDocItem>().Concat(Enumerable.Repeat(item, 1)).Select(i => i.Name)) : null)
-                        .Append(" | ");
-
-                    using (childWriter.ChangeDisplayAsSingleLine(true))
-                    {
-                        childWriter.Append(item.Documentation.GetSummary());
-                    }
-
-                    childWriter.AppendLine(" |");
+                        .Append(" | ")
+                        .SetDisplayAsSingleLine(true)
+                        .AppendAsMarkdown(item.Documentation.GetSummary())
+                        .SetDisplayAsSingleLine(false)
+                        .AppendLine(" |");
                 }
                 else
                 {
                     foreach (ISectionWriter sectionWriter in writer.Context.SectionWriters)
                     {
-                        PageWriter childWriter = writer.With(item);
-
                         sectionWriter.Write(childWriter);
-                        childWriter.EnsureLineStart();
                     }
                 }
             }

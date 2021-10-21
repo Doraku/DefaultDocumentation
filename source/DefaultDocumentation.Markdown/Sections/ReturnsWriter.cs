@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
 using DefaultDocumentation.Model.Member;
 using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
@@ -10,7 +10,7 @@ namespace DefaultDocumentation.Markdown.Sections
     {
         public string Name => "returns";
 
-        public void Write(PageWriter writer)
+        public void Write(IWriter writer)
         {
             IType returnType = writer.CurrentItem switch
             {
@@ -32,9 +32,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
                 if (returns != null)
                 {
-                    writer
-                        .Append(returns)
-                        .AppendLine();
+                    writer.AppendAsMarkdown(returns);
                 }
             }
         }

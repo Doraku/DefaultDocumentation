@@ -2,7 +2,7 @@
 using System.Linq;
 using DefaultDocumentation.Model.Member;
 using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 using ICSharpCode.Decompiler.Documentation;
 using ICSharpCode.Decompiler.TypeSystem;
 
@@ -12,7 +12,7 @@ namespace DefaultDocumentation.Markdown.Sections
     {
         public string Name => "implement";
 
-        public void Write(PageWriter writer)
+        public void Write(IWriter writer)
         {
             IEnumerable<INamedElement> GetImplementation(IMember member)
             {

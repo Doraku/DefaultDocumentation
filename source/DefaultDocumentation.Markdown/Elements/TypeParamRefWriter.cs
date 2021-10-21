@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Parameter;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
@@ -9,7 +9,7 @@ namespace DefaultDocumentation.Markdown.Elements
     {
         public string Name => "typeparamref";
 
-        public void Write(PageWriter writer, XElement element)
+        public void Write(IWriter writer, XElement element)
         {
             string name = element.GetNameAttribute();
 

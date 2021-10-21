@@ -1,5 +1,5 @@
 ﻿using System.Xml.Linq;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
@@ -7,7 +7,7 @@ namespace DefaultDocumentation.Markdown.Sections
     {
         public string Name => "exception";
 
-        public void Write(PageWriter writer)
+        public void Write(IWriter writer)
         {
             bool titleWritten = false;
             foreach (XElement exception in writer.CurrentItem.Documentation.GetExceptions())
@@ -23,10 +23,11 @@ namespace DefaultDocumentation.Markdown.Sections
                 string cref = exception.GetCRefAttribute();
 
                 writer
+                    .EnsureLineStart()
+                    .AppendLine()
                     .AppendLink(cref)
                     .AppendLine()
-                    .Append(exception)
-                    .AppendLine();
+                    .AppendAsMarkdown(exception);
             }
         }
     }

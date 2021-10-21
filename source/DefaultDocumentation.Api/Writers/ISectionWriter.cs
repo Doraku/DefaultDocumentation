@@ -1,9 +1,9 @@
-﻿namespace DefaultDocumentation.Writer
+﻿namespace DefaultDocumentation.Writers
 {
     public interface ISectionWriter
     {
         string Name { get; }
 
-        void Write(PageWriter writer);
+        void Write(IWriter writer);
     }
 }

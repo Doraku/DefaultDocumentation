@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 using DefaultDocumentation.Model.Member;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
@@ -8,23 +8,22 @@ namespace DefaultDocumentation.Markdown.Sections
     {
         public string Name => "propertyvalue";
 
-        public void Write(PageWriter writer)
+        public void Write(IWriter writer)
         {
             if (writer.CurrentItem is PropertyDocItem propertyItem)
             {
                 writer
                     .EnsureLineStart()
                     .AppendLine("#### Property Value")
-                    .AppendLink(propertyItem, propertyItem.Property.ReturnType)
-                    .AppendLine();
+                    .AppendLink(propertyItem, propertyItem.Property.ReturnType);
 
                 XElement value = propertyItem.Documentation.GetValue();
 
                 if (value != null)
                 {
                     writer
-                        .Append(value)
-                        .AppendLine();
+                        .EnsureLineStart()
+                        .AppendAsMarkdown(value);
                 }
             }
         }

@@ -3,7 +3,7 @@ using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Member;
 using DefaultDocumentation.Model.Parameter;
 using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
@@ -12,7 +12,7 @@ namespace DefaultDocumentation.Markdown.Sections
     {
         public string Name => "title";
 
-        public void Write(PageWriter writer)
+        public void Write(IWriter writer)
         {
             if (writer.PageItem == writer.CurrentItem)
             {

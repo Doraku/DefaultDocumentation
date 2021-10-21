@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Internal;
-using DefaultDocumentation.Writer;
+using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
@@ -36,26 +36,23 @@ namespace DefaultDocumentation.Markdown.Elements
 
         public string Name => "code";
 
-        public void Write(PageWriter writer, XElement element)
+        public void Write(IWriter writer, XElement element)
         {
-            if (writer.DisplayAsSingleLine)
+            if (writer.GetDisplayAsSingleLine())
             {
                 return;
             }
 
-            writer = writer.With(writer.CurrentItem);
+            string source = element.GetSourceAttribute();
 
             writer
                 .EnsureLineStart()
                 .Append("```")
-                .AppendLine(element.GetLanguageAttribute() ?? "csharp");
-
-            string source = element.GetSourceAttribute();
-
-            writer
-                .AppendMultiline(source is null ? element.Value : GetCode(writer.Context.Settings, source, element.GetRegionAttribute()))
-                .EnsureLineStart()
-                .AppendLine("```");
+                .AppendLine(element.GetLanguageAttribute() ?? "csharp")
+                .Append(source is null ? element : new XElement("code", GetCode(writer.Context.Settings, source, element.GetRegionAttribute())))
+                .TrimEnd(Environment.NewLine, " ")
+                .AppendLine()
+                .Append("```");
         }
     }
 }

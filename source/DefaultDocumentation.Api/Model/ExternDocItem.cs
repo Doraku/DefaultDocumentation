@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DefaultDocumentation.Model
+﻿namespace DefaultDocumentation.Model
 {
     public sealed class ExternDocItem : DocItem
     {
@@ -9,7 +7,7 @@ namespace DefaultDocumentation.Model
         public string Url { get; }
 
         public ExternDocItem(string id, string url, string name)
-            : base(null, id, id.Substring(2), name ?? id.Substring(2).Prettify(), null)
+            : base(null, id, id.Substring(2), name, null)
         {
             Url = url;
         }
