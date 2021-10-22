@@ -13,9 +13,9 @@ namespace DefaultDocumentation.Markdown.Sections
             {
                 writer
                     .EnsureLineStart()
+                    .AppendLine()
                     .AppendLine("#### Event Type")
-                    .AppendLink(eventItem, eventItem.Event.ReturnType)
-                    .AppendLine();
+                    .AppendLink(eventItem, eventItem.Event.ReturnType);
             }
         }
     }
