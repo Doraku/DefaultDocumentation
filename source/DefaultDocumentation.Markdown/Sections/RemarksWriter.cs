@@ -9,7 +9,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         public void Write(IWriter writer)
         {
-            XElement remarks = writer.CurrentItem.Documentation.GetRemarks();
+            XElement remarks = writer.CurrentItem.Documentation?.Element(Name);
 
             if (remarks != null)
             {

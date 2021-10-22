@@ -1,5 +1,4 @@
-﻿using System.Xml.Linq;
-using DefaultDocumentation.Model.Parameter;
+﻿using DefaultDocumentation.Model.Parameter;
 using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Sections
@@ -17,7 +16,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 {
                     TypeParameterDocItem => writer.CurrentItem.Documentation,
                     ParameterDocItem => writer.CurrentItem.Documentation,
-                    _ => writer.CurrentItem.Documentation.GetSummary()
+                    _ => writer.CurrentItem.Documentation?.Element(Name)
                 });
         }
     }

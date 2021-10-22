@@ -18,7 +18,7 @@ namespace DefaultDocumentation.Markdown.Sections
                     .AppendLine("#### Property Value")
                     .AppendLink(propertyItem, propertyItem.Property.ReturnType);
 
-                XElement value = propertyItem.Documentation.GetValue();
+                XElement value = propertyItem.Documentation?.Element(Name);
 
                 if (value != null)
                 {

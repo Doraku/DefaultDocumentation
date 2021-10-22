@@ -21,6 +21,11 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Name_should_be_summary() => Check.That(Name).IsEqualTo("summary");
 
         [Fact]
+        public void Write_should_not_write_When_not_present() => Test(
+            new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(SummaryWriterTest).FullName}"), null),
+            string.Empty);
+
+        [Fact]
         public void Write_should_write() => Test(
             new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(SummaryWriter).FullName}"), new XElement("doc", new XElement("summary", "test"))),
             "test");
