@@ -12,9 +12,7 @@ namespace DefaultDocumentation.Markdown.Elements
             writer
                 .EnsureLineStart()
                 .AppendLine()
-                .AppendAsMarkdown(element)
-                .EnsureLineStart()
-                .AppendLine();
+                .AppendAsMarkdown(element);
         }
     }
 }

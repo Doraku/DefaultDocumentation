@@ -13,13 +13,13 @@ namespace DefaultDocumentation.Markdown.Elements
         [Fact]
         public void Write_should_write() => Test(
             new XElement("para", "test"),
-            $"test{Environment.NewLine}{Environment.NewLine}");
+            "test");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
             w => w.Append("pouet"),
             new XElement("para", "test"),
-            $"pouet{Environment.NewLine}{Environment.NewLine}test{Environment.NewLine}{Environment.NewLine}");
+            $"pouet{Environment.NewLine}{Environment.NewLine}test");
 
         [Fact]
         public void Write_should_not_write_newline_When_not_needed() => Test(
@@ -27,6 +27,6 @@ namespace DefaultDocumentation.Markdown.Elements
                 .Append("pouet")
                 .AppendLine(),
             new XElement("para", "test\n"),
-            $"pouet{Environment.NewLine}{Environment.NewLine}test{Environment.NewLine}{Environment.NewLine}");
+            $"pouet{Environment.NewLine}{Environment.NewLine}test");
     }
 }
