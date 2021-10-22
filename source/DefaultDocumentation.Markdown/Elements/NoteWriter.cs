@@ -41,14 +41,10 @@ namespace DefaultDocumentation.Markdown.Elements
                 prefixedWriter
                     .Append("**")
                     .Append(notePrefix)
-                    .AppendLine(":**");
+                    .AppendLine(":**  ");
             }
 
-            prefixedWriter.Append(element);
-
-            writer
-                .EnsureLineStart()
-                .AppendLine();
+            prefixedWriter.AppendAsMarkdown(element);
         }
     }
 }
