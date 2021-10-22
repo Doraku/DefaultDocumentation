@@ -114,35 +114,19 @@ dotnet tool install DefaultDocumentation.Console -g
 <a name='Overview'></a>
 # Overview
 List of supported balises and attributes taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags) with some additions.
-
-- [x] [`<c>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#c)
-- [x] [`<code>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#code)
-  - [x] `language` attribute used to declare the languge of the code
-  - [x] `source` attribute used to reference code from a specific file
-  - [x] `region` attribute used to reference a specific `#region` from the source
+## Top level balises
 - [x] [`<example>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#example)
   - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
 - [x] [`<exception>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#exception)
   - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#cref-attribute) attribute
   - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
 - [x] `<exclude>` used to exclude an element and all its members from the documentation
-- [x] [`<include>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#include)
 - [x] [`<inheritdoc>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#inheritdoc)
   - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#cref-attribute) attribute
-- [ ] [`<list>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#list) not supported yet
-- [x] [`<para>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#para)
-  - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
-- [x] [`<param>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#param)
-  - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
-- [x] [`<paramref>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#paramref)
 - [x] [`<remarks>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#remarks)
   - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
 - [x] [`<returns>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#returns)
   - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
-- [x] [`<see>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#see)
-  - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#cref-attribute) attribute
-  - [x] `href` attribute
-  - [x] `langword` attribute
 - [x] [`<seealso>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#seealso)
   - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#cref-attribute) attribute
   - [x] `href` attribute
@@ -153,6 +137,24 @@ List of supported balises and attributes taken from [here](https://docs.microsof
 - [x] [`<typeparamref>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#typeparamref)
 - [x] [`<value>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#value)
   - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
+## Inner balises
+- [x] [`<c>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#c)
+- [x] [`<code>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#code)
+  - [x] `language` attribute used to declare the languge of the code
+  - [x] `source` attribute used to reference code from a specific file
+  - [x] `region` attribute used to reference a specific `#region` from the source
+- [x] [`<include>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#include)
+- [x] [`<list>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#list)
+- [x] [`<note>`](https://ewsoftware.github.io/XMLCommentsGuide/html/4302a60f-e4f4-4b8d-a451-5f453c4ebd46.htm)
+- [x] [`<para>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#para)
+  - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
+- [x] [`<param>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#param)
+  - [x] `ignorelinebreak` attribute used to change the default settings of `<DefaultDocumentationIgnoreLineBreak>` for the content of this element
+- [x] [`<paramref>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#paramref)
+- [x] [`<see>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#see)
+  - [x] [`cref`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#cref-attribute) attribute
+  - [x] `href` attribute
+  - [x] `langword` attribute
 
 List of supported members taken from [here](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/#id-strings)
 

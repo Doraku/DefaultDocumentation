@@ -15,6 +15,7 @@ namespace DefaultDocumentation.Markdown.Sections
             {
                 writer
                     .EnsureLineStart()
+                    .AppendLine()
                     .AppendLine("### Remarks")
                     .AppendAsMarkdown(remarks);
             }
