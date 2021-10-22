@@ -5,8 +5,6 @@ namespace System.Xml.Linq
 {
     internal static class XElementExtension
     {
-        public static IEnumerable<XElement> GetExceptions(this XElement element) => element?.Elements("exception") ?? Enumerable.Empty<XElement>();
-
         public static IEnumerable<XElement> GetItems(this XElement element) => element?.Descendants("item") ?? Enumerable.Empty<XElement>();
 
         public static IEnumerable<XElement> GetDescriptions(this XElement element) => element?.Descendants("description") ?? Enumerable.Empty<XElement>();

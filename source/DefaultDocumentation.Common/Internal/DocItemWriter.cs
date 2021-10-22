@@ -30,6 +30,7 @@ namespace DefaultDocumentation.Internal
             "implement",
             "example",
             "remarks",
+            "seealso",
             "constructors",
             "fields",
             "properties",
@@ -42,8 +43,7 @@ namespace DefaultDocumentation.Internal
             "interfaces",
             "enums",
             "delegates",
-            "namespaces",
-            "seealso"
+            "namespaces"
         };
 
         private readonly DocumentationContext _context;

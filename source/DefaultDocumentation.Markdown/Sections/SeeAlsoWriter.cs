@@ -20,7 +20,7 @@ namespace DefaultDocumentation.Markdown.Sections
                     writer
                         .EnsureLineStart()
                         .AppendLine()
-                        .Append("#### See Also");
+                        .Append("### See Also");
                 }
 
                 string @ref = seeAlso.GetCRefAttribute();

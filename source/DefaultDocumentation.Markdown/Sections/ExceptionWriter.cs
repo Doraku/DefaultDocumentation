@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Linq;
+using System.Xml.Linq;
 using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Sections
@@ -10,23 +11,24 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Write(IWriter writer)
         {
             bool titleWritten = false;
-            foreach (XElement exception in writer.CurrentItem.Documentation.GetExceptions())
+            foreach (XElement exception in writer.CurrentItem.Documentation?.Elements(Name) ?? Enumerable.Empty<XElement>())
             {
                 if (!titleWritten)
                 {
                     titleWritten = true;
                     writer
                         .EnsureLineStart()
-                        .AppendLine("#### Exceptions");
+                        .AppendLine()
+                        .Append("#### Exceptions");
                 }
 
                 string cref = exception.GetCRefAttribute();
 
                 writer
-                    .EnsureLineStart()
+                    .AppendLine()
                     .AppendLine()
                     .AppendLink(cref)
-                    .AppendLine()
+                    .AppendLine("  ")
                     .AppendAsMarkdown(exception);
             }
         }
