@@ -13,9 +13,9 @@ namespace DefaultDocumentation.Markdown.Sections
             {
                 writer
                     .EnsureLineStart()
+                    .AppendLine()
                     .AppendLine("#### Field Value")
-                    .AppendLink(fieldItem, fieldItem.Field.Type)
-                    .AppendLine();
+                    .AppendLink(fieldItem, fieldItem.Field.Type);
             }
         }
     }
