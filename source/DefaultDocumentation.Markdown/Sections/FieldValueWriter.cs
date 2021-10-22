@@ -5,7 +5,7 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class FieldValueWriter : ISectionWriter
     {
-        public string Name => "fieldvalue";
+        public string Name => "FieldValue";
 
         public void Write(IWriter writer)
         {

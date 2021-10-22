@@ -5,7 +5,7 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class EventTypeWriter : ISectionWriter
     {
-        public string Name => "eventtype";
+        public string Name => "EventType";
 
         public void Write(IWriter writer)
         {

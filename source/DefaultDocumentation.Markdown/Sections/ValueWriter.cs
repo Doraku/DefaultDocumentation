@@ -4,9 +4,9 @@ using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class PropertyValueWriter : ISectionWriter
+    public sealed class ValueWriter : ISectionWriter
     {
-        public string Name => "propertyvalue";
+        public string Name => "value";
 
         public void Write(IWriter writer)
         {
@@ -14,6 +14,7 @@ namespace DefaultDocumentation.Markdown.Sections
             {
                 writer
                     .EnsureLineStart()
+                    .AppendLine()
                     .AppendLine("#### Property Value")
                     .AppendLink(propertyItem, propertyItem.Property.ReturnType);
 
@@ -22,7 +23,8 @@ namespace DefaultDocumentation.Markdown.Sections
                 if (value != null)
                 {
                     writer
-                        .EnsureLineStart()
+                        .AppendLine()
+                        .AppendLine()
                         .AppendAsMarkdown(value);
                 }
             }

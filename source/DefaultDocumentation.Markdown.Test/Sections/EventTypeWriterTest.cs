@@ -12,7 +12,7 @@ namespace DefaultDocumentation.Markdown.Sections
         private static event Action _event;
 
         [Fact]
-        public void Name_should_be_eventtype() => Check.That(Name).IsEqualTo("eventtype");
+        public void Name_should_be_EventType() => Check.That(Name).IsEqualTo("EventType");
 
         [Fact]
         public void Write_should_not_write_When_not_EventDocItem() => Test(

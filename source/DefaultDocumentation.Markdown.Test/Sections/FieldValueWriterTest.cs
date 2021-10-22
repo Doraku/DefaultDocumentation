@@ -14,7 +14,7 @@ namespace DefaultDocumentation.Markdown.Sections
 #pragma warning restore CS0649
 
         [Fact]
-        public void Name_should_be_fieldvalue() => Check.That(Name).IsEqualTo("fieldvalue");
+        public void Name_should_be_FieldValue() => Check.That(Name).IsEqualTo("FieldValue");
 
         [Fact]
         public void Write_should_not_write_When_not_FieldDocItem() => Test(
