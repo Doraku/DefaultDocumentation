@@ -1,5 +1,4 @@
-﻿using System;
-using DefaultDocumentation.Model;
+﻿using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Member;
 using ICSharpCode.Decompiler.TypeSystem;
 using NFluent;
@@ -24,12 +23,16 @@ namespace DefaultDocumentation.Markdown.Sections
         [Fact]
         public void Write_should_write() => Test(
             new FieldDocItem(null, AssemblyInfo.Get<IField>($"F:{typeof(FieldValueWriterTest).FullName}.{nameof(_field)}"), null),
-            $"#### Field Value{Environment.NewLine}[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+@"#### Field Value
+[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
             new FieldDocItem(null, AssemblyInfo.Get<IField>($"F:{typeof(FieldValueWriterTest).FullName}.{nameof(_field)}"), null),
             w => w.Append("pouet"),
-            $"pouet{Environment.NewLine}{Environment.NewLine}#### Field Value{Environment.NewLine}[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+@"pouet
+
+#### Field Value
+[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
     }
 }

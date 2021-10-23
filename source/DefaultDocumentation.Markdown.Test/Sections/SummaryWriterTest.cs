@@ -44,6 +44,8 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Write_should_write_newline_When_needed() => Test(
             new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(SummaryWriter).FullName}"), new XElement("doc", new XElement("summary", "test"))),
             w => w.Append("pouet"),
-            $"pouet{Environment.NewLine}{Environment.NewLine}test");
+@"pouet
+
+test");
     }
 }

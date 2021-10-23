@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Member;
 using ICSharpCode.Decompiler.TypeSystem;
@@ -23,17 +22,24 @@ namespace DefaultDocumentation.Markdown.Sections
         [Fact]
         public void Write_should_write() => Test(
             new PropertyDocItem(null, AssemblyInfo.Get<IProperty>($"P:{typeof(ValueWriterTest).FullName}.{nameof(Property)}"), null),
-            $"#### Property Value{Environment.NewLine}[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+@"#### Property Value
+[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
 
         [Fact]
         public void Write_should_write_value_When_present() => Test(
             new PropertyDocItem(null, AssemblyInfo.Get<IProperty>($"P:{typeof(ValueWriterTest).FullName}.{nameof(Property)}"), new XElement("doc", new XElement("value", "test"))),
-            $"#### Property Value{Environment.NewLine}[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32'){Environment.NewLine}{Environment.NewLine}test");
+@"#### Property Value
+[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')
+
+test");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
             new PropertyDocItem(null, AssemblyInfo.Get<IProperty>($"P:{typeof(ValueWriterTest).FullName}.{nameof(Property)}"), null),
             w => w.Append("pouet"),
-            $"pouet{Environment.NewLine}{Environment.NewLine}#### Property Value{Environment.NewLine}[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+@"pouet
+
+#### Property Value
+[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
     }
 }

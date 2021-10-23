@@ -22,12 +22,16 @@ namespace DefaultDocumentation.Markdown.Sections
         [Fact]
         public void Write_should_write() => Test(
             new EventDocItem(null, AssemblyInfo.Get<IEvent>($"E:{typeof(EventTypeWriterTest).FullName}.{nameof(_event)}"), null),
-            $"#### Event Type{Environment.NewLine}[System.Action](https://docs.microsoft.com/en-us/dotnet/api/System.Action 'System.Action')");
+@"#### Event Type
+[System.Action](https://docs.microsoft.com/en-us/dotnet/api/System.Action 'System.Action')");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
             new EventDocItem(null, AssemblyInfo.Get<IEvent>($"E:{typeof(EventTypeWriterTest).FullName}.{nameof(_event)}"), null),
             w => w.Append("pouet"),
-            $"pouet{Environment.NewLine}{Environment.NewLine}#### Event Type{Environment.NewLine}[System.Action](https://docs.microsoft.com/en-us/dotnet/api/System.Action 'System.Action')");
+@"pouet
+
+#### Event Type
+[System.Action](https://docs.microsoft.com/en-us/dotnet/api/System.Action 'System.Action')");
     }
 }

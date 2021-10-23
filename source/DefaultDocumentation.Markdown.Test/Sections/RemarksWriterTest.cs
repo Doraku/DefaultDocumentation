@@ -20,12 +20,16 @@ namespace DefaultDocumentation.Markdown.Sections
         [Fact]
         public void Write_should_write() => Test(
             new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(RemarksWriterTest).FullName}"), new XElement("doc", new XElement("remarks", "test"))),
-            $"### Remarks{Environment.NewLine}test");
+@"### Remarks
+test");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
             new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(RemarksWriterTest).FullName}"), new XElement("doc", new XElement("remarks", "test"))),
             w => w.Append("pouet"),
-            $"pouet{Environment.NewLine}{Environment.NewLine}### Remarks{Environment.NewLine}test");
+@"pouet
+
+### Remarks
+test");
     }
 }

@@ -37,6 +37,9 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Write_should_write_newline_When_needed() => Test(
             new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(SeeAlsoWriterTest).FullName}"), new XElement("doc", new XElement("seealso", new XAttribute("cref", "T:System.Int32")))),
             w => w.Append("pouet"),
-            $"pouet{Environment.NewLine}{Environment.NewLine}### See Also{Environment.NewLine}- [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+@"pouet
+
+### See Also
+- [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
     }
 }

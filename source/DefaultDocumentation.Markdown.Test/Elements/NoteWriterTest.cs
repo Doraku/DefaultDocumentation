@@ -26,13 +26,15 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write_should_write_When_multiline() => Test(
             w => w.SetIgnoreLineBreakLine(true),
             new XElement("note", "test\ntest"),
-            $"> test{Environment.NewLine}> test");
+@"> test
+> test");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
             w => w.Append("pouet"),
             new XElement("note", "test"),
-            $"pouet{Environment.NewLine}> test");
+@"pouet
+> test");
 
         [Fact]
         public void Write_should_write_no_header_When_unknown() => Test(
@@ -43,31 +45,36 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write_should_write_Note_header_When_note() => Test(
             w => w.SetIgnoreLineBreakLine(true),
             new XElement("note", new XAttribute("type", "note"), "test"),
-            $"> **Note:**  {Environment.NewLine}> test");
+@"> **Note:**  
+> test");
 
         [Fact]
         public void Write_should_write_Tip_header_When_tip() => Test(
             w => w.SetIgnoreLineBreakLine(true),
             new XElement("note", new XAttribute("type", "tip"), "test"),
-            $"> **Tip:**  {Environment.NewLine}> test");
+@"> **Tip:**  
+> test");
 
         [Fact]
         public void Write_should_write_Caution_header_When_caution() => Test(
             w => w.SetIgnoreLineBreakLine(true),
             new XElement("note", new XAttribute("type", "caution"), "test"),
-            $"> **Caution:**  {Environment.NewLine}> test");
+@"> **Caution:**  
+> test");
 
         [Fact]
         public void Write_should_write_Warning_header_When_warning() => Test(
             w => w.SetIgnoreLineBreakLine(true),
             new XElement("note", new XAttribute("type", "warning"), "test"),
-            $"> **Warning:**  {Environment.NewLine}> test");
+@"> **Warning:**  
+> test");
 
         [Fact]
         public void Write_should_write_Important_header_When_important() => Test(
             w => w.SetIgnoreLineBreakLine(true),
             new XElement("note", new XAttribute("type", "important"), "test"),
-            $"> **Important:**  {Environment.NewLine}> test");
+@"> **Important:**  
+> test");
 
         [Theory]
         [InlineData("security")]
@@ -75,19 +82,22 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write_should_write_Security_Note_header(string type) => Test(
             w => w.SetIgnoreLineBreakLine(true),
             new XElement("note", new XAttribute("type", type), "test"),
-            $"> **Security Note:**  {Environment.NewLine}> test");
+@"> **Security Note:**  
+> test");
 
         [Fact]
         public void Write_should_write_Notes_to_Implementers_Note_header_When_implement() => Test(
             w => w.SetIgnoreLineBreakLine(true),
             new XElement("note", new XAttribute("type", "implement"), "test"),
-            $"> **Notes to Implementers:**  {Environment.NewLine}> test");
+@"> **Notes to Implementers:**  
+> test");
 
         [Fact]
         public void Write_should_write_Note_to_Inheritors_header_When_inherit() => Test(
             w => w.SetIgnoreLineBreakLine(true),
             new XElement("note", new XAttribute("type", "inherit"), "test"),
-            $"> **Notes to Inheritors:**  {Environment.NewLine}> test");
+@"> **Notes to Inheritors:**  
+> test");
 
         [Fact]
         public void Write_should_write_Note_to_Callers_header_When_caller() => Test(
@@ -104,7 +114,8 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write_should_write_CS_Note_header(string type) => Test(
             w => w.SetIgnoreLineBreakLine(true),
             new XElement("note", new XAttribute("type", type), "test"),
-            $"> **C# Note:**  {Environment.NewLine}> test");
+@"> **C# Note:**  
+> test");
 
         [Theory]
         [InlineData("vb")]
@@ -116,7 +127,8 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write_should_write_VBNet_Note_header(string type) => Test(
             w => w.SetIgnoreLineBreakLine(true),
             new XElement("note", new XAttribute("type", type), "test"),
-            $"> **VB.NET Note:**  {Environment.NewLine}> test");
+@"> **VB.NET Note:**  
+> test");
 
         [Theory]
         [InlineData("fs")]
@@ -125,7 +137,8 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write_should_write_FS_Note_header(string type) => Test(
             w => w.SetIgnoreLineBreakLine(true),
             new XElement("note", new XAttribute("type", type), "test"),
-            $"> **F# Note:**  {Environment.NewLine}> test");
+@"> **F# Note:**  
+> test");
 
         [Theory]
         [InlineData("cpp")]
@@ -135,7 +148,8 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write_should_write_Cpp_Note_header(string type) => Test(
             w => w.SetIgnoreLineBreakLine(true),
             new XElement("note", new XAttribute("type", type), "test"),
-            $"> **C++ Note:**  {Environment.NewLine}> test");
+@"> **C++ Note:**  
+> test");
 
         [Theory]
         [InlineData("jsharp")]
@@ -145,6 +159,7 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write_should_write_JS_Note_header(string type) => Test(
             w => w.SetIgnoreLineBreakLine(true),
             new XElement("note", new XAttribute("type", type), "test"),
-            $"> **J# Note:**  {Environment.NewLine}> test");
+@"> **J# Note:**  
+> test");
     }
 }
