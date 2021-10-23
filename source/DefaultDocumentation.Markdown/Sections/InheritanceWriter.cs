@@ -7,7 +7,7 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class InheritanceWriter : ISectionWriter
     {
-        public string Name => "inheritance";
+        public string Name => "Inheritance";
 
         public void Write(IWriter writer)
         {
@@ -25,7 +25,7 @@ namespace DefaultDocumentation.Markdown.Sections
                         .Append(" &#129106; ");
                 }
 
-                writer.AppendLine(typeItem.Name);
+                writer.Append(typeItem.Name);
             }
         }
     }

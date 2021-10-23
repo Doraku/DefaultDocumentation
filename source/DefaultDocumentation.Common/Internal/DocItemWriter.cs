@@ -26,7 +26,7 @@ namespace DefaultDocumentation.Internal
             "value",
             "returns",
             "exception",
-            "inheritance",
+            "Inheritance",
             "derived",
             "implement",
             "example",
