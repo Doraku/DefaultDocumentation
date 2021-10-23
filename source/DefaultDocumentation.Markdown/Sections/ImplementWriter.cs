@@ -26,7 +26,7 @@ namespace DefaultDocumentation.Markdown.Sections
                     .Where(e => e.GetIdString().Substring(e.DeclaringTypeDefinition.GetIdString().Length) == id);
             }
 
-            List<INamedElement> implementations = (writer.CurrentItem switch
+            List<INamedElement> implementations = (writer.GetCurrentItem() switch
             {
                 TypeDocItem typeItem => typeItem.Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface && t.GetDefinition().Accessibility == Accessibility.Public).OfType<INamedElement>(),
                 PropertyDocItem propertyItem => GetImplementation(propertyItem.Property),
@@ -54,7 +54,7 @@ namespace DefaultDocumentation.Markdown.Sections
                         writer.Append(", ");
                     }
 
-                    writer.AppendLink(writer.CurrentItem, implementation);
+                    writer.AppendLink(writer.GetCurrentItem(), implementation);
                 }
 
                 writer.AppendLine();

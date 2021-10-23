@@ -13,7 +13,7 @@ namespace DefaultDocumentation.Markdown.Elements
         {
             string name = element.GetNameAttribute();
 
-            _ = writer.CurrentItem.TryGetParameterDocItem(name, out ParameterDocItem parameter) ? writer.AppendLink(parameter) : writer.Append(name);
+            _ = writer.GetCurrentItem().TryGetParameterDocItem(name, out ParameterDocItem parameter) ? writer.AppendLink(parameter) : writer.Append(name);
         }
     }
 }

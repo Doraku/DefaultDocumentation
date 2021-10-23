@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using DefaultDocumentation.Model;
+﻿using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Member;
 using DefaultDocumentation.Model.Parameter;
 using DefaultDocumentation.Model.Type;
@@ -10,69 +9,69 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class TitleWriter : ISectionWriter
     {
-        public string Name => "title";
+        public string Name => "Title";
 
         public void Write(IWriter writer)
         {
-            if (writer.PageItem == writer.CurrentItem)
+            DocItem currentItem = writer.GetCurrentItem();
+
+            if (!writer.Context.HasOwnPage(currentItem))
             {
-                AssemblyDocItem assembly = writer.Context.Items.OfType<AssemblyDocItem>().Single();
-                if (writer.Context.HasOwnPage(assembly))
-                {
-                    writer
-                        .EnsureLineStart()
-                        .Append("#### ")
-                        .AppendLink(assembly)
-                        .AppendLine();
-                }
-
-                writer.EnsureLineStart();
-
-                bool firstWritten = false;
-                foreach (DocItem parent in writer.CurrentItem.GetParents().Skip(1))
-                {
-                    if (!firstWritten)
-                    {
-                        writer.Append("### ");
-                        firstWritten = true;
-                    }
-                    else
-                    {
-                        writer.Append(".");
-                    }
-
-                    writer.AppendLink(parent);
-                }
-            }
-
-            if (!writer.Context.HasOwnPage(writer.CurrentItem))
-            {
-                string url = writer.Context.GetUrl(writer.CurrentItem);
+                string url = writer.Context.GetUrl(currentItem);
                 int startIndex = url.IndexOf('#') + 1;
                 writer
                     .EnsureLineStart()
+                    .AppendLine()
                     .Append("<a name='")
                     .Append(url.Substring(startIndex, url.Length - startIndex))
-                    .AppendLine("'></a>");
+                    .Append("'></a>");
             }
 
-            writer.EnsureLineStart();
-
-            _ = writer.CurrentItem switch
+            _ = currentItem switch
             {
-                NamespaceDocItem => writer.AppendLine($"## {writer.CurrentItem.Name} Namespace"),
-                TypeDocItem typeItem => writer.AppendLine($"## {writer.CurrentItem.LongName} {typeItem.Type.Kind}"),
-                ConstructorDocItem => writer.AppendLine($"## {writer.CurrentItem.LongName} Constructor"),
-                EventDocItem => writer.AppendLine($"## {writer.CurrentItem.LongName} Event"),
-                FieldDocItem => writer.AppendLine($"## {writer.CurrentItem.LongName} Field"),
-                MethodDocItem => writer.AppendLine($"## {writer.CurrentItem.LongName} Method"),
-                OperatorDocItem => writer.AppendLine($"## {writer.CurrentItem.LongName} Operator"),
-                PropertyDocItem => writer.AppendLine($"## {writer.CurrentItem.LongName} Property"),
-                ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IMethod => writer.AppendLine($"## {writer.CurrentItem.LongName} Method"),
-                ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IProperty => writer.AppendLine($"## {writer.CurrentItem.LongName} Property"),
-                EnumFieldDocItem enumFiedItem => writer.AppendLine($"`{writer.CurrentItem.Name}` {enumFiedItem.Field.GetConstantValue()}  "),
-                ParameterDocItem parameterItem => writer.Append($"`{writer.CurrentItem.Name}` ").AppendLink(writer.CurrentItem, parameterItem.Parameter.Type).AppendLine("  "),
-                TypeParameterDocItem typeParameterItem => writer.AppendLine($"`{typeParameterItem.TypeParameter.Name}`  "),
+                AssemblyDocItem => writer
+                    .EnsureLineStart()
+                    .Append($"## {currentItem.Name} Assembly"),
+                NamespaceDocItem => writer
+                    .EnsureLineStart()
+                    .Append($"## {currentItem.Name} Namespace"),
+                TypeDocItem typeItem => writer
+                    .EnsureLineStart()
+                    .Append($"## {currentItem.LongName} {typeItem.Type.Kind}"),
+                ConstructorDocItem => writer
+                    .EnsureLineStart()
+                    .Append($"## {currentItem.Name} Constructor"),
+                EventDocItem => writer
+                    .EnsureLineStart()
+                    .Append($"## {currentItem.LongName} Event"),
+                FieldDocItem => writer
+                    .EnsureLineStart()
+                    .Append($"## {currentItem.LongName} Field"),
+                MethodDocItem => writer
+                    .EnsureLineStart()
+                    .Append($"## {currentItem.LongName} Method"),
+                OperatorDocItem => writer
+                    .EnsureLineStart()
+                    .Append($"## {currentItem.LongName} Operator"),
+                PropertyDocItem => writer
+                    .EnsureLineStart()
+                    .Append($"## {currentItem.LongName} Property"),
+                ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IMethod => writer
+                    .EnsureLineStart()
+                    .Append($"## {currentItem.LongName} Method"),
+                ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IProperty => writer
+                    .EnsureLineStart()
+                    .Append($"## {currentItem.LongName} Property"),
+                EnumFieldDocItem enumFiedItem => writer
+                    .EnsureLineStart()
+                    .Append($"`{currentItem.Name}` {enumFiedItem.Field.GetConstantValue()}"),
+                ParameterDocItem parameterItem => writer
+                    .EnsureLineStart()
+                    .Append($"`{currentItem.Name}` ")
+                    .AppendLink(currentItem, parameterItem.Parameter.Type),
+                TypeParameterDocItem typeParameterItem => writer
+                    .EnsureLineStart()
+                    .Append($"`{typeParameterItem.TypeParameter.Name}`"),
                 _ => writer
             };
         }

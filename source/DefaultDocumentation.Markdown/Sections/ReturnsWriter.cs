@@ -11,7 +11,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         public void Write(IWriter writer)
         {
-            IType returnType = writer.CurrentItem switch
+            IType returnType = writer.GetCurrentItem() switch
             {
                 DelegateDocItem delegateItem => delegateItem.InvokeMethod.ReturnType,
                 MethodDocItem methodItem => methodItem.Method.ReturnType,
@@ -25,9 +25,9 @@ namespace DefaultDocumentation.Markdown.Sections
                     .EnsureLineStart()
                     .AppendLine()
                     .AppendLine("#### Returns")
-                    .AppendLink(writer.CurrentItem, returnType)
+                    .AppendLink(writer.GetCurrentItem(), returnType)
                     .AppendLine("  ")
-                    .AppendAsMarkdown(writer.CurrentItem.Documentation?.Element(Name));
+                    .AppendAsMarkdown(writer.GetCurrentItem().Documentation?.Element(Name));
             }
         }
     }

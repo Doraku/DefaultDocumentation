@@ -6,9 +6,7 @@ namespace DefaultDocumentation.Writers
     {
         DocumentationContext Context { get; }
 
-        DocItem PageItem { get; }
-
-        DocItem CurrentItem { get; }
+        DocItem DocItem { get; }
 
         int Length { get; set; }
 

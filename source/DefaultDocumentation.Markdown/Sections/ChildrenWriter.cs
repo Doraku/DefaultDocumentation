@@ -29,7 +29,7 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Write(IWriter writer)
         {
             bool titleWritten = false;
-            foreach (DocItem item in GetChildren(writer.Context, writer.CurrentItem) ?? Array.Empty<T>())
+            foreach (DocItem item in GetChildren(writer.Context, writer.GetCurrentItem()) ?? Array.Empty<T>())
             {
                 if (!titleWritten)
                 {
@@ -53,7 +53,7 @@ namespace DefaultDocumentation.Markdown.Sections
                     titleWritten = true;
                 }
 
-                IWriter childWriter = new ChildWriter(writer, item);
+                IWriter childWriter = new WrapWriter(writer).SetCurrentItem(item);
 
                 if (writer.Context.HasOwnPage(item))
                 {

@@ -20,9 +20,7 @@ namespace DefaultDocumentation.Markdown.Writers
 
         public DocumentationContext Context => _writer.Context;
 
-        public DocItem PageItem => _writer.PageItem;
-
-        public DocItem CurrentItem => _writer.CurrentItem;
+        public DocItem DocItem => _writer.DocItem;
 
         public int Length
         {

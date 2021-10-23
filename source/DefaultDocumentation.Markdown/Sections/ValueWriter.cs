@@ -9,7 +9,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         public void Write(IWriter writer)
         {
-            if (writer.CurrentItem is PropertyDocItem propertyItem)
+            if (writer.GetCurrentItem() is PropertyDocItem propertyItem)
             {
                 writer
                     .EnsureLineStart()

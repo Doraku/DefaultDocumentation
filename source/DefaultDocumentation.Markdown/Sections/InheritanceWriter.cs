@@ -11,7 +11,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         public void Write(IWriter writer)
         {
-            if (writer.CurrentItem is TypeDocItem typeItem && typeItem.Type.Kind == TypeKind.Class)
+            if (writer.GetCurrentItem() is TypeDocItem typeItem && typeItem.Type.Kind == TypeKind.Class)
             {
                 writer
                     .EnsureLineStart()

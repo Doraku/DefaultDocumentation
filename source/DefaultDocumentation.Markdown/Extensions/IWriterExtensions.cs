@@ -11,8 +11,18 @@ namespace DefaultDocumentation.Writers
 {
     public static class IWriterExtensions
     {
+        private const string CurrentItemKey = "CurrentItemKey";
         private const string DisplayAsSingleLineKey = "DisplayAsSingleLine";
         private const string IgnoreLineBreakLineKey = "IgnoreLineBreak";
+
+        public static DocItem GetCurrentItem(this IWriter writer) => writer[CurrentItemKey] as DocItem ?? writer.DocItem;
+
+        public static IWriter SetCurrentItem(this IWriter writer, DocItem value)
+        {
+            writer[CurrentItemKey] = value;
+
+            return writer;
+        }
 
         public static bool GetDisplayAsSingleLine(this IWriter writer) => writer[DisplayAsSingleLineKey] as bool? ?? false;
 

@@ -1,4 +1,5 @@
-﻿using DefaultDocumentation.Model.Parameter;
+﻿using DefaultDocumentation.Model;
+using DefaultDocumentation.Model.Parameter;
 using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Sections
@@ -12,11 +13,11 @@ namespace DefaultDocumentation.Markdown.Sections
             writer
                 .EnsureLineStart()
                 .AppendLine()
-                .AppendAsMarkdown(writer.CurrentItem switch
+                .AppendAsMarkdown(writer.GetCurrentItem() switch
                 {
-                    TypeParameterDocItem => writer.CurrentItem.Documentation,
-                    ParameterDocItem => writer.CurrentItem.Documentation,
-                    _ => writer.CurrentItem.Documentation?.Element(Name)
+                    TypeParameterDocItem item => item.Documentation,
+                    ParameterDocItem item => item.Documentation,
+                    DocItem item => item.Documentation?.Element(Name)
                 });
         }
     }

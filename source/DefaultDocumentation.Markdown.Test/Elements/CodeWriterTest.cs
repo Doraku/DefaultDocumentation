@@ -155,7 +155,7 @@ test
         [Fact]
         public void Write_should_write_from_source_When_attribute_present()
         {
-            using TempFile file = new(Path.Combine(_tempFolder, Guid.NewGuid().ToString("N")), "test");
+            using TempFile file = new(Path.Combine(_settings.Value.ProjectDirectory.FullName, Guid.NewGuid().ToString("N")), "test");
 
             Test(
                 new XElement("code", new XAttribute("source", file.Info.FullName)),
@@ -167,7 +167,7 @@ test
         [Fact]
         public void Write_should_write_from_relative_source_When_attribute_present()
         {
-            using TempFile file = new(Path.Combine(_tempFolder, Guid.NewGuid().ToString("N")), "test");
+            using TempFile file = new(Path.Combine(_settings.Value.ProjectDirectory.FullName, Guid.NewGuid().ToString("N")), "test");
 
             Test(
                 new XElement("code", new XAttribute("source", file.Info.Name)),
@@ -179,7 +179,7 @@ test
         [Fact]
         public void Write_should_throw_When_region_does_not_exist()
         {
-            using TempFile file = new(Path.Combine(_tempFolder, Guid.NewGuid().ToString("N")), SingleRegion);
+            using TempFile file = new(Path.Combine(_settings.Value.ProjectDirectory.FullName, Guid.NewGuid().ToString("N")), SingleRegion);
 
             Check
                 .ThatCode(() => Test(new XElement("code", new XAttribute("source", file.Info.FullName), new XAttribute("region", "bar")), null))
@@ -189,7 +189,7 @@ test
         [Fact]
         public void Write_should_write_region_When_attribute_present()
         {
-            using TempFile file = new(Path.Combine(_tempFolder, Guid.NewGuid().ToString("N")), SingleRegion);
+            using TempFile file = new(Path.Combine(_settings.Value.ProjectDirectory.FullName, Guid.NewGuid().ToString("N")), SingleRegion);
 
             Test(
                 new XElement("code", new XAttribute("source", file.Info.FullName), new XAttribute("region", "Foo")),
@@ -201,7 +201,7 @@ $@"```csharp
         [Fact]
         public void Write_should_write_region_When_attribute_present_and_inside_an_other_region()
         {
-            using TempFile file = new(Path.Combine(_tempFolder, Guid.NewGuid().ToString("N")), DoubleRegion);
+            using TempFile file = new(Path.Combine(_settings.Value.ProjectDirectory.FullName, Guid.NewGuid().ToString("N")), DoubleRegion);
 
             Test(
                 new XElement("code", new XAttribute("source", file.Info.FullName), new XAttribute("region", "The Bar Region")),
@@ -213,7 +213,7 @@ $@"```csharp
         [Fact]
         public void Write_should_write_region_When_attribute_present_and_contains_an_other_region()
         {
-            using TempFile file = new(Path.Combine(_tempFolder, Guid.NewGuid().ToString("N")), DoubleRegion);
+            using TempFile file = new(Path.Combine(_settings.Value.ProjectDirectory.FullName, Guid.NewGuid().ToString("N")), DoubleRegion);
 
             Test(
                 new XElement("code", new XAttribute("source", file.Info.FullName), new XAttribute("region", "Foo")),
@@ -225,7 +225,7 @@ $@"```csharp
         [Fact]
         public void Write_should_write_region_When_attribute_present_and_in_comment()
         {
-            using TempFile file = new(Path.Combine(_tempFolder, Guid.NewGuid().ToString("N")), RegionInComment);
+            using TempFile file = new(Path.Combine(_settings.Value.ProjectDirectory.FullName, Guid.NewGuid().ToString("N")), RegionInComment);
 
             Test(
                 new XElement("code", new XAttribute("source", file.Info.FullName), new XAttribute("region", "Foo")),
@@ -237,7 +237,7 @@ $@"```csharp
         [Fact]
         public void Write_should_throw_When_no_end_region()
         {
-            using TempFile file = new(Path.Combine(_tempFolder, Guid.NewGuid().ToString("N")), NoEndRegion);
+            using TempFile file = new(Path.Combine(_settings.Value.ProjectDirectory.FullName, Guid.NewGuid().ToString("N")), NoEndRegion);
 
             Check
                 .ThatCode(() => Test(new XElement("code", new XAttribute("source", file.Info.FullName), new XAttribute("region", "Foo")), null))

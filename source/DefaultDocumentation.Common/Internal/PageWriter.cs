@@ -16,17 +16,14 @@ namespace DefaultDocumentation.Internal
             _data = new Dictionary<string, object>();
 
             Context = context;
-            PageItem = item;
-            CurrentItem = item;
+            DocItem = item;
         }
 
         #region IWriter
 
         public DocumentationContext Context { get; }
 
-        public DocItem PageItem { get; }
-
-        public DocItem CurrentItem { get; }
+        public DocItem DocItem { get; }
 
         public int Length
         {

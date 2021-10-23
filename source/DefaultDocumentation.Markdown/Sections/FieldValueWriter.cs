@@ -9,7 +9,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         public void Write(IWriter writer)
         {
-            if (writer.CurrentItem is FieldDocItem fieldItem)
+            if (writer.GetCurrentItem() is FieldDocItem fieldItem)
             {
                 writer
                     .EnsureLineStart()

@@ -9,7 +9,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         public void Write(IWriter writer)
         {
-            if (writer.CurrentItem is IDefinedDocItem definedItem)
+            if (writer.GetCurrentItem() is IDefinedDocItem definedItem)
             {
                 writer.Append(definedItem.Definition);
             }

@@ -9,7 +9,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         public void Write(IWriter writer)
         {
-            if (writer.CurrentItem is EventDocItem eventItem)
+            if (writer.GetCurrentItem() is EventDocItem eventItem)
             {
                 writer
                     .EnsureLineStart()

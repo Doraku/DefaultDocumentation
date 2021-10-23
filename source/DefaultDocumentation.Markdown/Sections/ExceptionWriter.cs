@@ -11,7 +11,7 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Write(IWriter writer)
         {
             bool titleWritten = false;
-            foreach (XElement exception in writer.CurrentItem.Documentation?.Elements(Name) ?? Enumerable.Empty<XElement>())
+            foreach (XElement exception in writer.GetCurrentItem().Documentation?.Elements(Name) ?? Enumerable.Empty<XElement>())
             {
                 if (!titleWritten)
                 {

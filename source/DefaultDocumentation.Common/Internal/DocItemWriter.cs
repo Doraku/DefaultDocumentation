@@ -14,7 +14,8 @@ namespace DefaultDocumentation.Internal
     {
         private static readonly string[] _sections = new[]
         {
-            "title",
+            "Header",
+            "Title",
             "summary",
             "definition",
             "typeparameters",

@@ -9,7 +9,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         public void Write(IWriter writer)
         {
-            XElement example = writer.CurrentItem.Documentation?.Element(Name);
+            XElement example = writer.GetCurrentItem().Documentation?.Element(Name);
 
             if (example != null)
             {

@@ -12,7 +12,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         public void Write(IWriter writer)
         {
-            if (writer.CurrentItem is TypeDocItem typeItem)
+            if (writer.GetCurrentItem() is TypeDocItem typeItem)
             {
                 List<TypeDocItem> derived = writer.Context.Items.OfType<TypeDocItem>().Where(i => i.Type.DirectBaseTypes.Select(t => t.GetDefinition() ?? t).Contains(typeItem.Type)).OrderBy(i => i.FullName).ToList();
                 if (derived.Count > 0)

@@ -3,23 +3,20 @@ using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Writers
 {
-    public sealed class ChildWriter : IWriter
+    public sealed class WrapWriter : IWriter
     {
         private readonly IWriter _writer;
 
-        public ChildWriter(IWriter writer, DocItem currentItem)
+        public WrapWriter(IWriter writer)
         {
             _writer = writer;
-            CurrentItem = currentItem;
         }
 
         #region IWriter
 
         public DocumentationContext Context => _writer.Context;
 
-        public DocItem PageItem => _writer.PageItem;
-
-        public DocItem CurrentItem { get; }
+        public DocItem DocItem => _writer.DocItem;
 
         public int Length
         {
