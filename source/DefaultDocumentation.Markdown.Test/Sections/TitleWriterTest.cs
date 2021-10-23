@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Member;
 using DefaultDocumentation.Model.Type;
@@ -11,6 +12,15 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class TitleWriterTest : ASectionWriterTest<TitleWriter>, TitleWriterTest.IInterface
     {
+        private sealed class DummyDocItem : DocItem
+        {
+            public override GeneratedPages Page => GeneratedPages.Classes;
+
+            public DummyDocItem()
+                : base(null, "dummy", "dummy", "dummy", null)
+            { }
+        }
+
         private interface IInterface
         {
             int Property { get; set; }
@@ -37,7 +47,7 @@ namespace DefaultDocumentation.Markdown.Sections
         void IInterface.Method()
         { }
 
-        private static void Method()
+        private static void Method<T>(T _)
         { }
 
         [SuppressMessage("Style", "IDE0060:Remove unused parameter")]
@@ -45,6 +55,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         private static readonly ClassDocItem _typeDocItem = new(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(TitleWriterTest).FullName}"), null);
         private static readonly EnumDocItem _enumDocItem = new(_typeDocItem, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(TitleWriterTest).FullName}.Enum"), null);
+        private static readonly MethodDocItem _methodDocItem = new(_typeDocItem, AssemblyInfo.Get<IMethod>($"M:{typeof(TitleWriterTest).FullName}.{nameof(Method)}``1(``0)"), null);
 
         protected override GeneratedPages GetGeneratedPages() =>
             GeneratedPages.Assembly
@@ -54,6 +65,11 @@ namespace DefaultDocumentation.Markdown.Sections
 
         [Fact]
         public void Name_should_be_Title() => Check.That(Name).IsEqualTo("Title");
+
+        [Fact]
+        public void Write_should_not_write_When_unknown_DocItem() => Test(
+            new DummyDocItem(),
+            string.Empty);
 
         [Fact]
         public void Write_should_write_When_AssemblyDocItem() => Test(
@@ -87,8 +103,8 @@ namespace DefaultDocumentation.Markdown.Sections
 
         [Fact]
         public void Write_should_write_When_MethodDocItem() => Test(
-            new MethodDocItem(_typeDocItem, AssemblyInfo.Get<IMethod>($"M:{typeof(TitleWriterTest).FullName}.{nameof(Method)}"), null),
-            "## TitleWriterTest.Method() Method");
+            _methodDocItem,
+            "## TitleWriterTest.Method&lt;T&gt;(T) Method");
 
         [Fact]
         public void Write_should_write_When_OperatorDocItem() => Test(
@@ -121,5 +137,17 @@ namespace DefaultDocumentation.Markdown.Sections
             new EnumFieldDocItem(_enumDocItem, AssemblyInfo.Get<IField>($"F:{typeof(TitleWriterTest).FullName}.Enum.{nameof(Enum.Value2)}"), null),
 @"<a name='DefaultDocumentation_Markdown_Sections_TitleWriterTest_Enum_Value2'></a>
 `Value2` 42");
+
+        [Fact]
+        public void Write_should_write_When_ParameterDocItem() => Test(
+            _methodDocItem.TypeParameters.Single(),
+@"<a name='DefaultDocumentation_Markdown_Sections_TitleWriterTest_Method_T_(T)_T'></a>
+`T`");
+
+        [Fact]
+        public void Write_should_write_When_TypeParameterDocItem() => Test(
+            _methodDocItem.Parameters.Single(),
+@"<a name='DefaultDocumentation_Markdown_Sections_TitleWriterTest_Method_T_(T)__'></a>
+`_` [T](DefaultDocumentation_Markdown_Sections_TitleWriterTest_Method_T_(T).md#DefaultDocumentation_Markdown_Sections_TitleWriterTest_Method_T_(T)_T 'DefaultDocumentation.Markdown.Sections.TitleWriterTest.Method&lt;T&gt;(T).T')");
     }
 }
