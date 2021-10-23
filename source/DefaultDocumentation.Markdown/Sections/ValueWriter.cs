@@ -1,5 +1,4 @@
-﻿using System.Xml.Linq;
-using DefaultDocumentation.Model.Member;
+﻿using DefaultDocumentation.Model.Member;
 using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Sections
@@ -16,17 +15,9 @@ namespace DefaultDocumentation.Markdown.Sections
                     .EnsureLineStart()
                     .AppendLine()
                     .AppendLine("#### Property Value")
-                    .AppendLink(propertyItem, propertyItem.Property.ReturnType);
-
-                XElement value = propertyItem.Documentation?.Element(Name);
-
-                if (value != null)
-                {
-                    writer
-                        .AppendLine()
-                        .AppendLine()
-                        .AppendAsMarkdown(value);
-                }
+                    .AppendLink(propertyItem, propertyItem.Property.ReturnType)
+                    .AppendLine("  ")
+                    .AppendAsMarkdown(propertyItem.Documentation?.Element(Name));
             }
         }
     }

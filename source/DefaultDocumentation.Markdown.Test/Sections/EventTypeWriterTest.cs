@@ -9,7 +9,7 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class EventTypeWriterTest : ASectionWriterTest<EventTypeWriter>
     {
-        private static event Action _event;
+        private static event Action Event;
 
         [Fact]
         public void Name_should_be_EventType() => Check.That(Name).IsEqualTo("EventType");
@@ -21,13 +21,13 @@ namespace DefaultDocumentation.Markdown.Sections
 
         [Fact]
         public void Write_should_write() => Test(
-            new EventDocItem(null, AssemblyInfo.Get<IEvent>($"E:{typeof(EventTypeWriterTest).FullName}.{nameof(_event)}"), null),
+            new EventDocItem(null, AssemblyInfo.Get<IEvent>($"E:{typeof(EventTypeWriterTest).FullName}.{nameof(Event)}"), null),
 @"#### Event Type
 [System.Action](https://docs.microsoft.com/en-us/dotnet/api/System.Action 'System.Action')");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
-            new EventDocItem(null, AssemblyInfo.Get<IEvent>($"E:{typeof(EventTypeWriterTest).FullName}.{nameof(_event)}"), null),
+            new EventDocItem(null, AssemblyInfo.Get<IEvent>($"E:{typeof(EventTypeWriterTest).FullName}.{nameof(Event)}"), null),
             w => w.Append("pouet"),
 @"pouet
 

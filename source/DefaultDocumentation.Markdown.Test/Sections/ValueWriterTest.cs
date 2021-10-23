@@ -29,8 +29,7 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Write_should_write_value_When_present() => Test(
             new PropertyDocItem(null, AssemblyInfo.Get<IProperty>($"P:{typeof(ValueWriterTest).FullName}.{nameof(Property)}"), new XElement("doc", new XElement("value", "test"))),
 @"#### Property Value
-[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')
-
+[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')  
 test");
 
         [Fact]
