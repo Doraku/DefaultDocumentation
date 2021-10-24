@@ -9,12 +9,10 @@ namespace DefaultDocumentation.Markdown.Writers
     public sealed class MarkdownWriter : IWriter
     {
         private readonly IWriter _writer;
-        private readonly Dictionary<string, object> _data;
 
         public MarkdownWriter(IWriter writer)
         {
-            _writer = writer;
-            _data = new Dictionary<string, object>();
+            _writer = new OverrideWriter(writer);
         }
 
         #region IWriter
@@ -31,8 +29,8 @@ namespace DefaultDocumentation.Markdown.Writers
 
         public object this[string key]
         {
-            get => (_data.TryGetValue(key, out object value) ? value : null) ?? _writer[key];
-            set => _data[key] = value;
+            get => _writer[key];
+            set => _writer[key] = value;
         }
 
         public IWriter Append(string value)

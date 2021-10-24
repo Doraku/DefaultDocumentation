@@ -54,7 +54,7 @@ namespace DefaultDocumentation.Markdown.Sections
                     titleWritten = true;
                 }
 
-                IWriter childWriter = new WrapWriter(writer).SetCurrentItem(item);
+                IWriter childWriter = new OverrideWriter(writer).SetCurrentItem(item);
 
                 if (writer.Context.HasOwnPage(item))
                 {

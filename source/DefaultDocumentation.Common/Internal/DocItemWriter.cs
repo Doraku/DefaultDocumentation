@@ -19,13 +19,13 @@ namespace DefaultDocumentation.Internal
             "summary",
             "Definition",
 
-            "Inheritance",
-            "Derived",
-            "Implement",
-
             "typeparameters",//
             "parameters",//
             "enumfields",//
+
+            "Inheritance",
+            "Derived",
+            "Implement",
 
             "EventType",
             "FieldValue",
