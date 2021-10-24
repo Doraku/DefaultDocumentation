@@ -20,7 +20,7 @@ namespace DefaultDocumentation.Internal
             "definition",//
 
             "Inheritance",
-            "derived",//
+            "Derived",
             "Implement",
 
             "typeparameters",//

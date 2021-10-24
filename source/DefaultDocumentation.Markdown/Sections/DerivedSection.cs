@@ -8,7 +8,7 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class DerivedSection : ISectionWriter
     {
-        public string Name => "derived";
+        public string Name => "Derived";
 
         public void Write(IWriter writer)
         {
@@ -20,14 +20,14 @@ namespace DefaultDocumentation.Markdown.Sections
                     writer
                         .EnsureLineStart()
                         .AppendLine()
-                        .AppendLine("Derived");
+                        .Append("Derived");
 
                     foreach (TypeDocItem t in derived)
                     {
                         writer
+                            .AppendLine("  ")
                             .Append("&#8627; ")
-                            .AppendLink(t)
-                            .AppendLine();
+                            .AppendLink(t);
                     }
                 }
             }
