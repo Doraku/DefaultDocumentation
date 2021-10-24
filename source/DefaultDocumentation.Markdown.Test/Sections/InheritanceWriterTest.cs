@@ -32,7 +32,6 @@ namespace DefaultDocumentation.Markdown.Sections
             new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(InheritanceWriterTest).FullName}.Class"), null),
             "Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; Class");
 
-
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
             new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(InheritanceWriterTest).FullName}.Class"), null),

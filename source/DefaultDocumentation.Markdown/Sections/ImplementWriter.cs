@@ -10,7 +10,7 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class ImplementWriter : ISectionWriter
     {
-        public string Name => "implement";
+        public string Name => "Implement";
 
         public void Write(IWriter writer)
         {
@@ -56,8 +56,6 @@ namespace DefaultDocumentation.Markdown.Sections
 
                     writer.AppendLink(writer.GetCurrentItem(), implementation);
                 }
-
-                writer.AppendLine();
             }
         }
     }

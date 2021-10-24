@@ -17,34 +17,40 @@ namespace DefaultDocumentation.Internal
             "Header",
             "Title",
             "summary",
-            "definition",
-            "typeparameters",
-            "parameters",
-            "enumfields",
+            "definition",//
+
+            "Inheritance",
+            "derived",//
+            "Implement",
+
+            "typeparameters",//
+            "parameters",//
+            "enumfields",//
+
             "EventType",
             "FieldValue",
             "value",
             "returns",
             "exception",
-            "Inheritance",
-            "derived",
-            "implement",
             "example",
             "remarks",
             "seealso",
-            "constructors",
-            "fields",
-            "properties",
-            "methods",
-            "events",
-            "operators",
-            "explicitinterfaceimplementations",
-            "classes",
-            "structs",
-            "interfaces",
-            "enums",
-            "delegates",
-            "namespaces"
+
+            "namespaces",//
+
+            "classes",//
+            "structs",//
+            "interfaces",//
+            "enums",//
+            "delegates",//
+
+            "constructors",//
+            "fields",//
+            "properties",//
+            "methods",//
+            "events",//
+            "operators",//
+            "explicitinterfaceimplementations"//
         };
 
         private readonly DocumentationContext _context;
