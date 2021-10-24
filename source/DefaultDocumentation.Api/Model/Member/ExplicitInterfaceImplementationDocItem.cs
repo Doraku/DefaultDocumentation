@@ -7,7 +7,7 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Model.Member
 {
-    public sealed class ExplicitInterfaceImplementationDocItem : DocItem, ITypeParameterizedDocItem, IParameterizedDocItem, IDefinedDocItem
+    public sealed class ExplicitInterfaceImplementationDocItem : DocItem, ITypeParameterizedDocItem, IParameterizedDocItem
     {
         public override GeneratedPages Page => GeneratedPages.ExplicitInterfaceImplementations;
 
@@ -32,14 +32,5 @@ namespace DefaultDocumentation.Model.Member
             TypeParameters = method.TypeParameters.Select(p => new TypeParameterDocItem(this, p, documentation)).ToArray();
             Parameters = method.Parameters.Select(p => new ParameterDocItem(this, p, documentation)).ToArray();
         }
-
-        public XElement Definition => new(
-            "code",
-            Member switch
-            {
-                IProperty => PropertyDocItem.CodeAmbience.ConvertSymbol(Member),
-                IMethod => $"{MethodDocItem.CodeAmbience.ConvertSymbol(Member)}{this.GetConstraints()};",
-                _ => string.Empty
-            });
     }
 }

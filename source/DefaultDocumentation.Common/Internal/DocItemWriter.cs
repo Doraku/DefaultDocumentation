@@ -17,7 +17,7 @@ namespace DefaultDocumentation.Internal
             "Header",
             "Title",
             "summary",
-            "definition",//
+            "Definition",
 
             "Inheritance",
             "Derived",

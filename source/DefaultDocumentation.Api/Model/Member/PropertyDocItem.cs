@@ -2,28 +2,12 @@
 using System.Xml.Linq;
 using DefaultDocumentation.Model.Parameter;
 using DefaultDocumentation.Model.Type;
-using ICSharpCode.Decompiler.CSharp.OutputVisitor;
-using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Model.Member
 {
-    public sealed class PropertyDocItem : DocItem, IParameterizedDocItem, IDefinedDocItem
+    public sealed class PropertyDocItem : DocItem, IParameterizedDocItem
     {
-        public static readonly CSharpAmbience CodeAmbience = new()
-        {
-            ConversionFlags =
-                ConversionFlags.ShowAccessibility
-                | ConversionFlags.ShowBody
-                | ConversionFlags.ShowModifiers
-                | ConversionFlags.ShowParameterDefaultValues
-                | ConversionFlags.ShowParameterList
-                | ConversionFlags.ShowParameterModifiers
-                | ConversionFlags.ShowParameterNames
-                | ConversionFlags.ShowReturnType
-                | ConversionFlags.UseFullyQualifiedTypeNames
-        };
-
         public override GeneratedPages Page => GeneratedPages.Properties;
 
         public IProperty Property { get; }
@@ -36,7 +20,5 @@ namespace DefaultDocumentation.Model.Member
             Property = property;
             Parameters = Property.Parameters.Select(p => new ParameterDocItem(this, p, documentation)).ToArray();
         }
-
-        public XElement Definition => new("code", CodeAmbience.ConvertSymbol(Property));
     }
 }

@@ -1,22 +1,11 @@
 ﻿using System.Xml.Linq;
 using DefaultDocumentation.Model.Type;
-using ICSharpCode.Decompiler.CSharp.OutputVisitor;
-using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Model.Member
 {
-    public sealed class FieldDocItem : DocItem, IDefinedDocItem
+    public sealed class FieldDocItem : DocItem
     {
-        public static readonly CSharpAmbience CodeAmbience = new()
-        {
-            ConversionFlags =
-                ConversionFlags.ShowAccessibility
-                | ConversionFlags.ShowReturnType
-                | ConversionFlags.ShowDefinitionKeyword
-                | ConversionFlags.ShowModifiers
-        };
-
         public override GeneratedPages Page => GeneratedPages.Fields;
 
         public IField Field { get; }
@@ -26,7 +15,5 @@ namespace DefaultDocumentation.Model.Member
         {
             Field = field;
         }
-
-        public XElement Definition => new("code", $"{CodeAmbience.ConvertSymbol(Field)}{(Field.IsConst ? $" = {Field.GetConstantValue()}" : string.Empty)};");
     }
 }

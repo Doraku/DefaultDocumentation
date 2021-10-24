@@ -1,31 +1,12 @@
 ﻿using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Model.Parameter;
-using ICSharpCode.Decompiler.CSharp.OutputVisitor;
-using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Model.Type
 {
     public sealed class DelegateDocItem : TypeDocItem, IParameterizedDocItem
     {
-        new public static readonly CSharpAmbience CodeAmbience = new()
-        {
-            ConversionFlags =
-                ConversionFlags.ShowAccessibility
-                | ConversionFlags.ShowBody
-                | ConversionFlags.ShowDeclaringType
-                | ConversionFlags.ShowDefinitionKeyword
-                | ConversionFlags.ShowModifiers
-                | ConversionFlags.ShowParameterList
-                | ConversionFlags.ShowParameterModifiers
-                | ConversionFlags.ShowParameterNames
-                | ConversionFlags.ShowReturnType
-                | ConversionFlags.ShowTypeParameterList
-                | ConversionFlags.ShowTypeParameterVarianceModifier
-                | ConversionFlags.UseFullyQualifiedTypeNames
-        };
-
         public override GeneratedPages Page => GeneratedPages.Delegates;
 
         public IMethod InvokeMethod { get; }
@@ -38,7 +19,5 @@ namespace DefaultDocumentation.Model.Type
             InvokeMethod = type.GetDelegateInvokeMethod();
             Parameters = InvokeMethod.Parameters.Select(p => new ParameterDocItem(this, p, documentation)).ToArray();
         }
-
-        public override XElement Definition => new("code", CodeAmbience.ConvertSymbol(Type));
     }
 }
