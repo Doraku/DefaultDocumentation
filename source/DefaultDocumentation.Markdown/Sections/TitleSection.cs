@@ -57,6 +57,9 @@ namespace DefaultDocumentation.Markdown.Sections
                 PropertyDocItem => writer
                     .EnsureLineStart()
                     .Append($"## {currentItem.LongName} Property"),
+                ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IEvent => writer
+                    .EnsureLineStart()
+                    .Append($"## {currentItem.LongName} Event"),
                 ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IMethod => writer
                     .EnsureLineStart()
                     .Append($"## {currentItem.LongName} Method"),

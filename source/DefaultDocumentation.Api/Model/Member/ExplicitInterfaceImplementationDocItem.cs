@@ -17,6 +17,14 @@ namespace DefaultDocumentation.Model.Member
 
         public ParameterDocItem[] Parameters { get; }
 
+        public ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IEvent @event, XElement documentation)
+            : base(parent, @event, documentation)
+        {
+            Member = @event;
+            TypeParameters = Array.Empty<TypeParameterDocItem>();
+            Parameters = Array.Empty<ParameterDocItem>();
+        }
+
         public ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IProperty property, XElement documentation)
             : base(parent, property, documentation)
         {

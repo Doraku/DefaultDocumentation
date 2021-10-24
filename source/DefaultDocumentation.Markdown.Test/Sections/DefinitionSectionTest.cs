@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using DefaultDocumentation.Model.Member;
 using DefaultDocumentation.Model.Type;
@@ -28,7 +29,7 @@ namespace DefaultDocumentation.Markdown.Sections
         [SuppressMessage("Style", "IDE0060:Remove unused parameter")]
         public static int operator +(DefinitionSectionTest _, int __) => 42;
 
-        private class Enumerator : IEnumerator
+        private class Enumerator : IEnumerator, INotifyPropertyChanged
         {
             object IEnumerator.Current { get; }
 
@@ -41,6 +42,8 @@ namespace DefaultDocumentation.Markdown.Sections
             {
                 throw new NotSupportedException();
             }
+
+            event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged { add { } remove { } }
         }
 
         [SuppressMessage("Redundancy", "RCS1213:Remove unused member declaration.")]
@@ -139,6 +142,13 @@ object System.Collections.IEnumerator.Current { get; }
 ```");
 
         [Fact]
+        public void Write_should_write_When_ExplicitInterfaceImplementationDocItem_and_event() => Test(
+            new ExplicitInterfaceImplementationDocItem(null, AssemblyInfo.Get<IEvent>($"E:{typeof(DefinitionSectionTest).FullName}.Enumerator.System#ComponentModel#INotifyPropertyChanged#PropertyChanged"), null),
+@"```csharp
+event PropertyChangedEventHandler System.ComponentModel.INotifyPropertyChanged.PropertyChanged;
+```");
+
+        [Fact]
         public void Write_should_write_When_ExplicitInterfaceImplementationDocItem_and_method() => Test(
           new ExplicitInterfaceImplementationDocItem(null, AssemblyInfo.Get<IMethod>($"M:{typeof(DefinitionSectionTest).FullName}.Enumerator.System#Collections#IEnumerator#MoveNext"), null),
 @"```csharp
@@ -184,7 +194,8 @@ private delegate void DefinitionSectionTest.MyDelegate<in T1,T2>(in T2 t)
             new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(DefinitionSectionTest).FullName}.{nameof(Enumerator)}"), null),
 @"```csharp
 private class DefinitionSectionTest.Enumerator :
-System.Collections.IEnumerator
+System.Collections.IEnumerator,
+System.ComponentModel.INotifyPropertyChanged
 ```");
     }
 }

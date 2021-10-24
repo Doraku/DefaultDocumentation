@@ -180,6 +180,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 EventDocItem item => Write(writer, w => w.Append(_eventAmbience.ConvertSymbol(item.Event))),
                 ConstructorDocItem item => Write(writer, w => w.Append(_methodAmbience.ConvertSymbol(item.Method)).Append(";")),
                 OperatorDocItem item => Write(writer, w => w.Append(_methodAmbience.ConvertSymbol(item.Method)).Append(";")),
+                ExplicitInterfaceImplementationDocItem item when item.Member is IEvent => Write(writer, w => w.Append(_eventAmbience.ConvertSymbol(item.Member))),
                 ExplicitInterfaceImplementationDocItem item when item.Member is IProperty => Write(writer, w => w.Append(_propertyAmbience.ConvertSymbol(item.Member))),
                 ExplicitInterfaceImplementationDocItem item when item.Member is IMethod => Write(writer, w =>
                 {
@@ -224,6 +225,8 @@ namespace DefaultDocumentation.Markdown.Sections
                         w
                             .AppendLine(baseType is null ? " :" : ",")
                             .Append(_baseTypeAmbience.ConvertType(@interface));
+
+                        baseType = @interface;
                     }
 
                     WriteConstraints(writer, item);

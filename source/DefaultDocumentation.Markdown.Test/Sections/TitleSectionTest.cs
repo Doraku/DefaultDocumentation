@@ -26,6 +26,8 @@ namespace DefaultDocumentation.Markdown.Sections
             int Property { get; set; }
 
             void Method();
+
+            event Action Event;
         }
 
         private enum Enum
@@ -46,6 +48,8 @@ namespace DefaultDocumentation.Markdown.Sections
 
         void IInterface.Method()
         { }
+
+        event Action IInterface.Event { add { } remove { } }
 
         private static void Method<T>(T _)
         { }
@@ -115,6 +119,11 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Write_should_write_When_PropertyDocItem() => Test(
             new PropertyDocItem(_typeDocItem, AssemblyInfo.Get<IProperty>($"P:{typeof(TitleSectionTest).FullName}.{nameof(Property)}"), null),
             "## TitleSectionTest.Property Property");
+
+        [Fact]
+        public void Write_should_write_When_ExplicitInterfaceImplementationDocItem_and_event() => Test(
+            new ExplicitInterfaceImplementationDocItem(_typeDocItem, AssemblyInfo.Get<IEvent>($"E:{typeof(TitleSectionTest).FullName}.DefaultDocumentation#Markdown#Sections#TitleSectionTest#IInterface#Event"), null),
+            "## TitleSectionTest.DefaultDocumentation.Markdown.Sections.TitleSectionTest.IInterface.Event Event");
 
         [Fact]
         public void Write_should_write_When_ExplicitInterfaceImplementationDocItem_and_property() => Test(

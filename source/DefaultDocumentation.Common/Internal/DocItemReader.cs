@@ -189,6 +189,7 @@ namespace DefaultDocumentation.Internal
                             IMethod method when method.IsConstructor => new ConstructorDocItem(typeDocItem, method, documentation),
                             IMethod method when method.IsOperator => new OperatorDocItem(typeDocItem, method, documentation),
                             IMethod method => new MethodDocItem(typeDocItem, method, documentation),
+                            IEvent @event when @event.IsExplicitInterfaceImplementation => new ExplicitInterfaceImplementationDocItem(typeDocItem, @event, documentation),
                             IEvent @event => new EventDocItem(typeDocItem, @event, documentation),
                             _ => throw new NotSupportedException()
                         });

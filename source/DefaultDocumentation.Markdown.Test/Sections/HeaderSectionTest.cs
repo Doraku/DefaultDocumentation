@@ -11,8 +11,8 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class HeaderSectionTest : ASectionTest<HeaderSection>
     {
-        private static readonly AssemblyDocItem _assemblyItem = new AssemblyDocItem("dummy", "dummy", null);
-        private static readonly NamespaceDocItem _namespaceItem = new NamespaceDocItem(_assemblyItem, "dummy", null);
+        private static readonly AssemblyDocItem _assemblyItem = new("dummy", "dummy", null);
+        private static readonly NamespaceDocItem _namespaceItem = new(_assemblyItem, "dummy", null);
         private static readonly TypeDocItem _typeItem = new ClassDocItem(_namespaceItem, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(HeaderSectionTest).FullName}"), null);
 
         private static void Method()
