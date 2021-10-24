@@ -16,8 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		..\Release.bat = ..\Release.bat
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dummy", "Dummy\Dummy.csproj", "{4BBA3FDF-A296-4428-90C3-FC266D4EA45A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{B28829C0-EE3D-4BC4-A8C2-AAF6A3D360DE}"
 	ProjectSection(SolutionItems) = preProject
 		..\.github\workflows\CodeCoverage.yml = ..\.github\workflows\CodeCoverage.yml
@@ -32,9 +30,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.Common
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.Console", "DefaultDocumentation.Console\DefaultDocumentation.Console.csproj", "{E28A96EB-0ED9-438B-9DE5-B435093D0B4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultDocumentation.Api", "DefaultDocumentation.Api\DefaultDocumentation.Api.csproj", "{F7661C9B-832E-4B5F-9CBB-CEA4DE90E898}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.Api", "DefaultDocumentation.Api\DefaultDocumentation.Api.csproj", "{F7661C9B-832E-4B5F-9CBB-CEA4DE90E898}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultDocumentation.Markdown", "DefaultDocumentation.Markdown\DefaultDocumentation.Markdown.csproj", "{BDABDC87-8E3B-4E68-8113-4877EFE6A897}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.Markdown", "DefaultDocumentation.Markdown\DefaultDocumentation.Markdown.csproj", "{BDABDC87-8E3B-4E68-8113-4877EFE6A897}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.Markdown.Test", "DefaultDocumentation.Markdown.Test\DefaultDocumentation.Markdown.Test.csproj", "{A69362AB-5F6C-473E-9142-028CC4016818}"
 EndProject
@@ -48,10 +46,6 @@ Global
 		{4D7998F0-BA62-41E0-904C-A8D1B45F3937}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D7998F0-BA62-41E0-904C-A8D1B45F3937}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D7998F0-BA62-41E0-904C-A8D1B45F3937}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4BBA3FDF-A296-4428-90C3-FC266D4EA45A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4BBA3FDF-A296-4428-90C3-FC266D4EA45A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4BBA3FDF-A296-4428-90C3-FC266D4EA45A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4BBA3FDF-A296-4428-90C3-FC266D4EA45A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F594BD03-1FC5-4858-B0B3-D53C456566FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F594BD03-1FC5-4858-B0B3-D53C456566FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F594BD03-1FC5-4858-B0B3-D53C456566FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
