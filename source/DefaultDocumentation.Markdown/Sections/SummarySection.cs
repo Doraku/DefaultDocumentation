@@ -1,4 +1,5 @@
-﻿using DefaultDocumentation.Model;
+﻿using DefaultDocumentation.Markdown.Extensions;
+using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Parameter;
 using DefaultDocumentation.Writers;
 

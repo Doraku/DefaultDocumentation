@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Writers;
 

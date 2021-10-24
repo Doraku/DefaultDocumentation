@@ -3,11 +3,12 @@ using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Writers;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Parameter;
+using DefaultDocumentation.Writers;
 using ICSharpCode.Decompiler.Documentation;
 using ICSharpCode.Decompiler.TypeSystem;
 using ICSharpCode.Decompiler.TypeSystem.Implementation;
 
-namespace DefaultDocumentation.Writers
+namespace DefaultDocumentation.Markdown.Extensions
 {
     public static class IWriterExtensions
     {

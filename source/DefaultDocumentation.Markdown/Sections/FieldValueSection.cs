@@ -1,4 +1,5 @@
-﻿using DefaultDocumentation.Model.Member;
+﻿using DefaultDocumentation.Markdown.Extensions;
+using DefaultDocumentation.Model.Member;
 using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Sections

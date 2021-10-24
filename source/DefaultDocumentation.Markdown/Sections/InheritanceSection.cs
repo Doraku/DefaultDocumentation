@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Model.Type;
 using DefaultDocumentation.Writers;
 using ICSharpCode.Decompiler.TypeSystem;

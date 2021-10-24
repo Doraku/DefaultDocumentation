@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml.Linq;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Markdown.Extensions;
 using NFluent;
 using Xunit;
 

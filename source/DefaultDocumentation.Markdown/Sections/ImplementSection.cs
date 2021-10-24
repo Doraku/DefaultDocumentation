@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Model.Member;
 using DefaultDocumentation.Model.Type;
 using DefaultDocumentation.Writers;
@@ -20,7 +21,9 @@ namespace DefaultDocumentation.Markdown.Sections
 
                 return member
                     .DeclaringTypeDefinition
-                    .GetBaseTypeDefinitions()
+                    .GetAllBaseTypeDefinitions()
+                    .Reverse()
+                    .Skip(1)
                     .Where(t => t.Kind == TypeKind.Interface && t.GetDefinition().Accessibility == Accessibility.Public)
                     .SelectMany(t => t.Members)
                     .Where(e => e.GetIdString().Substring(e.DeclaringTypeDefinition.GetIdString().Length) == id);

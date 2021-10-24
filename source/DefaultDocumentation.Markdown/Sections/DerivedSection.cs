@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Model.Type;
 using DefaultDocumentation.Writers;
 

@@ -1,4 +1,5 @@
-﻿using DefaultDocumentation.Model.Member;
+﻿using DefaultDocumentation.Markdown.Extensions;
+using DefaultDocumentation.Model.Member;
 using DefaultDocumentation.Model.Type;
 using DefaultDocumentation.Writers;
 using ICSharpCode.Decompiler.TypeSystem;

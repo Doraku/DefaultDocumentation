@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Xml.Linq;
+using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Elements

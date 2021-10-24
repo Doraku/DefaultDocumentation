@@ -280,7 +280,11 @@ namespace DefaultDocumentation.Internal
                     XElement baseDocumentation = null;
                     if (entity is ITypeDefinition type)
                     {
-                        _ = type.GetBaseTypeDefinitions().FirstOrDefault(t => TryGetDocumentation(t, out baseDocumentation));
+                        _ = type
+                            .GetAllBaseTypeDefinitions()
+                            .Reverse()
+                            .Skip(1)
+                            .FirstOrDefault(t => TryGetDocumentation(t, out baseDocumentation));
                     }
                     else if (entity is IMember member && member.IsExplicitInterfaceImplementation)
                     {
@@ -291,7 +295,9 @@ namespace DefaultDocumentation.Internal
                         string id = entity.GetIdString().Substring(entity.DeclaringTypeDefinition.GetIdString().Length);
                         _ = entity
                             .DeclaringTypeDefinition
-                            .GetBaseTypeDefinitions()
+                            .GetAllBaseTypeDefinitions()
+                            .Reverse()
+                            .Skip(1)
                             .SelectMany(t => t.Members)
                             .FirstOrDefault(e => e.GetIdString().Substring(e.DeclaringTypeDefinition.GetIdString().Length) == id && TryGetDocumentation(e, out baseDocumentation));
                     }

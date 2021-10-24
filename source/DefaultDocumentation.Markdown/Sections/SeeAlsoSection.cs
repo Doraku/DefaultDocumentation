@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Xml.Linq;
+using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Sections

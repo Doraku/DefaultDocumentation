@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Linq;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Markdown.Extensions;
 using NFluent;
 using Xunit;
 
