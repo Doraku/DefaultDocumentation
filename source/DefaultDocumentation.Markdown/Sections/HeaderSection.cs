@@ -22,19 +22,18 @@ namespace DefaultDocumentation.Markdown.Sections
                 writer
                     .EnsureLineStart()
                     .Append("#### ")
-                    .AppendLink(assembly)
-                    .AppendLine();
+                    .AppendLink(assembly);
             }
-
-            writer.EnsureLineStart();
 
             bool firstWritten = false;
             foreach (DocItem parent in writer.DocItem.GetParents().Skip(1))
             {
                 if (!firstWritten)
                 {
-                    writer.Append("### ");
                     firstWritten = true;
+                    writer
+                        .EnsureLineStart()
+                        .Append("### ");
                 }
                 else
                 {
