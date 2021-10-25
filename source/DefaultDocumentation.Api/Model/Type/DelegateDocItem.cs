@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Model.Parameter;
 using ICSharpCode.Decompiler.TypeSystem;
@@ -11,7 +12,7 @@ namespace DefaultDocumentation.Model.Type
 
         public IMethod InvokeMethod { get; }
 
-        public ParameterDocItem[] Parameters { get; }
+        public IEnumerable<ParameterDocItem> Parameters { get; }
 
         public DelegateDocItem(DocItem parent, ITypeDefinition type, XElement documentation)
             : base(parent, type, documentation)

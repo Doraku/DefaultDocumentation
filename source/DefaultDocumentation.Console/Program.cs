@@ -21,12 +21,14 @@ namespace DefaultDocumentation
                 return (T)(object)value;
             }
 
-            new Parser(s =>
+            using Parser parser = new(s =>
             {
                 s.CaseSensitive = false;
                 s.CaseInsensitiveEnumValues = true;
                 s.HelpWriter = Console.Out;
-            })
+            });
+
+            parser
                 .ParseArguments<SettingsArgs>(args)
                 .WithParsed(a =>
                 {

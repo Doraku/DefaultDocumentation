@@ -47,8 +47,10 @@ namespace DefaultDocumentation
                 ? default
                 : (Enum.TryParse(stringValue, out T value) ? value : throw new ArgumentException($"Unknown value \"{stringValue}\"", argumentName));
 
+            using TaskTarget target = new("Task", Log);
+
             Generator.Execute(new Settings(
-                new TaskTarget("Task", Log),
+                target,
                 LogLevel,
                 AssemblyFilePath,
                 DocumentationFilePath,

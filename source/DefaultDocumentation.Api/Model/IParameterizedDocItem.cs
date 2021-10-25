@@ -1,9 +1,10 @@
-﻿using DefaultDocumentation.Model.Parameter;
+﻿using System.Collections.Generic;
+using DefaultDocumentation.Model.Parameter;
 
 namespace DefaultDocumentation.Model
 {
     public interface IParameterizedDocItem
     {
-        ParameterDocItem[] Parameters { get; }
+        IEnumerable<ParameterDocItem> Parameters { get; }
     }
 }

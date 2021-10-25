@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Member;
 using ICSharpCode.Decompiler.TypeSystem;
@@ -10,8 +9,6 @@ namespace DefaultDocumentation.Markdown.Elements
 {
     public sealed class ParamRefElementTest : AElementTest<ParamRefElement>
     {
-        [SuppressMessage("Redundancy", "RCS1163:Unused parameter.")]
-        [SuppressMessage("Style", "IDE0060:Remove unused parameter")]
         private static void Dummy(int param1)
         { }
 

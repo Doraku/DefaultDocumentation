@@ -1,0 +1,99 @@
+[*.cs]
+
+dotnet_analyzer_diagnostic.severity = warning
+
+# to remove once we have parameter!! syntax
+# CA1062: Validate arguments of public methods
+dotnet_diagnostic.CA1062.severity = none
+
+# CS0649: Field 'DefinitionSectionTest._field' is never assigned to, and will always have its default value 0
+dotnet_diagnostic.CS0649.severity = none
+
+# CA1008: Enums should have zero value
+dotnet_diagnostic.CA1008.severity = none
+
+# CA1014: Mark assemblies with CLSCompliant
+dotnet_diagnostic.CA1014.severity = none
+
+# CA1054: URI-like parameters should not be strings
+dotnet_diagnostic.CA1054.severity = none
+
+# CA1055: URI-like return values should not be strings
+dotnet_diagnostic.CA1055.severity = none
+
+# CA1056: URI-like properties should not be strings
+dotnet_diagnostic.CA1056.severity = none
+
+# CA1308: Normalize strings to uppercase
+dotnet_diagnostic.CA1308.severity = none
+
+# CA2201: Do not raise reserved exception types
+dotnet_diagnostic.CA2201.severity = none
+
+# CA5351: Do Not Use Broken Cryptographic Algorithms
+dotnet_diagnostic.CA5351.severity = none
+
+# IDE0010: Add missing cases
+dotnet_diagnostic.IDE0010.severity = none
+
+# IDE0022: Use block body for methods
+dotnet_diagnostic.IDE0022.severity = none
+
+# IDE0024: Use block body for operators
+dotnet_diagnostic.IDE0024.severity = none
+
+# IDE0058: Expression value is never used
+dotnet_diagnostic.IDE0058.severity = none
+
+# IDE0061: Use block body for local functions
+dotnet_diagnostic.IDE0061.severity = none
+
+# IDE0072: Add missing cases
+dotnet_diagnostic.IDE0072.severity = none
+
+# IDE0130: Namespace does not match folder structure
+dotnet_diagnostic.IDE0130.severity = none
+
+# RCS1161: Enum should declare explicit values.
+dotnet_diagnostic.RCS1161.severity = none
+
+# RCS1189: Add or remove region name.
+dotnet_diagnostic.RCS1189.severity = none
+
+# RCS1238: Avoid nested ?: operators.
+dotnet_diagnostic.RCS1238.severity = none
+
+[**{.Test}/**.cs]
+
+# CA1051: Do not declare visible instance fields
+dotnet_diagnostic.CA1051.severity = none
+
+# CA1707: Identifiers should not contain underscores
+dotnet_diagnostic.CA1707.severity = none
+
+# CA1801: Review unused parameters
+dotnet_diagnostic.CA1801.severity = none
+
+# CA1812: Avoid uninstantiated internal classes
+dotnet_diagnostic.CA1812.severity = none
+
+# CA2225: Operator overloads have named alternates
+dotnet_diagnostic.CA2225.severity = none
+
+# CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+dotnet_diagnostic.CS8632.severity = none
+
+# IDE0044: Add readonly modifier
+dotnet_diagnostic.IDE0044.severity = none
+
+# IDE0060: Remove unused parameter
+dotnet_diagnostic.IDE0060.severity = none
+
+# RCS1163: Unused parameter.
+dotnet_diagnostic.RCS1163.severity = none
+
+# RCS1169: Make field read-only.
+dotnet_diagnostic.RCS1169.severity = none
+
+# RCS1213: Remove unused member declaration.
+dotnet_diagnostic.RCS1213.severity = none

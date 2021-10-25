@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Model.Parameter;
 using DefaultDocumentation.Model.Type;
@@ -12,7 +13,7 @@ namespace DefaultDocumentation.Model.Member
 
         public IProperty Property { get; }
 
-        public ParameterDocItem[] Parameters { get; }
+        public IEnumerable<ParameterDocItem> Parameters { get; }
 
         public PropertyDocItem(TypeDocItem parent, IProperty property, XElement documentation)
             : base(parent, property, documentation)

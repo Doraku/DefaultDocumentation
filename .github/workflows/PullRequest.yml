@@ -17,5 +17,8 @@ jobs:
       with:
         dotnet-version: '5.0.100'
         
+    - name: Build
+      run: dotnet build source\DefaultDocumentation.sln -c Release -p:TreatWarningsAsErrors=true /p:TEST=true
+
     - name: Run tests
-      run: dotnet test source\DefaultDocumentation.sln -c Release /p:TEST=true
+      run: dotnet test source\DefaultDocumentation.sln -c Release --no-build

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Model.Parameter;
 using ICSharpCode.Decompiler.TypeSystem;
@@ -9,7 +10,7 @@ namespace DefaultDocumentation.Model.Type
     {
         public ITypeDefinition Type { get; }
 
-        public TypeParameterDocItem[] TypeParameters { get; }
+        public IEnumerable<TypeParameterDocItem> TypeParameters { get; }
 
         protected TypeDocItem(DocItem parent, ITypeDefinition type, XElement documentation)
             : base(parent, type, documentation)

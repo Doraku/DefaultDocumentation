@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace System.Xml.Linq
 {
     internal static class XElementExtension
     {
-        public static IEnumerable<XElement> GetItems(this XElement element) => element?.Elements("item") ?? Enumerable.Empty<XElement>();
+        public static IEnumerable<XElement> GetItems(this XElement element) => element.Elements("item");
 
         public static XElement GetSummary(this XElement element) => element?.Element("summary");
 
-        public static XElement GetReturns(this XElement element) => element?.Element("returns");
-
-        public static XElement GetListHeader(this XElement element) => element?.Element("listheader");
+        public static XElement GetListHeader(this XElement element) => element.Element("listheader");
 
         public static XElement GetTerm(this XElement element) => element?.Element("term");
 

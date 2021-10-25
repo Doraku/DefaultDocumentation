@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Member;
@@ -54,7 +53,6 @@ namespace DefaultDocumentation.Markdown.Sections
         private static void Method<T>(T _)
         { }
 
-        [SuppressMessage("Style", "IDE0060:Remove unused parameter")]
         public static int operator +(TitleSectionTest _, int __) => 42;
 
         private static readonly ClassDocItem _typeDocItem = new(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(TitleSectionTest).FullName}"), null);

@@ -159,7 +159,7 @@ namespace DefaultDocumentation.Internal
                 using StreamWriter writer = _context.Settings.LinksOutputFile.CreateText();
 
                 writer.WriteLine(_context.Settings.LinksBaseUrl);
-                foreach (DocItem item in _context.Items.Where(i => i is not ExternDocItem && i is not AssemblyDocItem))
+                foreach (DocItem item in _context.Items.Where(i => i is not ExternDocItem and not AssemblyDocItem))
                 {
                     writer.Write(item.Id);
                     writer.Write('|');

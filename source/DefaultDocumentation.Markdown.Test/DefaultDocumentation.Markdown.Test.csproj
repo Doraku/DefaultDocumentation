@@ -17,4 +17,8 @@
   <ItemGroup>
     <ProjectReference Include="..\DefaultDocumentation.Markdown\DefaultDocumentation.Markdown.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Writer\" />
+  </ItemGroup>
 </Project>
