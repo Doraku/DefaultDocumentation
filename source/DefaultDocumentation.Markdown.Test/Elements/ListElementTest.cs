@@ -16,6 +16,14 @@ namespace DefaultDocumentation.Markdown.Elements
 - item2");
 
         [Fact]
+        public void Write_should_write_When_there_is_sublist() => Test(
+            new XElement("list", new XAttribute("type", "number"), new XElement("item", "item1"), new XElement("list", new XAttribute("type", "bullet"), new XElement("item", "item2.1"), new XElement("item", "item2.2")), new XElement("item", "item3")),
+@"1. item1
+   - item2.1
+   - item2.2
+2. item3");
+
+        [Fact]
         public void Write_should_write_prefix_When_type_is_bullet_and_item_is_multiline() => Test(
             new XElement("list", new XAttribute("type", "bullet"), new XElement("item", "item1\nect..."), new XElement("item", "item2")),
 @"- item1  
@@ -40,7 +48,7 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write_should_write_prefix_When_type_is_number_and_item_is_multiline() => Test(
             new XElement("list", new XAttribute("type", "number"), new XElement("item", "item1\nect..."), new XElement("item", "item2")),
 @"1. item1  
-  ect...
+   ect...
 2. item2");
 
         [Fact]
