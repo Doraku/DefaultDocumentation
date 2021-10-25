@@ -6,7 +6,7 @@ namespace DefaultDocumentation
     public enum NestedTypeVisibilities
     {
         Default = 0,
-        Namespace = 1,
-        DeclaringType = 2
+        Namespace = 1 << 0,
+        DeclaringType = 1 << 1
     }
 }

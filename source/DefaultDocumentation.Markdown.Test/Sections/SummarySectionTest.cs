@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Model.Member;
 using DefaultDocumentation.Model.Type;
@@ -11,8 +10,6 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class SummarySectionTest : ASectionTest<SummarySection>
     {
-        [SuppressMessage("Redundancy", "RCS1163:Unused parameter.")]
-        [SuppressMessage("Style", "IDE0060:Remove unused parameter")]
         private static void Dummy<T>(T param1)
         { }
 

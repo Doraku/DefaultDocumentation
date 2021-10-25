@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Model.Parameter;
 using DefaultDocumentation.Model.Type;
@@ -12,9 +13,9 @@ namespace DefaultDocumentation.Model.Member
 
         public IMethod Method { get; }
 
-        public TypeParameterDocItem[] TypeParameters { get; }
+        public IEnumerable<TypeParameterDocItem> TypeParameters { get; }
 
-        public ParameterDocItem[] Parameters { get; }
+        public IEnumerable<ParameterDocItem> Parameters { get; }
 
         public MethodDocItem(TypeDocItem parent, IMethod method, XElement documentation)
             : base(parent, method, documentation)

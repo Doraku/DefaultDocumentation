@@ -49,7 +49,7 @@ namespace DefaultDocumentation
 
         public string LinksBaseUrl { get; }
 
-        public FileInfo[] ExternLinksFiles { get; }
+        public IEnumerable<FileInfo> ExternLinksFiles { get; }
 
         public Settings(
             Target loggerTarget,

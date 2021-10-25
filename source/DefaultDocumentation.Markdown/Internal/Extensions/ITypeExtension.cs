@@ -2,10 +2,11 @@
 {
     internal static class ITypeExtension
     {
-        public static bool IsObjectOrValueType(this IType type)
+        public static bool IsObjectOrValueType(this IType type) => type.GetDefinition()?.KnownTypeCode switch
         {
-            ITypeDefinition definition = type.GetDefinition();
-            return definition != null && (definition.KnownTypeCode == KnownTypeCode.Object || definition.KnownTypeCode == KnownTypeCode.ValueType);
-        }
+            KnownTypeCode.Object => true,
+            KnownTypeCode.ValueType => true,
+            _ => false
+        };
     }
 }

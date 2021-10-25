@@ -6,10 +6,10 @@ namespace DefaultDocumentation.Markdown.Internal
 {
     internal static class CodeRegion
     {
-        private readonly static Regex _regionStartRegex = new("\r*^ *#region ", RegexOptions.Multiline);
-        private readonly static Regex _regionEndRegex = new("\r*^ *#endregion", RegexOptions.Multiline);
-        private readonly static Regex _commentStartRegex = new("/\\*", RegexOptions.Multiline);
-        private readonly static Regex _commentEndRegex = new("\\*/", RegexOptions.Multiline);
+        private static readonly Regex _regionStartRegex = new("\r*^ *#region ", RegexOptions.Multiline);
+        private static readonly Regex _regionEndRegex = new("\r*^ *#endregion", RegexOptions.Multiline);
+        private static readonly Regex _commentStartRegex = new("/\\*", RegexOptions.Multiline);
+        private static readonly Regex _commentEndRegex = new("\\*/", RegexOptions.Multiline);
 
         private static IEnumerable<(int, int)> GetComments(string fileContent)
         {

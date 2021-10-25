@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Xml.Linq;
 
 namespace DefaultDocumentation.Writers
@@ -79,8 +78,6 @@ namespace DefaultDocumentation.Writers
         }
 
         public static IWriter AppendLine(this IWriter writer, string value) => writer.Append(value).AppendLine();
-
-        public static bool EndsWith(this IWriter writer, params string[] values) => values.Any(writer.EndsWith);
 
         public static IWriter TrimEnd(this IWriter writer, params string[] values)
         {

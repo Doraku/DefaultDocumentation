@@ -21,14 +21,17 @@ namespace DefaultDocumentation
 
         public Settings Settings { get; }
 
-        public ISectionWriter[] SectionWriters { get; }
+        public IEnumerable<ISectionWriter> SectionWriters { get; }
 
         public IReadOnlyDictionary<string, IElementWriter> ElementWriters { get; }
 
         public IEnumerable<DocItem> Items => _items.Values;
 
-        public DocumentationContext(Settings settings, ISectionWriter[] sectionWriters, IReadOnlyDictionary<string, IElementWriter> elementWriters, IReadOnlyDictionary<string, DocItem> items)
+        public DocumentationContext(Settings settings, IEnumerable<ISectionWriter> sectionWriters, IReadOnlyDictionary<string, IElementWriter> elementWriters, IReadOnlyDictionary<string, DocItem> items)
         {
+            Settings = settings;
+            SectionWriters = sectionWriters.ToArray();
+            ElementWriters = elementWriters;
             _items = items;
             _fileNames = new ConcurrentDictionary<DocItem, string>();
             _urls = new ConcurrentDictionary<string, string>();
@@ -58,15 +61,11 @@ namespace DefaultDocumentation
                 return url;
             };
             _pathCleaner = new PathCleaner(settings.InvalidCharReplacement);
-
-            Settings = settings;
-            SectionWriters = sectionWriters;
-            ElementWriters = elementWriters;
         }
 
         public string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i => _pathCleaner.Clean(i is AssemblyDocItem ? i.FullName : Settings.FileNameMode switch
         {
-            FileNameMode.NameAndMd5Mix => item is not IParameterizedDocItem parameterizedItem || parameterizedItem.Parameters.Length is 0
+            FileNameMode.NameAndMd5Mix => item is not IParameterizedDocItem parameterizedItem || !parameterizedItem.Parameters.Any()
                 ? item.LongName
                 : (item.Parent.LongName + '.' + item.Entity.Name + '.' + Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(i.FullName)))),
             FileNameMode.Md5 => Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(i.FullName))),
@@ -79,7 +78,7 @@ namespace DefaultDocumentation
         public string GetUrl(string id) => TryGetDocItem(id, out DocItem item) ? GetUrl(item) : _urls.GetOrAdd(id, static i =>
         {
             i = i.Substring(2);
-            int parametersIndex = i.IndexOf("(");
+            int parametersIndex = i.IndexOf("(", StringComparison.Ordinal);
             if (parametersIndex > 0)
             {
                 string methodName = i.Substring(0, parametersIndex);

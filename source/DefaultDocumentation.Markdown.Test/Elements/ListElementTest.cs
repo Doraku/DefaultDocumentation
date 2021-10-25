@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using DefaultDocumentation.Markdown.Extensions;
 using NFluent;
 using Xunit;
 
@@ -8,6 +9,24 @@ namespace DefaultDocumentation.Markdown.Elements
     {
         [Fact]
         public void Name_should_be_list() => Check.That(Name).IsEqualTo("list");
+
+        [Fact]
+        public void Write_should_write_When_type_is_bullet_and_DisplayAsSingleLine() => Test(
+            w => w.SetDisplayAsSingleLine(true),
+            new XElement("list", new XAttribute("type", "bullet")),
+            string.Empty);
+
+        [Fact]
+        public void Write_should_not_write_When_type_is_number_and_DisplayAsSingleLine() => Test(
+            w => w.SetDisplayAsSingleLine(true),
+            new XElement("list", new XAttribute("type", "number")),
+            string.Empty);
+
+        [Fact]
+        public void Write_should_not_write_When_type_is_table_and_DisplayAsSingleLine() => Test(
+            w => w.SetDisplayAsSingleLine(true),
+            new XElement("list", new XAttribute("type", "table")),
+            string.Empty);
 
         [Fact]
         public void Write_should_write_When_type_is_bullet() => Test(

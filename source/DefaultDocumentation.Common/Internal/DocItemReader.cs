@@ -57,7 +57,7 @@ namespace DefaultDocumentation.Internal
                 GetDocumentation($"T:{_decompiler.TypeSystem.MainModule.AssemblyName}.AssemblyDoc"));
             Add(assemblyDocItem);
 
-            foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(t => t.Name != "NamespaceDoc" && t.Name != "AssemblyDoc"))
+            foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(t => t.Name is not "NamespaceDoc" and not "AssemblyDoc"))
             {
                 _logger.Debug($"handling type \"{type.FullName}\"");
 
@@ -67,7 +67,7 @@ namespace DefaultDocumentation.Internal
                     continue;
                 }
 
-                if (String.IsNullOrWhiteSpace(type.Namespace))
+                if (string.IsNullOrWhiteSpace(type.Namespace))
                 {
                     _logger.Debug($"Skipping documentation for type \"{type.FullName}\": empty namespace");
                     continue;

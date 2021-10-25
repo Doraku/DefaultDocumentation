@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Globalization;
+using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Writers;
 
@@ -15,10 +16,10 @@ namespace DefaultDocumentation.Markdown.Elements
                 return;
             }
 
-            string type = element.GetTypeAttribute()?.ToLower();
+            string type = element.GetTypeAttribute()?.ToLower(CultureInfo.InvariantCulture);
             string notePrefix = type switch
             {
-                "note" or "tip" or "caution" or "warning" or "important" => char.ToUpper(type[0]) + type.Substring(1),
+                "note" or "tip" or "caution" or "warning" or "important" => char.ToUpper(type[0], CultureInfo.InvariantCulture) + type.Substring(1),
                 "security" or "security note" => "Security Note",
                 "implement" => "Notes to Implementers",
                 "inherit" => "Notes to Inheritors",

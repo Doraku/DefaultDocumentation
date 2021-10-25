@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Member;
 using DefaultDocumentation.Model.Type;
@@ -17,7 +16,6 @@ namespace DefaultDocumentation.Markdown.Sections
 
         private static int DummyMethod() => 42;
 
-        [SuppressMessage("Style", "IDE0060:Remove unused parameter")]
         public static int operator +(ReturnsSectionTest _, int __) => 42;
 
         [Fact]

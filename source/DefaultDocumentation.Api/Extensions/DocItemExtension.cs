@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using DefaultDocumentation.Model.Parameter;
 
 namespace DefaultDocumentation.Model
@@ -13,7 +13,7 @@ namespace DefaultDocumentation.Model
             {
                 if (item is ITypeParameterizedDocItem typeParameters)
                 {
-                    typeParameterDocItem = Array.Find(typeParameters.TypeParameters, i => i.TypeParameter.Name == name);
+                    typeParameterDocItem = typeParameters.TypeParameters.FirstOrDefault(i => i.TypeParameter.Name == name);
                 }
 
                 item = item.Parent;
@@ -29,7 +29,7 @@ namespace DefaultDocumentation.Model
             {
                 if (item is IParameterizedDocItem typeParameters)
                 {
-                    parameterDocItem = Array.Find(typeParameters.Parameters, i => i.Parameter.Name == name);
+                    parameterDocItem = typeParameters.Parameters.FirstOrDefault(i => i.Parameter.Name == name);
                 }
 
                 item = item.Parent;
@@ -41,7 +41,7 @@ namespace DefaultDocumentation.Model
         public static IEnumerable<DocItem> GetParents(this DocItem item)
         {
             Stack<DocItem> parents = new();
-            for (DocItem parent = item?.Parent; parent != null; parent = parent.Parent)
+            for (DocItem parent = item.Parent; parent != null; parent = parent.Parent)
             {
                 parents.Push(parent);
             }

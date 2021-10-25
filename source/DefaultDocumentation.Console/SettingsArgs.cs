@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using CommandLine;
 
 namespace DefaultDocumentation
 {
+    [SuppressMessage("Performance", "CA1812: Avoid uninstantiated internal classes")]
     internal sealed class SettingsArgs
     {
         [Option('h', nameof(LogLevel), Required = false, HelpText = "Minimum level of the logs to display")]

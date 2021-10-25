@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Model.Parameter;
@@ -13,9 +14,9 @@ namespace DefaultDocumentation.Model.Member
 
         public IMember Member { get; }
 
-        public TypeParameterDocItem[] TypeParameters { get; }
+        public IEnumerable<TypeParameterDocItem> TypeParameters { get; }
 
-        public ParameterDocItem[] Parameters { get; }
+        public IEnumerable<ParameterDocItem> Parameters { get; }
 
         public ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IEvent @event, XElement documentation)
             : base(parent, @event, documentation)

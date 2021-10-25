@@ -86,22 +86,23 @@ namespace DefaultDocumentation.Markdown.Elements
 
         public void Write(IWriter writer, XElement element)
         {
+            if (writer.GetDisplayAsSingleLine())
+            {
+                return;
+            }
+
             switch (element.GetTypeAttribute())
             {
-                case "bullet" when !writer.GetDisplayAsSingleLine():
+                case "bullet":
                     WriteBullet(writer, element);
                     break;
 
-                case "number" when !writer.GetDisplayAsSingleLine():
+                case "number":
                     WriteNumber(writer, element);
                     break;
 
-                case "table" when !writer.GetDisplayAsSingleLine():
+                case "table":
                     WriteTable(writer, element);
-                    break;
-
-                default:
-                    writer.Append(element);
                     break;
             }
         }
