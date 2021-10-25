@@ -4,9 +4,9 @@ namespace System.Xml.Linq
 {
     internal static class XElementExtension
     {
-        public static IEnumerable<XElement> GetItems(this XElement element) => element.Descendants("item");
+        public static IEnumerable<XElement> GetItems(this XElement element) => element.Elements("item");
 
-        public static IEnumerable<XElement> GetDescriptions(this XElement element) => element.Descendants("description");
+        public static IEnumerable<XElement> GetDescriptions(this XElement element) => element.Elements("description");
 
         public static XElement GetSummary(this XElement element) => element?.Element("summary");
 
