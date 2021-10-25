@@ -62,7 +62,7 @@ namespace DefaultDocumentation.Markdown.Elements
             XElement term = element.GetTerm(),
                      description = element.GetDescription();
 
-            // If both a term and a description are present, seperate them by an em dash 
+            // If both a term and a description are present, separate them by an em dash 
             if (term is not null && description is not null)
             {
                 writer
