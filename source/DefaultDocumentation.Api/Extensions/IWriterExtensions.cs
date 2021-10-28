@@ -63,9 +63,6 @@ namespace DefaultDocumentation.Writers
                         case XElement element:
                             AppendMultiline(writer, element.ToString(), ref textStartIndex, ref startingNewLine);
                             break;
-
-                        default:
-                            throw new Exception($"unhandled node type {node.NodeType}");
                     }
                     if (node is XElement)
                     {

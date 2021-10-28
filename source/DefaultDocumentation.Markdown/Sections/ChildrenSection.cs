@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Markdown.Writers;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Member;
 using DefaultDocumentation.Model.Parameter;
@@ -54,7 +53,9 @@ namespace DefaultDocumentation.Markdown.Sections
                     titleWritten = true;
                 }
 
-                IWriter childWriter = new OverrideWriter(writer).SetCurrentItem(item);
+                IWriter childWriter = writer
+                    .ToOverrideWriter()
+                    .SetCurrentItem(item);
 
                 if (writer.Context.HasOwnPage(item))
                 {

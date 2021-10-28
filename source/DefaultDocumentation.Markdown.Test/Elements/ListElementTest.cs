@@ -25,6 +25,11 @@ namespace DefaultDocumentation.Markdown.Elements
             string.Empty);
 
         [Fact]
+        public void Write_should_not_write_When_type_is_unknown() => Test(
+            new XElement("list", new XAttribute("type", "unknown")),
+            string.Empty);
+
+        [Fact]
         public void Write_should_not_write_When_type_is_number_and_DisplayAsSingleLine() => Test(
             w => w.SetDisplayAsSingleLine(true),
             new XElement("list", new XAttribute("type", "number")),
