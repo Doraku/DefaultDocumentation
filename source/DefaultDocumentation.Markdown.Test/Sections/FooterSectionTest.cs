@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Model;
 using NFluent;
 using Xunit;
@@ -9,13 +9,13 @@ namespace DefaultDocumentation.Markdown.Sections
     {
         private static readonly AssemblyDocItem _assemblyItem = new("dummy", "dummy", null);
 
-        protected override IReadOnlyDictionary<string, DocItem> GetItems() => new Dictionary<string, DocItem>
-        {
-            [_assemblyItem.Id] = _assemblyItem
-        };
-
         [Fact]
         public void Name_should_be_Footer() => Check.That(Name).IsEqualTo("Footer");
+
+        [Fact]
+        public void Write_should_not_write_When_not_PageItem() => Test(
+            w => w.SetCurrentItem(_assemblyItem),
+            string.Empty);
 
         [Fact]
         public void Write_should_write() => Test(
