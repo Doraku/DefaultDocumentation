@@ -82,7 +82,7 @@ namespace DefaultDocumentation.Markdown.Sections
     public sealed class TypeParametersSection : ChildrenSection<TypeParameterDocItem>
     {
         public TypeParametersSection()
-            : base("typeparameters", "#### Type parameters")
+            : base("TypeParameters", "#### Type parameters")
         { }
 
         protected override IEnumerable<TypeParameterDocItem> GetChildren(DocumentationContext context, DocItem item) => (item as ITypeParameterizedDocItem)?.TypeParameters;
@@ -91,7 +91,7 @@ namespace DefaultDocumentation.Markdown.Sections
     public sealed class ParametersSection : ChildrenSection<ParameterDocItem>
     {
         public ParametersSection()
-            : base("parameters", "#### Parameters")
+            : base("Parameters", "#### Parameters")
         { }
 
         protected override IEnumerable<ParameterDocItem> GetChildren(DocumentationContext context, DocItem item) => (item as IParameterizedDocItem)?.Parameters;
@@ -100,98 +100,98 @@ namespace DefaultDocumentation.Markdown.Sections
     public sealed class EnumFieldsSection : ChildrenSection<EnumFieldDocItem>
     {
         public EnumFieldsSection()
-            : base("enumfields", "### Fields")
+            : base("EnumFields", "### Fields")
         { }
     }
 
     public sealed class ConstructorsSection : ChildrenSection<ConstructorDocItem>
     {
         public ConstructorsSection()
-            : base("constructors", "### Constructors")
+            : base("Constructors", "### Constructors")
         { }
     }
 
     public sealed class FieldsSection : ChildrenSection<FieldDocItem>
     {
         public FieldsSection()
-            : base("fields", "### Fields")
+            : base("Fields", "### Fields")
         { }
     }
 
     public sealed class PropertiesSection : ChildrenSection<PropertyDocItem>
     {
         public PropertiesSection()
-            : base("properties", "### Properties")
+            : base("Properties", "### Properties")
         { }
     }
 
     public sealed class MethodsSection : ChildrenSection<MethodDocItem>
     {
         public MethodsSection()
-            : base("methods", "### Methods")
+            : base("Methods", "### Methods")
         { }
     }
 
     public sealed class EventsSection : ChildrenSection<EventDocItem>
     {
         public EventsSection()
-            : base("events", "### Events")
+            : base("Events", "### Events")
         { }
     }
 
     public sealed class OperatorsSection : ChildrenSection<OperatorDocItem>
     {
         public OperatorsSection()
-            : base("operators", "### Operators")
+            : base("Operators", "### Operators")
         { }
     }
 
     public sealed class ExplicitInterfaceImplementationsSection : ChildrenSection<ExplicitInterfaceImplementationDocItem>
     {
         public ExplicitInterfaceImplementationsSection()
-            : base("explicitinterfaceimplementations", "### Explicit Interface Implementations")
+            : base("Explicitinterfaceimplementations", "### Explicit Interface Implementations")
         { }
     }
 
     public sealed class ClassesSection : ChildrenSection<ClassDocItem>
     {
         public ClassesSection()
-            : base("classes", "### Classes")
+            : base("Classes", "### Classes")
         { }
     }
 
     public sealed class StructsSection : ChildrenSection<StructDocItem>
     {
         public StructsSection()
-            : base("structs", "### Structs")
+            : base("Structs", "### Structs")
         { }
     }
 
     public sealed class InterfacesSection : ChildrenSection<InterfaceDocItem>
     {
         public InterfacesSection()
-            : base("interfaces", "### Interfaces")
+            : base("Interfaces", "### Interfaces")
         { }
     }
 
     public sealed class EnumsSection : ChildrenSection<EnumDocItem>
     {
         public EnumsSection()
-            : base("enums", "### Enums")
+            : base("Enums", "### Enums")
         { }
     }
 
     public sealed class DelegatesSection : ChildrenSection<DelegateDocItem>
     {
         public DelegatesSection()
-            : base("delegates", "### Delegates")
+            : base("Delegates", "### Delegates")
         { }
     }
 
     public sealed class NamespacesSection : ChildrenSection<NamespaceDocItem>
     {
         public NamespacesSection()
-            : base("namespaces", "### Namespaces")
+            : base("Namespaces", "### Namespaces")
         { }
     }
 }
