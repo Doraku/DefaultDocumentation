@@ -28,8 +28,8 @@ namespace DefaultDocumentation
         [Option('n', nameof(AssemblyPageName), Required = false, HelpText = "Name of the assembly documentaton file")]
         public string AssemblyPageName { get; set; }
 
-        [Option('m', nameof(FileNameMode), Required = false, HelpText = "Naming convention to use for documentation files")]
-        public FileNameMode FileNameMode { get; set; }
+        [Option('m', nameof(FileNameFactory), Required = false, HelpText = "Name or [Assembly Type] of the IFileNameFactory to use to create documentation files")]
+        public string FileNameFactory { get; set; }
 
         [Option('x', nameof(RemoveFileExtensionFromLinks), Required = false, HelpText = "If true skip file extension in generated page links")]
         public bool RemoveFileExtensionFromLinks { get; set; }

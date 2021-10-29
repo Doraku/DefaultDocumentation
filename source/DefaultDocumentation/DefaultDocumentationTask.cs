@@ -20,7 +20,7 @@ namespace DefaultDocumentation
 
         public string AssemblyPageName { get; set; }
 
-        public string FileNameMode { get; set; }
+        public string FileNameFactory { get; set; }
 
         public bool RemoveFileExtensionFromLinks { get; set; }
 
@@ -58,7 +58,7 @@ namespace DefaultDocumentation
                 OutputDirectoryPath,
                 AssemblyPageName,
                 InvalidCharReplacement,
-                GetEnum<FileNameMode>(nameof(FileNameMode), FileNameMode),
+                FileNameFactory,
                 RemoveFileExtensionFromLinks,
                 GetEnum<NestedTypeVisibilities>(nameof(NestedTypeVisibilities), NestedTypeVisibilities),
                 GetEnum<GeneratedPages>(nameof(GeneratedPages), GeneratedPages),

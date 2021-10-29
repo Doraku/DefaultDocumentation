@@ -43,7 +43,7 @@
       OutputDirectoryPath="$(_DefaultDocumentationFolder)"
       InvalidCharReplacement="$(DefaultDocumentationInvalidCharReplacement)"
       AssemblyPageName="$(DefaultDocumentationAssemblyPageName)"
-      FileNameMode="$(DefaultDocumentationFileNameMode)"
+      FileNameFactory="$(DefaultDocumentationFileNameMode)"
       RemoveFileExtensionFromLinks="$(DefaultDocumentationRemoveFileExtensionFromLinks)"
       NestedTypeVisibilities="$(DefaultDocumentationNestedTypeVisibilities)"
       GeneratedPages="$(DefaultDocumentationGeneratedPages)"

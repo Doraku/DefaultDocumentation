@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using DefaultDocumentation.Markdown.FileNameFactories;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Writers;
 
@@ -27,7 +28,7 @@ namespace DefaultDocumentation.Markdown
                 null,
                 null,
                 null,
-                FileNameMode.FullName,
+                null,
                 false,
                 NestedTypeVisibilities.Default,
                 GetGeneratedPages(),
@@ -39,6 +40,7 @@ namespace DefaultDocumentation.Markdown
                 null));
             _context = new Lazy<DocumentationContext>(() => new DocumentationContext(
                 _settings.Value,
+                new FullNameFactory(),
                 GetSectionWriters(),
                 GetElementWriters(),
                 GetItems()));

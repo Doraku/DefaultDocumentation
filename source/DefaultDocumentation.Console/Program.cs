@@ -41,7 +41,7 @@ namespace DefaultDocumentation
                         a.OutputDirectoryPath,
                         a.AssemblyPageName,
                         a.InvalidCharReplacement,
-                        a.FileNameMode,
+                        a.FileNameFactory,
                         a.RemoveFileExtensionFromLinks,
                         GetEnum(a.NestedTypeVisibilities),
                         GetEnum(a.GeneratedPages),

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
@@ -31,7 +32,7 @@ namespace DefaultDocumentation
 
         public string InvalidCharReplacement { get; }
 
-        public FileNameMode FileNameMode { get; }
+        public string FileNameFactory { get; }
 
         public bool RemoveFileExtensionFromLinks { get; }
 
@@ -51,6 +52,8 @@ namespace DefaultDocumentation
 
         public IEnumerable<FileInfo> ExternLinksFiles { get; }
 
+        public JObject Configuration { get; }
+
         public Settings(
             Target loggerTarget,
             string logLevel,
@@ -60,7 +63,7 @@ namespace DefaultDocumentation
             string outputDirectoryPath,
             string assemblyPageName,
             string invalidCharReplacement,
-            FileNameMode fileNameMode,
+            string fileNameFactory,
             bool removeFileExtensionFromLinks,
             NestedTypeVisibilities nestedTypeVisibilities,
             GeneratedPages generatedPages,
@@ -100,11 +103,11 @@ namespace DefaultDocumentation
             AssemblyPageName = assemblyPageName;
             Logger.Info($"{nameof(AssemblyPageName)}: {AssemblyPageName}");
 
-            InvalidCharReplacement = InvalidCharReplacement = string.IsNullOrEmpty(invalidCharReplacement) ? "_" : invalidCharReplacement;
+            InvalidCharReplacement = string.IsNullOrEmpty(invalidCharReplacement) ? "_" : invalidCharReplacement;
             Logger.Info($"{nameof(InvalidCharReplacement)}: {InvalidCharReplacement}");
 
-            FileNameMode = fileNameMode;
-            Logger.Info($"{nameof(FileNameMode)}: {FileNameMode}");
+            FileNameFactory = string.IsNullOrEmpty(fileNameFactory) ? "FullName" : fileNameFactory;
+            Logger.Info($"{nameof(FileNameFactory)}: {FileNameFactory}");
 
             RemoveFileExtensionFromLinks = removeFileExtensionFromLinks;
             Logger.Info($"{nameof(RemoveFileExtensionFromLinks)}: {RemoveFileExtensionFromLinks}");

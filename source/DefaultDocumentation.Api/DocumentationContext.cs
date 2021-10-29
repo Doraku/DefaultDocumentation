@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using DefaultDocumentation.Internal;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Type;
@@ -14,6 +13,7 @@ namespace DefaultDocumentation
     public sealed class DocumentationContext
     {
         private readonly IReadOnlyDictionary<string, DocItem> _items;
+        private readonly IFileNameFactory _fileNameFactory;
         private readonly ConcurrentDictionary<DocItem, string> _fileNames;
         private readonly ConcurrentDictionary<string, string> _urls;
         private readonly Func<DocItem, string> _urlFactory;
@@ -27,9 +27,10 @@ namespace DefaultDocumentation
 
         public IEnumerable<DocItem> Items => _items.Values;
 
-        public DocumentationContext(Settings settings, IEnumerable<ISectionWriter> sectionWriters, IReadOnlyDictionary<string, IElementWriter> elementWriters, IReadOnlyDictionary<string, DocItem> items)
+        public DocumentationContext(Settings settings, IFileNameFactory fileNameFactory, IEnumerable<ISectionWriter> sectionWriters, IReadOnlyDictionary<string, IElementWriter> elementWriters, IReadOnlyDictionary<string, DocItem> items)
         {
             Settings = settings;
+            _fileNameFactory = fileNameFactory;
             SectionWriters = sectionWriters.ToArray();
             ElementWriters = elementWriters;
             _items = items;
@@ -49,9 +50,9 @@ namespace DefaultDocumentation
                 }
 
                 string url = GetFileName(pagedItem);
-                if (!settings.RemoveFileExtensionFromLinks)
+                if (settings.RemoveFileExtensionFromLinks)
                 {
-                    url += ".md";
+                    url = Path.GetFileNameWithoutExtension(url);
                 }
                 if (item != pagedItem)
                 {
@@ -63,15 +64,11 @@ namespace DefaultDocumentation
             _pathCleaner = new PathCleaner(settings.InvalidCharReplacement);
         }
 
-        public string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i => _pathCleaner.Clean(i is AssemblyDocItem ? i.FullName : Settings.FileNameMode switch
+        public string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i =>
         {
-            FileNameMode.NameAndMd5Mix => item is not IParameterizedDocItem parameterizedItem || !parameterizedItem.Parameters.Any()
-                ? item.LongName
-                : (item.Parent.LongName + '.' + item.Entity.Name + '.' + Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(i.FullName)))),
-            FileNameMode.Md5 => Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(i.FullName))),
-            FileNameMode.Name => i.LongName,
-            _ => i.FullName
-        }));
+            string fileName = _fileNameFactory.GetFileName(this, i);
+            return _pathCleaner.Clean(Path.GetFileNameWithoutExtension(fileName)) + Path.GetExtension(fileName);
+        });
 
         public string GetUrl(DocItem item) => _urls.GetOrAdd(item.Id, _ => _urlFactory(item));
 
