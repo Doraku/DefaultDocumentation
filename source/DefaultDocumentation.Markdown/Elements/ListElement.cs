@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Writers;
@@ -8,7 +7,6 @@ namespace DefaultDocumentation.Markdown.Elements
 {
     public sealed class ListElement : IElementWriter
     {
-        private static readonly XName nameList = XName.Get("list");
         private static void WriteBullet(IWriter writer, XElement element)
         {
             foreach (XElement item in element.GetItems())
