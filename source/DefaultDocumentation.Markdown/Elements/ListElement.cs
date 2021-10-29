@@ -9,30 +9,21 @@ namespace DefaultDocumentation.Markdown.Elements
     public sealed class ListElement : IElementWriter
     {
         private static readonly XName nameList = XName.Get("list");
-        private void WriteBullet(IWriter writer, XElement element)
+        private static void WriteBullet(IWriter writer, XElement element)
         {
-            foreach (XElement item in element.Elements())
+            foreach (XElement item in element.GetItems())
             {
                 IWriter listWriter =
                     writer
                         .EnsureLineStart()
                         .ToPrefixedWriter("  ");
 
-                // Include sub-lists
-                if (item.Name == nameList)
-                {
-                    Write(listWriter, item);
-                }
-                // Kind of a forgiving condition, but this also includes "listheader" I guess
-                else
-                {
-                    writer.Append("- ");
-                    WriteItem(listWriter, item);
-                }
+                writer.Append("- ");
+                WriteItem(listWriter, item);
             }
         }
 
-        private void WriteNumber(IWriter writer, XElement element)
+        private static void WriteNumber(IWriter writer, XElement element)
         {
             int count = 1;
 
@@ -43,21 +34,12 @@ namespace DefaultDocumentation.Markdown.Elements
                         .EnsureLineStart()
                         .ToPrefixedWriter("   ");
 
-                // Include sub-lists
-                if (item.Name == nameList)
-                {
-                    Write(listWriter, item);
-                }
-                // Kind of a forgiving condition, but this also includes "listheader" I guess
-                else
-                {
-                    writer.Append(count++.ToString(CultureInfo.InvariantCulture)).Append(". ");
-                    WriteItem(listWriter, item);
-                }
+                writer.Append(count++.ToString(CultureInfo.InvariantCulture)).Append(". ");
+                WriteItem(listWriter, item);
             }
         }
 
-        private void WriteItem(IWriter writer, XElement element)
+        private static void WriteItem(IWriter writer, XElement element)
         {
             XElement term = element.GetTerm(),
                      description = element.GetDescription();
@@ -77,7 +59,7 @@ namespace DefaultDocumentation.Markdown.Elements
             }
         }
 
-        private void WriteTable(IWriter writer, XElement element)
+        private static void WriteTable(IWriter writer, XElement element)
         {
             int columnCount = 0;
 
