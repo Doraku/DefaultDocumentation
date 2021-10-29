@@ -164,5 +164,7 @@ namespace DefaultDocumentation.Markdown.Extensions
         }
 
         public static IWriter ToPrefixedWriter(this IWriter writer, string prefix) => new PrefixedWriter(writer, prefix);
+
+        public static IWriter ToOverrideWriter(this IWriter writer) => new OverrideWriter(writer);
     }
 }

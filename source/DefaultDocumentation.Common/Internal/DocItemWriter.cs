@@ -12,54 +12,24 @@ namespace DefaultDocumentation.Internal
 {
     internal sealed class DocItemWriter
     {
+        private static readonly string[] _plugins = new[]
+        {
+            "DefaultDocumentation.Markdown.dll"
+        };
+
         private static readonly string[] _sections = new[]
         {
             "Header",
-            "Title",
-            "summary",
-            "Definition",
-
-            "typeparameters",//
-            "parameters",//
-            "enumfields",//
-
-            "Inheritance",
-            "Derived",
-            "Implement",
-
-            "EventType",
-            "FieldValue",
-            "value",
-            "returns",
-            "exception",
-            "example",
-            "remarks",
-            "seealso",
-
-            "namespaces",//
-
-            "classes",//
-            "structs",//
-            "interfaces",//
-            "enums",//
-            "delegates",//
-
-            "constructors",//
-            "fields",//
-            "properties",//
-            "methods",//
-            "events",//
-            "operators",//
-            "explicitinterfaceimplementations"//
+            "Default"
         };
 
         private readonly DocumentationContext _context;
 
         public DocItemWriter(Settings settings)
         {
-            Dictionary<string, ISectionWriter> sectionWriters = Assembly
-                .LoadFrom("DefaultDocumentation.Markdown.dll")
-                .GetTypes()
+            Dictionary<string, ISectionWriter> sectionWriters = _plugins
+                .Select(Assembly.LoadFrom)
+                .SelectMany(a => a.GetTypes())
                 .Where(t => typeof(ISectionWriter).IsAssignableFrom(t) && !t.IsAbstract)
                 .Select(t => (ISectionWriter)Activator.CreateInstance(t))
                 .GroupBy(w => w.Name)
@@ -68,9 +38,9 @@ namespace DefaultDocumentation.Internal
             _context = new DocumentationContext(
                 settings,
                 _sections.Select(s => sectionWriters.TryGetValue(s, out ISectionWriter writer) ? writer : null).Where(w => w != null).ToArray(),
-                Assembly
-                    .LoadFrom("DefaultDocumentation.Markdown.dll")
-                    .GetTypes()
+                _plugins
+                    .Select(Assembly.LoadFrom)
+                    .SelectMany(a => a.GetTypes())
                     .Where(t => typeof(IElementWriter).IsAssignableFrom(t) && !t.IsAbstract)
                     .Select(t => (IElementWriter)Activator.CreateInstance(t))
                     .GroupBy(w => w.Name)

@@ -1,5 +1,8 @@
-﻿using System.Xml.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
+using DefaultDocumentation.Writers;
 using NFluent;
 using Xunit;
 
@@ -7,6 +10,11 @@ namespace DefaultDocumentation.Markdown.Elements
 {
     public sealed class ListElementTest : AElementTest<ListElement>
     {
+        protected override IReadOnlyDictionary<string, IElementWriter> GetElementWriters() => new IElementWriter[]
+        {
+            new ListElement()
+        }.ToDictionary(e => e.Name);
+
         [Fact]
         public void Name_should_be_list() => Check.That(Name).IsEqualTo("list");
 
@@ -14,6 +22,11 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write_should_write_When_type_is_bullet_and_DisplayAsSingleLine() => Test(
             w => w.SetDisplayAsSingleLine(true),
             new XElement("list", new XAttribute("type", "bullet")),
+            string.Empty);
+
+        [Fact]
+        public void Write_should_not_write_When_type_is_unknown() => Test(
+            new XElement("list", new XAttribute("type", "unknown")),
             string.Empty);
 
         [Fact]
@@ -35,12 +48,37 @@ namespace DefaultDocumentation.Markdown.Elements
 - item2");
 
         [Fact]
-        public void Write_should_write_When_there_is_sublist() => Test(
-            new XElement("list", new XAttribute("type", "number"), new XElement("item", "item1"), new XElement("list", new XAttribute("type", "bullet"), new XElement("item", "item2.1"), new XElement("item", "item2.2")), new XElement("item", "item3")),
-@"1. item1
-   - item2.1
-   - item2.2
-2. item3");
+        public void Write_should_write_When_nested() => Test(
+            w => w.SetIgnoreLineBreakLine(true),
+            new XElement("list", new XAttribute("type", "bullet"),
+                new XElement("item", "item1"),
+                new XElement("item",
+                    "item2",
+                    new XElement("list", new XAttribute("type", "number"),
+                        new XElement("item", "item3"),
+                        new XElement("item", "item4"))),
+                new XElement("item", "item5")),
+@"- item1
+- item2
+  1. item3
+  2. item4
+- item5");
+
+        [Fact]
+        public void Write_should_separate_term_and_description() => Test(
+            new XElement("list", new XAttribute("type", "bullet"), new XElement("item", new XElement("term", "Term"), new XElement("description", "Description"))),
+            "- Term — Description"
+        );
+
+        [Fact]
+        public void Write_should_not_separate_lonely_description_and_term() => Test(
+            new XElement("list", new XAttribute("type", "bullet"),
+                new XElement("item", new XElement("term", "Term")),
+                new XElement("item", new XElement("description", "Description"))
+            ),
+@"- Term
+- Description"
+        );
 
         [Fact]
         public void Write_should_write_prefix_When_type_is_bullet_and_item_is_multiline() => Test(

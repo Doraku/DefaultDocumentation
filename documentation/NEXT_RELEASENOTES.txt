@@ -2,5 +2,5 @@ fixed nested types in generated types and empty namespace showing when using Inc
 
 ---
 
-added support for list (type bullet, number or table) elements (#44)
+added support for list (type bullet, number or table) elements (#44 thanks to @IdkGoodName)
 added event explicit interface implementation support

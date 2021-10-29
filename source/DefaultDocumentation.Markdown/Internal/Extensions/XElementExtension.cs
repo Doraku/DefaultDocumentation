@@ -6,6 +6,8 @@ namespace System.Xml.Linq
     {
         public static IEnumerable<XElement> GetItems(this XElement element) => element.Elements("item");
 
+        public static IEnumerable<XElement> GetDescriptions(this XElement element) => element.Elements("description");
+
         public static XElement GetSummary(this XElement element) => element?.Element("summary");
 
         public static XElement GetListHeader(this XElement element) => element.Element("listheader");
