@@ -109,7 +109,9 @@ namespace DefaultDocumentation.Markdown.Elements
 @"|col1|col2|
 |-|-|
 |item11|item12|
-|item21|item22|");
+|item21|item22|
+
+");
 
         [Fact]
         public void Write_should_write_prefix_When_type_is_table_and_item_is_multiline() => Test(
@@ -120,7 +122,9 @@ namespace DefaultDocumentation.Markdown.Elements
 @"|col1<br/>ect...|col2|
 |-|-|
 |item11<br/>ect...|item12|
-|item21|item22|");
+|item21|item22|
+
+");
 
         [Fact]
         public void Write_should_write_newline_When_needed_and_type_is_table() => Test(
@@ -130,9 +134,12 @@ namespace DefaultDocumentation.Markdown.Elements
                 new XElement("item", new XElement("description", "item11"), new XElement("description", "item12")),
                 new XElement("item", new XElement("description", "item21"), new XElement("description", "item22"))),
 @"pouet
+
 |col1|col2|
 |-|-|
 |item11|item12|
-|item21|item22|");
+|item21|item22|
+
+");
     }
 }

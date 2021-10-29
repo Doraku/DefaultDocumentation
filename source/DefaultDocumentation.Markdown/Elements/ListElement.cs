@@ -40,6 +40,7 @@ namespace DefaultDocumentation.Markdown.Elements
 
             writer
                 .EnsureLineStart()
+                .AppendLine()
                 .Append("|");
 
             foreach (XElement description in element.GetListHeader().GetDescriptions())
@@ -79,6 +80,10 @@ namespace DefaultDocumentation.Markdown.Elements
                             .Append("|");
                     }
                 }
+
+                writer
+                    .EnsureLineStart()
+                    .AppendLine();
             }
         }
 
