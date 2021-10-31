@@ -16,7 +16,7 @@ namespace DefaultDocumentation.Markdown.Writers
 
         #region IWriter
 
-        public DocumentationContext Context => _writer.Context;
+        public IGeneralContext Context => _writer.Context;
 
         public DocItem DocItem => _writer.DocItem;
 

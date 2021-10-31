@@ -27,7 +27,7 @@ namespace DefaultDocumentation.Markdown.Sections
             new MethodDocItem(null, AssemblyInfo.Get<IMethod>($"M:{typeof(TypeParametersSectionTest).FullName}.{nameof(Method)}``1(``0)"), null),
 @"#### Type parameters
 
-<a name='DefaultDocumentation_Markdown_Sections_TypeParametersSectionTest_Method_T_(T)_T'></a>
+<a name='T'></a>
 `T`");
     }
 }

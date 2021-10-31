@@ -27,7 +27,7 @@ namespace DefaultDocumentation.Markdown.Sections
             new MethodDocItem(null, AssemblyInfo.Get<IMethod>($"M:{typeof(ParametersSectionTest).FullName}.{nameof(Method)}(System.Int32)"), null),
 @"#### Parameters
 
-<a name='DefaultDocumentation_Markdown_Sections_ParametersSectionTest_Method(int)__'></a>
+<a name='_'></a>
 `_` [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
     }
 }

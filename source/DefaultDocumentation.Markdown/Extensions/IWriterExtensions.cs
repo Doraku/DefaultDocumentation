@@ -12,7 +12,7 @@ namespace DefaultDocumentation.Markdown.Extensions
 {
     public static class IWriterExtensions
     {
-        private const string CurrentItemKey = "CurrentItemKey";
+        private const string CurrentItemKey = "CurrentItem";
         private const string DisplayAsSingleLineKey = "DisplayAsSingleLine";
         private const string IgnoreLineBreakLineKey = "IgnoreLineBreak";
 
@@ -34,7 +34,7 @@ namespace DefaultDocumentation.Markdown.Extensions
             return writer;
         }
 
-        public static bool GetIgnoreLineBreak(this IWriter writer) => writer[IgnoreLineBreakLineKey] as bool? ?? writer.Context.Settings.IgnoreLineBreak;
+        public static bool GetIgnoreLineBreak(this IWriter writer) => writer[IgnoreLineBreakLineKey] as bool? ?? (writer.Context.GetContext(writer.GetCurrentItem()) ?? writer.Context).GetSetting<bool>(IgnoreLineBreakLineKey);
 
         public static IWriter SetIgnoreLineBreakLine(this IWriter writer, bool? value)
         {
@@ -56,7 +56,7 @@ namespace DefaultDocumentation.Markdown.Extensions
         public static IWriter AppendLink(this IWriter writer, DocItem item, string displayedName = null) => writer.AppendUrl(writer.Context.GetUrl(item), displayedName ?? item.Name, item.FullName);
 
         public static IWriter AppendLink(this IWriter writer, string id, string displayedName = null) =>
-            writer.Context.TryGetDocItem(id, out DocItem item)
+            writer.Context.Items.TryGetValue(id, out DocItem item)
             ? writer.AppendLink(item, displayedName)
             : writer.AppendUrl(writer.Context.GetUrl(id), displayedName ?? id.Substring(2), id.Substring(2));
 

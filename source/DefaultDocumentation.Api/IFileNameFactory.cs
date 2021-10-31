@@ -6,8 +6,8 @@ namespace DefaultDocumentation
     {
         string Name { get; }
 
-        void Clean(DocumentationContext context);
+        void Clean(IGeneralContext context);
 
-        string GetFileName(DocumentationContext context, DocItem item);
+        string GetFileName(IGeneralContext context, DocItem item);
     }
 }

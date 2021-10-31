@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Newtonsoft.Json.Linq;
 using NLog;
-using NLog.Config;
-using NLog.Targets;
 
 namespace DefaultDocumentation
 {
     public sealed class Settings
     {
-        private const NestedTypeVisibilities _defaultNestedTypeVisibilities = NestedTypeVisibilities.Namespace;
         private const GeneratedPages _defaultGeneratedPages = GeneratedPages.Namespaces | GeneratedPages.Types | GeneratedPages.Members;
         private const GeneratedAccessModifiers _defaultGeneratedAccessModifiers = GeneratedAccessModifiers.Public | GeneratedAccessModifiers.Private | GeneratedAccessModifiers.Protected | GeneratedAccessModifiers.Internal | GeneratedAccessModifiers.ProtectedInternal | GeneratedAccessModifiers.PrivateProtected;
 
@@ -32,11 +28,7 @@ namespace DefaultDocumentation
 
         public string InvalidCharReplacement { get; }
 
-        public string FileNameFactory { get; }
-
         public bool RemoveFileExtensionFromLinks { get; }
-
-        public NestedTypeVisibilities NestedTypeVisibilities { get; }
 
         public GeneratedPages GeneratedPages { get; }
 
@@ -44,97 +36,70 @@ namespace DefaultDocumentation
 
         public bool IncludeUndocumentedItems { get; }
 
-        public bool IgnoreLineBreak { get; }
-
         public FileInfo LinksOutputFile { get; }
 
         public string LinksBaseUrl { get; }
 
         public IEnumerable<FileInfo> ExternLinksFiles { get; }
 
-        public JObject Configuration { get; }
-
         public Settings(
-            Target loggerTarget,
-            string logLevel,
+            ILogger logger,
             string assemblyFilePath,
             string documentationFilePath,
             string projectDirectoryPath,
             string outputDirectoryPath,
             string assemblyPageName,
-            string invalidCharReplacement,
-            string fileNameFactory,
-            bool removeFileExtensionFromLinks,
-            NestedTypeVisibilities nestedTypeVisibilities,
-            GeneratedPages generatedPages,
             GeneratedAccessModifiers generatedAccessModifiers,
+            GeneratedPages generatedPages,
             bool includeUndocumentedItems,
-            bool ignoreLineBreak,
+            string invalidCharReplacement,
+            bool removeFileExtensionFromLinks,
             string linksOutputFile,
             string linksBaseUrl,
             IEnumerable<string> externlinksFilePaths)
         {
-            if (loggerTarget != null)
-            {
-                LoggingConfiguration logConfiguration = new();
-                logConfiguration.AddTarget(loggerTarget);
-                logConfiguration.AddRule(LogLevel.FromString(string.IsNullOrEmpty(logLevel) ? nameof(LogLevel.Info) : logLevel), LogLevel.Fatal, loggerTarget);
-                LogManager.Configuration = logConfiguration;
-            }
+            Logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-            Logger = LogManager.GetLogger("DefaultDocumentation");
-
-            Logger.Info("Starting DefaultDocumentation with those settings");
-
-            Logger.Info($"{nameof(LogLevel)}: {logLevel}");
+            Logger.Info("Starting DefaultDocumentation with those settings:");
 
             AssemblyFile = !string.IsNullOrEmpty(assemblyFilePath) ? new FileInfo(assemblyFilePath) : throw new ArgumentNullException(nameof(assemblyFilePath));
-            Logger.Info($"{nameof(AssemblyFile)}: {AssemblyFile.FullName}");
+            Logger.Info($"\t{nameof(AssemblyFile)}: {AssemblyFile.FullName}");
 
             DocumentationFile = string.IsNullOrEmpty(documentationFilePath) ? new FileInfo(Path.Combine(AssemblyFile.Directory.FullName, Path.GetFileNameWithoutExtension(AssemblyFile.Name) + ".xml")) : new FileInfo(documentationFilePath);
-            Logger.Info($"{nameof(DocumentationFile)}: {DocumentationFile.FullName}");
+            Logger.Info($"\t{nameof(DocumentationFile)}: {DocumentationFile.FullName}");
 
             ProjectDirectory = string.IsNullOrEmpty(projectDirectoryPath) ? null : new DirectoryInfo(projectDirectoryPath);
-            Logger.Info($"{nameof(ProjectDirectory)}: {ProjectDirectory?.FullName}");
+            Logger.Info($"\t{nameof(ProjectDirectory)}: {ProjectDirectory?.FullName}");
 
             OutputDirectory = string.IsNullOrEmpty(outputDirectoryPath) ? DocumentationFile.Directory : new DirectoryInfo(outputDirectoryPath);
-            Logger.Info($"{nameof(OutputDirectory)}: {OutputDirectory.FullName}");
+            Logger.Info($"\t{nameof(OutputDirectory)}: {OutputDirectory.FullName}");
 
             AssemblyPageName = assemblyPageName;
-            Logger.Info($"{nameof(AssemblyPageName)}: {AssemblyPageName}");
-
-            InvalidCharReplacement = string.IsNullOrEmpty(invalidCharReplacement) ? "_" : invalidCharReplacement;
-            Logger.Info($"{nameof(InvalidCharReplacement)}: {InvalidCharReplacement}");
-
-            FileNameFactory = string.IsNullOrEmpty(fileNameFactory) ? "FullName" : fileNameFactory;
-            Logger.Info($"{nameof(FileNameFactory)}: {FileNameFactory}");
-
-            RemoveFileExtensionFromLinks = removeFileExtensionFromLinks;
-            Logger.Info($"{nameof(RemoveFileExtensionFromLinks)}: {RemoveFileExtensionFromLinks}");
-
-            NestedTypeVisibilities = nestedTypeVisibilities == NestedTypeVisibilities.Default ? _defaultNestedTypeVisibilities : nestedTypeVisibilities;
-            Logger.Info($"{nameof(NestedTypeVisibilities)}: {NestedTypeVisibilities}");
-
-            GeneratedPages = generatedPages == GeneratedPages.Default ? _defaultGeneratedPages : generatedPages;
-            Logger.Info($"{nameof(GeneratedPages)}: {GeneratedPages}");
+            Logger.Info($"\t{nameof(AssemblyPageName)}: {AssemblyPageName}");
 
             GeneratedAccessModifiers = generatedAccessModifiers == GeneratedAccessModifiers.Default ? _defaultGeneratedAccessModifiers : generatedAccessModifiers;
-            Logger.Info($"{nameof(GeneratedAccessModifiers)}: {GeneratedAccessModifiers}");
+            Logger.Info($"\t{nameof(GeneratedAccessModifiers)}: {GeneratedAccessModifiers}");
+
+            GeneratedPages = generatedPages == GeneratedPages.Default ? _defaultGeneratedPages : generatedPages;
+            Logger.Info($"\t{nameof(GeneratedPages)}: {GeneratedPages}");
 
             IncludeUndocumentedItems = includeUndocumentedItems;
-            Logger.Info($"{nameof(IncludeUndocumentedItems)}: {IncludeUndocumentedItems}");
+            Logger.Info($"\t{nameof(IncludeUndocumentedItems)}: {IncludeUndocumentedItems}");
 
-            IgnoreLineBreak = ignoreLineBreak;
-            Logger.Info($"{nameof(IgnoreLineBreak)}: {IgnoreLineBreak}");
+            InvalidCharReplacement = string.IsNullOrEmpty(invalidCharReplacement) ? "_" : invalidCharReplacement;
+            Logger.Info($"\t{nameof(InvalidCharReplacement)}: {InvalidCharReplacement}");
+
+            RemoveFileExtensionFromLinks = removeFileExtensionFromLinks;
+            Logger.Info($"\t{nameof(RemoveFileExtensionFromLinks)}: {RemoveFileExtensionFromLinks}");
 
             LinksOutputFile = string.IsNullOrEmpty(linksOutputFile) ? null : new FileInfo(linksOutputFile);
-            Logger.Info($"{nameof(LinksOutputFile)}: {LinksOutputFile?.FullName}");
+            Logger.Info($"\t{nameof(LinksOutputFile)}: {LinksOutputFile?.FullName}");
 
             LinksBaseUrl = linksBaseUrl ?? string.Empty;
-            Logger.Info($"{nameof(LinksBaseUrl)}: {LinksBaseUrl}");
+            Logger.Info($"\t{nameof(LinksBaseUrl)}: {LinksBaseUrl}");
 
             ExternLinksFiles = (externlinksFilePaths ?? Enumerable.Empty<string>()).SelectMany(GetFilePaths).Distinct().Select(f => new FileInfo(f)).Where(f => f.Exists && f.FullName != LinksOutputFile?.FullName).ToArray();
-            Logger.Info($"{nameof(ExternLinksFiles)}:{string.Concat(ExternLinksFiles.Select(f => $"{Environment.NewLine}\t{f.FullName}"))}");
+            Logger.Info($"\t{nameof(ExternLinksFiles)}:{string.Concat(ExternLinksFiles.Select(f => $"{Environment.NewLine}\t{f.FullName}"))}");
         }
 
         private static IEnumerable<string> GetFilePaths(string filePath)

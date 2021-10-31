@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Writers;
@@ -7,13 +8,20 @@ namespace DefaultDocumentation.Internal
 {
     internal sealed class PageWriter : IWriter
     {
+        private class StringComparer : IEqualityComparer<string>
+        {
+            public bool Equals(string x, string y) => string.Equals(x, y, StringComparison.OrdinalIgnoreCase);
+
+            public int GetHashCode(string obj) => obj.ToUpperInvariant().GetHashCode();
+        }
+
         private readonly StringBuilder _builder;
         private readonly Dictionary<string, object> _data;
 
-        public PageWriter(StringBuilder builder, DocumentationContext context, DocItem item)
+        public PageWriter(StringBuilder builder, IGeneralContext context, DocItem item)
         {
             _builder = builder;
-            _data = new Dictionary<string, object>();
+            _data = new Dictionary<string, object>(new StringComparer());
 
             Context = context;
             DocItem = item;
@@ -21,7 +29,7 @@ namespace DefaultDocumentation.Internal
 
         #region IWriter
 
-        public DocumentationContext Context { get; }
+        public IGeneralContext Context { get; }
 
         public DocItem DocItem { get; }
 

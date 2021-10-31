@@ -4,7 +4,7 @@ namespace DefaultDocumentation.Writers
 {
     public interface IWriter
     {
-        DocumentationContext Context { get; }
+        IGeneralContext Context { get; }
 
         DocItem DocItem { get; }
 

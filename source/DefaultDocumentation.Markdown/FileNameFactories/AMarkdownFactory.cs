@@ -11,9 +11,9 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
     {
         public abstract string Name { get; }
 
-        protected abstract string GetMarkdownFileName(DocumentationContext context, DocItem item);
+        protected abstract string GetMarkdownFileName(IGeneralContext context, DocItem item);
 
-        public void Clean(DocumentationContext context)
+        public void Clean(IGeneralContext context)
         {
             context.Settings.Logger.Debug($"Cleaning output folder \"{context.Settings.OutputDirectory}\"");
 
@@ -55,6 +55,6 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
             }
         }
 
-        public string GetFileName(DocumentationContext context, DocItem item) => (item is AssemblyDocItem ? item.FullName : GetMarkdownFileName(context, item)) + ".md";
+        public string GetFileName(IGeneralContext context, DocItem item) => (item is AssemblyDocItem ? item.FullName : GetMarkdownFileName(context, item)) + ".md";
     }
 }

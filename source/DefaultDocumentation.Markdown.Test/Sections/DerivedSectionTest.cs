@@ -37,8 +37,8 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Write_should_write() => Test(
             new InterfaceDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(DerivedSectionTest).FullName}.IInterface"), null),
 @"Derived  
-&#8627; [Class1](DefaultDocumentation_Markdown_Sections_DerivedSectionTest_Class1.md 'DefaultDocumentation.Markdown.Sections.DerivedSectionTest.Class1')  
-&#8627; [Class2](DefaultDocumentation_Markdown_Sections_DerivedSectionTest_Class2.md 'DefaultDocumentation.Markdown.Sections.DerivedSectionTest.Class2')");
+&#8627; [Class1](Class1 'DefaultDocumentation.Markdown.Sections.DerivedSectionTest.Class1')  
+&#8627; [Class2](Class2 'DefaultDocumentation.Markdown.Sections.DerivedSectionTest.Class2')");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
@@ -47,7 +47,7 @@ namespace DefaultDocumentation.Markdown.Sections
 @"pouet
 
 Derived  
-&#8627; [Class1](DefaultDocumentation_Markdown_Sections_DerivedSectionTest_Class1.md 'DefaultDocumentation.Markdown.Sections.DerivedSectionTest.Class1')  
-&#8627; [Class2](DefaultDocumentation_Markdown_Sections_DerivedSectionTest_Class2.md 'DefaultDocumentation.Markdown.Sections.DerivedSectionTest.Class2')");
+&#8627; [Class1](Class1 'DefaultDocumentation.Markdown.Sections.DerivedSectionTest.Class1')  
+&#8627; [Class2](Class2 'DefaultDocumentation.Markdown.Sections.DerivedSectionTest.Class2')");
     }
 }

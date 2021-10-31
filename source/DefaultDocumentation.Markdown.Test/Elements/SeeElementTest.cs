@@ -29,13 +29,13 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write_should_write_When_cref() => Test(
             _item,
             new XElement("see", new XAttribute("cref", _item.Id)),
-            $"[{_item.Name}](DefaultDocumentation_Markdown_Elements_SeeElementTest.md '{_item.FullName}')");
+            "[SeeElementTest](SeeElementTest 'DefaultDocumentation.Markdown.Elements.SeeElementTest')");
 
         [Fact]
         public void Write_should_write_When_cref_with_value() => Test(
             _item,
             new XElement("see", new XAttribute("cref", _item.Id), "dummy"),
-            $"[dummy](DefaultDocumentation_Markdown_Elements_SeeElementTest.md '{_item.FullName}')");
+            "[dummy](SeeElementTest 'DefaultDocumentation.Markdown.Elements.SeeElementTest')");
         [Fact]
         public void Write_should_write_When_not_assembly_id() => Test(
             _item,

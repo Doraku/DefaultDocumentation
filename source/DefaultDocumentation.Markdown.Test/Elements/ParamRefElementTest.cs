@@ -26,7 +26,7 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write_should_write() => Test(
             _item,
             new XElement("paramref", new XAttribute("name", "param1")),
-            $"[param1](DefaultDocumentation_Markdown_Elements_ParamRefElementTest_Dummy(int).md#DefaultDocumentation_Markdown_Elements_ParamRefElementTest_Dummy(int)_param1 '{_item.FullName}.param1')");
+            "[param1](param1 'DefaultDocumentation.Markdown.Elements.ParamRefElementTest.Dummy(int).param1')");
 
         [Fact]
         public void Write_should_write_name_When_not_found() => Test(

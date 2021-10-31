@@ -6,6 +6,6 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
     {
         public override string Name => "FullName";
 
-        protected override string GetMarkdownFileName(DocumentationContext context, DocItem item) => item.FullName;
+        protected override string GetMarkdownFileName(IGeneralContext context, DocItem item) => item.FullName;
     }
 }

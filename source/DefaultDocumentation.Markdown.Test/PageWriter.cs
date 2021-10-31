@@ -10,7 +10,7 @@ namespace DefaultDocumentation.Markdown
         private readonly StringBuilder _builder;
         private readonly Dictionary<string, object> _data;
 
-        public PageWriter(StringBuilder builder, DocumentationContext context, DocItem item)
+        public PageWriter(StringBuilder builder, IGeneralContext context, DocItem item)
         {
             _builder = builder;
             _data = new Dictionary<string, object>();
@@ -21,7 +21,7 @@ namespace DefaultDocumentation.Markdown
 
         #region IWriter
 
-        public DocumentationContext Context { get; }
+        public IGeneralContext Context { get; }
 
         public DocItem DocItem { get; }
 

@@ -16,7 +16,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 return;
             }
 
-            AssemblyDocItem assembly = writer.Context.Items.OfType<AssemblyDocItem>().Single();
+            AssemblyDocItem assembly = writer.Context.Items.Values.OfType<AssemblyDocItem>().Single();
             if (writer.Context.HasOwnPage(assembly))
             {
                 writer

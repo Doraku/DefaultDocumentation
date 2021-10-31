@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Writers;
 
@@ -6,18 +7,25 @@ namespace DefaultDocumentation.Markdown.Writers
 {
     public sealed class OverrideWriter : IWriter
     {
+        private class StringComparer : IEqualityComparer<string>
+        {
+            public bool Equals(string x, string y) => string.Equals(x, y, StringComparison.OrdinalIgnoreCase);
+
+            public int GetHashCode(string obj) => obj.ToUpperInvariant().GetHashCode();
+        }
+
         private readonly IWriter _writer;
         private readonly Dictionary<string, object> _data;
 
         public OverrideWriter(IWriter writer)
         {
             _writer = writer;
-            _data = new Dictionary<string, object>();
+            _data = new Dictionary<string, object>(new StringComparer());
         }
 
         #region IWriter
 
-        public DocumentationContext Context => _writer.Context;
+        public IGeneralContext Context => _writer.Context;
 
         public DocItem DocItem => _writer.DocItem;
 

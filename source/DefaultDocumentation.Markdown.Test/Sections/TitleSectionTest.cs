@@ -136,25 +136,25 @@ namespace DefaultDocumentation.Markdown.Sections
         [Fact]
         public void Write_should_write_When_EnumFieldDocItem() => Test(
             new EnumFieldDocItem(_enumDocItem, AssemblyInfo.Get<IField>($"F:{typeof(TitleSectionTest).FullName}.Enum.{nameof(Enum.Value1)}"), null),
-@"<a name='DefaultDocumentation_Markdown_Sections_TitleSectionTest_Enum_Value1'></a>
+@"<a name='Value1'></a>
 `Value1` 0");
 
         [Fact]
         public void Write_should_write_When_EnumFieldDocItem_and_constant_value() => Test(
             new EnumFieldDocItem(_enumDocItem, AssemblyInfo.Get<IField>($"F:{typeof(TitleSectionTest).FullName}.Enum.{nameof(Enum.Value2)}"), null),
-@"<a name='DefaultDocumentation_Markdown_Sections_TitleSectionTest_Enum_Value2'></a>
+@"<a name='Value2'></a>
 `Value2` 42");
 
         [Fact]
         public void Write_should_write_When_ParameterDocItem() => Test(
             _methodDocItem.TypeParameters.Single(),
-@"<a name='DefaultDocumentation_Markdown_Sections_TitleSectionTest_Method_T_(T)_T'></a>
+@"<a name='T'></a>
 `T`");
 
         [Fact]
         public void Write_should_write_When_TypeParameterDocItem() => Test(
             _methodDocItem.Parameters.Single(),
-@"<a name='DefaultDocumentation_Markdown_Sections_TitleSectionTest_Method_T_(T)__'></a>
-`_` [T](DefaultDocumentation_Markdown_Sections_TitleSectionTest_Method_T_(T).md#DefaultDocumentation_Markdown_Sections_TitleSectionTest_Method_T_(T)_T 'DefaultDocumentation.Markdown.Sections.TitleSectionTest.Method&lt;T&gt;(T).T')");
+@"<a name='_'></a>
+`_` [T](T 'DefaultDocumentation.Markdown.Sections.TitleSectionTest.Method&lt;T&gt;(T).T')");
     }
 }

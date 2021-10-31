@@ -10,7 +10,7 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
     {
         public override string Name => "NameAndMd5Mix";
 
-        protected override string GetMarkdownFileName(DocumentationContext context, DocItem item)
+        protected override string GetMarkdownFileName(IGeneralContext context, DocItem item)
         {
             using MD5 md5 = MD5.Create();
 

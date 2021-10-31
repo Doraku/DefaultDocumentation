@@ -40,15 +40,15 @@ namespace DefaultDocumentation.Markdown.Sections
         [Fact]
         public void Write_should_write() => Test(
             new MethodDocItem(_typeItem, AssemblyInfo.Get<IMethod>($"M:{typeof(HeaderSectionTest).FullName}.{nameof(Method)}"), null),
-@"#### [dummy](dummy.md 'dummy')
-### [dummy](dummy.md 'dummy').[HeaderSectionTest](DefaultDocumentation_Markdown_Sections_HeaderSectionTest.md 'DefaultDocumentation.Markdown.Sections.HeaderSectionTest')");
+@"#### [dummy](dummy 'dummy')
+### [dummy](dummy 'dummy').[HeaderSectionTest](HeaderSectionTest 'DefaultDocumentation.Markdown.Sections.HeaderSectionTest')");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
             new MethodDocItem(_typeItem, AssemblyInfo.Get<IMethod>($"M:{typeof(HeaderSectionTest).FullName}.{nameof(Method)}"), null),
             w => w.Append("pouet"),
 @"pouet
-#### [dummy](dummy.md 'dummy')
-### [dummy](dummy.md 'dummy').[HeaderSectionTest](DefaultDocumentation_Markdown_Sections_HeaderSectionTest.md 'DefaultDocumentation.Markdown.Sections.HeaderSectionTest')");
+#### [dummy](dummy 'dummy')
+### [dummy](dummy 'dummy').[HeaderSectionTest](HeaderSectionTest 'DefaultDocumentation.Markdown.Sections.HeaderSectionTest')");
     }
 }

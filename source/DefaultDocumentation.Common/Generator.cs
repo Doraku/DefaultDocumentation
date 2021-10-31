@@ -1,75 +1,125 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading;
 using DefaultDocumentation.Internal;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Writers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
+using NLog;
+using NLog.Config;
+using NLog.Targets;
 
 namespace DefaultDocumentation
 {
     public sealed class Generator
     {
-        private static readonly string[] _plugins = new[]
+        private static readonly JsonSerializer _serializer;
+
+        private readonly JObject _configuration;
+        private readonly ILogger _logger;
+        private readonly IGeneralContext _context;
+
+        static Generator()
         {
-            "DefaultDocumentation.Markdown.dll"
-        };
+            _serializer = new JsonSerializer();
+            _serializer.Converters.Add(new StringEnumConverter());
+        }
 
-        private static readonly string[] _sections = new[]
+        private Generator(Target loggerTarget, ISettings settings)
         {
-            "Header",
-            "Default"
-        };
+            T GetSetting<T>(string name) => _configuration.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out JToken value) ? value.ToObject<T>() : default;
 
-        private readonly IFileNameFactory _fileNameFactory;
-        private readonly DocumentationContext _context;
-
-        private Generator(Settings settings)
-        {
-            Type[] availableTypes = _plugins
-                .Select(Assembly.LoadFrom)
-                .SelectMany(a => a.GetTypes())
-                .ToArray();
-
-            Dictionary<string, ISectionWriter> sectionWriters = availableTypes
-                .Where(t => typeof(ISectionWriter).IsAssignableFrom(t) && !t.IsAbstract)
-                .Select(t => (ISectionWriter)Activator.CreateInstance(t))
-                .GroupBy(w => w.Name)
-                .ToDictionary(w => w.Key, w => w.Last());
-
-            _fileNameFactory = availableTypes
-                .Where(t => typeof(IFileNameFactory).IsAssignableFrom(t) && !t.IsAbstract)
-                .Select(t => (IFileNameFactory)Activator.CreateInstance(t))
-                .LastOrDefault(f => f.Name == settings.FileNameFactory) ?? throw new Exception($"FileNameFactory {settings.FileNameFactory} not found");
-
-            _context = new DocumentationContext(
-                settings,
-                _fileNameFactory,
-                _sections.Select(s => sectionWriters.TryGetValue(s, out ISectionWriter writer) ? writer : null).Where(w => w != null).ToArray(),
-                availableTypes
-                    .Where(t => typeof(IElementWriter).IsAssignableFrom(t) && !t.IsAbstract)
-                    .Select(t => (IElementWriter)Activator.CreateInstance(t))
-                    .GroupBy(w => w.Name)
-                    .ToDictionary(w => w.Key, w => w.Last()),
-                DocItemReader.GetItems(settings));
-
-            _context.Settings.Logger.Debug("FileNameFactory used:");
-            _context.Settings.Logger.Debug($"\t{_fileNameFactory.Name}: {_fileNameFactory}");
-
-            _context.Settings.Logger.Debug("SectionWriters used:");
-            foreach (ISectionWriter section in _context.SectionWriters)
+            void AddSetting<TSetting, TConfig>(Expression<Func<ISettings, TSetting>> property, Predicate<TSetting> noValue, Func<TSetting, TConfig> convert)
             {
-                _context.Settings.Logger.Debug($"\t{section.Name}: {section}");
+                string name = ((MemberExpression)property.Body).Member.Name;
+                TSetting value = property.Compile().Invoke(settings);
+
+                if (!noValue(value))
+                {
+                    _configuration.Property(name, StringComparison.OrdinalIgnoreCase)?.Remove();
+                    _configuration.Add(name, JToken.FromObject(convert(value), _serializer));
+                }
             }
 
-            _context.Settings.Logger.Debug("ElementWriters used:");
-            foreach (IElementWriter element in _context.ElementWriters.Values)
+            _configuration = File.Exists(settings.ConfigurationFilePath) ? JObject.Parse(File.ReadAllText(settings.ConfigurationFilePath)) : new JObject();
+
+            AddSetting(s => s.LogLevel, string.IsNullOrEmpty, v => v);
+            AddSetting(s => s.AssemblyFilePath, string.IsNullOrEmpty, v => v);
+            AddSetting(s => s.DocumentationFilePath, string.IsNullOrEmpty, v => v);
+            AddSetting(s => s.ProjectDirectoryPath, string.IsNullOrEmpty, v => v);
+            AddSetting(s => s.OutputDirectoryPath, string.IsNullOrEmpty, v => v);
+            AddSetting(s => s.AssemblyPageName, string.IsNullOrEmpty, v => v);
+            AddSetting(s => s.GeneratedAccessModifiers, v => v == GeneratedAccessModifiers.Default, v => v);
+            AddSetting(s => s.IncludeUndocumentedItems, v => !v, v => v);
+            AddSetting(s => s.GeneratedPages, v => v == GeneratedPages.Default, v => v);
+            AddSetting(s => s.InvalidCharReplacement, string.IsNullOrEmpty, v => v);
+            AddSetting(s => s.RemoveFileExtensionFromLinks, v => !v, v => v);
+            AddSetting(s => s.LinksOutputFilePath, string.IsNullOrEmpty, v => v);
+            AddSetting(s => s.LinksBaseUrl, string.IsNullOrEmpty, v => v);
+            AddSetting(s => s.ExternLinksFilePaths, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray());
+            // context settings
+            AddSetting(s => s.Plugins, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray());
+            AddSetting(s => s.FileNameFactory, string.IsNullOrEmpty, v => v);
+            AddSetting(s => s.Sections, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray());
+            if (GetSetting<string[]>(nameof(settings.Sections)) is null)
             {
-                _context.Settings.Logger.Debug($"\t{element.Name}: {element}");
+                AddSetting(s => s.Sections, _ => false, _ => new[] { "Header", "Default" });
             }
+            AddSetting(s => s.Elements, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray());
+            // markdown settings
+            AddSetting(s => s.NestedTypeVisibilities, v => v == NestedTypeVisibilities.Default, v => v);
+            if (GetSetting<NestedTypeVisibilities>(nameof(settings.NestedTypeVisibilities)) is NestedTypeVisibilities.Default)
+            {
+                AddSetting(s => s.NestedTypeVisibilities, _ => false, _ => NestedTypeVisibilities.Namespace);
+            }
+            AddSetting(s => s.IgnoreLineBreak, v => !v, v => v);
+
+            string logLevel = GetSetting<string>(nameof(logLevel));
+            if (loggerTarget != null)
+            {
+                LoggingConfiguration logConfiguration = new();
+                logConfiguration.AddTarget(loggerTarget);
+                logConfiguration.AddRule(LogLevel.FromString(string.IsNullOrEmpty(logLevel) ? nameof(LogLevel.Info) : logLevel), LogLevel.Fatal, loggerTarget);
+                LogManager.Configuration = logConfiguration;
+            }
+
+            _logger = LogManager.GetLogger("DefaultDocumentation");
+            _logger.Info(
+                "Starting DefaultDocumentation with this configuration:{0}{1}",
+                Environment.NewLine,
+                _configuration.ToString(Formatting.Indented));
+
+            Settings resolvedSettings = new(
+                _logger,
+                GetSetting<string>(nameof(settings.AssemblyFilePath)),
+                GetSetting<string>(nameof(settings.DocumentationFilePath)),
+                GetSetting<string>(nameof(settings.ProjectDirectoryPath)),
+                GetSetting<string>(nameof(settings.OutputDirectoryPath)),
+                GetSetting<string>(nameof(settings.AssemblyPageName)),
+                GetSetting<GeneratedAccessModifiers>(nameof(settings.GeneratedAccessModifiers)),
+                GetSetting<GeneratedPages>(nameof(settings.GeneratedPages)),
+                GetSetting<bool>(nameof(settings.IncludeUndocumentedItems)),
+                GetSetting<string>(nameof(settings.InvalidCharReplacement)),
+                GetSetting<bool>(nameof(settings.RemoveFileExtensionFromLinks)),
+                GetSetting<string>(nameof(settings.LinksOutputFilePath)),
+                GetSetting<string>(nameof(settings.LinksBaseUrl)),
+                GetSetting<string[]>(nameof(settings.ExternLinksFilePaths)));
+
+            _context = new GeneralContext(
+                _configuration,
+                new[] { typeof(Markdown.Writers.MarkdownWriter).Assembly.Location }
+                    .Concat(GetSetting<string[]>(nameof(settings.Plugins)) ?? Enumerable.Empty<string>())
+                    .Select(Assembly.LoadFrom)
+                    .SelectMany(a => a.GetTypes())
+                    .ToArray(),
+                resolvedSettings,
+                DocItemReader.GetItems(resolvedSettings));
         }
 
         private void WritePage(DocItem item, StringBuilder builder)
@@ -79,7 +129,7 @@ namespace DefaultDocumentation
 
             PageWriter writer = new(builder, _context, item);
 
-            foreach (ISectionWriter sectionWriter in _context.SectionWriters)
+            foreach (ISectionWriter sectionWriter in _context.GetContext(item)?.Sections ?? _context.Sections)
             {
                 sectionWriter.Write(writer);
             }
@@ -99,7 +149,7 @@ namespace DefaultDocumentation
                 using StreamWriter writer = _context.Settings.LinksOutputFile.CreateText();
 
                 writer.WriteLine(_context.Settings.LinksBaseUrl);
-                foreach (DocItem item in _context.Items.Where(i => i is not ExternDocItem and not AssemblyDocItem))
+                foreach (DocItem item in _context.Items.Values.Where(i => i is not ExternDocItem and not AssemblyDocItem))
                 {
                     writer.Write(item.Id);
                     writer.Write('|');
@@ -112,11 +162,11 @@ namespace DefaultDocumentation
 
         private void Execute()
         {
-            _fileNameFactory.Clean(_context);
+            _context.FileNameFactory.Clean(_context);
 
             StringBuilder builder = new();
 
-            foreach (DocItem item in _context.Items.Where(_context.HasOwnPage))
+            foreach (DocItem item in _context.Items.Values.Where(_context.HasOwnPage))
             {
                 try
                 {
@@ -133,18 +183,20 @@ namespace DefaultDocumentation
             _context.Settings.Logger.Info($"Documentation generated to output folder \"{_context.Settings.OutputDirectory}\"");
         }
 
-        public static void Execute(Settings settings)
+        public static void Execute(Target loggerTarget, ISettings settings)
         {
-            using Mutex mutex = new(false, "DefaultDocumenation:" + settings.OutputDirectory.FullName.Replace('\\', '|').Replace('/', '|').TrimEnd('|'));
+            Generator generator = new(loggerTarget, settings);
+
+            using Mutex mutex = new(false, "DefaultDocumenation:" + generator._context.Settings.OutputDirectory.FullName.Replace('\\', '|').Replace('/', '|').TrimEnd('|'));
             if (!mutex.WaitOne(0))
             {
-                settings.Logger.Warn($"An other instance of DefaultDocumentation is trying to generate a documentation to the same output directory \"{settings.OutputDirectory.FullName}\", the current one will stop");
+                generator._context.Settings.Logger.Warn($"An other instance of DefaultDocumentation is trying to generate a documentation to the same output directory \"{generator._context.Settings.OutputDirectory.FullName}\", the current one will stop");
                 return;
             }
 
             try
             {
-                new Generator(settings).Execute();
+                generator.Execute();
             }
             finally
             {
