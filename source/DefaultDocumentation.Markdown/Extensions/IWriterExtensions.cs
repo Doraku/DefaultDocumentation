@@ -12,9 +12,9 @@ namespace DefaultDocumentation.Markdown.Extensions
 {
     public static class IWriterExtensions
     {
-        private const string CurrentItemKey = "CurrentItem";
-        private const string DisplayAsSingleLineKey = "DisplayAsSingleLine";
-        private const string IgnoreLineBreakLineKey = "IgnoreLineBreak";
+        private const string CurrentItemKey = "Markdown.CurrentItem";
+        private const string DisplayAsSingleLineKey = "Markdown.DisplayAsSingleLine";
+        private const string IgnoreLineBreakLineKey = "Markdown.IgnoreLineBreak";
 
         public static DocItem GetCurrentItem(this IWriter writer) => writer[CurrentItemKey] as DocItem ?? writer.DocItem;
 
@@ -34,7 +34,7 @@ namespace DefaultDocumentation.Markdown.Extensions
             return writer;
         }
 
-        public static bool GetIgnoreLineBreak(this IWriter writer) => writer[IgnoreLineBreakLineKey] as bool? ?? (writer.Context.GetContext(writer.GetCurrentItem()) ?? writer.Context).GetSetting<bool>(IgnoreLineBreakLineKey);
+        public static bool GetIgnoreLineBreak(this IWriter writer) => writer[IgnoreLineBreakLineKey] as bool? ?? writer.GetContext(writer.GetCurrentItem()).GetSetting<bool>(IgnoreLineBreakLineKey);
 
         public static IWriter SetIgnoreLineBreakLine(this IWriter writer, bool? value)
         {

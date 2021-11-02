@@ -23,7 +23,7 @@ namespace DefaultDocumentation
 
         private readonly JObject _configuration;
         private readonly ILogger _logger;
-        private readonly IGeneralContext _context;
+        private readonly GeneralContext _context;
 
         static Generator()
         {
@@ -72,13 +72,6 @@ namespace DefaultDocumentation
                 AddSetting(s => s.Sections, _ => false, _ => new[] { "Header", "Default" });
             }
             AddSetting(s => s.Elements, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray());
-            // markdown settings
-            AddSetting(s => s.NestedTypeVisibilities, v => v == NestedTypeVisibilities.Default, v => v);
-            if (GetSetting<NestedTypeVisibilities>(nameof(settings.NestedTypeVisibilities)) is NestedTypeVisibilities.Default)
-            {
-                AddSetting(s => s.NestedTypeVisibilities, _ => false, _ => NestedTypeVisibilities.Namespace);
-            }
-            AddSetting(s => s.IgnoreLineBreak, v => !v, v => v);
 
             string logLevel = GetSetting<string>(nameof(logLevel));
             if (loggerTarget != null)
@@ -90,10 +83,7 @@ namespace DefaultDocumentation
             }
 
             _logger = LogManager.GetLogger("DefaultDocumentation");
-            _logger.Info(
-                "Starting DefaultDocumentation with this configuration:{0}{1}",
-                Environment.NewLine,
-                _configuration.ToString(Formatting.Indented));
+            _logger.Info($"Starting DefaultDocumentation with this configuration:{Environment.NewLine}{_configuration.ToString(Formatting.Indented)}");
 
             Settings resolvedSettings = new(
                 _logger,
@@ -129,7 +119,7 @@ namespace DefaultDocumentation
 
             PageWriter writer = new(builder, _context, item);
 
-            foreach (ISectionWriter sectionWriter in _context.GetContext(item)?.Sections ?? _context.Sections)
+            foreach (ISectionWriter sectionWriter in writer.GetContext(item).Sections)
             {
                 sectionWriter.Write(writer);
             }
@@ -162,7 +152,10 @@ namespace DefaultDocumentation
 
         private void Execute()
         {
-            _context.FileNameFactory.Clean(_context);
+            foreach (IFileNameFactory fileNameFactory in _context.AllFileNameFactory)
+            {
+                fileNameFactory.Clean(_context);
+            }
 
             StringBuilder builder = new();
 

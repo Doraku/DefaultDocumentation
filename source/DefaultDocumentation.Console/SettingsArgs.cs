@@ -77,16 +77,8 @@ namespace DefaultDocumentation
         [Option(nameof(Elements), Separator = '|', HelpText = "[Assembly Type] of the explicit element implementations to use to create the documentation")]
         public IEnumerable<string> Elements { get; set; }
 
-        [Option(nameof(NestedTypeVisibilities), Separator = ',', HelpText = "Emplacement of nested types in documentation")]
-        public IEnumerable<NestedTypeVisibilities> NestedTypeVisibilities { get; set; }
-
-        [Option(nameof(IgnoreLineBreak), HelpText = "If true line break in the documentation are no longer transformed as a markdown line break (two space at the end of a line)")]
-        public bool IgnoreLineBreak { get; set; }
-
         GeneratedAccessModifiers ISettings.GeneratedAccessModifiers => GetEnum(GeneratedAccessModifiers);
 
         GeneratedPages ISettings.GeneratedPages => GetEnum(GeneratedPages);
-
-        NestedTypeVisibilities ISettings.NestedTypeVisibilities => GetEnum(NestedTypeVisibilities);
     }
 }

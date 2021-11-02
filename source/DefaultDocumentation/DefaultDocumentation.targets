@@ -63,8 +63,6 @@
       Plugins="$(_DefaultDocumentationPlugins)"
       FileNameFactory="$(DefaultDocumentationFileNameFactory)"
       Sections="$(DefaultDocumentationSections)"
-      Elements="$(_DefaultDocumentationElements)"
-      NestedTypeVisibilities="$(DefaultDocumentationNestedTypeVisibilities)"
-      IgnoreLineBreak="$(DefaultDocumentationIgnoreLineBreak)"/>
+      Elements="$(_DefaultDocumentationElements)"/>
   </Target>
 </Project>

@@ -11,11 +11,18 @@ namespace DefaultDocumentation.Internal
 {
     internal sealed class GeneralContext : Context, IGeneralContext
     {
-        private readonly Dictionary<Type, Context> _context;
+        private readonly Dictionary<Type, Context> _contexts;
         private readonly PathCleaner _pathCleaner;
         private readonly ConcurrentDictionary<DocItem, string> _fileNames;
         private readonly ConcurrentDictionary<string, string> _urls;
         private readonly Func<DocItem, string> _urlFactory;
+
+        public IEnumerable<IFileNameFactory> AllFileNameFactory => _contexts
+            .Values
+            .Concat(Enumerable.Repeat(this, 1))
+            .Select(c => c.FileNameFactory)
+            .Where(f => f != null)
+            .Distinct();
 
         public GeneralContext(
             JObject config,
@@ -45,7 +52,7 @@ namespace DefaultDocumentation.Internal
             Items = items;
             Elements = elementWriters;
 
-            _context = typeof(DocItem).Assembly
+            _contexts = typeof(DocItem).Assembly
                 .GetTypes()
                 .Where(t => typeof(DocItem).IsAssignableFrom(t) && !t.IsAbstract)
                 .Select(t => (t, GetSetting<JObject>(t.Name.Substring(0, t.Name.Length - "DocItem".Length))))
@@ -79,6 +86,16 @@ namespace DefaultDocumentation.Internal
 
                 return url;
             };
+
+            Settings.Logger.Info($"ElementWriter that will be used: {string.Concat(Elements.Select(e => $"{Environment.NewLine}  {e.Key}: {e.Value.GetType().AssemblyQualifiedName}"))}");
+            Settings.Logger.Info($"FileNameFactory that will be used: {FileNameFactory.GetType().AssemblyQualifiedName}");
+            Settings.Logger.Info($"SectionWriter that will be used: {string.Concat(Sections.Select(s => $"{Environment.NewLine}  {s.GetType().AssemblyQualifiedName}"))}");
+
+            foreach (KeyValuePair<Type, Context> pair in _contexts)
+            {
+                Settings.Logger.Info($"FileNameFactory that will be used for {pair.Key}: {pair.Value.FileNameFactory.GetType().AssemblyQualifiedName}");
+                Settings.Logger.Info($"SectionWriter that will be used for {pair.Key}: {string.Concat(pair.Value.Sections.Select(s => $"{Environment.NewLine}  {s.GetType().AssemblyQualifiedName}"))}");
+            }
         }
 
         #region IGeneralContext
@@ -89,7 +106,7 @@ namespace DefaultDocumentation.Internal
 
         public IReadOnlyDictionary<string, IElementWriter> Elements { get; }
 
-        public IContext GetContext(DocItem item) => _context.TryGetValue(item.GetType(), out Context context) ? context : null;
+        public IContext GetContext(DocItem item) => _contexts.TryGetValue(item.GetType(), out Context context) ? context : null;
 
         public string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i =>
         {

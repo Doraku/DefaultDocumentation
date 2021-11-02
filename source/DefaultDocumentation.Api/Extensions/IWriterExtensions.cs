@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Xml.Linq;
+using DefaultDocumentation.Model;
 
 namespace DefaultDocumentation.Writers
 {
     public static class IWriterExtensions
     {
+        public static IContext GetContext(this IWriter writer, DocItem item) => writer.Context.GetContext(item) ?? writer.Context;
+
         public static IWriter Append(this IWriter writer, XElement value)
         {
             static void AppendMultiline(IWriter writer, string text, ref int? textStartIndex, ref bool startingNewLine)

@@ -45,10 +45,6 @@ namespace DefaultDocumentation
 
         public string Elements { get; set; }
 
-        public string NestedTypeVisibilities { get; set; }
-
-        public bool IgnoreLineBreak { get; set; }
-
         private static T GetEnum<T>(string argumentName, string stringValue) where T : struct =>
             string.IsNullOrEmpty(stringValue)
             ? default
@@ -68,8 +64,6 @@ namespace DefaultDocumentation
         GeneratedPages ISettings.GeneratedPages => GetEnum<GeneratedPages>(nameof(GeneratedPages), GeneratedPages);
 
         IEnumerable<string> ISettings.ExternLinksFilePaths => (ExternLinksFilePaths ?? string.Empty).Split('|');
-
-        NestedTypeVisibilities ISettings.NestedTypeVisibilities => GetEnum<NestedTypeVisibilities>(nameof(NestedTypeVisibilities), NestedTypeVisibilities);
 
         IEnumerable<string> ISettings.Plugins => (Plugins ?? string.Empty).Split('|');
 

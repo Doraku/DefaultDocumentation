@@ -41,9 +41,5 @@ namespace DefaultDocumentation
         public IEnumerable<string> Sections { get; }
 
         public IEnumerable<string> Elements { get; }
-
-        public NestedTypeVisibilities NestedTypeVisibilities { get; }
-
-        public bool IgnoreLineBreak { get; }
     }
 }

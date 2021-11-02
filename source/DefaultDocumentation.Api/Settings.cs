@@ -60,46 +60,34 @@ namespace DefaultDocumentation
         {
             Logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-            Logger.Info("Starting DefaultDocumentation with those settings:");
-
             AssemblyFile = !string.IsNullOrEmpty(assemblyFilePath) ? new FileInfo(assemblyFilePath) : throw new ArgumentNullException(nameof(assemblyFilePath));
-            Logger.Info($"\t{nameof(AssemblyFile)}: {AssemblyFile.FullName}");
-
             DocumentationFile = string.IsNullOrEmpty(documentationFilePath) ? new FileInfo(Path.Combine(AssemblyFile.Directory.FullName, Path.GetFileNameWithoutExtension(AssemblyFile.Name) + ".xml")) : new FileInfo(documentationFilePath);
-            Logger.Info($"\t{nameof(DocumentationFile)}: {DocumentationFile.FullName}");
-
             ProjectDirectory = string.IsNullOrEmpty(projectDirectoryPath) ? null : new DirectoryInfo(projectDirectoryPath);
-            Logger.Info($"\t{nameof(ProjectDirectory)}: {ProjectDirectory?.FullName}");
-
             OutputDirectory = string.IsNullOrEmpty(outputDirectoryPath) ? DocumentationFile.Directory : new DirectoryInfo(outputDirectoryPath);
-            Logger.Info($"\t{nameof(OutputDirectory)}: {OutputDirectory.FullName}");
-
             AssemblyPageName = assemblyPageName;
-            Logger.Info($"\t{nameof(AssemblyPageName)}: {AssemblyPageName}");
-
             GeneratedAccessModifiers = generatedAccessModifiers == GeneratedAccessModifiers.Default ? _defaultGeneratedAccessModifiers : generatedAccessModifiers;
-            Logger.Info($"\t{nameof(GeneratedAccessModifiers)}: {GeneratedAccessModifiers}");
-
             GeneratedPages = generatedPages == GeneratedPages.Default ? _defaultGeneratedPages : generatedPages;
-            Logger.Info($"\t{nameof(GeneratedPages)}: {GeneratedPages}");
-
             IncludeUndocumentedItems = includeUndocumentedItems;
-            Logger.Info($"\t{nameof(IncludeUndocumentedItems)}: {IncludeUndocumentedItems}");
-
             InvalidCharReplacement = string.IsNullOrEmpty(invalidCharReplacement) ? "_" : invalidCharReplacement;
-            Logger.Info($"\t{nameof(InvalidCharReplacement)}: {InvalidCharReplacement}");
-
             RemoveFileExtensionFromLinks = removeFileExtensionFromLinks;
-            Logger.Info($"\t{nameof(RemoveFileExtensionFromLinks)}: {RemoveFileExtensionFromLinks}");
-
             LinksOutputFile = string.IsNullOrEmpty(linksOutputFile) ? null : new FileInfo(linksOutputFile);
-            Logger.Info($"\t{nameof(LinksOutputFile)}: {LinksOutputFile?.FullName}");
-
             LinksBaseUrl = linksBaseUrl ?? string.Empty;
-            Logger.Info($"\t{nameof(LinksBaseUrl)}: {LinksBaseUrl}");
-
             ExternLinksFiles = (externlinksFilePaths ?? Enumerable.Empty<string>()).SelectMany(GetFilePaths).Distinct().Select(f => new FileInfo(f)).Where(f => f.Exists && f.FullName != LinksOutputFile?.FullName).ToArray();
-            Logger.Info($"\t{nameof(ExternLinksFiles)}:{string.Concat(ExternLinksFiles.Select(f => $"{Environment.NewLine}\t{f.FullName}"))}");
+
+            Logger.Info(@$"Starting DefaultDocumentation with those settings:
+  {nameof(AssemblyFile)}: {AssemblyFile.FullName}
+  {nameof(DocumentationFile)}: {DocumentationFile.FullName}
+  {nameof(ProjectDirectory)}: {ProjectDirectory?.FullName}
+  {nameof(OutputDirectory)}: {OutputDirectory.FullName}
+  {nameof(AssemblyPageName)}: {AssemblyPageName}
+  {nameof(GeneratedAccessModifiers)}: {GeneratedAccessModifiers}
+  {nameof(GeneratedPages)}: {GeneratedPages}
+  {nameof(IncludeUndocumentedItems)}: {IncludeUndocumentedItems}
+  {nameof(InvalidCharReplacement)}: {InvalidCharReplacement}
+  {nameof(RemoveFileExtensionFromLinks)}: {RemoveFileExtensionFromLinks}
+  {nameof(LinksOutputFile)}: {LinksOutputFile?.FullName}
+  {nameof(LinksBaseUrl)}: {LinksBaseUrl}
+  {nameof(ExternLinksFiles)}:{string.Concat(ExternLinksFiles.Select(f => $"{Environment.NewLine}\t{f.FullName}"))}");
         }
 
         private static IEnumerable<string> GetFilePaths(string filePath)
