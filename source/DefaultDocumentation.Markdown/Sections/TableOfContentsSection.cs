@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Model;
 using DefaultDocumentation.Model.Member;
