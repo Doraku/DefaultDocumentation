@@ -1,10 +1,12 @@
 ## Breaking changes
-- changed FileNameMode to FileNameFactory
+- lot of argument/property changes, please check readme for more informations
 
 ## New features
 - added support for list (type bullet, number or table) elements (#44 thanks to @IdkGoodName)
 - added event explicit interface implementation support
 - added support for external json configuration file (#84)
+- added TableOfContents section (#82)
+- added Footer section
 
 ## Fixes
 - fixed nested types in generated types and empty namespace showing when using IncludeUndocumentedItems (thanks to @hairlesshobo)

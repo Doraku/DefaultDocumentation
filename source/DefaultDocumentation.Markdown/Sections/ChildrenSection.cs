@@ -70,7 +70,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 }
                 else
                 {
-                    foreach (ISectionWriter sectionWriter in writer.GetContext(item).Sections)
+                    foreach (ISectionWriter sectionWriter in writer.GetFromContext(item, c => c?.Sections))
                     {
                         sectionWriter.Write(childWriter);
                     }

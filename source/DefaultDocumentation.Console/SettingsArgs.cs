@@ -24,7 +24,7 @@ namespace DefaultDocumentation
         public string LogLevel { get; set; }
 
         [Option('j', nameof(ConfigurationFilePath), HelpText = "Path to the json configuration file to use")]
-        public string ConfigurationFilePath { get; }
+        public string ConfigurationFilePath { get; set; }
 
         [Option('a', nameof(AssemblyFilePath), HelpText = "Path to the assembly file")]
         public string AssemblyFilePath { get; set; }

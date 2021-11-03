@@ -55,7 +55,7 @@ namespace DefaultDocumentation.Internal
             _contexts = typeof(DocItem).Assembly
                 .GetTypes()
                 .Where(t => typeof(DocItem).IsAssignableFrom(t) && !t.IsAbstract)
-                .Select(t => (t, GetSetting<JObject>(t.Name.Substring(0, t.Name.Length - "DocItem".Length))))
+                .Select(t => (t, GetSetting<JObject>(t.Name)))
                 .Where(t => t.Item2 != null)
                 .ToDictionary(t => t.t, t => new Context(t.Item2, availableTypes));
             _pathCleaner = new PathCleaner(settings.InvalidCharReplacement);
@@ -87,14 +87,14 @@ namespace DefaultDocumentation.Internal
                 return url;
             };
 
-            Settings.Logger.Info($"ElementWriter that will be used: {string.Concat(Elements.Select(e => $"{Environment.NewLine}  {e.Key}: {e.Value.GetType().AssemblyQualifiedName}"))}");
-            Settings.Logger.Info($"FileNameFactory that will be used: {FileNameFactory.GetType().AssemblyQualifiedName}");
-            Settings.Logger.Info($"SectionWriter that will be used: {string.Concat(Sections.Select(s => $"{Environment.NewLine}  {s.GetType().AssemblyQualifiedName}"))}");
+            Settings.Logger.Info($"ElementWriter that will be used:{string.Concat(Elements.Select(e => $"{Environment.NewLine}  {e.Key}: {e.Value.GetType().AssemblyQualifiedName}"))}");
+            Settings.Logger.Info($"FileNameFactory that will be used: {FileNameFactory?.GetType().AssemblyQualifiedName}");
+            Settings.Logger.Info($"SectionWriter that will be used:{string.Concat(Sections?.Select(s => $"{Environment.NewLine}  {s.GetType().AssemblyQualifiedName}") ?? Enumerable.Empty<string>())}");
 
             foreach (KeyValuePair<Type, Context> pair in _contexts)
             {
-                Settings.Logger.Info($"FileNameFactory that will be used for {pair.Key}: {pair.Value.FileNameFactory.GetType().AssemblyQualifiedName}");
-                Settings.Logger.Info($"SectionWriter that will be used for {pair.Key}: {string.Concat(pair.Value.Sections.Select(s => $"{Environment.NewLine}  {s.GetType().AssemblyQualifiedName}"))}");
+                Settings.Logger.Info($"FileNameFactory that will be used for {pair.Key.Name}: {pair.Value.FileNameFactory?.GetType().AssemblyQualifiedName}");
+                Settings.Logger.Info($"SectionWriter that will be used for {pair.Key.Name}:{string.Concat(pair.Value.Sections?.Select(s => $"{Environment.NewLine}  {s.GetType().AssemblyQualifiedName}") ?? Enumerable.Empty<string>())}");
             }
         }
 

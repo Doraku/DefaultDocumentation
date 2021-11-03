@@ -2,7 +2,7 @@
   "profiles": {
     "DefaultDocumentation.Console": {
       "commandName": "Project",
-      "commandLineArgs": "-a D:\\Projects\\DefaultEcs\\source\\DefaultEcs\\bin\\Release\\netstandard2.1\\DefaultEcs.dll -o D:\\Projects\\DefaultEcs\\documentation\\api -n DefaultEcs --FileNameFactory Name -g Assembly Types Members"
+      "commandLineArgs": "-j D:\\Projects\\DefaultEcs\\source\\DefaultEcs\\DefaultDocumentation.config -a D:\\Projects\\DefaultEcs\\source\\DefaultEcs\\bin\\Release\\netstandard2.1\\DefaultEcs.dll -o D:\\Projects\\DefaultEcs\\documentation\\api"
     }
   }
 }

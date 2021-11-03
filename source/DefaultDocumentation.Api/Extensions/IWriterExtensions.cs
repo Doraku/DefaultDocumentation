@@ -6,7 +6,7 @@ namespace DefaultDocumentation.Writers
 {
     public static class IWriterExtensions
     {
-        public static IContext GetContext(this IWriter writer, DocItem item) => writer.Context.GetContext(item) ?? writer.Context;
+        public static T GetFromContext<T>(this IWriter writer, DocItem item, Func<IContext, T> getter) => getter(writer.Context.GetContext(item)) ?? getter(writer.Context);
 
         public static IWriter Append(this IWriter writer, XElement value)
         {

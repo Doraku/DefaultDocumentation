@@ -34,7 +34,9 @@ namespace DefaultDocumentation.Markdown.Extensions
             return writer;
         }
 
-        public static bool GetIgnoreLineBreak(this IWriter writer) => writer[IgnoreLineBreakLineKey] as bool? ?? writer.GetContext(writer.GetCurrentItem()).GetSetting<bool>(IgnoreLineBreakLineKey);
+        public static bool GetIgnoreLineBreak(this IWriter writer) =>
+            writer[IgnoreLineBreakLineKey] as bool?
+            ?? writer.GetFromContext(writer.GetCurrentItem(), c => c?.GetSetting<bool>(IgnoreLineBreakLineKey)).GetValueOrDefault();
 
         public static IWriter SetIgnoreLineBreakLine(this IWriter writer, bool? value)
         {
