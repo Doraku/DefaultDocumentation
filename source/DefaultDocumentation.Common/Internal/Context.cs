@@ -20,7 +20,7 @@ namespace DefaultDocumentation.Internal
             FileNameFactory = string.IsNullOrEmpty(fileNameFactory) ? null : availableTypes
                 .Where(t => typeof(IFileNameFactory).IsAssignableFrom(t) && !t.IsAbstract)
                 .Select(t => (IFileNameFactory)Activator.CreateInstance(t))
-                .LastOrDefault(f => f.Name == fileNameFactory || f.GetType().FullName == fileNameFactory)
+                .LastOrDefault(f => f.Name == fileNameFactory || $"{f.GetType().FullName} {f.GetType().Assembly.GetName().Name}" == fileNameFactory)
                 ?? throw new Exception($"FileNameFactory '{fileNameFactory}' not found");
 
             string[] sections = GetSetting<string[]>(nameof(Sections));
@@ -37,7 +37,7 @@ namespace DefaultDocumentation.Internal
                         sectionWriters.TryGetValue(section, out ISectionWriter writer)
                         ? writer
                         : availableTypes
-                            .Where(t => typeof(ISectionWriter).IsAssignableFrom(t) && !t.IsAbstract && t.FullName == section)
+                            .Where(t => typeof(ISectionWriter).IsAssignableFrom(t) && !t.IsAbstract && $"{t.FullName} {t.Assembly.GetName().Name}" == section)
                             .Select(t => (ISectionWriter)Activator.CreateInstance(t))
                             .FirstOrDefault()
                         ?? throw new Exception($"SectionWriter '{section}' not found"))

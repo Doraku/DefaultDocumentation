@@ -40,7 +40,7 @@ namespace DefaultDocumentation.Internal
             foreach (string element in GetSetting<string[]>(nameof(Elements)) ?? Enumerable.Empty<string>())
             {
                 IElementWriter writer = availableTypes
-                    .Where(t => typeof(IElementWriter).IsAssignableFrom(t) && !t.IsAbstract && t.FullName == element)
+                    .Where(t => typeof(IElementWriter).IsAssignableFrom(t) && !t.IsAbstract && $"{t.FullName} {t.Assembly.GetName().Name}" == element)
                     .Select(t => (IElementWriter)Activator.CreateInstance(t))
                     .FirstOrDefault()
                     ?? throw new Exception($"ElementWriter '{element}' not found");
