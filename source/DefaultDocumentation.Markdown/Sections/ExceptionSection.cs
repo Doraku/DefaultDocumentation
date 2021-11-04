@@ -18,8 +18,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 {
                     titleWritten = true;
                     writer
-                        .EnsureLineStart()
-                        .AppendLine()
+                        .EnsureLineStartAndAppendLine()
                         .Append("#### Exceptions");
                 }
 

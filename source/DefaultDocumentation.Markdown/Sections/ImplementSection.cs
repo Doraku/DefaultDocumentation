@@ -41,8 +41,7 @@ namespace DefaultDocumentation.Markdown.Sections
             if (implementations.Count > 0)
             {
                 writer
-                    .EnsureLineStart()
-                    .AppendLine()
+                    .EnsureLineStartAndAppendLine()
                     .Append("Implements ");
 
                 bool firstWritten = false;

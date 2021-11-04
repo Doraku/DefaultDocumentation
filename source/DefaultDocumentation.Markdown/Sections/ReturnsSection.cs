@@ -23,8 +23,7 @@ namespace DefaultDocumentation.Markdown.Sections
             if (returnType != null && returnType.Kind != TypeKind.Void)
             {
                 writer
-                    .EnsureLineStart()
-                    .AppendLine()
+                    .EnsureLineStartAndAppendLine()
                     .AppendLine("#### Returns")
                     .AppendLink(writer.GetCurrentItem(), returnType)
                     .AppendLine("  ")

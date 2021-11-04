@@ -19,8 +19,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 if (derived.Count > 0)
                 {
                     writer
-                        .EnsureLineStart()
-                        .AppendLine()
+                        .EnsureLineStartAndAppendLine()
                         .Append("Derived");
 
                     foreach (TypeDocItem t in derived)

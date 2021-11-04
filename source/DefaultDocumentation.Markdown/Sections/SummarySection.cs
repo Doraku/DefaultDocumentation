@@ -12,8 +12,7 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Write(IWriter writer)
         {
             writer
-                .EnsureLineStart()
-                .AppendLine()
+                .EnsureLineStartAndAppendLine()
                 .AppendAsMarkdown(writer.GetCurrentItem() switch
                 {
                     TypeParameterDocItem item => item.Documentation,

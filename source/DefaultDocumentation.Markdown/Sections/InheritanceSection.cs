@@ -15,8 +15,7 @@ namespace DefaultDocumentation.Markdown.Sections
             if (writer.GetCurrentItem() is TypeDocItem typeItem && typeItem.Type.Kind == TypeKind.Class)
             {
                 writer
-                    .EnsureLineStart()
-                    .AppendLine()
+                    .EnsureLineStartAndAppendLine()
                     .Append("Inheritance ");
 
                 foreach (IType t in typeItem.Type.GetNonInterfaceBaseTypes().Where(t => t != typeItem.Type))

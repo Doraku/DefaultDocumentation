@@ -28,6 +28,7 @@ namespace DefaultDocumentation.Markdown.Sections
 @"#### Type parameters
 
 <a name='T'></a>
+
 `T`");
     }
 }

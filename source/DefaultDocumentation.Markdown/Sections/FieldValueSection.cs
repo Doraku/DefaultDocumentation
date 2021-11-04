@@ -13,8 +13,7 @@ namespace DefaultDocumentation.Markdown.Sections
             if (writer.GetCurrentItem() is FieldDocItem fieldItem)
             {
                 writer
-                    .EnsureLineStart()
-                    .AppendLine()
+                    .EnsureLineStartAndAppendLine()
                     .AppendLine("#### Field Value")
                     .AppendLink(fieldItem, fieldItem.Field.Type);
             }

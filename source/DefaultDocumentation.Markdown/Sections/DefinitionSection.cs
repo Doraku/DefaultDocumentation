@@ -162,7 +162,7 @@ namespace DefaultDocumentation.Markdown.Sections
             static IWriter Write(IWriter writer, Action<IWriter> writeAction)
             {
                 writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .AppendLine("```csharp");
 
                 writeAction(writer);

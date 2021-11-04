@@ -11,8 +11,7 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write(IWriter writer, XElement element)
         {
             writer
-                .EnsureLineStart()
-                .AppendLine()
+                .EnsureLineStartAndAppendLine()
                 .AppendAsMarkdown(element);
         }
     }

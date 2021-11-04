@@ -47,7 +47,7 @@ namespace DefaultDocumentation.Markdown.Elements
             string source = element.GetSourceAttribute();
 
             writer
-                .EnsureLineStart()
+                .EnsureLineStartAndAppendLine()
                 .Append("```")
                 .AppendLine(element.GetLanguageAttribute() ?? "csharp")
                 .Append(source is null ? element : new XElement("code", GetCode(writer.Context.Settings, source, element.GetRegionAttribute())))

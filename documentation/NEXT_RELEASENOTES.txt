@@ -10,3 +10,4 @@
 
 ## Fixes
 - fixed nested types in generated types and empty namespace showing when using IncludeUndocumentedItems (thanks to @hairlesshobo)
+- fixed some markdown formating (#93)

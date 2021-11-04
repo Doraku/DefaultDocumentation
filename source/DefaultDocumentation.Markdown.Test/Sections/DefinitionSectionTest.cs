@@ -77,6 +77,7 @@ System.IDisposable
             new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(DefinitionSectionTest).FullName}"), null),
             w => w.Append("pouet"),
 @"pouet
+
 ```csharp
 public sealed class DefinitionSectionTest : DefaultDocumentation.Markdown.Sections.ASectionTest<DefaultDocumentation.Markdown.Sections.DefinitionSection>,
 System.IDisposable

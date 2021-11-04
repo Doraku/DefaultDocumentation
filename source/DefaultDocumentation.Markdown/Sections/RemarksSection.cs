@@ -15,8 +15,7 @@ namespace DefaultDocumentation.Markdown.Sections
             if (remarks != null)
             {
                 writer
-                    .EnsureLineStart()
-                    .AppendLine()
+                    .EnsureLineStartAndAppendLine()
                     .AppendLine("### Remarks")
                     .AppendAsMarkdown(remarks);
             }

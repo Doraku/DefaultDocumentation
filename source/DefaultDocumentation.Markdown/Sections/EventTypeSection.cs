@@ -13,8 +13,7 @@ namespace DefaultDocumentation.Markdown.Sections
             if (writer.GetCurrentItem() is EventDocItem eventItem)
             {
                 writer
-                    .EnsureLineStart()
-                    .AppendLine()
+                    .EnsureLineStartAndAppendLine()
                     .AppendLine("#### Event Type")
                     .AppendLink(eventItem, eventItem.Event.ReturnType);
             }

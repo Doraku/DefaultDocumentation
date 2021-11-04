@@ -156,6 +156,10 @@ namespace DefaultDocumentation.Markdown.Extensions
             ? writer.AppendLine()
             : writer;
 
+        public static IWriter EnsureLineStartAndAppendLine(this IWriter writer) => writer
+            .EnsureLineStart()
+            .AppendLine();
+
         public static IWriter AppendAsMarkdown(this IWriter writer, XElement element)
         {
             new MarkdownWriter(writer)

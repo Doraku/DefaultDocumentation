@@ -39,8 +39,7 @@ namespace DefaultDocumentation.Markdown.Elements
             int columnCount = 0;
 
             writer
-                .EnsureLineStart()
-                .AppendLine()
+                .EnsureLineStartAndAppendLine()
                 .Append("|");
 
             foreach (XElement description in element.GetListHeader().GetDescriptions())
@@ -81,9 +80,7 @@ namespace DefaultDocumentation.Markdown.Elements
                     }
                 }
 
-                writer
-                    .EnsureLineStart()
-                    .AppendLine();
+                writer.EnsureLineStartAndAppendLine();
             }
         }
 

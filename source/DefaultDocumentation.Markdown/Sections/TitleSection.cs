@@ -21,8 +21,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 string url = writer.Context.GetUrl(currentItem);
                 int startIndex = url.IndexOf('#') + 1;
                 writer
-                    .EnsureLineStart()
-                    .AppendLine()
+                    .EnsureLineStartAndAppendLine()
                     .Append("<a name='")
                     .Append(url.Substring(startIndex, url.Length - startIndex))
                     .Append("'></a>");
@@ -31,50 +30,50 @@ namespace DefaultDocumentation.Markdown.Sections
             _ = currentItem switch
             {
                 AssemblyDocItem => writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .Append($"## {currentItem.Name} Assembly"),
                 NamespaceDocItem => writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .Append($"## {currentItem.Name} Namespace"),
                 TypeDocItem typeItem => writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .Append($"## {currentItem.LongName} {typeItem.Type.Kind}"),
                 ConstructorDocItem => writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .Append($"## {currentItem.Name} Constructor"),
                 EventDocItem => writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .Append($"## {currentItem.LongName} Event"),
                 FieldDocItem => writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .Append($"## {currentItem.LongName} Field"),
                 MethodDocItem => writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .Append($"## {currentItem.LongName} Method"),
                 OperatorDocItem => writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .Append($"## {currentItem.LongName} Operator"),
                 PropertyDocItem => writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .Append($"## {currentItem.LongName} Property"),
                 ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IEvent => writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .Append($"## {currentItem.LongName} Event"),
                 ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IMethod => writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .Append($"## {currentItem.LongName} Method"),
                 ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IProperty => writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .Append($"## {currentItem.LongName} Property"),
                 EnumFieldDocItem enumFiedItem => writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .Append($"`{currentItem.Name}` {enumFiedItem.Field.GetConstantValue()}"),
                 ParameterDocItem parameterItem => writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .Append($"`{currentItem.Name}` ")
                     .AppendLink(currentItem, parameterItem.Parameter.Type),
                 TypeParameterDocItem typeParameterItem => writer
-                    .EnsureLineStart()
+                    .EnsureLineStartAndAppendLine()
                     .Append($"`{typeParameterItem.TypeParameter.Name}`"),
                 _ => writer
             };

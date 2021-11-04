@@ -13,8 +13,7 @@ namespace DefaultDocumentation.Markdown.Sections
             if (writer.GetCurrentItem() is PropertyDocItem propertyItem)
             {
                 writer
-                    .EnsureLineStart()
-                    .AppendLine()
+                    .EnsureLineStartAndAppendLine()
                     .AppendLine("#### Property Value")
                     .AppendLink(propertyItem, propertyItem.Property.ReturnType)
                     .AppendLine("  ")

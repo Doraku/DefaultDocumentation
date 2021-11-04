@@ -15,8 +15,7 @@ namespace DefaultDocumentation.Markdown.Sections
             if (example != null)
             {
                 writer
-                    .EnsureLineStart()
-                    .AppendLine()
+                    .EnsureLineStartAndAppendLine()
                     .AppendLine("### Example")
                     .AppendAsMarkdown(example);
             }

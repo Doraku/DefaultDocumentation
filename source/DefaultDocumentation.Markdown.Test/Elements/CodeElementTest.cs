@@ -122,6 +122,7 @@ test
             w => w.Append("pouet"),
             new XElement("code", "test"),
 @"pouet
+
 ```csharp
 test
 ```");
@@ -133,6 +134,7 @@ test
                 .AppendLine(),
             new XElement("code", "test\n"),
 @"pouet
+
 ```csharp
 test
 ```");
