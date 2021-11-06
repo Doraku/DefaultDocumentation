@@ -3,11 +3,11 @@ using System.IO;
 using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Markdown.Internal;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class CodeElement : IElementWriter
+    public sealed class CodeElement : IElement
     {
         private static string GetCode(Settings settings, string source, string region = null)
         {

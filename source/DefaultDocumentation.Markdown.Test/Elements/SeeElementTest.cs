@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Type;
-using ICSharpCode.Decompiler.TypeSystem;
+using DefaultDocumentation.Models;
 using NFluent;
 using Xunit;
 
@@ -10,16 +8,9 @@ namespace DefaultDocumentation.Markdown.Elements
 {
     public sealed class SeeElementTest : AElementTest<SeeElement>
     {
-        private readonly DocItem _item;
-
-        public SeeElementTest()
-        {
-            _item = new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(SeeElementTest).FullName}"), null);
-        }
-
         protected override IReadOnlyDictionary<string, DocItem> GetItems() => new Dictionary<string, DocItem>
         {
-            [_item.Id] = _item
+            [AssemblyInfo.NamespaceDocItem.Id] = AssemblyInfo.NamespaceDocItem
         };
 
         [Fact]
@@ -27,18 +18,15 @@ namespace DefaultDocumentation.Markdown.Elements
 
         [Fact]
         public void Write_should_write_When_cref() => Test(
-            _item,
-            new XElement("see", new XAttribute("cref", _item.Id)),
-            "[SeeElementTest](SeeElementTest 'DefaultDocumentation.Markdown.Elements.SeeElementTest')");
+            new XElement("see", new XAttribute("cref", AssemblyInfo.NamespaceDocItem.Id)),
+            "[DefaultDocumentation.Markdown](DefaultDocumentation.Markdown 'DefaultDocumentation.Markdown')");
 
         [Fact]
         public void Write_should_write_When_cref_with_value() => Test(
-            _item,
-            new XElement("see", new XAttribute("cref", _item.Id), "dummy"),
-            "[dummy](SeeElementTest 'DefaultDocumentation.Markdown.Elements.SeeElementTest')");
+            new XElement("see", new XAttribute("cref", AssemblyInfo.NamespaceDocItem.Id), "dummy"),
+            "[dummy](DefaultDocumentation.Markdown 'DefaultDocumentation.Markdown')");
         [Fact]
         public void Write_should_write_When_not_assembly_id() => Test(
-            _item,
             new XElement("see", new XAttribute("cref", "T:System.Int32")),
             "[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
 

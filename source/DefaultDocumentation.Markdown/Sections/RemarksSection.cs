@@ -1,10 +1,10 @@
 ﻿using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class RemarksSection : ISectionWriter
+    public sealed class RemarksSection : ISection
     {
         public string Name => "remarks";
 

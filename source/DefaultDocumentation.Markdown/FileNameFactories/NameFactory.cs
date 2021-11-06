@@ -1,4 +1,4 @@
-﻿using DefaultDocumentation.Model;
+﻿using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.FileNameFactories
 {
@@ -6,6 +6,6 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
     {
         public override string Name => "Name";
 
-        protected override string GetMarkdownFileName(IGeneralContext context, DocItem item) => item.LongName;
+        protected override string GetMarkdownFileName(IGeneralContext context, DocItem item) => item.GetLongName();
     }
 }

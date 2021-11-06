@@ -1,4 +1,4 @@
-﻿using DefaultDocumentation.Model;
+﻿using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.FileNameFactories
 {

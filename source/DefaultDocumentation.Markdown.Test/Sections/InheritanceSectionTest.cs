@@ -1,7 +1,4 @@
-﻿using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Type;
-using ICSharpCode.Decompiler.TypeSystem;
-using NFluent;
+﻿using NFluent;
 using Xunit;
 
 namespace DefaultDocumentation.Markdown.Sections
@@ -18,26 +15,24 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Name_should_be_Inheritance() => Check.That(Name).IsEqualTo("Inheritance");
 
         [Fact]
-        public void Write_should_not_write_When_not_TypeDocItem() => Test(
-            new AssemblyDocItem("dummy", "dummy", null),
-            string.Empty);
+        public void Write_should_not_write_When_not_TypeDocItem() => Test(string.Empty);
 
         [Fact]
         public void Write_should_not_write_When_StructDocItem() => Test(
-            new StructDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(InheritanceSectionTest).FullName}.Struct"), null),
+            AssemblyInfo.StructDocItem,
             string.Empty);
 
         [Fact]
         public void Write_should_write() => Test(
-            new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(InheritanceSectionTest).FullName}.Class"), null),
-            "Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; Class");
+            AssemblyInfo.ClassDocItem,
+            "Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; AssemblyInfo");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
-            new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(InheritanceSectionTest).FullName}.Class"), null),
+            AssemblyInfo.ClassDocItem,
             w => w.Append("pouet"),
 @"pouet
 
-Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; Class");
+Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; AssemblyInfo");
     }
 }

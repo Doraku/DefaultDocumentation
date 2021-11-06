@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation
 {
@@ -7,7 +7,7 @@ namespace DefaultDocumentation
     {
         IFileNameFactory FileNameFactory { get; }
 
-        IEnumerable<ISectionWriter> Sections { get; }
+        IEnumerable<ISection> Sections { get; }
 
         T GetSetting<T>(string name);
     }

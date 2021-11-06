@@ -1,7 +1,4 @@
-﻿using System;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Member;
-using ICSharpCode.Decompiler.TypeSystem;
+﻿using DefaultDocumentation.Models;
 using NFluent;
 using Xunit;
 
@@ -9,8 +6,6 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class EventTypeSectionTest : ASectionTest<EventTypeSection>
     {
-        private static event Action Event;
-
         [Fact]
         public void Name_should_be_EventType() => Check.That(Name).IsEqualTo("EventType");
 
@@ -21,13 +16,13 @@ namespace DefaultDocumentation.Markdown.Sections
 
         [Fact]
         public void Write_should_write() => Test(
-            new EventDocItem(null, AssemblyInfo.Get<IEvent>($"E:{typeof(EventTypeSectionTest).FullName}.{nameof(Event)}"), null),
+            AssemblyInfo.EventDocItem,
 @"#### Event Type
 [System.Action](https://docs.microsoft.com/en-us/dotnet/api/System.Action 'System.Action')");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
-            new EventDocItem(null, AssemblyInfo.Get<IEvent>($"E:{typeof(EventTypeSectionTest).FullName}.{nameof(Event)}"), null),
+            AssemblyInfo.EventDocItem,
             w => w.Append("pouet"),
 @"pouet
 

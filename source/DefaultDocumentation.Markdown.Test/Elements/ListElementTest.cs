@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
 using NFluent;
 using Xunit;
 
@@ -10,7 +10,7 @@ namespace DefaultDocumentation.Markdown.Elements
 {
     public sealed class ListElementTest : AElementTest<ListElement>
     {
-        protected override IReadOnlyDictionary<string, IElementWriter> GetElementWriters() => new IElementWriter[]
+        protected override IReadOnlyDictionary<string, IElement> GetElements() => new IElement[]
         {
             new ListElement()
         }.ToDictionary(e => e.Name);

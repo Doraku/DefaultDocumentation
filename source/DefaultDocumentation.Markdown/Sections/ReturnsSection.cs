@@ -1,12 +1,12 @@
 ﻿using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model.Member;
-using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models.Members;
+using DefaultDocumentation.Models.Types;
+using DefaultDocumentation.Api;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class ReturnsSection : ISectionWriter
+    public sealed class ReturnsSection : ISection
     {
         public string Name => "returns";
 

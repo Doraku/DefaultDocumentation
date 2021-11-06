@@ -1,10 +1,10 @@
 ﻿using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class ExampleSection : ISectionWriter
+    public sealed class ExampleSection : ISection
     {
         public string Name => "example";
 

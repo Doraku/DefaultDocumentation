@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using DefaultDocumentation.Api;
 using DefaultDocumentation.Internal;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -119,7 +119,7 @@ namespace DefaultDocumentation
 
             PageWriter writer = new(builder, _context, item);
 
-            foreach (ISectionWriter sectionWriter in writer.GetFromContext(item, c => c?.Sections))
+            foreach (ISection sectionWriter in writer.GetFromContext(item, c => c?.Sections))
             {
                 sectionWriter.Write(writer);
             }
@@ -159,7 +159,7 @@ namespace DefaultDocumentation
 
             StringBuilder builder = new();
 
-            foreach (DocItem item in _context.Items.Values.Where(_context.HasOwnPage))
+            foreach (DocItem item in _context.Items.Values.Where(i => i.HasOwnPage(_context)))
             {
                 try
                 {

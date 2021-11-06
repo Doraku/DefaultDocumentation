@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Member;
-using DefaultDocumentation.Model.Parameter;
-using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Models.Members;
+using DefaultDocumentation.Models.Parameters;
+using DefaultDocumentation.Models.Types;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class TableOfContentsSection : ISectionWriter
+    public sealed class TableOfContentsSection : ISection
     {
         [Flags]
         public enum Modes
@@ -61,7 +61,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 writer
                     .EnsureLineStart()
                     .Append("- **")
-                    .AppendLink(child, child is TypeDocItem ? child.LongName : null)
+                    .AppendLink(child, child is TypeDocItem ? child.GetLongName() : null)
                     .Append("**");
 
                 if ((modes & Modes.IncludeKind) != 0)

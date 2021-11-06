@@ -1,8 +1,6 @@
 ﻿using System.Xml.Linq;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Member;
-using DefaultDocumentation.Model.Type;
-using ICSharpCode.Decompiler.TypeSystem;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Models.Members;
 using NFluent;
 using Xunit;
 
@@ -10,14 +8,6 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class ReturnsSectionTest : ASectionTest<ReturnsSection>
     {
-        private delegate void VoidDummyDelegate();
-
-        private delegate int DummyDelegate();
-
-        private static int DummyMethod() => 42;
-
-        public static int operator +(ReturnsSectionTest _, int __) => 42;
-
         [Fact]
         public void Name_should_be_returns() => Check.That(Name).IsEqualTo("returns");
 
@@ -28,41 +18,41 @@ namespace DefaultDocumentation.Markdown.Sections
 
         [Fact]
         public void Write_should_not_write_When_returns_void() => Test(
-            new DelegateDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(ReturnsSectionTest).FullName}.{nameof(VoidDummyDelegate)}"), null),
+            AssemblyInfo.ExplicitMethodDocItem,
             string.Empty);
 
         [Fact]
         public void Write_should_write_When_DelegateDocItem() => Test(
-            new DelegateDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(ReturnsSectionTest).FullName}.{nameof(DummyDelegate)}"), null),
+            AssemblyInfo.DelegateDocItem,
 @"#### Returns
 [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
 
         [Fact]
         public void Write_should_write_When_MethodDocItem() => Test(
-            new MethodDocItem(null, AssemblyInfo.Get<IMethod>($"M:{typeof(ReturnsSectionTest).FullName}.{nameof(DummyMethod)}"), null),
+            AssemblyInfo.MethodWithReturnDocItem,
 @"#### Returns
-[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+[System.Boolean](https://docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System.Boolean')");
 
         [Fact]
         public void Write_should_write_When_OperatorDocItem() => Test(
-            new OperatorDocItem(null, AssemblyInfo.Get<IMethod>($"M:{typeof(ReturnsSectionTest).FullName}.op_Addition({typeof(ReturnsSectionTest).FullName},System.Int32)"), null),
+            AssemblyInfo.OperatorDocItem,
 @"#### Returns
 [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
 
         [Fact]
         public void Write_should_write_When_present() => Test(
-            new DelegateDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(ReturnsSectionTest).FullName}.{nameof(DummyDelegate)}"), new XElement("doc", new XElement("returns", "test"))),
+            new MethodDocItem(AssemblyInfo.ClassDocItem, AssemblyInfo.MethodWithReturnDocItem.Method, new XElement("doc", new XElement("returns", "test"))),
 @"#### Returns
-[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')  
+[System.Boolean](https://docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System.Boolean')  
 test");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
-            new DelegateDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(ReturnsSectionTest).FullName}.{nameof(DummyDelegate)}"), null),
+            AssemblyInfo.MethodWithReturnDocItem,
             w => w.Append("pouet"),
 @"pouet
 
 #### Returns
-[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+[System.Boolean](https://docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System.Boolean')");
     }
 }

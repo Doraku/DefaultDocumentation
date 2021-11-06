@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models.Types;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class DerivedSection : ISectionWriter
+    public sealed class DerivedSection : ISection
     {
         public string Name => "Derived";
 

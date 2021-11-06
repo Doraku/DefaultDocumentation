@@ -1,5 +1,5 @@
 ﻿using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model;
+using DefaultDocumentation.Models;
 using NFluent;
 using Xunit;
 

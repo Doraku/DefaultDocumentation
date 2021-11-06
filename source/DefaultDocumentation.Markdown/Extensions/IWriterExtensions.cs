@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Xml.Linq;
+using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Writers;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Parameter;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Models.Parameters;
 using ICSharpCode.Decompiler.Documentation;
 using ICSharpCode.Decompiler.TypeSystem;
 using ICSharpCode.Decompiler.TypeSystem.Implementation;
@@ -145,8 +145,8 @@ namespace DefaultDocumentation.Markdown.Extensions
                     _ when type is ParameterizedType genericType => HandleParameterizedType(genericType),
                     _ => writer.AppendLink(type.GetDefinition().GetIdString())
                 },
-                IMember member => writer.AppendLink(member.MemberDefinition.GetIdString(), DocItem.NameAmbience.ConvertSymbol(member)),
-                IEntity entity => writer.AppendLink(entity.GetIdString(), DocItem.NameAmbience.ConvertSymbol(entity)),
+                IMember member => writer.AppendLink(member.MemberDefinition.GetIdString(), EntityDocItem.NameAmbience.ConvertSymbol(member)),
+                IEntity entity => writer.AppendLink(entity.GetIdString(), EntityDocItem.NameAmbience.ConvertSymbol(entity)),
                 _ => writer.Append(element.FullName)
             };
         }

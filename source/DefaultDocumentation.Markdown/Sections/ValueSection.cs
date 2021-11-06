@@ -1,10 +1,10 @@
 ﻿using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model.Member;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models.Members;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class ValueSection : ISectionWriter
+    public sealed class ValueSection : ISection
     {
         public string Name => "value";
 

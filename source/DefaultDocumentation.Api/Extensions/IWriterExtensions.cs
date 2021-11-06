@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Xml.Linq;
-using DefaultDocumentation.Model;
+using DefaultDocumentation.Models;
 
-namespace DefaultDocumentation.Writers
+namespace DefaultDocumentation.Api
 {
     public static class IWriterExtensions
     {
@@ -59,7 +59,7 @@ namespace DefaultDocumentation.Writers
                             AppendMultiline(writer, text.Value, ref textStartIndex, ref startingNewLine);
                             break;
 
-                        case XElement element when writer.Context.Elements.TryGetValue(element.Name.ToString(), out IElementWriter elementWriter):
+                        case XElement element when writer.Context.Elements.TryGetValue(element.Name.ToString(), out IElement elementWriter):
                             elementWriter.Write(writer, element);
                             break;
 
@@ -67,6 +67,7 @@ namespace DefaultDocumentation.Writers
                             AppendMultiline(writer, element.ToString(), ref textStartIndex, ref startingNewLine);
                             break;
                     }
+
                     if (node is XElement)
                     {
                         startingNewLine = false;

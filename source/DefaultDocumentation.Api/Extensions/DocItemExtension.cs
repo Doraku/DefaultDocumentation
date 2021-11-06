@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DefaultDocumentation.Model.Parameter;
+using DefaultDocumentation.Models.Parameters;
 
-namespace DefaultDocumentation.Model
+namespace DefaultDocumentation.Models
 {
     public static class DocItemExtension
     {

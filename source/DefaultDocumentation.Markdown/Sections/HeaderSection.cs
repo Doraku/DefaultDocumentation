@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class HeaderSection : ISectionWriter
+    public sealed class HeaderSection : ISection
     {
         public string Name => "Header";
 
@@ -17,7 +17,7 @@ namespace DefaultDocumentation.Markdown.Sections
             }
 
             AssemblyDocItem assembly = writer.Context.Items.Values.OfType<AssemblyDocItem>().Single();
-            if (writer.Context.HasOwnPage(assembly))
+            if (assembly.HasOwnPage(writer.Context))
             {
                 writer
                     .EnsureLineStart()

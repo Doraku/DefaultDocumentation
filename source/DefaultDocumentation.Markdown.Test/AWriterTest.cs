@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
+using DefaultDocumentation.Models;
 using NLog;
 using NSubstitute;
 
@@ -28,8 +27,8 @@ namespace DefaultDocumentation.Markdown
                 Settings settings,
                 IFileNameFactory fileNameFactory,
                 IReadOnlyDictionary<string, DocItem> items,
-                IReadOnlyDictionary<string, IElementWriter> elements,
-                IEnumerable<ISectionWriter> sections)
+                IReadOnlyDictionary<string, IElement> elements,
+                IEnumerable<ISection> sections)
             {
                 Settings = settings;
                 Items = items;
@@ -42,11 +41,11 @@ namespace DefaultDocumentation.Markdown
 
             public IReadOnlyDictionary<string, DocItem> Items { get; }
 
-            public IReadOnlyDictionary<string, IElementWriter> Elements { get; }
+            public IReadOnlyDictionary<string, IElement> Elements { get; }
 
             public IFileNameFactory FileNameFactory { get; }
 
-            public IEnumerable<ISectionWriter> Sections { get; }
+            public IEnumerable<ISection> Sections { get; }
 
             public IContext GetContext(DocItem item) => null;
 
@@ -74,12 +73,6 @@ namespace DefaultDocumentation.Markdown
 
                 return "https://docs.microsoft.com/en-us/dotnet/api/" + id.Replace('`', '-');
             }
-
-            public bool HasOwnPage(DocItem item) => item switch
-            {
-                AssemblyDocItem when !string.IsNullOrEmpty(Settings.AssemblyPageName) || item.Documentation != null || Items.Values.Where(i => i.Parent == item).Skip(1).Any() => true,
-                _ => (Settings.GeneratedPages & item.Page) != 0
-            };
         }
 
         protected readonly StringBuilder _builder;
@@ -110,17 +103,17 @@ namespace DefaultDocumentation.Markdown
                 _settings.Value,
                 GetFileNameFactory(),
                 GetItems(),
-                GetElementWriters(),
-                GetSectionWriters()));
+                GetElements(),
+                GetSections()));
         }
 
         protected virtual GeneratedPages GetGeneratedPages() => GeneratedPages.Default;
 
         protected virtual IFileNameFactory GetFileNameFactory() => new FileNameFactory();
 
-        protected virtual ISectionWriter[] GetSectionWriters() => Array.Empty<ISectionWriter>();
+        protected virtual ISection[] GetSections() => Array.Empty<ISection>();
 
-        protected virtual IReadOnlyDictionary<string, IElementWriter> GetElementWriters() => new Dictionary<string, IElementWriter>();
+        protected virtual IReadOnlyDictionary<string, IElement> GetElements() => new Dictionary<string, IElement>();
 
         protected virtual IReadOnlyDictionary<string, DocItem> GetItems() => new Dictionary<string, DocItem>();
     }

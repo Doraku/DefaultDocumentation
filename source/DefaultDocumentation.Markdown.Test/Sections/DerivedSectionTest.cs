@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Type;
-using ICSharpCode.Decompiler.TypeSystem;
+using DefaultDocumentation.Models;
 using NFluent;
 using Xunit;
 
@@ -21,33 +19,31 @@ namespace DefaultDocumentation.Markdown.Sections
 
         protected override IReadOnlyDictionary<string, DocItem> GetItems() => new DocItem[]
         {
-            new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(DerivedSectionTest).FullName}.Class1"), null),
-            new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(DerivedSectionTest).FullName}.Class2"), null)
+            AssemblyInfo.ClassDocItem,
+            AssemblyInfo.StructDocItem
         }.ToDictionary(i => i.Id);
 
         [Fact]
         public void Name_should_be_Derived() => Check.That(Name).IsEqualTo("Derived");
 
         [Fact]
-        public void Write_should_not_write_When_not_TypeDocItem() => Test(
-            new AssemblyDocItem("dummy", "dummy", null),
-            string.Empty);
+        public void Write_should_not_write_When_not_TypeDocItem() => Test(string.Empty);
 
         [Fact]
         public void Write_should_write() => Test(
-            new InterfaceDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(DerivedSectionTest).FullName}.IInterface"), null),
+            AssemblyInfo.InterfaceDocItem,
 @"Derived  
-&#8627; [Class1](Class1 'DefaultDocumentation.Markdown.Sections.DerivedSectionTest.Class1')  
-&#8627; [Class2](Class2 'DefaultDocumentation.Markdown.Sections.DerivedSectionTest.Class2')");
+&#8627; [AssemblyInfo](AssemblyInfo 'DefaultDocumentation.Markdown.AssemblyInfo')  
+&#8627; [Struct](Struct 'DefaultDocumentation.Markdown.AssemblyInfo.Struct')");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
-            new InterfaceDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(DerivedSectionTest).FullName}.IInterface"), null),
+            AssemblyInfo.InterfaceDocItem,
             w => w.Append("pouet"),
 @"pouet
 
 Derived  
-&#8627; [Class1](Class1 'DefaultDocumentation.Markdown.Sections.DerivedSectionTest.Class1')  
-&#8627; [Class2](Class2 'DefaultDocumentation.Markdown.Sections.DerivedSectionTest.Class2')");
+&#8627; [AssemblyInfo](AssemblyInfo 'DefaultDocumentation.Markdown.AssemblyInfo')  
+&#8627; [Struct](Struct 'DefaultDocumentation.Markdown.AssemblyInfo.Struct')");
     }
 }

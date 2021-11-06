@@ -1,9 +1,9 @@
 ﻿using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class FooterSection : ISectionWriter
+    public sealed class FooterSection : ISection
     {
         public string Name => "Footer";
 

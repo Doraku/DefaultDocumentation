@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Xml.Linq;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Api;
 using NFluent;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
     public abstract class AElementTest<T> : AWriterTest
-        where T : IElementWriter, new()
+        where T : IElement, new()
     {
         private readonly T _elementWriter;
 

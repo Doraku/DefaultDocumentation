@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using DefaultDocumentation.Model;
+using DefaultDocumentation.Api;
+using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.FileNameFactories
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
 using Newtonsoft.Json.Linq;
 
 namespace DefaultDocumentation.Internal
@@ -26,19 +26,19 @@ namespace DefaultDocumentation.Internal
             string[] sections = GetSetting<string[]>(nameof(Sections));
             if (sections != null)
             {
-                Dictionary<string, ISectionWriter> sectionWriters = availableTypes
-                    .Where(t => typeof(ISectionWriter).IsAssignableFrom(t) && !t.IsAbstract)
-                    .Select(t => (ISectionWriter)Activator.CreateInstance(t))
+                Dictionary<string, ISection> sectionWriters = availableTypes
+                    .Where(t => typeof(ISection).IsAssignableFrom(t) && !t.IsAbstract)
+                    .Select(t => (ISection)Activator.CreateInstance(t))
                     .GroupBy(w => w.Name)
                     .ToDictionary(w => w.Key, w => w.Last());
 
                 Sections = sections
                     .Select(section =>
-                        sectionWriters.TryGetValue(section, out ISectionWriter writer)
+                        sectionWriters.TryGetValue(section, out ISection writer)
                         ? writer
                         : availableTypes
-                            .Where(t => typeof(ISectionWriter).IsAssignableFrom(t) && !t.IsAbstract && $"{t.FullName} {t.Assembly.GetName().Name}" == section)
-                            .Select(t => (ISectionWriter)Activator.CreateInstance(t))
+                            .Where(t => typeof(ISection).IsAssignableFrom(t) && !t.IsAbstract && $"{t.FullName} {t.Assembly.GetName().Name}" == section)
+                            .Select(t => (ISection)Activator.CreateInstance(t))
                             .FirstOrDefault()
                         ?? throw new Exception($"SectionWriter '{section}' not found"))
                     .ToArray();
@@ -49,7 +49,7 @@ namespace DefaultDocumentation.Internal
 
         public IFileNameFactory FileNameFactory { get; }
 
-        public IEnumerable<ISectionWriter> Sections { get; }
+        public IEnumerable<ISection> Sections { get; }
 
         public T GetSetting<T>(string name) => _configuration.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out JToken value) ? value.ToObject<T>() : default;
 

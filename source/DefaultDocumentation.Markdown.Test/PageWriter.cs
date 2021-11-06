@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown
 {

@@ -9,6 +9,6 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Name_should_be_Default() => Check.That(Name).IsEqualTo("Default");
 
         [Fact]
-        public void Write_should_write() => Test("<a name='test'></a>");
+        public void Write_should_write() => Test(string.Empty);
     }
 }

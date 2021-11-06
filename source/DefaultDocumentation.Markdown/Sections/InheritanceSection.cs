@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models.Types;
+using DefaultDocumentation.Api;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class InheritanceSection : ISectionWriter
+    public sealed class InheritanceSection : ISection
     {
         public string Name => "Inheritance";
 

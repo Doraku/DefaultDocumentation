@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Linq;
+using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Member;
-using DefaultDocumentation.Model.Parameter;
-using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Models.Members;
+using DefaultDocumentation.Models.Parameters;
+using DefaultDocumentation.Models.Types;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
 using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class DefinitionSection : ISectionWriter
+    public sealed class DefinitionSection : ISection
     {
         private static readonly CSharpAmbience _typeAmbience = new()
         {
@@ -136,7 +136,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 {
                     WriteWhere(writer, typeParameter, ref whereWritten, "notnull");
                 }
-                foreach (TypeConstraint typeConstraint in typeParameter.TypeConstraints.Where(c => !c.Type.IsObjectOrValueType()))
+                foreach (TypeConstraint typeConstraint in typeParameter.TypeConstraints.Where(c => c.Type.GetDefinition()?.KnownTypeCode is not KnownTypeCode.Object or KnownTypeCode.ValueType))
                 {
                     WriteWhere(writer, typeParameter, ref whereWritten, _baseTypeAmbience.ConvertType(typeConstraint.Type));
                 }

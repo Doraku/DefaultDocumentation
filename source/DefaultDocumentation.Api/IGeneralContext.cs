@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation
 {
@@ -10,7 +10,7 @@ namespace DefaultDocumentation
 
         IReadOnlyDictionary<string, DocItem> Items { get; }
 
-        IReadOnlyDictionary<string, IElementWriter> Elements { get; }
+        IReadOnlyDictionary<string, IElement> Elements { get; }
 
         IContext GetContext(DocItem item);
 
@@ -19,7 +19,5 @@ namespace DefaultDocumentation
         string GetUrl(DocItem item);
 
         string GetUrl(string id);
-
-        bool HasOwnPage(DocItem item);
     }
 }

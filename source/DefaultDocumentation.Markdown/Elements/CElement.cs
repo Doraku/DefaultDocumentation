@@ -1,9 +1,9 @@
 ﻿using System.Xml.Linq;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class CElement : IElementWriter
+    public sealed class CElement : IElement
     {
         public string Name => "c";
 

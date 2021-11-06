@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Member;
-using DefaultDocumentation.Model.Parameter;
-using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Models.Members;
+using DefaultDocumentation.Models.Parameters;
+using DefaultDocumentation.Models.Types;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public abstract class ChildrenSection<T> : ISectionWriter
+    public abstract class ChildrenSection<T> : ISection
         where T : DocItem
     {
         private readonly string _title;
@@ -35,7 +35,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 {
                     writer.EnsureLineStart();
 
-                    if (writer.Context.HasOwnPage(item))
+                    if (item.HasOwnPage(writer.Context))
                     {
                         writer
                             .AppendLine()
@@ -57,7 +57,7 @@ namespace DefaultDocumentation.Markdown.Sections
                     .ToOverrideWriter()
                     .SetCurrentItem(item);
 
-                if (writer.Context.HasOwnPage(item))
+                if (item.HasOwnPage(writer.Context))
                 {
                     childWriter
                         .Append("| ")
@@ -70,7 +70,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 }
                 else
                 {
-                    foreach (ISectionWriter sectionWriter in writer.GetFromContext(item, c => c?.Sections))
+                    foreach (ISection sectionWriter in writer.GetFromContext(item, c => c?.Sections))
                     {
                         sectionWriter.Write(childWriter);
                     }

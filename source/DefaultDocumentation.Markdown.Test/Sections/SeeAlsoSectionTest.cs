@@ -1,6 +1,5 @@
 ﻿using System.Xml.Linq;
-using DefaultDocumentation.Model.Type;
-using ICSharpCode.Decompiler.TypeSystem;
+using DefaultDocumentation.Models;
 using NFluent;
 using Xunit;
 
@@ -13,14 +12,14 @@ namespace DefaultDocumentation.Markdown.Sections
 
         [Fact]
         public void Write_should_not_write_When_not_present() => Test(
-            new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(SeeAlsoSectionTest).FullName}"), null),
+            AssemblyInfo.AssemblyDocItem,
             string.Empty);
 
         [Fact]
         public void Write_should_write() => Test(
-            new ClassDocItem(
-                null,
-                AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(SeeAlsoSectionTest).FullName}"),
+            new AssemblyDocItem(
+                "Test",
+                "Test",
                 new XElement("doc",
                     new XElement("seealso", new XAttribute("cref", "T:System.Int32")),
                     new XElement("seealso", new XAttribute("href", "dummyurl")),
@@ -34,7 +33,10 @@ namespace DefaultDocumentation.Markdown.Sections
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
-            new ClassDocItem(null, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(SeeAlsoSectionTest).FullName}"), new XElement("doc", new XElement("seealso", new XAttribute("cref", "T:System.Int32")))),
+            new AssemblyDocItem(
+                "Test",
+                "Test",
+                new XElement("doc", new XElement("seealso", new XAttribute("cref", "T:System.Int32")))),
             w => w.Append("pouet"),
 @"pouet
 

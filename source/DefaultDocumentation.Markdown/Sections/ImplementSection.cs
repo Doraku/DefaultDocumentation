@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model.Member;
-using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models.Members;
+using DefaultDocumentation.Models.Types;
+using DefaultDocumentation.Api;
 using ICSharpCode.Decompiler.Documentation;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class ImplementSection : ISectionWriter
+    public sealed class ImplementSection : ISection
     {
         public string Name => "Implement";
 
@@ -34,6 +34,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 TypeDocItem typeItem => typeItem.Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface && t.GetDefinition().Accessibility == Accessibility.Public).OfType<INamedElement>(),
                 PropertyDocItem propertyItem => GetImplementation(propertyItem.Property),
                 MethodDocItem methodItem => GetImplementation(methodItem.Method),
+                EventDocItem eventItem => GetImplementation(eventItem.Event),
                 ExplicitInterfaceImplementationDocItem explicitItem => explicitItem.Member.ExplicitlyImplementedInterfaceMembers,
                 _ => Enumerable.Empty<INamedElement>()
             }).ToList();

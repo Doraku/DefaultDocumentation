@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class ExceptionSection : ISectionWriter
+    public sealed class ExceptionSection : ISection
     {
         public string Name => "exception";
 

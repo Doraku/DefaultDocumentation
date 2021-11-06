@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Type;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Models.Types;
 
 namespace DefaultDocumentation
 {

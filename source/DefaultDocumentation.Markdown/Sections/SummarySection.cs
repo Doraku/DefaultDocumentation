@@ -1,11 +1,11 @@
 ﻿using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Parameter;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Models.Parameters;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class SummarySection : ISectionWriter
+    public sealed class SummarySection : ISection
     {
         public string Name => "summary";
 

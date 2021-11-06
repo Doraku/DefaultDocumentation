@@ -1,12 +1,12 @@
 ﻿using System;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Api;
 using NFluent;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
     public abstract class ASectionTest<T> : AWriterTest
-        where T : ISectionWriter, new()
+        where T : ISection, new()
     {
         private readonly T _sectionWriter;
 

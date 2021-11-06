@@ -1,6 +1,4 @@
-﻿using DefaultDocumentation.Model.Member;
-using DefaultDocumentation.Writers;
-using ICSharpCode.Decompiler.TypeSystem;
+﻿using DefaultDocumentation.Api;
 using NFluent;
 using Xunit;
 
@@ -8,13 +6,10 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class TypeParametersSectionTest : ASectionTest<TypeParametersSection>
     {
-        protected override ISectionWriter[] GetSectionWriters() => new ISectionWriter[]
+        protected override ISection[] GetSections() => new ISection[]
         {
             new TitleSection()
         };
-
-        private static void Method<T>(T _)
-        { }
 
         [Fact]
         public void Name_should_be_TypeParameters() => Check.That(Name).IsEqualTo("TypeParameters");
@@ -24,7 +19,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         [Fact]
         public void Write_should_write_When_TypeParameterDocItem() => Test(
-            new MethodDocItem(null, AssemblyInfo.Get<IMethod>($"M:{typeof(TypeParametersSectionTest).FullName}.{nameof(Method)}``1(``0)"), null),
+            AssemblyInfo.ClassWithTypeParameterDocItem,
 @"#### Type parameters
 
 <a name='T'></a>

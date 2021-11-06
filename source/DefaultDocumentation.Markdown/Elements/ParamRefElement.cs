@@ -1,12 +1,12 @@
 ﻿using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Parameter;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Models.Parameters;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class ParamRefElement : IElementWriter
+    public sealed class ParamRefElement : IElement
     {
         public string Name => "paramref";
 

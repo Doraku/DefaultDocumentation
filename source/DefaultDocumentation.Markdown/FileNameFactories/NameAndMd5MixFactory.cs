@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using DefaultDocumentation.Model;
+using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.FileNameFactories
 {
@@ -14,9 +14,9 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
         {
             using MD5 md5 = MD5.Create();
 
-            return item is not IParameterizedDocItem parameterizedItem || !parameterizedItem.Parameters.Any()
-                ? item.LongName
-                : (item.Parent.LongName + '.' + item.Entity.Name + '.' + Convert.ToBase64String(md5.ComputeHash(Encoding.UTF8.GetBytes(item.FullName))));
+            return item is EntityDocItem entity && item is IParameterizedDocItem parameterized && parameterized.Parameters.Any()
+                ? $"{item.Parent.GetLongName()}.{entity.Entity.Name}.{Convert.ToBase64String(md5.ComputeHash(Encoding.UTF8.GetBytes(item.FullName)))}"
+                : item.GetLongName();
         }
     }
 }

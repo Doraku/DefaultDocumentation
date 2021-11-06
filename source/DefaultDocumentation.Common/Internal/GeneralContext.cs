@@ -3,8 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
+using DefaultDocumentation.Models;
 using Newtonsoft.Json.Linq;
 
 namespace DefaultDocumentation.Internal
@@ -31,17 +31,17 @@ namespace DefaultDocumentation.Internal
             IReadOnlyDictionary<string, DocItem> items)
             : base(config, availableTypes)
         {
-            Dictionary<string, IElementWriter> elementWriters = availableTypes
-                .Where(t => typeof(IElementWriter).IsAssignableFrom(t) && !t.IsAbstract)
-                .Select(t => (IElementWriter)Activator.CreateInstance(t))
+            Dictionary<string, IElement> elementWriters = availableTypes
+                .Where(t => typeof(IElement).IsAssignableFrom(t) && !t.IsAbstract)
+                .Select(t => (IElement)Activator.CreateInstance(t))
                 .GroupBy(w => w.Name)
                 .ToDictionary(w => w.Key, w => w.Last());
 
             foreach (string element in GetSetting<string[]>(nameof(Elements)) ?? Enumerable.Empty<string>())
             {
-                IElementWriter writer = availableTypes
-                    .Where(t => typeof(IElementWriter).IsAssignableFrom(t) && !t.IsAbstract && $"{t.FullName} {t.Assembly.GetName().Name}" == element)
-                    .Select(t => (IElementWriter)Activator.CreateInstance(t))
+                IElement writer = availableTypes
+                    .Where(t => typeof(IElement).IsAssignableFrom(t) && !t.IsAbstract && $"{t.FullName} {t.Assembly.GetName().Name}" == element)
+                    .Select(t => (IElement)Activator.CreateInstance(t))
                     .FirstOrDefault()
                     ?? throw new Exception($"ElementWriter '{element}' not found");
 
@@ -69,7 +69,7 @@ namespace DefaultDocumentation.Internal
                 }
 
                 DocItem pagedItem = item;
-                while (!HasOwnPage(pagedItem))
+                while (!pagedItem.HasOwnPage(this))
                 {
                     pagedItem = pagedItem.Parent;
                 }
@@ -104,7 +104,7 @@ namespace DefaultDocumentation.Internal
 
         public IReadOnlyDictionary<string, DocItem> Items { get; }
 
-        public IReadOnlyDictionary<string, IElementWriter> Elements { get; }
+        public IReadOnlyDictionary<string, IElement> Elements { get; }
 
         public IContext GetContext(DocItem item) => _contexts.TryGetValue(item.GetType(), out Context context) ? context : null;
 
@@ -129,12 +129,6 @@ namespace DefaultDocumentation.Internal
 
             return "https://docs.microsoft.com/en-us/dotnet/api/" + i.Replace('`', '-');
         });
-
-        public bool HasOwnPage(DocItem item) => item switch
-        {
-            AssemblyDocItem when !string.IsNullOrEmpty(Settings.AssemblyPageName) || item.Documentation != null || Items.Values.Where(i => i.Parent == item).Skip(1).Any() => true,
-            _ => (Settings.GeneratedPages & item.Page) != 0
-        };
 
         #endregion
     }

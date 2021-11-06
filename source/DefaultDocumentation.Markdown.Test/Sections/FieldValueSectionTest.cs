@@ -1,6 +1,4 @@
-﻿using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Member;
-using ICSharpCode.Decompiler.TypeSystem;
+﻿using DefaultDocumentation.Models;
 using NFluent;
 using Xunit;
 
@@ -8,10 +6,6 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class FieldValueSectionTest : ASectionTest<FieldValueSection>
     {
-#pragma warning disable CS0649
-        private static readonly int _field;
-#pragma warning restore CS0649
-
         [Fact]
         public void Name_should_be_FieldValue() => Check.That(Name).IsEqualTo("FieldValue");
 
@@ -22,13 +16,13 @@ namespace DefaultDocumentation.Markdown.Sections
 
         [Fact]
         public void Write_should_write() => Test(
-            new FieldDocItem(null, AssemblyInfo.Get<IField>($"F:{typeof(FieldValueSectionTest).FullName}.{nameof(_field)}"), null),
+            AssemblyInfo.FieldDocItem,
 @"#### Field Value
 [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
-            new FieldDocItem(null, AssemblyInfo.Get<IField>($"F:{typeof(FieldValueSectionTest).FullName}.{nameof(_field)}"), null),
+            AssemblyInfo.FieldDocItem,
             w => w.Append("pouet"),
 @"pouet
 

@@ -1,6 +1,4 @@
-﻿using DefaultDocumentation.Model.Member;
-using DefaultDocumentation.Writers;
-using ICSharpCode.Decompiler.TypeSystem;
+﻿using DefaultDocumentation.Api;
 using NFluent;
 using Xunit;
 
@@ -8,13 +6,10 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class ParametersSectionTest : ASectionTest<ParametersSection>
     {
-        protected override ISectionWriter[] GetSectionWriters() => new ISectionWriter[]
+        protected override ISection[] GetSections() => new ISection[]
         {
             new TitleSection()
         };
-
-        private static void Method(int _)
-        { }
 
         [Fact]
         public void Name_should_be_Parameters() => Check.That(Name).IsEqualTo("Parameters");
@@ -24,11 +19,11 @@ namespace DefaultDocumentation.Markdown.Sections
 
         [Fact]
         public void Write_should_write_When_TypeParameterDocItem() => Test(
-            new MethodDocItem(null, AssemblyInfo.Get<IMethod>($"M:{typeof(ParametersSectionTest).FullName}.{nameof(Method)}(System.Int32)"), null),
+            AssemblyInfo.MethodWithParameterDocItem,
 @"#### Parameters
 
-<a name='_'></a>
+<a name='parameter'></a>
 
-`_` [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+`parameter` [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
     }
 }

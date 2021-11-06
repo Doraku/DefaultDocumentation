@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Member;
-using DefaultDocumentation.Model.Type;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Models.Members;
+using DefaultDocumentation.Models.Types;
 using ICSharpCode.Decompiler.TypeSystem;
 using NFluent;
 using Xunit;

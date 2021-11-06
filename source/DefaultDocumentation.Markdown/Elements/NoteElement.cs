@@ -1,11 +1,11 @@
 ﻿using System.Globalization;
 using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class NoteElement : IElementWriter
+    public sealed class NoteElement : IElement
     {
         public string Name => "note";
 
