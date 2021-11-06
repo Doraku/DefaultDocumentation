@@ -1,15 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Linq;
+using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Markdown.Internal;
-using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
     public sealed class CodeElement : IElement
     {
-        private static string GetCode(Settings settings, string source, string region = null)
+        private static string GetCode(ISettings settings, string source, string region = null)
         {
             if (!Path.IsPathRooted(source) && settings.ProjectDirectory != null)
             {

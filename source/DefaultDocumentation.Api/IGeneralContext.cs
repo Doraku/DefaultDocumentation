@@ -6,7 +6,7 @@ namespace DefaultDocumentation
 {
     public interface IGeneralContext : IContext
     {
-        Settings Settings { get; }
+        ISettings Settings { get; }
 
         IReadOnlyDictionary<string, DocItem> Items { get; }
 

@@ -33,8 +33,8 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Write_should_write() => Test(
             AssemblyInfo.InterfaceDocItem,
 @"Derived  
-&#8627; [AssemblyInfo](AssemblyInfo 'DefaultDocumentation.Markdown.AssemblyInfo')  
-&#8627; [Struct](Struct 'DefaultDocumentation.Markdown.AssemblyInfo.Struct')");
+&#8627; [AssemblyInfo](AssemblyInfo 'DefaultDocumentation.AssemblyInfo')  
+&#8627; [Struct](Struct 'DefaultDocumentation.AssemblyInfo.Struct')");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
@@ -43,7 +43,7 @@ namespace DefaultDocumentation.Markdown.Sections
 @"pouet
 
 Derived  
-&#8627; [AssemblyInfo](AssemblyInfo 'DefaultDocumentation.Markdown.AssemblyInfo')  
-&#8627; [Struct](Struct 'DefaultDocumentation.Markdown.AssemblyInfo.Struct')");
+&#8627; [AssemblyInfo](AssemblyInfo 'DefaultDocumentation.AssemblyInfo')  
+&#8627; [Struct](Struct 'DefaultDocumentation.AssemblyInfo.Struct')");
     }
 }

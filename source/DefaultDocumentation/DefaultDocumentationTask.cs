@@ -4,7 +4,7 @@ using Microsoft.Build.Framework;
 
 namespace DefaultDocumentation
 {
-    public sealed class DefaultDocumentationTask : Microsoft.Build.Utilities.Task, ISettings
+    public sealed class DefaultDocumentationTask : Microsoft.Build.Utilities.Task, IRawSettings
     {
         public string LogLevel { get; set; }
 
@@ -59,16 +59,16 @@ namespace DefaultDocumentation
             return true;
         }
 
-        GeneratedAccessModifiers ISettings.GeneratedAccessModifiers => GetEnum<GeneratedAccessModifiers>(nameof(GeneratedAccessModifiers), GeneratedAccessModifiers);
+        GeneratedAccessModifiers IRawSettings.GeneratedAccessModifiers => GetEnum<GeneratedAccessModifiers>(nameof(GeneratedAccessModifiers), GeneratedAccessModifiers);
 
-        GeneratedPages ISettings.GeneratedPages => GetEnum<GeneratedPages>(nameof(GeneratedPages), GeneratedPages);
+        GeneratedPages IRawSettings.GeneratedPages => GetEnum<GeneratedPages>(nameof(GeneratedPages), GeneratedPages);
 
-        IEnumerable<string> ISettings.ExternLinksFilePaths => (ExternLinksFilePaths ?? string.Empty).Split('|');
+        IEnumerable<string> IRawSettings.ExternLinksFilePaths => (ExternLinksFilePaths ?? string.Empty).Split('|');
 
-        IEnumerable<string> ISettings.Plugins => (Plugins ?? string.Empty).Split('|');
+        IEnumerable<string> IRawSettings.Plugins => (Plugins ?? string.Empty).Split('|');
 
-        IEnumerable<string> ISettings.Sections => (Sections ?? string.Empty).Split('|');
+        IEnumerable<string> IRawSettings.Sections => (Sections ?? string.Empty).Split('|');
 
-        IEnumerable<string> ISettings.Elements => (Elements ?? string.Empty).Split('|');
+        IEnumerable<string> IRawSettings.Elements => (Elements ?? string.Empty).Split('|');
     }
 }

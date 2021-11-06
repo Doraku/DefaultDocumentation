@@ -24,7 +24,7 @@ namespace DefaultDocumentation.Markdown
         private sealed class GeneralContext : IGeneralContext
         {
             public GeneralContext(
-                Settings settings,
+                ISettings settings,
                 IFileNameFactory fileNameFactory,
                 IReadOnlyDictionary<string, DocItem> items,
                 IReadOnlyDictionary<string, IElement> elements,
@@ -37,7 +37,7 @@ namespace DefaultDocumentation.Markdown
                 Sections = sections;
             }
 
-            public Settings Settings { get; }
+            public ISettings Settings { get; }
 
             public IReadOnlyDictionary<string, DocItem> Items { get; }
 
@@ -77,28 +77,24 @@ namespace DefaultDocumentation.Markdown
 
         protected readonly StringBuilder _builder;
         protected readonly DocItem _docItem;
-        protected readonly Lazy<Settings> _settings;
+        protected readonly Lazy<ISettings> _settings;
         protected readonly Lazy<IGeneralContext> _context;
 
         protected AWriterTest()
         {
             _builder = new StringBuilder();
             _docItem = new ExternDocItem("test", "test", "test");
-            _settings = new Lazy<Settings>(() => new Settings(
-                Substitute.For<ILogger>(),
-                "test.dll",
-                null,
-                Path.GetTempPath(),
-                null,
-                null,
-                GeneratedAccessModifiers.Default,
-                GetGeneratedPages(),
-                false,
-                null,
-                false,
-                null,
-                null,
-                null));
+            _settings = new Lazy<ISettings>(() =>
+            {
+                ISettings settings = Substitute.For<ISettings>();
+
+                settings.Logger.Returns(Substitute.For<ILogger>());
+                settings.AssemblyFile.Returns(new FileInfo("test.dll"));
+                settings.ProjectDirectory.Returns(new DirectoryInfo(Path.GetTempPath()));
+                settings.GeneratedPages.Returns(GetGeneratedPages());
+
+                return settings;
+            });
             _context = new Lazy<IGeneralContext>(() => new GeneralContext(
                 _settings.Value,
                 GetFileNameFactory(),

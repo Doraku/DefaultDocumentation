@@ -27,7 +27,7 @@ namespace DefaultDocumentation.Markdown.Sections
         [Fact]
         public void Write_should_write_When_NamespaceDocItem() => Test(
             AssemblyInfo.NamespaceDocItem,
-            "## DefaultDocumentation.Markdown Namespace");
+            "## DefaultDocumentation Namespace");
 
         [Fact]
         public void Write_should_write_When_TypeDocItem() => Test(
@@ -67,17 +67,17 @@ namespace DefaultDocumentation.Markdown.Sections
         [Fact]
         public void Write_should_write_When_ExplicitInterfaceImplementationDocItem_and_event() => Test(
             AssemblyInfo.ExplicitEventDocItem,
-            "## AssemblyInfo.DefaultDocumentation.Markdown.AssemblyInfo.IInterface.Event Event");
+            "## AssemblyInfo.DefaultDocumentation.AssemblyInfo.IInterface.Event Event");
 
         [Fact]
         public void Write_should_write_When_ExplicitInterfaceImplementationDocItem_and_property() => Test(
             AssemblyInfo.ExplicitPropertyDocItem,
-            "## AssemblyInfo.DefaultDocumentation.Markdown.AssemblyInfo.IInterface.Property Property");
+            "## AssemblyInfo.DefaultDocumentation.AssemblyInfo.IInterface.Property Property");
 
         [Fact]
         public void Write_should_write_When_ExplicitInterfaceImplementationDocItem_and_method() => Test(
             AssemblyInfo.ExplicitMethodDocItem,
-            "## AssemblyInfo.DefaultDocumentation.Markdown.AssemblyInfo.IInterface.Method() Method");
+            "## AssemblyInfo.DefaultDocumentation.AssemblyInfo.IInterface.Method() Method");
 
         [Fact]
         public void Write_should_write_When_EnumFieldDocItem() => Test(

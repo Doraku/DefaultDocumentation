@@ -13,7 +13,7 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write_should_write() => Test(
             AssemblyInfo.ClassWithTypeParameterDocItem,
             new XElement("typeparamref", new XAttribute("name", "T")),
-            "[T](T 'DefaultDocumentation.Markdown.AssemblyInfo.ClassWithTypeParameter<T>.T')");
+            "[T](T 'DefaultDocumentation.AssemblyInfo.ClassWithTypeParameter<T>.T')");
 
         [Fact]
         public void Write_should_write_name_When_not_found() => Test(

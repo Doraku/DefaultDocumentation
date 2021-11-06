@@ -6,7 +6,7 @@ using CommandLine;
 namespace DefaultDocumentation
 {
     [SuppressMessage("Performance", "CA1812: Avoid uninstantiated internal classes")]
-    internal sealed class SettingsArgs : ISettings
+    internal sealed class SettingsArgs : IRawSettings
     {
         private static T GetEnum<T>(IEnumerable<T> values)
                 where T : Enum, IConvertible
@@ -77,8 +77,8 @@ namespace DefaultDocumentation
         [Option(nameof(Elements), Separator = '|', HelpText = "[Assembly Type] of the explicit element implementations to use to create the documentation")]
         public IEnumerable<string> Elements { get; set; }
 
-        GeneratedAccessModifiers ISettings.GeneratedAccessModifiers => GetEnum(GeneratedAccessModifiers);
+        GeneratedAccessModifiers IRawSettings.GeneratedAccessModifiers => GetEnum(GeneratedAccessModifiers);
 
-        GeneratedPages ISettings.GeneratedPages => GetEnum(GeneratedPages);
+        GeneratedPages IRawSettings.GeneratedPages => GetEnum(GeneratedPages);
     }
 }

@@ -43,7 +43,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
 <a name='_'></a>
 
-`_` [DefaultDocumentation.Markdown.AssemblyInfo](https://docs.microsoft.com/en-us/dotnet/api/DefaultDocumentation.Markdown.AssemblyInfo 'DefaultDocumentation.Markdown.AssemblyInfo')
+`_` [DefaultDocumentation.AssemblyInfo](https://docs.microsoft.com/en-us/dotnet/api/DefaultDocumentation.AssemblyInfo 'DefaultDocumentation.AssemblyInfo')
 
 <a name='__'></a>
 

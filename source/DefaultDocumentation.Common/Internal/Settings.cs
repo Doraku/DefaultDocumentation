@@ -4,43 +4,15 @@ using System.IO;
 using System.Linq;
 using NLog;
 
-namespace DefaultDocumentation
+namespace DefaultDocumentation.Internal
 {
-    public sealed class Settings
+    public sealed class Settings : ISettings
     {
         private const GeneratedPages _defaultGeneratedPages = GeneratedPages.Namespaces | GeneratedPages.Types | GeneratedPages.Members;
         private const GeneratedAccessModifiers _defaultGeneratedAccessModifiers = GeneratedAccessModifiers.Public | GeneratedAccessModifiers.Private | GeneratedAccessModifiers.Protected | GeneratedAccessModifiers.Internal | GeneratedAccessModifiers.ProtectedInternal | GeneratedAccessModifiers.PrivateProtected;
 
         private static readonly char[] _patternChars = new[] { '*', '?' };
         private static readonly char[] _folderChars = new[] { '/', '\\' };
-
-        public ILogger Logger { get; }
-
-        public FileInfo AssemblyFile { get; }
-
-        public FileInfo DocumentationFile { get; }
-
-        public DirectoryInfo ProjectDirectory { get; }
-
-        public DirectoryInfo OutputDirectory { get; }
-
-        public string AssemblyPageName { get; }
-
-        public string InvalidCharReplacement { get; }
-
-        public bool RemoveFileExtensionFromLinks { get; }
-
-        public GeneratedPages GeneratedPages { get; }
-
-        public GeneratedAccessModifiers GeneratedAccessModifiers { get; }
-
-        public bool IncludeUndocumentedItems { get; }
-
-        public FileInfo LinksOutputFile { get; }
-
-        public string LinksBaseUrl { get; }
-
-        public IEnumerable<FileInfo> ExternLinksFiles { get; }
 
         public Settings(
             ILogger logger,
@@ -110,5 +82,37 @@ namespace DefaultDocumentation
                 yield return file;
             }
         }
+
+        #region ISettings
+
+        public ILogger Logger { get; }
+
+        public FileInfo AssemblyFile { get; }
+
+        public FileInfo DocumentationFile { get; }
+
+        public DirectoryInfo ProjectDirectory { get; }
+
+        public DirectoryInfo OutputDirectory { get; }
+
+        public string AssemblyPageName { get; }
+
+        public string InvalidCharReplacement { get; }
+
+        public bool RemoveFileExtensionFromLinks { get; }
+
+        public GeneratedPages GeneratedPages { get; }
+
+        public GeneratedAccessModifiers GeneratedAccessModifiers { get; }
+
+        public bool IncludeUndocumentedItems { get; }
+
+        public FileInfo LinksOutputFile { get; }
+
+        public string LinksBaseUrl { get; }
+
+        public IEnumerable<FileInfo> ExternLinksFiles { get; }
+
+        #endregion
     }
 }

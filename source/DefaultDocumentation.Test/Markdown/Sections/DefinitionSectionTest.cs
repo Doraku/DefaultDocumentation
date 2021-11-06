@@ -19,7 +19,7 @@ namespace DefaultDocumentation.Markdown.Sections
             AssemblyInfo.ClassDocItem,
 @"```csharp
 public sealed class AssemblyInfo :
-DefaultDocumentation.Markdown.AssemblyInfo.IInterface,
+DefaultDocumentation.AssemblyInfo.IInterface,
 System.Collections.IEnumerator
 ```");
 
@@ -31,7 +31,7 @@ System.Collections.IEnumerator
 
 ```csharp
 public sealed class AssemblyInfo :
-DefaultDocumentation.Markdown.AssemblyInfo.IInterface,
+DefaultDocumentation.AssemblyInfo.IInterface,
 System.Collections.IEnumerator
 ```");
 
@@ -74,28 +74,28 @@ public AssemblyInfo();
         public void Write_should_write_When_OperatorDocItem() => Test(
             AssemblyInfo.OperatorDocItem,
 @"```csharp
-public static int operator +(DefaultDocumentation.Markdown.AssemblyInfo _, int __);
+public static int operator +(DefaultDocumentation.AssemblyInfo _, int __);
 ```");
 
         [Fact]
         public void Write_should_write_When_ExplicitInterfaceImplementationDocItem_and_property() => Test(
             AssemblyInfo.ExplicitPropertyDocItem,
 @"```csharp
-int DefaultDocumentation.Markdown.AssemblyInfo.IInterface.Property { get; set; }
+int DefaultDocumentation.AssemblyInfo.IInterface.Property { get; set; }
 ```");
 
         [Fact]
         public void Write_should_write_When_ExplicitInterfaceImplementationDocItem_and_event() => Test(
             AssemblyInfo.ExplicitEventDocItem,
 @"```csharp
-event Action DefaultDocumentation.Markdown.AssemblyInfo.IInterface.Event;
+event Action DefaultDocumentation.AssemblyInfo.IInterface.Event;
 ```");
 
         [Fact]
         public void Write_should_write_When_ExplicitInterfaceImplementationDocItem_and_method() => Test(
             AssemblyInfo.ExplicitMethodDocItem,
 @"```csharp
-void DefaultDocumentation.Markdown.AssemblyInfo.IInterface.Method();
+void DefaultDocumentation.AssemblyInfo.IInterface.Method();
 ```");
 
         [Fact]

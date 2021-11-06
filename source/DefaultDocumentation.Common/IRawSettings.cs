@@ -2,7 +2,7 @@
 
 namespace DefaultDocumentation
 {
-    public interface ISettings
+    public interface IRawSettings
     {
         public string LogLevel { get; }
 

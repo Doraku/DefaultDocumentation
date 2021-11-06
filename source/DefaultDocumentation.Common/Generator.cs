@@ -31,11 +31,11 @@ namespace DefaultDocumentation
             _serializer.Converters.Add(new StringEnumConverter());
         }
 
-        private Generator(Target loggerTarget, ISettings settings)
+        private Generator(Target loggerTarget, IRawSettings settings)
         {
             T GetSetting<T>(string name) => _configuration.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out JToken value) ? value.ToObject<T>() : default;
 
-            void AddSetting<TSetting, TConfig>(Expression<Func<ISettings, TSetting>> property, Predicate<TSetting> noValue, Func<TSetting, TConfig> convert)
+            void AddSetting<TSetting, TConfig>(Expression<Func<IRawSettings, TSetting>> property, Predicate<TSetting> noValue, Func<TSetting, TConfig> convert)
             {
                 string name = ((MemberExpression)property.Body).Member.Name;
                 TSetting value = property.Compile().Invoke(settings);
@@ -176,7 +176,7 @@ namespace DefaultDocumentation
             _context.Settings.Logger.Info($"Documentation generated to output folder \"{_context.Settings.OutputDirectory}\"");
         }
 
-        public static void Execute(Target loggerTarget, ISettings settings)
+        public static void Execute(Target loggerTarget, IRawSettings settings)
         {
             Generator generator = new(loggerTarget, settings);
 

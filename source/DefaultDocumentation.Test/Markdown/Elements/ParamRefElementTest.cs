@@ -13,7 +13,7 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write_should_write() => Test(
             AssemblyInfo.MethodWithParameterDocItem,
             new XElement("paramref", new XAttribute("name", "parameter")),
-            "[parameter](parameter 'DefaultDocumentation.Markdown.AssemblyInfo.MethodWithParameter(int).parameter')");
+            "[parameter](parameter 'DefaultDocumentation.AssemblyInfo.MethodWithParameter(int).parameter')");
 
         [Fact]
         public void Write_should_write_name_When_not_found() => Test(

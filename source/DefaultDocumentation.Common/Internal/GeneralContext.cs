@@ -100,7 +100,7 @@ namespace DefaultDocumentation.Internal
 
         #region IGeneralContext
 
-        public Settings Settings { get; }
+        public ISettings Settings { get; }
 
         public IReadOnlyDictionary<string, DocItem> Items { get; }
 

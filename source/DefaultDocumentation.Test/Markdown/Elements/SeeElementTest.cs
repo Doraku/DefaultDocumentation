@@ -19,12 +19,12 @@ namespace DefaultDocumentation.Markdown.Elements
         [Fact]
         public void Write_should_write_When_cref() => Test(
             new XElement("see", new XAttribute("cref", AssemblyInfo.NamespaceDocItem.Id)),
-            "[DefaultDocumentation.Markdown](DefaultDocumentation.Markdown 'DefaultDocumentation.Markdown')");
+            "[DefaultDocumentation](DefaultDocumentation 'DefaultDocumentation')");
 
         [Fact]
         public void Write_should_write_When_cref_with_value() => Test(
             new XElement("see", new XAttribute("cref", AssemblyInfo.NamespaceDocItem.Id), "dummy"),
-            "[dummy](DefaultDocumentation.Markdown 'DefaultDocumentation.Markdown')");
+            "[dummy](DefaultDocumentation 'DefaultDocumentation')");
         [Fact]
         public void Write_should_write_When_not_assembly_id() => Test(
             new XElement("see", new XAttribute("cref", "T:System.Int32")),

@@ -26,7 +26,7 @@ namespace DefaultDocumentation.Markdown.Sections
         [Fact]
         public void Write_should_write_When_TypeDocItem() => Test(
             AssemblyInfo.ClassDocItem,
-            "Implements [IInterface](IInterface 'DefaultDocumentation.Markdown.AssemblyInfo.IInterface'), [System.Collections.IEnumerator](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.IEnumerator 'System.Collections.IEnumerator')");
+            "Implements [IInterface](IInterface 'DefaultDocumentation.AssemblyInfo.IInterface'), [System.Collections.IEnumerator](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.IEnumerator 'System.Collections.IEnumerator')");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
@@ -34,7 +34,7 @@ namespace DefaultDocumentation.Markdown.Sections
             w => w.Append("pouet"),
 @"pouet
 
-Implements [IInterface](IInterface 'DefaultDocumentation.Markdown.AssemblyInfo.IInterface'), [System.Collections.IEnumerator](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.IEnumerator 'System.Collections.IEnumerator')");
+Implements [IInterface](IInterface 'DefaultDocumentation.AssemblyInfo.IInterface'), [System.Collections.IEnumerator](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.IEnumerator 'System.Collections.IEnumerator')");
 
         [Fact]
         public void Write_should_write_When_MethodDocItem() => Test(
@@ -49,11 +49,11 @@ Implements [IInterface](IInterface 'DefaultDocumentation.Markdown.AssemblyInfo.I
         [Fact]
         public void Write_should_write_When_EventDocItem() => Test(
             new EventDocItem(AssemblyInfo.ClassDocItem, AssemblyInfo.Get<IEvent>($"E:{typeof(AssemblyInfo).FullName}.{nameof(AssemblyInfo.SecondEvent)}"), null),
-            "Implements [SecondEvent](SecondEvent 'DefaultDocumentation.Markdown.AssemblyInfo.IInterface.SecondEvent')");
+            "Implements [SecondEvent](SecondEvent 'DefaultDocumentation.AssemblyInfo.IInterface.SecondEvent')");
 
         [Fact]
         public void Write_should_write_When_ExplicitInterfaceImplementationDocItem() => Test(
             AssemblyInfo.ExplicitMethodDocItem,
-            "Implements [Method()](Method() 'DefaultDocumentation.Markdown.AssemblyInfo.IInterface.Method()')");
+            "Implements [Method()](Method() 'DefaultDocumentation.AssemblyInfo.IInterface.Method()')");
     }
 }
