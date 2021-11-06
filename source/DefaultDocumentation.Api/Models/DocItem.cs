@@ -18,7 +18,7 @@ namespace DefaultDocumentation.Models
         private protected DocItem(DocItem parent, string id, string fullName, string name, XElement documentation)
         {
             Parent = parent;
-            Id = id ?? throw new ArgumentNullException(nameof(id));
+            Id = id;
             FullName = fullName ?? throw new ArgumentNullException(nameof(fullName));
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Documentation = documentation;

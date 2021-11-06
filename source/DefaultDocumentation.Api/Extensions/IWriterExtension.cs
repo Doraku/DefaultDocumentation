@@ -4,7 +4,7 @@ using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Api
 {
-    public static class IWriterExtensions
+    public static class IWriterExtension
     {
         public static T GetFromContext<T>(this IWriter writer, DocItem item, Func<IContext, T> getter) => getter(writer.Context.GetContext(item)) ?? getter(writer.Context);
 

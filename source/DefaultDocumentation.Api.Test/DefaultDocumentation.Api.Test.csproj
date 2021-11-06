@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>DefaultDocumentation.Markdown</RootNamespace>
+    <RootNamespace>DefaultDocumentation</RootNamespace>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -15,6 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DefaultDocumentation.Markdown\DefaultDocumentation.Markdown.csproj" />
+    <ProjectReference Include="..\DefaultDocumentation.Api\DefaultDocumentation.Api.csproj" />
   </ItemGroup>
 </Project>

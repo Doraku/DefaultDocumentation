@@ -105,7 +105,7 @@ namespace Code
         public void Name_should_be_code() => Check.That(Name).IsEqualTo("code");
 
         [Fact]
-        public void Write_should_not_write_when_DisplayAsSingleLine_is_true() => Test(
+        public void Write_should_not_write_When_DisplayAsSingleLine_is_true() => Test(
             w => w.SetDisplayAsSingleLine(true),
             new XElement("code", "test"),
             string.Empty);

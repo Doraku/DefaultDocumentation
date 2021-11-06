@@ -12,7 +12,7 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Name_should_be_note() => Check.That(Name).IsEqualTo("note");
 
         [Fact]
-        public void Write_should_not_write_when_DisplayAsSingleLine_is_true() => Test(
+        public void Write_should_not_write_When_DisplayAsSingleLine_is_true() => Test(
             w => w.SetDisplayAsSingleLine(true),
             new XElement("note", "test"),
             string.Empty);
