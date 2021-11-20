@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using CommandLine;
 using NLog.Targets;
 
@@ -9,18 +8,6 @@ namespace DefaultDocumentation
     {
         private static void Main(string[] args)
         {
-            static T GetEnum<T>(IEnumerable<T> values)
-                where T : Enum, IConvertible
-            {
-                int value = 0;
-                foreach (T flag in values)
-                {
-                    value |= flag.ToInt32(null);
-                }
-
-                return (T)(object)value;
-            }
-
             using Parser parser = new(s =>
             {
                 s.CaseSensitive = false;
@@ -32,25 +19,9 @@ namespace DefaultDocumentation
                 .ParseArguments<SettingsArgs>(args)
                 .WithParsed(a =>
                 {
-                    Generator.Execute(new Settings(
-                        new ConsoleTarget("Console"),
-                        a.LogLevel,
-                        a.AssemblyFilePath,
-                        a.DocumentationFilePath,
-                        a.ProjectDirectoryPath,
-                        a.OutputDirectoryPath,
-                        a.AssemblyPageName,
-                        a.InvalidCharReplacement,
-                        a.FileNameMode,
-                        a.RemoveFileExtensionFromLinks,
-                        GetEnum(a.NestedTypeVisibilities),
-                        GetEnum(a.GeneratedPages),
-                        GetEnum(a.GeneratedAccessModifiers),
-                        a.IncludeUndocumentedItems,
-                        a.IgnoreLineBreak,
-                        a.LinksOutputFilePath,
-                        a.LinksBaseUrl,
-                        a.ExternLinksFilePaths));
+                    using ConsoleTarget target = new("Console");
+
+                    Generator.Execute(target, a);
                 });
         }
     }

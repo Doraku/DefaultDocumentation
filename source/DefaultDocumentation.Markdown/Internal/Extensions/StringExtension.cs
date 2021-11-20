@@ -11,15 +11,15 @@
                 int argsIndex = value.IndexOf('(', genericIndex);
                 if (memberIndex > 0)
                 {
-                    value = $"{value.Substring(0, genericIndex)}&lt;&gt;{Prettify(value.Substring(memberIndex))}";
+                    value = $"{value.Substring(0, genericIndex)}<>{Prettify(value.Substring(memberIndex))}";
                 }
                 else if (argsIndex > 0)
                 {
-                    value = $"{value.Substring(0, genericIndex)}&lt;&gt;{Prettify(value.Substring(argsIndex))}";
+                    value = $"{value.Substring(0, genericIndex)}<>{Prettify(value.Substring(argsIndex))}";
                 }
                 else if (value.IndexOf('(') < 0)
                 {
-                    value = $"{value.Substring(0, genericIndex)}&lt;&gt;";
+                    value = $"{value.Substring(0, genericIndex)}<>";
                 }
             }
 

@@ -34,7 +34,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.Api", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.Markdown", "DefaultDocumentation.Markdown\DefaultDocumentation.Markdown.csproj", "{BDABDC87-8E3B-4E68-8113-4877EFE6A897}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.Markdown.Test", "DefaultDocumentation.Markdown.Test\DefaultDocumentation.Markdown.Test.csproj", "{A69362AB-5F6C-473E-9142-028CC4016818}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.Test", "DefaultDocumentation.Test\DefaultDocumentation.Test.csproj", "{A69362AB-5F6C-473E-9142-028CC4016818}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

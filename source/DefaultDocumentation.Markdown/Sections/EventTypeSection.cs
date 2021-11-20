@@ -1,10 +1,10 @@
 ﻿using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model.Member;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models.Members;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class EventTypeSection : ISectionWriter
+    public sealed class EventTypeSection : ISection
     {
         public string Name => "EventType";
 
@@ -13,8 +13,7 @@ namespace DefaultDocumentation.Markdown.Sections
             if (writer.GetCurrentItem() is EventDocItem eventItem)
             {
                 writer
-                    .EnsureLineStart()
-                    .AppendLine()
+                    .EnsureLineStartAndAppendLine()
                     .AppendLine("#### Event Type")
                     .AppendLink(eventItem, eventItem.Event.ReturnType);
             }

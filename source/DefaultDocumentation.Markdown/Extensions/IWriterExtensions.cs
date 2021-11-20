@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Xml.Linq;
+using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Writers;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Parameter;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Models.Parameters;
 using ICSharpCode.Decompiler.Documentation;
 using ICSharpCode.Decompiler.TypeSystem;
 using ICSharpCode.Decompiler.TypeSystem.Implementation;
@@ -12,9 +12,9 @@ namespace DefaultDocumentation.Markdown.Extensions
 {
     public static class IWriterExtensions
     {
-        private const string CurrentItemKey = "CurrentItemKey";
-        private const string DisplayAsSingleLineKey = "DisplayAsSingleLine";
-        private const string IgnoreLineBreakLineKey = "IgnoreLineBreak";
+        private const string CurrentItemKey = "Markdown.CurrentItem";
+        private const string DisplayAsSingleLineKey = "Markdown.DisplayAsSingleLine";
+        private const string IgnoreLineBreakLineKey = "Markdown.IgnoreLineBreak";
 
         public static DocItem GetCurrentItem(this IWriter writer) => writer[CurrentItemKey] as DocItem ?? writer.DocItem;
 
@@ -34,7 +34,9 @@ namespace DefaultDocumentation.Markdown.Extensions
             return writer;
         }
 
-        public static bool GetIgnoreLineBreak(this IWriter writer) => writer[IgnoreLineBreakLineKey] as bool? ?? writer.Context.Settings.IgnoreLineBreak;
+        public static bool GetIgnoreLineBreak(this IWriter writer) =>
+            writer[IgnoreLineBreakLineKey] as bool?
+            ?? writer.GetFromContext(writer.GetCurrentItem(), c => c?.GetSetting<bool>(IgnoreLineBreakLineKey)).GetValueOrDefault();
 
         public static IWriter SetIgnoreLineBreakLine(this IWriter writer, bool? value)
         {
@@ -56,7 +58,7 @@ namespace DefaultDocumentation.Markdown.Extensions
         public static IWriter AppendLink(this IWriter writer, DocItem item, string displayedName = null) => writer.AppendUrl(writer.Context.GetUrl(item), displayedName ?? item.Name, item.FullName);
 
         public static IWriter AppendLink(this IWriter writer, string id, string displayedName = null) =>
-            writer.Context.TryGetDocItem(id, out DocItem item)
+            writer.Context.Items.TryGetValue(id, out DocItem item)
             ? writer.AppendLink(item, displayedName)
             : writer.AppendUrl(writer.Context.GetUrl(id), displayedName ?? id.Substring(2), id.Substring(2));
 
@@ -143,8 +145,8 @@ namespace DefaultDocumentation.Markdown.Extensions
                     _ when type is ParameterizedType genericType => HandleParameterizedType(genericType),
                     _ => writer.AppendLink(type.GetDefinition().GetIdString())
                 },
-                IMember member => writer.AppendLink(member.MemberDefinition.GetIdString(), DocItem.NameAmbience.ConvertSymbol(member)),
-                IEntity entity => writer.AppendLink(entity.GetIdString(), DocItem.NameAmbience.ConvertSymbol(entity)),
+                IMember member => writer.AppendLink(member.MemberDefinition.GetIdString(), EntityDocItem.NameAmbience.ConvertSymbol(member)),
+                IEntity entity => writer.AppendLink(entity.GetIdString(), EntityDocItem.NameAmbience.ConvertSymbol(entity)),
                 _ => writer.Append(element.FullName)
             };
         }
@@ -153,6 +155,10 @@ namespace DefaultDocumentation.Markdown.Extensions
             writer.Length > 0 && (!writer.EndsWith(Environment.NewLine) || (writer.GetDisplayAsSingleLine() && !writer.EndsWith("<br/>")))
             ? writer.AppendLine()
             : writer;
+
+        public static IWriter EnsureLineStartAndAppendLine(this IWriter writer) => writer
+            .EnsureLineStart()
+            .AppendLine();
 
         public static IWriter AppendAsMarkdown(this IWriter writer, XElement element)
         {

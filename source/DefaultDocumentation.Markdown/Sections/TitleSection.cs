@@ -1,14 +1,15 @@
-﻿using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Member;
-using DefaultDocumentation.Model.Parameter;
-using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writers;
+﻿using System;
+using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.Extensions;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Models.Members;
+using DefaultDocumentation.Models.Parameters;
+using DefaultDocumentation.Models.Types;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class TitleSection : ISectionWriter
+    public sealed class TitleSection : ISection
     {
         public string Name => "Title";
 
@@ -16,68 +17,46 @@ namespace DefaultDocumentation.Markdown.Sections
         {
             DocItem currentItem = writer.GetCurrentItem();
 
-            if (!writer.Context.HasOwnPage(currentItem))
+            Action<IWriter> action = currentItem switch
             {
-                string url = writer.Context.GetUrl(currentItem);
-                int startIndex = url.IndexOf('#') + 1;
-                writer
-                    .EnsureLineStart()
-                    .AppendLine()
-                    .Append("<a name='")
-                    .Append(url.Substring(startIndex, url.Length - startIndex))
-                    .Append("'></a>");
-            }
-
-            _ = currentItem switch
-            {
-                AssemblyDocItem => writer
-                    .EnsureLineStart()
-                    .Append($"## {currentItem.Name} Assembly"),
-                NamespaceDocItem => writer
-                    .EnsureLineStart()
-                    .Append($"## {currentItem.Name} Namespace"),
-                TypeDocItem typeItem => writer
-                    .EnsureLineStart()
-                    .Append($"## {currentItem.LongName} {typeItem.Type.Kind}"),
-                ConstructorDocItem => writer
-                    .EnsureLineStart()
-                    .Append($"## {currentItem.Name} Constructor"),
-                EventDocItem => writer
-                    .EnsureLineStart()
-                    .Append($"## {currentItem.LongName} Event"),
-                FieldDocItem => writer
-                    .EnsureLineStart()
-                    .Append($"## {currentItem.LongName} Field"),
-                MethodDocItem => writer
-                    .EnsureLineStart()
-                    .Append($"## {currentItem.LongName} Method"),
-                OperatorDocItem => writer
-                    .EnsureLineStart()
-                    .Append($"## {currentItem.LongName} Operator"),
-                PropertyDocItem => writer
-                    .EnsureLineStart()
-                    .Append($"## {currentItem.LongName} Property"),
-                ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IEvent => writer
-                    .EnsureLineStart()
-                    .Append($"## {currentItem.LongName} Event"),
-                ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IMethod => writer
-                    .EnsureLineStart()
-                    .Append($"## {currentItem.LongName} Method"),
-                ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IProperty => writer
-                    .EnsureLineStart()
-                    .Append($"## {currentItem.LongName} Property"),
-                EnumFieldDocItem enumFiedItem => writer
-                    .EnsureLineStart()
-                    .Append($"`{currentItem.Name}` {enumFiedItem.Field.GetConstantValue()}"),
-                ParameterDocItem parameterItem => writer
-                    .EnsureLineStart()
+                AssemblyDocItem => w => w.Append($"## {currentItem.Name} Assembly"),
+                NamespaceDocItem => w => w.Append($"## {currentItem.Name} Namespace"),
+                TypeDocItem typeItem => w => w.Append($"## {currentItem.GetLongName()} {typeItem.Type.Kind}"),
+                ConstructorDocItem => w => w.Append($"## {currentItem.Name} Constructor"),
+                EventDocItem => w => w.Append($"## {currentItem.GetLongName()} Event"),
+                FieldDocItem => w => w.Append($"## {currentItem.GetLongName()} Field"),
+                MethodDocItem => w => w.Append($"## {currentItem.GetLongName()} Method"),
+                OperatorDocItem => w => w.Append($"## {currentItem.GetLongName()} Operator"),
+                PropertyDocItem => w => w.Append($"## {currentItem.GetLongName()} Property"),
+                ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IEvent => w => w.Append($"## {currentItem.GetLongName()} Event"),
+                ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IMethod => w => w.Append($"## {currentItem.GetLongName()} Method"),
+                ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IProperty => w => w.Append($"## {currentItem.GetLongName()} Property"),
+                EnumFieldDocItem enumFiedItem => w => w
+                    .Append($"`{currentItem.Name}`")
+                    .Append(enumFiedItem.Field.IsConst ? $" {enumFiedItem.Field.GetConstantValue()}" : string.Empty),
+                ParameterDocItem parameterItem => w => w
                     .Append($"`{currentItem.Name}` ")
                     .AppendLink(currentItem, parameterItem.Parameter.Type),
-                TypeParameterDocItem typeParameterItem => writer
-                    .EnsureLineStart()
-                    .Append($"`{typeParameterItem.TypeParameter.Name}`"),
-                _ => writer
+                TypeParameterDocItem typeParameterItem => w => w.Append($"`{typeParameterItem.TypeParameter.Name}`"),
+                _ => null
             };
+
+            if (action != null)
+            {
+                if (!currentItem.HasOwnPage(writer.Context))
+                {
+                    string url = writer.Context.GetUrl(currentItem);
+                    int startIndex = url.IndexOf('#') + 1;
+                    writer
+                        .EnsureLineStartAndAppendLine()
+                        .Append("<a name='")
+                        .Append(url.Substring(startIndex, url.Length - startIndex))
+                        .Append("'></a>");
+                }
+
+                writer.EnsureLineStartAndAppendLine();
+                action(writer);
+            }
         }
     }
 }

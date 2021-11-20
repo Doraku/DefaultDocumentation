@@ -1,18 +1,17 @@
 ﻿using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class ParaElement : IElementWriter
+    public sealed class ParaElement : IElement
     {
         public string Name => "para";
 
         public void Write(IWriter writer, XElement element)
         {
             writer
-                .EnsureLineStart()
-                .AppendLine()
+                .EnsureLineStartAndAppendLine()
                 .AppendAsMarkdown(element);
         }
     }

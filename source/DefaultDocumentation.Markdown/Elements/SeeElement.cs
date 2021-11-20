@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class SeeElement : IElementWriter
+    public sealed class SeeElement : IElement
     {
         public string Name => "see";
 

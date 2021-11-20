@@ -1,15 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Linq;
+using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Markdown.Internal;
-using DefaultDocumentation.Writers;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class CodeElement : IElementWriter
+    public sealed class CodeElement : IElement
     {
-        private static string GetCode(Settings settings, string source, string region = null)
+        private static string GetCode(ISettings settings, string source, string region = null)
         {
             if (!Path.IsPathRooted(source) && settings.ProjectDirectory != null)
             {
@@ -47,7 +47,7 @@ namespace DefaultDocumentation.Markdown.Elements
             string source = element.GetSourceAttribute();
 
             writer
-                .EnsureLineStart()
+                .EnsureLineStartAndAppendLine()
                 .Append("```")
                 .AppendLine(element.GetLanguageAttribute() ?? "csharp")
                 .Append(source is null ? element : new XElement("code", GetCode(writer.Context.Settings, source, element.GetRegionAttribute())))

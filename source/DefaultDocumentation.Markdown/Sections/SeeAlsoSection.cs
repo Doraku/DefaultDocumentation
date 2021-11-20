@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class SeeAlsoSection : ISectionWriter
+    public sealed class SeeAlsoSection : ISection
     {
         public string Name => "seealso";
 
@@ -19,8 +19,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 {
                     titleWritten = true;
                     writer
-                        .EnsureLineStart()
-                        .AppendLine()
+                        .EnsureLineStartAndAppendLine()
                         .Append("### See Also");
                 }
 

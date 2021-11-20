@@ -3,14 +3,14 @@
   <UsingTask TaskName="DefaultDocumentation.DefaultDocumentationTask" AssemblyFile="$(MSBuildThisFileDirectory)DefaultDocumentation.dll"/>
   <UsingTask TaskName="EnsureDefaultDocumentationExternLinksFilesRooted" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll" >
     <ParameterGroup>
-      <ExternLinksFilePaths Required="true" />
+      <FilePaths Required="true" />
       <Result Output="true" />
     </ParameterGroup>
     <Task>
       <Code Type="Fragment" Language="cs">
         <![CDATA[
           List<string> paths = new List<string>();
-          foreach (string path in (ExternLinksFilePaths ?? string.Empty).Split('|'))
+          foreach (string path in (FilePaths ?? string.Empty).Split('|'))
           {
             if (!string.IsNullOrEmpty(path))
             {
@@ -26,32 +26,43 @@
 
   <Target Name="DefaultDocumentation" AfterTargets="PostBuildEvent" Condition="'$(DocumentationFile)' != '' AND '$(DisableDefaultDocumentation)' != 'true'">
     <PropertyGroup>
+      <_DefaultDocumentationConfigurationFile Condition="'$(DefaultDocumentationConfigurationFile)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationConfigurationFile)))</_DefaultDocumentationConfigurationFile>
+      <_DefaultDocumentationConfigurationFile Condition="'$(DefaultDocumentationConfigurationFile)' == ''">$(ProjectDir)DefaultDocumentation.config</_DefaultDocumentationConfigurationFile>
       <_DefaultDocumentationDocumentationFile>$([System.IO.Path]::GetFullPath($(DocumentationFile)))</_DefaultDocumentationDocumentationFile>
       <_DefaultDocumentationFolder Condition="'$(DefaultDocumentationFolder)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationFolder)))</_DefaultDocumentationFolder>
       <_DefaultDocumentationLinksOutputFile Condition="'$(DefaultDocumentationLinksOutputFile)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationLinksOutputFile)))</_DefaultDocumentationLinksOutputFile>
+      <DefaultDocumentationFileNameFactory Condition="'$(DefaultDocumentationFileNameFactory)' == '' AND '$(DefaultDocumentationFileNameMode)' != ''">$(DefaultDocumentationFileNameMode)</DefaultDocumentationFileNameFactory>
     </PropertyGroup>
 
-    <EnsureDefaultDocumentationExternLinksFilesRooted Condition="'$(DefaultDocumentationExternLinksFiles)' != ''" ExternLinksFilePaths="$(DefaultDocumentationExternLinksFiles)">
+    <EnsureDefaultDocumentationExternLinksFilesRooted Condition="'$(DefaultDocumentationExternLinksFiles)' != ''" FilePaths="$(DefaultDocumentationExternLinksFiles)">
       <Output PropertyName="_DefaultDocumentationExternLinksFiles" TaskParameter="Result" />
     </EnsureDefaultDocumentationExternLinksFilesRooted>
 
+    <EnsureDefaultDocumentationExternLinksFilesRooted Condition="'$(DefaultDocumentationPlugins)' != ''" FilePaths="$(DefaultDocumentationPlugins)">
+      <Output PropertyName="_DefaultDocumentationPlugins" TaskParameter="Result" />
+    </EnsureDefaultDocumentationExternLinksFilesRooted>
+
+    <Warning Condition="'$(DefaultDocumentationFileNameMode)' != ''" Text="DefaultDocumentationFileNameMode property is deprecated, please use DefaultDocumentationFileNameFactory instead" />
+
     <DefaultDocumentationTask
       LogLevel="$(DefaultDocumentationLogLevel)"
+      ConfigurationFilePath="$(_DefaultDocumentationConfigurationFile)"
       AssemblyFilePath="$(TargetPath)"
       DocumentationFilePath="$(_DefaultDocumentationDocumentationFile)"
       ProjectDirectoryPath="$(ProjectDir)"
       OutputDirectoryPath="$(_DefaultDocumentationFolder)"
-      InvalidCharReplacement="$(DefaultDocumentationInvalidCharReplacement)"
       AssemblyPageName="$(DefaultDocumentationAssemblyPageName)"
-      FileNameMode="$(DefaultDocumentationFileNameMode)"
-      RemoveFileExtensionFromLinks="$(DefaultDocumentationRemoveFileExtensionFromLinks)"
-      NestedTypeVisibilities="$(DefaultDocumentationNestedTypeVisibilities)"
-      GeneratedPages="$(DefaultDocumentationGeneratedPages)"
       GeneratedAccessModifiers="$(DefaultDocumentationGeneratedAccessModifiers)"
       IncludeUndocumentedItems="$(DefaultDocumentationIncludeUndocumentedItems)"
-      IgnoreLineBreak="$(DefaultDocumentationIgnoreLineBreak)"
+      GeneratedPages="$(DefaultDocumentationGeneratedPages)"
+      InvalidCharReplacement="$(DefaultDocumentationInvalidCharReplacement)"
+      RemoveFileExtensionFromLinks="$(DefaultDocumentationRemoveFileExtensionFromLinks)"
       LinksOutputFilePath="$(_DefaultDocumentationLinksOutputFile)"
       LinksBaseUrl="$(DefaultDocumentationLinksBaseUrl)"
-      ExternLinksFilePaths="$(_DefaultDocumentationExternLinksFiles)"/>
+      ExternLinksFilePaths="$(_DefaultDocumentationExternLinksFiles)"
+      Plugins="$(_DefaultDocumentationPlugins)"
+      FileNameFactory="$(DefaultDocumentationFileNameFactory)"
+      Sections="$(DefaultDocumentationSections)"
+      Elements="$(_DefaultDocumentationElements)"/>
   </Target>
 </Project>

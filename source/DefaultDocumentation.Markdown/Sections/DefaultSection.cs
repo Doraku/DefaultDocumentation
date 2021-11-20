@@ -1,14 +1,14 @@
-﻿using DefaultDocumentation.Writers;
+﻿using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class DefaultSection : ISectionWriter
+    public sealed class DefaultSection : ISection
     {
-        private readonly ISectionWriter[] _sections;
+        private readonly ISection[] _sections;
 
         public DefaultSection()
         {
-            _sections = new ISectionWriter[]
+            _sections = new ISection[]
             {
                 new TitleSection(),
                 new SummarySection(),
@@ -53,7 +53,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         public void Write(IWriter writer)
         {
-            foreach (ISectionWriter section in _sections)
+            foreach (ISection section in _sections)
             {
                 section.Write(writer);
             }

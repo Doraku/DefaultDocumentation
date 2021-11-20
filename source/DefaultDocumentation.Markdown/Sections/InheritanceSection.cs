@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models.Types;
+using DefaultDocumentation.Api;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class InheritanceSection : ISectionWriter
+    public sealed class InheritanceSection : ISection
     {
         public string Name => "Inheritance";
 
@@ -15,8 +15,7 @@ namespace DefaultDocumentation.Markdown.Sections
             if (writer.GetCurrentItem() is TypeDocItem typeItem && typeItem.Type.Kind == TypeKind.Class)
             {
                 writer
-                    .EnsureLineStart()
-                    .AppendLine()
+                    .EnsureLineStartAndAppendLine()
                     .Append("Inheritance ");
 
                 foreach (IType t in typeItem.Type.GetNonInterfaceBaseTypes().Where(t => t != typeItem.Type))

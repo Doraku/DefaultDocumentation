@@ -1,19 +1,18 @@
 ﻿using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Parameter;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Models.Parameters;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public sealed class SummarySection : ISectionWriter
+    public sealed class SummarySection : ISection
     {
         public string Name => "summary";
 
         public void Write(IWriter writer)
         {
             writer
-                .EnsureLineStart()
-                .AppendLine()
+                .EnsureLineStartAndAppendLine()
                 .AppendAsMarkdown(writer.GetCurrentItem() switch
                 {
                     TypeParameterDocItem item => item.Documentation,

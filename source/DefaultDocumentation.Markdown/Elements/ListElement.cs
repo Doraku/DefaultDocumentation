@@ -1,11 +1,11 @@
 ﻿using System.Globalization;
 using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
-    public sealed class ListElement : IElementWriter
+    public sealed class ListElement : IElement
     {
         private static void WriteBullet(IWriter writer, XElement element)
         {
@@ -62,7 +62,7 @@ namespace DefaultDocumentation.Markdown.Elements
             int columnCount = 0;
 
             writer
-                .EnsureLineStart()
+                .EnsureLineStartAndAppendLine()
                 .Append("|");
 
             // Both include descriptions and terms
@@ -104,6 +104,8 @@ namespace DefaultDocumentation.Markdown.Elements
                             .Append("|");
                     }
                 }
+
+                writer.EnsureLineStartAndAppendLine();
             }
         }
 

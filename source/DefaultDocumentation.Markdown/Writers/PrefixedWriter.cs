@@ -1,6 +1,6 @@
 ﻿using System;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Writers
 {
@@ -17,7 +17,7 @@ namespace DefaultDocumentation.Markdown.Writers
 
         #region IWriter
 
-        public DocumentationContext Context => _writer.Context;
+        public IGeneralContext Context => _writer.Context;
 
         public DocItem DocItem => _writer.DocItem;
 

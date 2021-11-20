@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Model;
-using DefaultDocumentation.Model.Member;
-using DefaultDocumentation.Model.Parameter;
-using DefaultDocumentation.Model.Type;
-using DefaultDocumentation.Writers;
+using DefaultDocumentation.Models;
+using DefaultDocumentation.Models.Members;
+using DefaultDocumentation.Models.Parameters;
+using DefaultDocumentation.Models.Types;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
-    public abstract class ChildrenSection<T> : ISectionWriter
+    public abstract class ChildrenSection<T> : ISection
         where T : DocItem
     {
         private readonly string _title;
@@ -22,7 +22,7 @@ namespace DefaultDocumentation.Markdown.Sections
             _title = title;
         }
 
-        protected virtual IEnumerable<T> GetChildren(DocumentationContext context, DocItem item) => context.GetChildren<T>(item);
+        protected virtual IEnumerable<T> GetChildren(IGeneralContext context, DocItem item) => context.GetChildren<T>(item);
 
         public string Name { get; }
 
@@ -35,7 +35,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 {
                     writer.EnsureLineStart();
 
-                    if (writer.Context.HasOwnPage(item))
+                    if (item.HasOwnPage(writer.Context))
                     {
                         writer
                             .AppendLine()
@@ -57,7 +57,7 @@ namespace DefaultDocumentation.Markdown.Sections
                     .ToOverrideWriter()
                     .SetCurrentItem(item);
 
-                if (writer.Context.HasOwnPage(item))
+                if (item.HasOwnPage(writer.Context))
                 {
                     childWriter
                         .Append("| ")
@@ -70,7 +70,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 }
                 else
                 {
-                    foreach (ISectionWriter sectionWriter in writer.Context.SectionWriters)
+                    foreach (ISection sectionWriter in writer.GetFromContext(item, c => c?.Sections))
                     {
                         sectionWriter.Write(childWriter);
                     }
@@ -85,7 +85,7 @@ namespace DefaultDocumentation.Markdown.Sections
             : base("TypeParameters", "#### Type parameters")
         { }
 
-        protected override IEnumerable<TypeParameterDocItem> GetChildren(DocumentationContext context, DocItem item) => (item as ITypeParameterizedDocItem)?.TypeParameters;
+        protected override IEnumerable<TypeParameterDocItem> GetChildren(IGeneralContext context, DocItem item) => (item as ITypeParameterizedDocItem)?.TypeParameters;
     }
 
     public sealed class ParametersSection : ChildrenSection<ParameterDocItem>
@@ -94,7 +94,7 @@ namespace DefaultDocumentation.Markdown.Sections
             : base("Parameters", "#### Parameters")
         { }
 
-        protected override IEnumerable<ParameterDocItem> GetChildren(DocumentationContext context, DocItem item) => (item as IParameterizedDocItem)?.Parameters;
+        protected override IEnumerable<ParameterDocItem> GetChildren(IGeneralContext context, DocItem item) => (item as IParameterizedDocItem)?.Parameters;
     }
 
     public sealed class EnumFieldsSection : ChildrenSection<EnumFieldDocItem>
