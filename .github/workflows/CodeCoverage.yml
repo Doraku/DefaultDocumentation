@@ -18,9 +18,9 @@ jobs:
     - name: Set up dotnet
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '5.0.100'
+        dotnet-version: '6.0.x'
 
-    - name: Collect coverage for net5.0
+    - name: Collect coverage
       run: dotnet test source\DefaultDocumentation.sln -c Release -p:CollectCoverage=true -p:CoverletOutputFormat=lcov -p:CoverletOutput=..\..\build\lcov.info /p:TEST=true
 
     - name: Upload to coverall
