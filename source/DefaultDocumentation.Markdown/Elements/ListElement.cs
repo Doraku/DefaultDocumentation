@@ -11,11 +11,13 @@ namespace DefaultDocumentation.Markdown.Elements
         {
             foreach (XElement item in element.GetItems())
             {
-                writer
-                    .EnsureLineStart()
-                    .Append("- ")
-                    .ToPrefixedWriter("  ")
-                    .AppendAsMarkdown(item);
+                IWriter listWriter =
+                    writer
+                        .EnsureLineStart()
+                        .ToPrefixedWriter("  ");
+
+                writer.Append("- ");
+                WriteItem(listWriter, item);
             }
         }
 
@@ -23,14 +25,35 @@ namespace DefaultDocumentation.Markdown.Elements
         {
             int count = 1;
 
-            foreach (XElement item in element.GetItems())
+            foreach (XElement item in element.Elements())
+            {
+                IWriter listWriter =
+                    writer
+                        .EnsureLineStart()
+                        .ToPrefixedWriter("   ");
+
+                writer.Append(count++.ToString(CultureInfo.InvariantCulture)).Append(". ");
+                WriteItem(listWriter, item);
+            }
+        }
+
+        private static void WriteItem(IWriter writer, XElement element)
+        {
+            XElement term = element.GetTerm(),
+                     description = element.GetDescription();
+
+            // If both a term and a description are present, separate them by an em dash 
+            if (term is not null && description is not null)
             {
                 writer
-                    .EnsureLineStart()
-                    .Append(count++.ToString(CultureInfo.InvariantCulture))
-                    .Append(". ")
-                    .ToPrefixedWriter("  ")
-                    .AppendAsMarkdown(item);
+                    .AppendAsMarkdown(term)
+                    .Append(" — ")
+                    .AppendAsMarkdown(description);
+            }
+            // Otherwise, write one of the present items or the parent
+            else
+            {
+                writer.AppendAsMarkdown(description ?? term ?? element);
             }
         }
 
@@ -42,7 +65,8 @@ namespace DefaultDocumentation.Markdown.Elements
                 .EnsureLineStartAndAppendLine()
                 .Append("|");
 
-            foreach (XElement description in element.GetListHeader().GetDescriptions())
+            // Both include descriptions and terms
+            foreach (XElement description in element.GetListHeader().Elements())
             {
                 ++columnCount;
 
@@ -70,7 +94,8 @@ namespace DefaultDocumentation.Markdown.Elements
                         .EnsureLineStart()
                         .Append("|");
 
-                    foreach (XElement description in item.GetDescriptions())
+                    // Both include descriptions and terms
+                    foreach (XElement description in item.Elements())
                     {
                         writer
                             .SetDisplayAsSingleLine(true)

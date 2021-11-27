@@ -12,6 +12,10 @@ namespace System.Xml.Linq
 
         public static XElement GetListHeader(this XElement element) => element.Element("listheader");
 
+        public static XElement GetTerm(this XElement element) => element?.Element("term");
+
+        public static XElement GetDescription(this XElement element) => element?.Element("description");
+
         public static string GetNameAttribute(this XElement element) => element.Attribute("name")?.Value;
 
         public static string GetCRefAttribute(this XElement element) => element.Attribute("cref")?.Value;

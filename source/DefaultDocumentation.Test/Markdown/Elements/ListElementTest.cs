@@ -65,6 +65,22 @@ namespace DefaultDocumentation.Markdown.Elements
 - item5");
 
         [Fact]
+        public void Write_should_separate_term_and_description() => Test(
+            new XElement("list", new XAttribute("type", "bullet"), new XElement("item", new XElement("term", "Term"), new XElement("description", "Description"))),
+            "- Term — Description"
+        );
+
+        [Fact]
+        public void Write_should_not_separate_lonely_description_and_term() => Test(
+            new XElement("list", new XAttribute("type", "bullet"),
+                new XElement("item", new XElement("term", "Term")),
+                new XElement("item", new XElement("description", "Description"))
+            ),
+@"- Term
+- Description"
+        );
+
+        [Fact]
         public void Write_should_write_prefix_When_type_is_bullet_and_item_is_multiline() => Test(
             new XElement("list", new XAttribute("type", "bullet"), new XElement("item", "item1\nect..."), new XElement("item", "item2")),
 @"- item1  
@@ -89,7 +105,7 @@ namespace DefaultDocumentation.Markdown.Elements
         public void Write_should_write_prefix_When_type_is_number_and_item_is_multiline() => Test(
             new XElement("list", new XAttribute("type", "number"), new XElement("item", "item1\nect..."), new XElement("item", "item2")),
 @"1. item1  
-  ect...
+   ect...
 2. item2");
 
         [Fact]
