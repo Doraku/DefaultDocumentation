@@ -8,13 +8,15 @@ namespace System.Xml.Linq
 
         public static IEnumerable<XElement> GetDescriptions(this XElement element) => element.Elements("description");
 
+        public static IEnumerable<XElement> GetTerms(this XElement element) => element.Elements("term");
+
         public static XElement GetSummary(this XElement element) => element?.Element("summary");
 
         public static XElement GetListHeader(this XElement element) => element.Element("listheader");
 
-        public static XElement GetTerm(this XElement element) => element?.Element("term");
+        public static XElement GetTerm(this XElement element) => element.Element("term");
 
-        public static XElement GetDescription(this XElement element) => element?.Element("description");
+        public static XElement GetDescription(this XElement element) => element.Element("description");
 
         public static string GetNameAttribute(this XElement element) => element.Attribute("name")?.Value;
 

@@ -1,48 +1,17 @@
 ﻿using System.Globalization;
 using System.Xml.Linq;
-using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
     public sealed class ListElement : IElement
     {
-        private static void WriteBullet(IWriter writer, XElement element)
-        {
-            foreach (XElement item in element.GetItems())
-            {
-                IWriter listWriter =
-                    writer
-                        .EnsureLineStart()
-                        .ToPrefixedWriter("  ");
-
-                writer.Append("- ");
-                WriteItem(listWriter, item);
-            }
-        }
-
-        private static void WriteNumber(IWriter writer, XElement element)
-        {
-            int count = 1;
-
-            foreach (XElement item in element.Elements())
-            {
-                IWriter listWriter =
-                    writer
-                        .EnsureLineStart()
-                        .ToPrefixedWriter("   ");
-
-                writer.Append(count++.ToString(CultureInfo.InvariantCulture)).Append(". ");
-                WriteItem(listWriter, item);
-            }
-        }
-
         private static void WriteItem(IWriter writer, XElement element)
         {
-            XElement term = element.GetTerm(),
-                     description = element.GetDescription();
+            XElement term = element.GetTerm();
+            XElement description = element.GetDescription();
 
-            // If both a term and a description are present, separate them by an em dash 
             if (term is not null && description is not null)
             {
                 writer
@@ -50,10 +19,38 @@ namespace DefaultDocumentation.Markdown.Elements
                     .Append(" — ")
                     .AppendAsMarkdown(description);
             }
-            // Otherwise, write one of the present items or the parent
             else
             {
                 writer.AppendAsMarkdown(description ?? term ?? element);
+            }
+        }
+
+        private static void WriteBullet(IWriter writer, XElement element)
+        {
+            foreach (XElement item in element.GetItems())
+            {
+                WriteItem(
+                    writer
+                        .EnsureLineStart()
+                        .Append("- ")
+                        .ToPrefixedWriter("  "),
+                    item);
+            }
+        }
+
+        private static void WriteNumber(IWriter writer, XElement element)
+        {
+            int count = 1;
+
+            foreach (XElement item in element.GetItems())
+            {
+                WriteItem(
+                    writer
+                        .EnsureLineStart()
+                        .Append(count++.ToString(CultureInfo.InvariantCulture))
+                        .Append(". ")
+                        .ToPrefixedWriter("  "),
+                    item);
             }
         }
 
@@ -65,8 +62,7 @@ namespace DefaultDocumentation.Markdown.Elements
                 .EnsureLineStartAndAppendLine()
                 .Append("|");
 
-            // Both include descriptions and terms
-            foreach (XElement description in element.GetListHeader().Elements())
+            foreach (XElement description in element.GetListHeader().GetTerms())
             {
                 ++columnCount;
 
@@ -94,8 +90,7 @@ namespace DefaultDocumentation.Markdown.Elements
                         .EnsureLineStart()
                         .Append("|");
 
-                    // Both include descriptions and terms
-                    foreach (XElement description in item.Elements())
+                    foreach (XElement description in item.GetDescriptions())
                     {
                         writer
                             .SetDisplayAsSingleLine(true)
