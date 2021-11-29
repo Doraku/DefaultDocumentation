@@ -14,16 +14,20 @@ namespace DefaultDocumentation.Internal
         {
             InvalidCharReplacement = invalidCharReplacement;
 
-            _invalidStrings = new Dictionary<string, string>(Path.GetInvalidFileNameChars().ToDictionary(c => $"{c}", _ => invalidCharReplacement))
+            _invalidStrings = new Dictionary<string, string>(Path.GetInvalidPathChars().ToDictionary(c => $"{c}", _ => invalidCharReplacement))
             {
+                ["\""] = invalidCharReplacement,
+                ["<"] = invalidCharReplacement,
+                [">"] = invalidCharReplacement,
+                [":"] = invalidCharReplacement,
+                ["*"] = invalidCharReplacement,
+                ["?"] = invalidCharReplacement,
                 ["="] = string.Empty,
                 [" "] = string.Empty,
                 [","] = invalidCharReplacement,
                 ["."] = invalidCharReplacement,
                 ["["] = invalidCharReplacement,
                 ["]"] = invalidCharReplacement,
-                ["&lt;"] = invalidCharReplacement,
-                ["&gt;"] = invalidCharReplacement,
             };
         }
 
@@ -34,7 +38,7 @@ namespace DefaultDocumentation.Internal
                 value = value.Replace(pair.Key, pair.Value);
             }
 
-            return value;
+            return value.Replace('\\', '/').Trim('/');
         }
     }
 }

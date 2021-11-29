@@ -75,9 +75,9 @@ namespace DefaultDocumentation.Internal
                 }
 
                 string url = GetFileName(pagedItem);
-                if (settings.RemoveFileExtensionFromLinks)
+                if (settings.RemoveFileExtensionFromLinks && Path.HasExtension(url))
                 {
-                    url = Path.GetFileNameWithoutExtension(url);
+                    url = url.Substring(0, url.Length - Path.GetExtension(url).Length);
                 }
                 if (item != pagedItem)
                 {
@@ -111,7 +111,10 @@ namespace DefaultDocumentation.Internal
         public string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i =>
         {
             string fileName = (GetContext(item)?.FileNameFactory ?? FileNameFactory).GetFileName(this, i);
-            return _pathCleaner.Clean(Path.GetFileNameWithoutExtension(fileName)) + Path.GetExtension(fileName);
+
+            string extension = Path.HasExtension(fileName) ? Path.GetExtension(fileName) : string.Empty;
+
+            return _pathCleaner.Clean(fileName.Substring(0, fileName.Length - extension.Length)) + extension;
         });
 
         public string GetUrl(DocItem item) => _urls.GetOrAdd(item.Id, _ => _urlFactory(item));

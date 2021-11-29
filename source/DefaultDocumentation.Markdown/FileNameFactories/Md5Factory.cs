@@ -13,7 +13,7 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
         {
             using MD5 md5 = MD5.Create();
 
-            return Convert.ToBase64String(md5.ComputeHash(Encoding.UTF8.GetBytes(item.FullName)));
+            return Convert.ToBase64String(md5.ComputeHash(Encoding.UTF8.GetBytes(item.FullName))).Replace('\\', '?').Replace('/', '?');
         }
     }
 }

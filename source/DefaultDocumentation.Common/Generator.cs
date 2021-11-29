@@ -66,6 +66,10 @@ namespace DefaultDocumentation
             // context settings
             AddSetting(s => s.Plugins, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray());
             AddSetting(s => s.FileNameFactory, string.IsNullOrEmpty, v => v);
+            if (string.IsNullOrEmpty(GetSetting<string>(nameof(settings.FileNameFactory))))
+            {
+                AddSetting(s => s.FileNameFactory, _ => false, _ => "FullName");
+            }
             AddSetting(s => s.Sections, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray());
             if (GetSetting<string[]>(nameof(settings.Sections)) is null)
             {
@@ -126,7 +130,10 @@ namespace DefaultDocumentation
 
             builder.Replace(" />", "/>");
 
-            File.WriteAllText(Path.Combine(_context.Settings.OutputDirectory.FullName, _context.GetFileName(item)), builder.ToString());
+            string fileName = Path.Combine(_context.Settings.OutputDirectory.FullName, _context.GetFileName(item));
+
+            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            File.WriteAllText(fileName, builder.ToString());
         }
 
         private void WriteLinks()

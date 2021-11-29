@@ -50,10 +50,6 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
                     Thread.Sleep(1000);
                 }
             }
-            else
-            {
-                context.Settings.OutputDirectory.Create();
-            }
         }
 
         public string GetFileName(IGeneralContext context, DocItem item) => (item is AssemblyDocItem ? item.FullName : GetMarkdownFileName(context, item)) + ".md";
