@@ -4,8 +4,14 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Models.Parameters
 {
+    /// <summary>
+    /// Represents an <see cref="ITypeParameter"/> documentation.
+    /// </summary>
     public sealed class TypeParameterDocItem : DocItem
     {
+        /// <summary>
+        /// Gets the <see cref="ITypeParameter"/> of the current instance.
+        /// </summary>
         public ITypeParameter TypeParameter { get; }
 
         internal TypeParameterDocItem(DocItem parent, ITypeParameter typeParameter)

@@ -101,7 +101,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         public void Write(IWriter writer)
         {
-            Modes modes = writer.GetFromContext(writer.GetCurrentItem(), c => c?.GetSetting<Modes>("Markdown.TableOfContentsModes")).GetValueOrDefault();
+            Modes modes = writer.Context.GetSetting(writer.GetCurrentItem(), c => c.GetSetting<Modes?>("Markdown.TableOfContentsModes")).GetValueOrDefault();
 
             Write(writer, modes, writer.GetCurrentItem());
         }

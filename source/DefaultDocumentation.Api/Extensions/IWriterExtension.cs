@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Xml.Linq;
-using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Api
 {
+    /// <summary>
+    /// Provides extension methods on the <see cref="IWriter"/> type.
+    /// </summary>
     public static class IWriterExtension
     {
-        public static T GetFromContext<T>(this IWriter writer, DocItem item, Func<IContext, T> getter) => getter(writer.Context.GetContext(item)) ?? getter(writer.Context);
-
-        public static IWriter Append(this IWriter writer, XElement value)
+        /// <summary>
+        /// Appends an <see cref="XElement"/> to a <see cref="IWriter"/> by using the <see cref="IGeneralContext.Elements"/> of <see cref="IWriter.Context"/>.
+        /// If no <see cref="IElement"/> is found, the <see cref="XElement"/> is appended as text directly.
+        /// </summary>
+        /// <param name="writer">The <see cref="IWriter"/> to append to.</param>
+        /// <param name="value">The <see cref="XElement"/> to append.</param>
+        /// <returns>The given <see cref="IWriter"/>.</returns>
+        public static IWriter Append(this IWriter writer, XElement? value)
         {
             static void AppendMultiline(IWriter writer, string text, ref int? textStartIndex, ref bool startingNewLine)
             {
@@ -78,8 +85,20 @@ namespace DefaultDocumentation.Api
             return writer;
         }
 
+        /// <summary>
+        /// Appends a line after writing the provided <see cref="string"/>.
+        /// </summary>
+        /// <param name="writer">The <see cref="IWriter"/> to append to.</param>
+        /// <param name="value">The <see cref="string"/> to append before the line.</param>
+        /// <returns>The given <see cref="IWriter"/>.</returns>
         public static IWriter AppendLine(this IWriter writer, string value) => writer.Append(value).AppendLine();
 
+        /// <summary>
+        /// Trims from the end of a <see cref="IWriter"/> all the provided values.
+        /// </summary>
+        /// <param name="writer">The <see cref="IWriter"/> to trim.</param>
+        /// <param name="values">The <see cref="string"/> values to trim from the end.</param>
+        /// <returns>The given <see cref="IWriter"/>.</returns>
         public static IWriter TrimEnd(this IWriter writer, params string[] values)
         {
         Start:

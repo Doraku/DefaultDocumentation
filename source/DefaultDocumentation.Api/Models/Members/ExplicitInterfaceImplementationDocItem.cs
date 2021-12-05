@@ -8,15 +8,24 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Models.Members
 {
+    /// <summary>
+    /// Represents an explicit interface implementation documentation.
+    /// </summary>
     public sealed class ExplicitInterfaceImplementationDocItem : EntityDocItem, ITypeParameterizedDocItem, IParameterizedDocItem
     {
+        /// <summary>
+        /// Gets the <see cref="IMember"/> of the current instance.
+        /// It can either be an <see cref="IEvent"/>, <see cref="IProperty"/> or <see cref="IMethod"/>.
+        /// </summary>
         public IMember Member { get; }
 
+        /// <inheritdoc/>
         public IEnumerable<TypeParameterDocItem> TypeParameters { get; }
 
+        /// <inheritdoc/>
         public IEnumerable<ParameterDocItem> Parameters { get; }
 
-        public ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IEvent @event, XElement documentation)
+        internal ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IEvent @event, XElement? documentation)
             : base(
                   parent ?? throw new ArgumentNullException(nameof(parent)),
                   @event ?? throw new ArgumentNullException(nameof(@event)),
@@ -27,7 +36,7 @@ namespace DefaultDocumentation.Models.Members
             Parameters = Array.Empty<ParameterDocItem>();
         }
 
-        public ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IProperty property, XElement documentation)
+        internal ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IProperty property, XElement? documentation)
             : base(
                   parent ?? throw new ArgumentNullException(nameof(parent)),
                   property ?? throw new ArgumentNullException(nameof(property)),
@@ -38,7 +47,7 @@ namespace DefaultDocumentation.Models.Members
             Parameters = property.Parameters.Select(p => new ParameterDocItem(this, p)).ToArray();
         }
 
-        public ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IMethod method, XElement documentation)
+        internal ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
             : base(
                   parent ?? throw new ArgumentNullException(nameof(parent)),
                   method ?? throw new ArgumentNullException(nameof(method)),

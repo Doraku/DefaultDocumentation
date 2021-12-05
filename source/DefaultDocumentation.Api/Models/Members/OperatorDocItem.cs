@@ -8,13 +8,20 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Models.Members
 {
+    /// <summary>
+    /// Represents an operator <see cref="IMethod"/> documentation.
+    /// </summary>
     public sealed class OperatorDocItem : EntityDocItem, IParameterizedDocItem
     {
+        /// <summary>
+        /// Gets the <see cref="IMethod"/> of the current instance.
+        /// </summary>
         public IMethod Method { get; }
 
+        /// <inheritdoc/>
         public IEnumerable<ParameterDocItem> Parameters { get; }
 
-        public OperatorDocItem(TypeDocItem parent, IMethod method, XElement documentation)
+        internal OperatorDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
             : base(
                   parent ?? throw new ArgumentNullException(nameof(parent)),
                   method ?? throw new ArgumentNullException(nameof(method)),

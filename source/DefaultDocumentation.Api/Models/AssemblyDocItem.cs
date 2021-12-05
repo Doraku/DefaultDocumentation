@@ -2,9 +2,12 @@
 
 namespace DefaultDocumentation.Models
 {
+    /// <summary>
+    /// Represents an assembly documentation.
+    /// </summary>
     public sealed class AssemblyDocItem : DocItem
     {
-        public AssemblyDocItem(string fullName, string name, XElement documentation)
+        internal AssemblyDocItem(string fullName, string name, XElement? documentation)
             : base(null, string.Empty, fullName, name, documentation)
         { }
     }

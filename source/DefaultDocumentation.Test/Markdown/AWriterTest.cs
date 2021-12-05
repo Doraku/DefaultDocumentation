@@ -66,7 +66,7 @@ namespace DefaultDocumentation.Markdown
                 int parametersIndex = id.IndexOf("(", StringComparison.Ordinal);
                 if (parametersIndex > 0)
                 {
-                    string methodName = id.Substring(0, parametersIndex);
+                    string methodName = id[..parametersIndex];
 
                     id = $"{methodName}#{id.Replace('.', '_').Replace('`', '_').Replace('(', '_').Replace(')', '_')}";
                 }

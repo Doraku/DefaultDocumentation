@@ -4,7 +4,9 @@ using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Writers;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Parameters;
+using ICSharpCode.Decompiler.CSharp.OutputVisitor;
 using ICSharpCode.Decompiler.Documentation;
+using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 using ICSharpCode.Decompiler.TypeSystem.Implementation;
 
@@ -12,6 +14,13 @@ namespace DefaultDocumentation.Markdown.Extensions
 {
     public static class IWriterExtensions
     {
+        private static readonly CSharpAmbience _nameAmbience = new()
+        {
+            ConversionFlags =
+                ConversionFlags.ShowParameterList
+                | ConversionFlags.ShowTypeParameterList
+        };
+
         private const string CurrentItemKey = "Markdown.CurrentItem";
         private const string DisplayAsSingleLineKey = "Markdown.DisplayAsSingleLine";
         private const string IgnoreLineBreakLineKey = "Markdown.IgnoreLineBreak";
@@ -36,7 +45,7 @@ namespace DefaultDocumentation.Markdown.Extensions
 
         public static bool GetIgnoreLineBreak(this IWriter writer) =>
             writer[IgnoreLineBreakLineKey] as bool?
-            ?? writer.GetFromContext(writer.GetCurrentItem(), c => c?.GetSetting<bool>(IgnoreLineBreakLineKey)).GetValueOrDefault();
+            ?? writer.Context.GetSetting(writer.GetCurrentItem(), c => c.GetSetting<bool?>(IgnoreLineBreakLineKey)).GetValueOrDefault();
 
         public static IWriter SetIgnoreLineBreakLine(this IWriter writer, bool? value)
         {
@@ -145,8 +154,8 @@ namespace DefaultDocumentation.Markdown.Extensions
                     _ when type is ParameterizedType genericType => HandleParameterizedType(genericType),
                     _ => writer.AppendLink(type.GetDefinition().GetIdString())
                 },
-                IMember member => writer.AppendLink(member.MemberDefinition.GetIdString(), EntityDocItem.NameAmbience.ConvertSymbol(member)),
-                IEntity entity => writer.AppendLink(entity.GetIdString(), EntityDocItem.NameAmbience.ConvertSymbol(entity)),
+                IMember member => writer.AppendLink(member.MemberDefinition.GetIdString(), _nameAmbience.ConvertSymbol(member)),
+                IEntity entity => writer.AppendLink(entity.GetIdString(), _nameAmbience.ConvertSymbol(entity)),
                 _ => writer.Append(element.FullName)
             };
         }

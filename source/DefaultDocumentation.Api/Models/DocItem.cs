@@ -3,22 +3,40 @@ using System.Xml.Linq;
 
 namespace DefaultDocumentation.Models
 {
+    /// <summary>
+    /// Represent a documentation item.
+    /// </summary>
     public abstract class DocItem
     {
-        public DocItem Parent { get; }
+        /// <summary>
+        /// Gets the <see cref="DocItem"/> parent of the current instance (for members it is their declaring type, for types it is their namespace, ...).
+        /// </summary>
+        public DocItem? Parent { get; }
 
+        /// <summary>
+        /// Gets the id of the current instance.
+        /// </summary>
         public string Id { get; }
 
+        /// <summary>
+        /// Gets the full name of the current instance.
+        /// </summary>
         public string FullName { get; }
 
+        /// <summary>
+        /// Gets the name of the current instance.
+        /// </summary>
         public string Name { get; }
 
-        public XElement Documentation { get; }
+        /// <summary>
+        /// Gets the xml documentation node of the current instance.
+        /// </summary>
+        public XElement? Documentation { get; }
 
-        private protected DocItem(DocItem parent, string id, string fullName, string name, XElement documentation)
+        private protected DocItem(DocItem? parent, string id, string fullName, string name, XElement? documentation)
         {
             Parent = parent;
-            Id = id;
+            Id = id ?? throw new ArgumentNullException(nameof(id));
             FullName = fullName ?? throw new ArgumentNullException(nameof(fullName));
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Documentation = documentation;

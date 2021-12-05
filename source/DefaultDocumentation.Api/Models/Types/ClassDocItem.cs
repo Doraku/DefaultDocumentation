@@ -3,9 +3,12 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Models.Types
 {
+    /// <summary>
+    /// Represents a <see cref="ITypeDefinition"/> of the <see cref="TypeKind.Class"/> kind documentation.
+    /// </summary>
     public sealed class ClassDocItem : TypeDocItem
     {
-        public ClassDocItem(DocItem parent, ITypeDefinition type, XElement documentation)
+        internal ClassDocItem(DocItem parent, ITypeDefinition type, XElement? documentation)
             : base(parent, type, documentation)
         { }
     }

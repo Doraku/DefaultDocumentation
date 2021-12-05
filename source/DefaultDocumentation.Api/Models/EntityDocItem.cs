@@ -7,9 +7,12 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Models
 {
+    /// <summary>
+    /// Represent an <see cref="IEntity"/> documentation.
+    /// </summary>
     public abstract class EntityDocItem : DocItem
     {
-        public static readonly CSharpAmbience FullNameAmbience = new()
+        private static readonly CSharpAmbience _fullNameAmbience = new()
         {
             ConversionFlags =
                 ConversionFlags.ShowParameterList
@@ -19,24 +22,27 @@ namespace DefaultDocumentation.Models
                 | ConversionFlags.UseFullyQualifiedEntityNames
         };
 
-        public static readonly CSharpAmbience NameAmbience = new()
+        private static readonly CSharpAmbience _nameAmbience = new()
         {
             ConversionFlags =
                 ConversionFlags.ShowParameterList
                 | ConversionFlags.ShowTypeParameterList
         };
 
+        /// <summary>
+        /// Gets the <see cref="IEntity"/> of the current instance.
+        /// </summary>
         public IEntity Entity { get; }
 
-        private protected EntityDocItem(DocItem parent, IEntity entity, XElement documentation)
-            : base(parent, entity.GetIdString(), GetFullName(entity), NameAmbience.ConvertSymbol(entity), documentation)
+        private protected EntityDocItem(DocItem parent, IEntity entity, XElement? documentation)
+            : base(parent, entity.GetIdString(), GetFullName(entity), _nameAmbience.ConvertSymbol(entity), documentation)
         {
             Entity = entity;
         }
 
         private static string GetFullName(IEntity entity)
         {
-            string fullName = FullNameAmbience.ConvertSymbol(entity);
+            string fullName = _fullNameAmbience.ConvertSymbol(entity);
 
             if (entity.SymbolKind == SymbolKind.Operator)
             {

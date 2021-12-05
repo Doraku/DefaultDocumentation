@@ -2,7 +2,8 @@
   <PropertyGroup>
     <RootNamespace>DefaultDocumentation</RootNamespace>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

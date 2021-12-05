@@ -6,13 +6,20 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Models.Types
 {
+    /// <summary>
+    /// Represents a <see cref="ITypeDefinition"/> of the <see cref="TypeKind.Delegate"/> kind documentation.
+    /// </summary>
     public sealed class DelegateDocItem : TypeDocItem, IParameterizedDocItem
     {
+        /// <summary>
+        /// Gets the <see cref="IMethod"/> of the current instance.
+        /// </summary>
         public IMethod InvokeMethod { get; }
 
+        /// <inheritdoc/>
         public IEnumerable<ParameterDocItem> Parameters { get; }
 
-        public DelegateDocItem(DocItem parent, ITypeDefinition type, XElement documentation)
+        internal DelegateDocItem(DocItem parent, ITypeDefinition type, XElement? documentation)
             : base(parent, type, documentation)
         {
             InvokeMethod = type.GetDelegateInvokeMethod();

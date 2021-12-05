@@ -8,13 +8,20 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Models.Members
 {
+    /// <summary>
+    /// Represents a constructor <see cref="IMethod"/> documentation.
+    /// </summary>
     public sealed class ConstructorDocItem : EntityDocItem, IParameterizedDocItem
     {
+        /// <summary>
+        /// Gets the <see cref="IMethod"/> of the current instance.
+        /// </summary>
         public IMethod Method { get; }
 
+        /// <inheritdoc/>
         public IEnumerable<ParameterDocItem> Parameters { get; }
 
-        public ConstructorDocItem(TypeDocItem parent, IMethod method, XElement documentation)
+        internal ConstructorDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
             : base(
                   parent ?? throw new ArgumentNullException(nameof(parent)),
                   method ?? throw new ArgumentNullException(nameof(method)),

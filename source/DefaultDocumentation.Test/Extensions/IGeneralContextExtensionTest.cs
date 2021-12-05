@@ -1,40 +1,35 @@
-﻿using DefaultDocumentation.Api;
-using NFluent;
+﻿using NFluent;
 using NSubstitute;
 using Xunit;
 
-namespace DefaultDocumentation.Extensions
+namespace DefaultDocumentation
 {
-    public sealed class IWriterExtensionTest
+    public sealed class IGeneralContextExtensionTest
     {
         [Fact]
-        public void GetFromContext_Should_return_from_specific_context_When_not_null()
+        public void GetSetting_Should_return_from_specific_context_When_not_null()
         {
-            IWriter writer = Substitute.For<IWriter>();
             IGeneralContext generalContext = Substitute.For<IGeneralContext>();
             IContext context = Substitute.For<IContext>();
 
-            writer.Context.Returns(generalContext);
             generalContext.GetSetting<string>("test").Returns("general");
             context.GetSetting<string>("test").Returns("specific");
             generalContext.GetContext(null).Returns(context);
 
-            Check.That(writer.GetFromContext(null, c => c.GetSetting<string>("test"))).IsEqualTo("specific");
+            Check.That(generalContext.GetSetting(null, c => c.GetSetting<string>("test"))).IsEqualTo("specific");
         }
 
         [Fact]
-        public void GetFromContext_Should_return_from_general_context_When_null()
+        public void GetSetting_Should_return_from_general_context_When_null()
         {
-            IWriter writer = Substitute.For<IWriter>();
             IGeneralContext generalContext = Substitute.For<IGeneralContext>();
             IContext context = Substitute.For<IContext>();
 
-            writer.Context.Returns(generalContext);
             generalContext.GetSetting<string>("test").Returns("general");
             context.GetSetting<string>("test").Returns(default(string));
             generalContext.GetContext(null).Returns(context);
 
-            Check.That(writer.GetFromContext(null, c => c.GetSetting<string>("test"))).IsEqualTo("general");
+            Check.That(generalContext.GetSetting(null, c => c.GetSetting<string>("test"))).IsEqualTo("general");
         }
     }
 }

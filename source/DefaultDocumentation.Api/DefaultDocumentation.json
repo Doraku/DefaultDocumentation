@@ -1,0 +1,16 @@
+﻿{
+	"AssemblyFilePath": "source\\DefaultDocumentation.Api\\bin\\Release\\netstandard2.0\\DefaultDocumentation.Api.dll",
+	"OutputDirectoryPath": "documentation\\api",
+	"GeneratedAccessModifiers": "Public,Protected",
+	"GeneratedPages": "Assembly,Types,Members",
+	"ExternLinksFilePaths": [
+		"documentation\\ICSharpCode.Decompiler.txt"
+	],
+	"NamespaceDocItem": {
+		"Sections": [
+			"Title",
+			"TableOfContents"
+		],
+		"Markdown.TableOfContentsModes": "IncludeKind,IncludeSummary"
+	}
+}

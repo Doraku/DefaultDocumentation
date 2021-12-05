@@ -123,7 +123,7 @@ namespace DefaultDocumentation
 
             PageWriter writer = new(builder, _context, item);
 
-            foreach (ISection sectionWriter in writer.GetFromContext(item, c => c?.Sections))
+            foreach (ISection sectionWriter in writer.Context.GetSetting(item, c => c.Sections))
             {
                 sectionWriter.Write(writer);
             }

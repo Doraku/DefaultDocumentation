@@ -1,0 +1,16 @@
+T:ICSharpCode.Decompiler.TypeSystem.IEntity|https://github.com/icsharpcode/ILSpy|IEntity
+T:ICSharpCode.Decompiler.TypeSystem.IMember|https://github.com/icsharpcode/ILSpy|IMember
+T:ICSharpCode.Decompiler.TypeSystem.ITypeDefinition|https://github.com/icsharpcode/ILSpy|ITypeDefinition
+T:ICSharpCode.Decompiler.TypeSystem.IField|https://github.com/icsharpcode/ILSpy|IField
+T:ICSharpCode.Decompiler.TypeSystem.IProperty|https://github.com/icsharpcode/ILSpy|IProperty
+T:ICSharpCode.Decompiler.TypeSystem.IMethod|https://github.com/icsharpcode/ILSpy|IMethod
+T:ICSharpCode.Decompiler.TypeSystem.IEvent|https://github.com/icsharpcode/ILSpy|IEvent
+
+T:ICSharpCode.Decompiler.TypeSystem.IParameter|https://github.com/icsharpcode/ILSpy|IParameter
+T:ICSharpCode.Decompiler.TypeSystem.ITypeParameter|https://github.com/icsharpcode/ILSpy|ITypeParameter
+
+F:ICSharpCode.Decompiler.TypeSystem.TypeKind.Class|https://github.com/icsharpcode/ILSpy|TypeKind.Class
+F:ICSharpCode.Decompiler.TypeSystem.TypeKind.Struct|https://github.com/icsharpcode/ILSpy|TypeKind.Struct
+F:ICSharpCode.Decompiler.TypeSystem.TypeKind.Interface|https://github.com/icsharpcode/ILSpy|TypeKind.Interface
+F:ICSharpCode.Decompiler.TypeSystem.TypeKind.Delegate|https://github.com/icsharpcode/ILSpy|TypeKind.Delegate
+F:ICSharpCode.Decompiler.TypeSystem.TypeKind.Enum|https://github.com/icsharpcode/ILSpy|TypeKind.Enum
