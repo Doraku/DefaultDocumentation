@@ -21,7 +21,14 @@ namespace DefaultDocumentation.Models.Members
         /// <inheritdoc/>
         public IEnumerable<ParameterDocItem> Parameters { get; }
 
-        internal ConstructorDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
+        /// <summary>
+        /// Initialize a new instance of the <see cref="ConstructorDocItem"/> type.
+        /// </summary>
+        /// <param name="parent">The <see cref="TypeDocItem"/> parent type of the constructor.</param>
+        /// <param name="method">The <see cref="IMethod"/> of the constructor.</param>
+        /// <param name="documentation">The <see cref="XElement"/> documentation element of the constructor.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="parent"/> or <paramref name="method"/> is null.</exception>
+        public ConstructorDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
             : base(
                   parent ?? throw new ArgumentNullException(nameof(parent)),
                   method ?? throw new ArgumentNullException(nameof(method)),

@@ -15,7 +15,13 @@ namespace DefaultDocumentation.Models.Members
         /// </summary>
         public IEvent Event { get; }
 
-        internal EventDocItem(TypeDocItem parent, IEvent @event, XElement? documentation)
+        /// <summary>
+        /// Initialize a new instance of the <see cref="EventDocItem"/> type.
+        /// </summary>
+        /// <param name="parent">The <see cref="TypeDocItem"/> parent type of the event.</param>
+        /// <param name="event">The <see cref="IEvent"/> of the event.</param>
+        /// <param name="documentation">The <see cref="XElement"/> documentation element of the event.</param>
+        public EventDocItem(TypeDocItem parent, IEvent @event, XElement? documentation)
             : base(
                   parent ?? throw new ArgumentNullException(nameof(parent)),
                   @event ?? throw new ArgumentNullException(nameof(@event)),

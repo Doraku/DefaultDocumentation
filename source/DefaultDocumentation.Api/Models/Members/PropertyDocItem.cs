@@ -21,7 +21,13 @@ namespace DefaultDocumentation.Models.Members
         /// <inheritdoc/>
         public IEnumerable<ParameterDocItem> Parameters { get; }
 
-        internal PropertyDocItem(TypeDocItem parent, IProperty property, XElement? documentation)
+        /// <summary>
+        /// Initialize a new instance of the <see cref="PropertyDocItem"/> type.
+        /// </summary>
+        /// <param name="parent">The <see cref="TypeDocItem"/> parent type of the property.</param>
+        /// <param name="property">The <see cref="IProperty"/> of the property.</param>
+        /// <param name="documentation">The <see cref="XElement"/> documentation element of the property.</param>
+        public PropertyDocItem(TypeDocItem parent, IProperty property, XElement? documentation)
             : base(
                   parent ?? throw new ArgumentNullException(nameof(parent)),
                   property ?? throw new ArgumentNullException(nameof(property)),

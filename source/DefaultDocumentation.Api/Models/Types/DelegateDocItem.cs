@@ -19,7 +19,13 @@ namespace DefaultDocumentation.Models.Types
         /// <inheritdoc/>
         public IEnumerable<ParameterDocItem> Parameters { get; }
 
-        internal DelegateDocItem(DocItem parent, ITypeDefinition type, XElement? documentation)
+        /// <summary>
+        /// Initialize a new instance of the <see cref="StructDocItem"/> type.
+        /// </summary>
+        /// <param name="parent">The <see cref="DocItem"/> parent type or namespace of the delegate.</param>
+        /// <param name="type">The <see cref="ITypeDefinition"/> of the delegate.</param>
+        /// <param name="documentation">The <see cref="XElement"/> documentation element of the delegate.</param>
+        public DelegateDocItem(DocItem parent, ITypeDefinition type, XElement? documentation)
             : base(parent, type, documentation)
         {
             InvokeMethod = type.GetDelegateInvokeMethod();

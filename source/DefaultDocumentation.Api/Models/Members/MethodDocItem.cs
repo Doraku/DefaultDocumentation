@@ -24,7 +24,13 @@ namespace DefaultDocumentation.Models.Members
         /// <inheritdoc/>
         public IEnumerable<ParameterDocItem> Parameters { get; }
 
-        internal MethodDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
+        /// <summary>
+        /// Initialize a new instance of the <see cref="MethodDocItem"/> type.
+        /// </summary>
+        /// <param name="parent">The <see cref="TypeDocItem"/> parent type of the method.</param>
+        /// <param name="method">The <see cref="IMethod"/> of the method.</param>
+        /// <param name="documentation">The <see cref="XElement"/> documentation element of the method.</param>
+        public MethodDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
             : base(
                   parent ?? throw new ArgumentNullException(nameof(parent)),
                   method ?? throw new ArgumentNullException(nameof(method)),

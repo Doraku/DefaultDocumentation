@@ -25,7 +25,13 @@ namespace DefaultDocumentation.Models.Members
         /// <inheritdoc/>
         public IEnumerable<ParameterDocItem> Parameters { get; }
 
-        internal ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IEvent @event, XElement? documentation)
+        /// <summary>
+        /// Initialize a new instance of the <see cref="ExplicitInterfaceImplementationDocItem"/> type.
+        /// </summary>
+        /// <param name="parent">The <see cref="TypeDocItem"/> parent type of the interface event explicitly implemented.</param>
+        /// <param name="event">The <see cref="IEvent"/> of the interface event explicitly implemented.</param>
+        /// <param name="documentation">The <see cref="XElement"/> documentation element of the interface event explicitly implemented.</param>
+        public ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IEvent @event, XElement? documentation)
             : base(
                   parent ?? throw new ArgumentNullException(nameof(parent)),
                   @event ?? throw new ArgumentNullException(nameof(@event)),
@@ -36,7 +42,13 @@ namespace DefaultDocumentation.Models.Members
             Parameters = Array.Empty<ParameterDocItem>();
         }
 
-        internal ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IProperty property, XElement? documentation)
+        /// <summary>
+        /// Initialize a new instance of the <see cref="ExplicitInterfaceImplementationDocItem"/> type.
+        /// </summary>
+        /// <param name="parent">The <see cref="TypeDocItem"/> parent type of the interface property explicitly implemented.</param>
+        /// <param name="property">The <see cref="IProperty"/> of the interface property explicitly implemented.</param>
+        /// <param name="documentation">The <see cref="XElement"/> documentation element of the interface property explicitly implemented.</param>
+        public ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IProperty property, XElement? documentation)
             : base(
                   parent ?? throw new ArgumentNullException(nameof(parent)),
                   property ?? throw new ArgumentNullException(nameof(property)),
@@ -47,7 +59,13 @@ namespace DefaultDocumentation.Models.Members
             Parameters = property.Parameters.Select(p => new ParameterDocItem(this, p)).ToArray();
         }
 
-        internal ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
+        /// <summary>
+        /// Initialize a new instance of the <see cref="ExplicitInterfaceImplementationDocItem"/> type.
+        /// </summary>
+        /// <param name="parent">The <see cref="TypeDocItem"/> parent type of the interface method explicitly implemented.</param>
+        /// <param name="method">The <see cref="IMethod"/> of the interface method explicitly implemented.</param>
+        /// <param name="documentation">The <see cref="XElement"/> documentation element of the interface method explicitly implemented.</param>
+        public ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
             : base(
                   parent ?? throw new ArgumentNullException(nameof(parent)),
                   method ?? throw new ArgumentNullException(nameof(method)),

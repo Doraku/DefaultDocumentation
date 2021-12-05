@@ -15,7 +15,13 @@ namespace DefaultDocumentation.Models.Members
         /// </summary>
         public IField Field { get; }
 
-        internal EnumFieldDocItem(EnumDocItem parent, IField field, XElement? documentation)
+        /// <summary>
+        /// Initialize a new instance of the <see cref="EnumFieldDocItem"/> type.
+        /// </summary>
+        /// <param name="parent">The <see cref="EnumDocItem"/> parent enum of the enum field.</param>
+        /// <param name="field">The <see cref="IField"/> of the enum field.</param>
+        /// <param name="documentation">The <see cref="XElement"/> documentation element of the enum field.</param>
+        public EnumFieldDocItem(EnumDocItem parent, IField field, XElement? documentation)
             : base(
                   parent ?? throw new ArgumentNullException(nameof(parent)),
                   field ?? throw new ArgumentNullException(nameof(field)),

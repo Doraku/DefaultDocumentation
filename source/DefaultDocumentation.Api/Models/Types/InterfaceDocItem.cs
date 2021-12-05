@@ -8,7 +8,13 @@ namespace DefaultDocumentation.Models.Types
     /// </summary>
     public sealed class InterfaceDocItem : TypeDocItem
     {
-        internal InterfaceDocItem(DocItem parent, ITypeDefinition type, XElement? documentation)
+        /// <summary>
+        /// Initialize a new instance of the <see cref="StructDocItem"/> type.
+        /// </summary>
+        /// <param name="parent">The <see cref="DocItem"/> parent type or namespace of the interface.</param>
+        /// <param name="type">The <see cref="ITypeDefinition"/> of the interface.</param>
+        /// <param name="documentation">The <see cref="XElement"/> documentation element of the interface.</param>
+        public InterfaceDocItem(DocItem parent, ITypeDefinition type, XElement? documentation)
             : base(parent, type, documentation)
         { }
     }

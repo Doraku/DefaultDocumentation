@@ -15,7 +15,13 @@ namespace DefaultDocumentation.Models.Members
         /// </summary>
         public IField Field { get; }
 
-        internal FieldDocItem(TypeDocItem parent, IField field, XElement? documentation)
+        /// <summary>
+        /// Initialize a new instance of the <see cref="FieldDocItem"/> type.
+        /// </summary>
+        /// <param name="parent">The <see cref="TypeDocItem"/> parent type of the field.</param>
+        /// <param name="field">The <see cref="IField"/> of the field.</param>
+        /// <param name="documentation">The <see cref="XElement"/> documentation element of the field.</param>
+        public FieldDocItem(TypeDocItem parent, IField field, XElement? documentation)
             : base(
                   parent ?? throw new ArgumentNullException(nameof(parent)),
                   field ?? throw new ArgumentNullException(nameof(field)),

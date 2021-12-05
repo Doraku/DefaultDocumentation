@@ -21,7 +21,13 @@ namespace DefaultDocumentation.Models.Members
         /// <inheritdoc/>
         public IEnumerable<ParameterDocItem> Parameters { get; }
 
-        internal OperatorDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
+        /// <summary>
+        /// Initialize a new instance of the <see cref="OperatorDocItem"/> type.
+        /// </summary>
+        /// <param name="parent">The <see cref="TypeDocItem"/> parent type of the operator.</param>
+        /// <param name="method">The <see cref="IMethod"/> of the operator.</param>
+        /// <param name="documentation">The <see cref="XElement"/> documentation element of the operator.</param>
+        public OperatorDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
             : base(
                   parent ?? throw new ArgumentNullException(nameof(parent)),
                   method ?? throw new ArgumentNullException(nameof(method)),

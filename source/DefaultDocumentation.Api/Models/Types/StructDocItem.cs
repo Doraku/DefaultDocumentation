@@ -8,7 +8,13 @@ namespace DefaultDocumentation.Models.Types
     /// </summary>
     public sealed class StructDocItem : TypeDocItem
     {
-        internal StructDocItem(DocItem parent, ITypeDefinition type, XElement? documentation)
+        /// <summary>
+        /// Initialize a new instance of the <see cref="StructDocItem"/> type.
+        /// </summary>
+        /// <param name="parent">The <see cref="DocItem"/> parent type or namespace of the class.</param>
+        /// <param name="type">The <see cref="ITypeDefinition"/> of the struct.</param>
+        /// <param name="documentation">The <see cref="XElement"/> documentation element of the struct.</param>
+        public StructDocItem(DocItem parent, ITypeDefinition type, XElement? documentation)
             : base(parent, type, documentation)
         { }
     }
