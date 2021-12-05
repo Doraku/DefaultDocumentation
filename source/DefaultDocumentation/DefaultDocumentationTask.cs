@@ -6,6 +6,8 @@ namespace DefaultDocumentation
 {
     public sealed class DefaultDocumentationTask : Microsoft.Build.Utilities.Task, IRawSettings
     {
+        private static readonly char[] _separators = new[] { '|' };
+
         public string LogLevel { get; set; }
 
         public string ConfigurationFilePath { get; set; }
@@ -63,12 +65,12 @@ namespace DefaultDocumentation
 
         GeneratedPages IRawSettings.GeneratedPages => GetEnum<GeneratedPages>(nameof(GeneratedPages), GeneratedPages);
 
-        IEnumerable<string> IRawSettings.ExternLinksFilePaths => (ExternLinksFilePaths ?? string.Empty).Split('|');
+        IEnumerable<string> IRawSettings.ExternLinksFilePaths => (ExternLinksFilePaths ?? string.Empty).Split(_separators, StringSplitOptions.RemoveEmptyEntries);
 
-        IEnumerable<string> IRawSettings.Plugins => (Plugins ?? string.Empty).Split('|');
+        IEnumerable<string> IRawSettings.Plugins => (Plugins ?? string.Empty).Split(_separators, StringSplitOptions.RemoveEmptyEntries);
 
-        IEnumerable<string> IRawSettings.Sections => (Sections ?? string.Empty).Split('|');
+        IEnumerable<string> IRawSettings.Sections => (Sections ?? string.Empty).Split(_separators, StringSplitOptions.RemoveEmptyEntries);
 
-        IEnumerable<string> IRawSettings.Elements => (Elements ?? string.Empty).Split('|');
+        IEnumerable<string> IRawSettings.Elements => (Elements ?? string.Empty).Split(_separators, StringSplitOptions.RemoveEmptyEntries);
     }
 }

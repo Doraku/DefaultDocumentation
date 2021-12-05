@@ -1,24 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <Description>Create a simple markdown documentation from the Visual Studio xml one.</Description>
-    <RootNamespace>DefaultDocumentation</RootNamespace>
-    <OutputType>Exe</OutputType>
-    <TargetFrameworks>
-      netcoreapp3.1;
-      net5.0;
-	  net6.0;
-    </TargetFrameworks>
-    <ToolCommandName>defaultdocumentation</ToolCommandName>
-    <PackAsTool>true</PackAsTool>
-    <DevelopmentDependency>true</DevelopmentDependency>
-    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Description>Create a simple markdown documentation from the Visual Studio xml one.</Description>
+		<RootNamespace>DefaultDocumentation</RootNamespace>
+		<OutputType>Exe</OutputType>
+		<TargetFrameworks>
+			netcoreapp3.1;
+			net5.0;
+			net6.0;
+		</TargetFrameworks>
+		<ToolCommandName>defaultdocumentation</ToolCommandName>
+		<PackAsTool>true</PackAsTool>
+		<DevelopmentDependency>true</DevelopmentDependency>
+		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.8.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="CommandLineParser" Version="2.8.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DefaultDocumentation.Common\DefaultDocumentation.Common.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DefaultDocumentation.Common\DefaultDocumentation.Common.csproj" />
+	</ItemGroup>
 </Project>

@@ -35,7 +35,7 @@ namespace DefaultDocumentation.Models
         public IEntity Entity { get; }
 
         private protected EntityDocItem(DocItem parent, IEntity entity, XElement? documentation)
-            : base(parent, entity.GetIdString(), GetFullName(entity), _nameAmbience.ConvertSymbol(entity), documentation)
+            : base(parent, entity.GetIdString(), GetFullName(entity).Replace("?", string.Empty), _nameAmbience.ConvertSymbol(entity).Replace("?", string.Empty), documentation)
         {
             Entity = entity;
         }

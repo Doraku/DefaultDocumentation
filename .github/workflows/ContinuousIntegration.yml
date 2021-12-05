@@ -10,6 +10,7 @@ on:
       - 'source/DefaultDocumentation.Api/**'
       - 'source/DefaultDocumentation.Common/**'
       - 'source/DefaultDocumentation.Console/**'
+      - 'source/DefaultDocumentation.Markdown/**'
 
 jobs:
   continuous_integration:

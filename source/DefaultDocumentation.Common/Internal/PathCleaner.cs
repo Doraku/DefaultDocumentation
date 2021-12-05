@@ -24,10 +24,6 @@ namespace DefaultDocumentation.Internal
                 ["?"] = invalidCharReplacement,
                 ["="] = string.Empty,
                 [" "] = string.Empty,
-                [","] = invalidCharReplacement,
-                ["."] = invalidCharReplacement,
-                ["["] = invalidCharReplacement,
-                ["]"] = invalidCharReplacement,
             };
         }
 

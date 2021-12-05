@@ -47,7 +47,7 @@ namespace DefaultDocumentation.Markdown.Sections
             bool groupWritten = (modes & Modes.Grouped) == 0;
             foreach (DocItem child in children)
             {
-                if (groupWritten is false)
+                if (!groupWritten)
                 {
                     groupWritten = true;
                     writer = writer

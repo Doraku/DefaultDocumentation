@@ -154,8 +154,8 @@ namespace DefaultDocumentation.Markdown.Extensions
                     _ when type is ParameterizedType genericType => HandleParameterizedType(genericType),
                     _ => writer.AppendLink(type.GetDefinition().GetIdString())
                 },
-                IMember member => writer.AppendLink(member.MemberDefinition.GetIdString(), _nameAmbience.ConvertSymbol(member)),
-                IEntity entity => writer.AppendLink(entity.GetIdString(), _nameAmbience.ConvertSymbol(entity)),
+                IMember member => writer.AppendLink(member.MemberDefinition.GetIdString(), _nameAmbience.ConvertSymbol(member).Replace("?", string.Empty)),
+                IEntity entity => writer.AppendLink(entity.GetIdString(), _nameAmbience.ConvertSymbol(entity).Replace("?", string.Empty)),
                 _ => writer.Append(element.FullName)
             };
         }

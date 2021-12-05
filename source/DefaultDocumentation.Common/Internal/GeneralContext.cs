@@ -108,14 +108,7 @@ namespace DefaultDocumentation.Internal
 
         public IContext GetContext(DocItem item) => _contexts.TryGetValue(item.GetType(), out Context context) ? context : null;
 
-        public string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i =>
-        {
-            string fileName = (GetContext(item)?.FileNameFactory ?? FileNameFactory).GetFileName(this, i);
-
-            string extension = Path.HasExtension(fileName) ? Path.GetExtension(fileName) : string.Empty;
-
-            return _pathCleaner.Clean(fileName.Substring(0, fileName.Length - extension.Length)) + extension;
-        });
+        public string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i => _pathCleaner.Clean((GetContext(item)?.FileNameFactory ?? FileNameFactory).GetFileName(this, i)));
 
         public string GetUrl(DocItem item) => _urls.GetOrAdd(item.Id, _ => _urlFactory(item));
 
