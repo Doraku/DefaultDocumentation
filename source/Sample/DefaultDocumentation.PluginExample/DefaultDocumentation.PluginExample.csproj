@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<DevelopmentDependency>true</DevelopmentDependency>
+		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Update="DefaultDocumentation.PluginExample.targets" Pack="true" PackagePath="build\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DefaultDocumentation.Api" Version="0.8.0-alpha2" />
+	</ItemGroup>
+</Project>

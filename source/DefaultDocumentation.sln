@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29215.179
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation", "DefaultDocumentation\DefaultDocumentation.csproj", "{4D7998F0-BA62-41E0-904C-A8D1B45F3937}"
 EndProject
@@ -36,6 +36,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.Markdo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.Test", "DefaultDocumentation.Test\DefaultDocumentation.Test.csproj", "{A69362AB-5F6C-473E-9142-028CC4016818}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{CD163EDA-E88D-403A-BB74-1F728EF0366F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDocumentation.PluginExample", "Sample\DefaultDocumentation.PluginExample\DefaultDocumentation.PluginExample.csproj", "{8037B020-E1A6-4F10-8ADB-9D147390FA31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +70,10 @@ Global
 		{A69362AB-5F6C-473E-9142-028CC4016818}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A69362AB-5F6C-473E-9142-028CC4016818}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A69362AB-5F6C-473E-9142-028CC4016818}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8037B020-E1A6-4F10-8ADB-9D147390FA31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8037B020-E1A6-4F10-8ADB-9D147390FA31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8037B020-E1A6-4F10-8ADB-9D147390FA31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8037B020-E1A6-4F10-8ADB-9D147390FA31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +81,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B28829C0-EE3D-4BC4-A8C2-AAF6A3D360DE} = {AC68DCB5-418D-4573-8914-108195D7C6FD}
 		{A69362AB-5F6C-473E-9142-028CC4016818} = {CCDFB8FC-4910-4773-A55C-6A21576CA8CF}
+		{8037B020-E1A6-4F10-8ADB-9D147390FA31} = {CD163EDA-E88D-403A-BB74-1F728EF0366F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6F68382B-01C4-4F2C-A936-BCECA612D2FF}
