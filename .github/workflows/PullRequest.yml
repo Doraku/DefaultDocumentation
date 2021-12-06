@@ -3,7 +3,7 @@ name: pull request
 on:
   pull_request:
     paths:
-      - 'source/DefaultDocumentation/**'
+      - 'source/**'
 
 jobs:
   pull_request:
