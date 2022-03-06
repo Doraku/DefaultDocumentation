@@ -45,11 +45,6 @@ namespace DefaultDocumentation
         public string InvalidCharReplacement { get; }
 
         /// <summary>
-        /// Gets wether the file extension should be removed from the urls of the generated documentation pages.
-        /// </summary>
-        public bool RemoveFileExtensionFromLinks { get; }
-
-        /// <summary>
         /// Gets the <see cref="DefaultDocumentation.GeneratedPages"/> flags stating which kind should have their own page and which should be inlined.
         /// </summary>
         public GeneratedPages GeneratedPages { get; }

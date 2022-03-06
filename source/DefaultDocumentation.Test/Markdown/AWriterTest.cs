@@ -53,13 +53,11 @@ namespace DefaultDocumentation.Markdown
 
             public T GetSetting<T>(string name) => default;
 
-            public string GetUrl(DocItem item) => item.Name;
-
             public string GetUrl(string id)
             {
                 if (Items.TryGetValue(id, out DocItem item))
                 {
-                    return GetUrl(item);
+                    return item.Name;
                 }
 
                 id = id[2..];

@@ -14,7 +14,7 @@ namespace DefaultDocumentation.Models
         /// <param name="name">The name of the assemby.</param>
         /// <param name="documentation">The <see cref="XElement"/> documentation element of the assembly.</param>
         public AssemblyDocItem(string fullName, string name, XElement? documentation)
-            : base(null, string.Empty, fullName, name, documentation)
+            : base(null, name, fullName, name, documentation)
         { }
     }
 }

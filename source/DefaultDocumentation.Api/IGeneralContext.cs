@@ -39,17 +39,7 @@ namespace DefaultDocumentation
         string GetFileName(DocItem item);
 
         /// <summary>
-        /// Gets the url of the given <see cref="DocItem"/>.
-        /// For <see cref="DocItem"/> which have their own page, this is their file name.
-        /// For <see cref="DocItem"/> which do not have their own page, it is their nearest parent when it own page file name with a target tag of its id.
-        /// </summary>
-        /// <param name="item">The <see cref="DocItem"/> for which to get the url.</param>
-        /// <returns>The url of the given <see cref="DocItem"/>.</returns>
-        string GetUrl(DocItem item);
-
-        /// <summary>
-        /// Gets thr url of the given id.
-        /// If this id is known in the <see cref="Items"/> of this context, it will return its url, otherwise, a dotnet api link will be generated.
+        /// Gets the url of the given id.
         /// </summary>
         /// <param name="id">The id to get the url for.</param>
         /// <returns>The url of the given id.</returns>

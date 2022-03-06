@@ -8,10 +8,11 @@ namespace DefaultDocumentation
     public static class IGeneralContextExtension
     {
         private const string NestedTypeVisibilitiesKey = "Markdown.NestedTypeVisibilities";
+        private const string RemoveFileExtensionFromUrlKey = "Markdown.NestedTypeVisibilities";
 
         public static NestedTypeVisibilities GetNestedTypeVisibilities(this IGeneralContext context, DocItem item)
         {
-            NestedTypeVisibilities value = (context.GetContext(item) ?? context).GetSetting<NestedTypeVisibilities>(NestedTypeVisibilitiesKey);
+            NestedTypeVisibilities value = context.GetSetting(item, c => c.GetSetting<NestedTypeVisibilities?>(NestedTypeVisibilitiesKey)) ?? NestedTypeVisibilities.Default;
 
             if (value is NestedTypeVisibilities.Default)
             {
@@ -20,6 +21,8 @@ namespace DefaultDocumentation
 
             return value;
         }
+
+        public static bool GetRemoveFileExtensionFromUrl(this IGeneralContext context) => context.GetSetting<bool>(RemoveFileExtensionFromUrlKey);
 
         public static IEnumerable<T> GetChildren<T>(this IGeneralContext context, DocItem item)
             where T : DocItem

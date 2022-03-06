@@ -53,9 +53,6 @@ namespace DefaultDocumentation
         [Option('c', nameof(InvalidCharReplacement), HelpText = "Replacement for url invalid char")]
         public string InvalidCharReplacement { get; set; }
 
-        [Option('x', nameof(RemoveFileExtensionFromLinks), HelpText = "If true skip file extension in generated page links")]
-        public bool RemoveFileExtensionFromLinks { get; set; }
-
         [Option('l', nameof(LinksOutputFilePath), HelpText = "File path where the documentation will generate its links")]
         public string LinksOutputFilePath { get; set; }
 
@@ -70,6 +67,9 @@ namespace DefaultDocumentation
 
         [Option(nameof(FileNameFactory), HelpText = "Name or [Assembly Type] of the IFileNameFactory to use to create documentation files")]
         public string FileNameFactory { get; set; }
+
+        [Option(nameof(UrlFactories), HelpText = "Name or [Assembly Type] of the IUrlFactory to use to create documentation url")]
+        public IEnumerable<string> UrlFactories { get; set; }
 
         [Option(nameof(Sections), Separator = '|', HelpText = "Name or [Assembly Type] of the ISectionWriter to use to create the documentation")]
         public IEnumerable<string> Sections { get; set; }

@@ -59,7 +59,6 @@ namespace DefaultDocumentation
             AddSetting(s => s.IncludeUndocumentedItems, v => !v, v => v);
             AddSetting(s => s.GeneratedPages, v => v == GeneratedPages.Default, v => v);
             AddSetting(s => s.InvalidCharReplacement, string.IsNullOrEmpty, v => v);
-            AddSetting(s => s.RemoveFileExtensionFromLinks, v => !v, v => v);
             AddSetting(s => s.LinksOutputFilePath, string.IsNullOrEmpty, v => v);
             AddSetting(s => s.LinksBaseUrl, string.IsNullOrEmpty, v => v);
             AddSetting(s => s.ExternLinksFilePaths, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray());
@@ -69,6 +68,11 @@ namespace DefaultDocumentation
             if (string.IsNullOrEmpty(GetSetting<string>(nameof(settings.FileNameFactory))))
             {
                 AddSetting(s => s.FileNameFactory, _ => false, _ => "FullName");
+            }
+            AddSetting(s => s.UrlFactories, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray());
+            if (GetSetting<string[]>(nameof(settings.UrlFactories)) is null)
+            {
+                AddSetting(s => s.UrlFactories, _ => false, _ => new[] { "DocItem", "DotnetApi" });
             }
             AddSetting(s => s.Sections, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray());
             if (GetSetting<string[]>(nameof(settings.Sections)) is null)
@@ -100,7 +104,6 @@ namespace DefaultDocumentation
                 GetSetting<GeneratedPages>(nameof(settings.GeneratedPages)),
                 GetSetting<bool>(nameof(settings.IncludeUndocumentedItems)),
                 GetSetting<string>(nameof(settings.InvalidCharReplacement)),
-                GetSetting<bool>(nameof(settings.RemoveFileExtensionFromLinks)),
                 GetSetting<string>(nameof(settings.LinksOutputFilePath)),
                 GetSetting<string>(nameof(settings.LinksBaseUrl)),
                 GetSetting<string[]>(nameof(settings.ExternLinksFilePaths)));

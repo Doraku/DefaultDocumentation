@@ -9,6 +9,14 @@ namespace DefaultDocumentation
     public static class IGeneralContextExtension
     {
         /// <summary>
+        /// Gets the url of the given <see cref="DocItem"/>.
+        /// </summary>
+        /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
+        /// <param name="item">The <see cref="DocItem"/> for which to get the url.</param>
+        /// <returns>The url of the given <see cref="DocItem"/>.</returns>
+        public static string GetUrl(this IGeneralContext context, DocItem item) => context.GetUrl(item.Id);
+
+        /// <summary>
         /// Gets a data from the specific <see cref="IContext"/> of the provided <see cref="DocItem"/> if it exists, else from the <see cref="IGeneralContext"/>.
         /// </summary>
         /// <typeparam name="T">The type of the data to get.</typeparam>

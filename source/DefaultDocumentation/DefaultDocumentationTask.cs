@@ -31,8 +31,6 @@ namespace DefaultDocumentation
 
         public string InvalidCharReplacement { get; set; }
 
-        public bool RemoveFileExtensionFromLinks { get; set; }
-
         public string LinksOutputFilePath { get; set; }
 
         public string LinksBaseUrl { get; set; }
@@ -42,6 +40,8 @@ namespace DefaultDocumentation
         public string Plugins { get; set; }
 
         public string FileNameFactory { get; set; }
+
+        public string UrlFactories { get; set; }
 
         public string Sections { get; set; }
 
@@ -68,6 +68,8 @@ namespace DefaultDocumentation
         IEnumerable<string> IRawSettings.ExternLinksFilePaths => (ExternLinksFilePaths ?? string.Empty).Split(_separators, StringSplitOptions.RemoveEmptyEntries);
 
         IEnumerable<string> IRawSettings.Plugins => (Plugins ?? string.Empty).Split(_separators, StringSplitOptions.RemoveEmptyEntries);
+
+        IEnumerable<string> IRawSettings.UrlFactories => (UrlFactories ?? string.Empty).Split(_separators, StringSplitOptions.RemoveEmptyEntries);
 
         IEnumerable<string> IRawSettings.Sections => (Sections ?? string.Empty).Split(_separators, StringSplitOptions.RemoveEmptyEntries);
 

@@ -25,7 +25,6 @@ namespace DefaultDocumentation.Internal
             GeneratedPages generatedPages,
             bool includeUndocumentedItems,
             string invalidCharReplacement,
-            bool removeFileExtensionFromLinks,
             string linksOutputFile,
             string linksBaseUrl,
             IEnumerable<string> externlinksFilePaths)
@@ -41,7 +40,6 @@ namespace DefaultDocumentation.Internal
             GeneratedPages = generatedPages == GeneratedPages.Default ? _defaultGeneratedPages : generatedPages;
             IncludeUndocumentedItems = includeUndocumentedItems;
             InvalidCharReplacement = string.IsNullOrEmpty(invalidCharReplacement) ? "_" : invalidCharReplacement;
-            RemoveFileExtensionFromLinks = removeFileExtensionFromLinks;
             LinksOutputFile = string.IsNullOrEmpty(linksOutputFile) ? null : new FileInfo(linksOutputFile);
             LinksBaseUrl = linksBaseUrl ?? string.Empty;
             ExternLinksFiles = (externlinksFilePaths ?? Enumerable.Empty<string>()).SelectMany(GetFilePaths).Distinct().Select(f => new FileInfo(f)).Where(f => f.Exists && f.FullName != LinksOutputFile?.FullName).ToArray();
@@ -56,7 +54,6 @@ namespace DefaultDocumentation.Internal
   {nameof(GeneratedPages)}: {GeneratedPages}
   {nameof(IncludeUndocumentedItems)}: {IncludeUndocumentedItems}
   {nameof(InvalidCharReplacement)}: {InvalidCharReplacement}
-  {nameof(RemoveFileExtensionFromLinks)}: {RemoveFileExtensionFromLinks}
   {nameof(LinksOutputFile)}: {LinksOutputFile?.FullName}
   {nameof(LinksBaseUrl)}: {LinksBaseUrl}
   {nameof(ExternLinksFiles)}:{string.Concat(ExternLinksFiles.Select(f => $"{Environment.NewLine}\t{f.FullName}"))}");
@@ -98,8 +95,6 @@ namespace DefaultDocumentation.Internal
         public string AssemblyPageName { get; }
 
         public string InvalidCharReplacement { get; }
-
-        public bool RemoveFileExtensionFromLinks { get; }
 
         public GeneratedPages GeneratedPages { get; }
 

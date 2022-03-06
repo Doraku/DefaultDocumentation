@@ -26,8 +26,6 @@ namespace DefaultDocumentation
 
         public string InvalidCharReplacement { get; }
 
-        public bool RemoveFileExtensionFromLinks { get; }
-
         public string LinksOutputFilePath { get; }
 
         public string LinksBaseUrl { get; }
@@ -37,6 +35,8 @@ namespace DefaultDocumentation
         public IEnumerable<string> Plugins { get; }
 
         public string FileNameFactory { get; }
+
+        public IEnumerable<string> UrlFactories { get; }
 
         public IEnumerable<string> Sections { get; }
 
