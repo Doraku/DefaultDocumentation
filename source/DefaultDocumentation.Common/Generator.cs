@@ -48,7 +48,13 @@ namespace DefaultDocumentation
                 }
             }
 
-            _configuration = File.Exists(settings.ConfigurationFilePath) ? JObject.Parse(File.ReadAllText(settings.ConfigurationFilePath)) : new JObject();
+            _configuration = new JObject();
+
+            if (File.Exists(settings.ConfigurationFilePath))
+            {
+                _configuration = JObject.Parse(File.ReadAllText(settings.ConfigurationFilePath));
+                Environment.CurrentDirectory = Path.GetDirectoryName(settings.ConfigurationFilePath);
+            }
 
             AddSetting(s => s.LogLevel, string.IsNullOrEmpty, v => v);
             AddSetting(s => s.AssemblyFilePath, string.IsNullOrEmpty, v => v);

@@ -1,6 +1,8 @@
 #### [DefaultDocumentation.Api](index.md 'index')
 
 ## DefaultDocumentation.Api Assembly
+
+This is the full API documentation of DefaultDocumentation.
 ### Namespaces
 
 <a name='DefaultDocumentation'></a>
@@ -65,6 +67,8 @@
 <a name='DefaultDocumentation.Api'></a>
 
 ## DefaultDocumentation.Api Namespace
+
+The [DefaultDocumentation.Api](index.md#DefaultDocumentation.Api 'DefaultDocumentation.Api') namespace contains interfaces that can be used to add custom features to the documentation generation.
 - **[IWriterExtension](IWriterExtension.md 'DefaultDocumentation.Api.IWriterExtension')** `Class` Provides extension methods on the [IWriter](IWriter.md 'DefaultDocumentation.Api.IWriter') type.
   - **[Append(this IWriter, XElement)](IWriterExtension.Append(thisIWriter,XElement).md 'DefaultDocumentation.Api.IWriterExtension.Append(this DefaultDocumentation.Api.IWriter, System.Xml.Linq.XElement)')** `Method` Appends an [System.Xml.Linq.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement') to a [IWriter](IWriter.md 'DefaultDocumentation.Api.IWriter') by using the [Elements](IGeneralContext.Elements.md 'DefaultDocumentation.IGeneralContext.Elements') of [Context](IWriter.Context.md 'DefaultDocumentation.Api.IWriter.Context').  
     If no [IElement](IElement.md 'DefaultDocumentation.Api.IElement') is found, the [System.Xml.Linq.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement') is appended as text directly.

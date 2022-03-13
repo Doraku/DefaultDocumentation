@@ -1,17 +1,18 @@
 ﻿{
-	"AssemblyFilePath": "source\\DefaultDocumentation.Api\\bin\\Release\\netstandard2.0\\DefaultDocumentation.Api.dll",
-	"OutputDirectoryPath": "documentation\\api",
+	"AssemblyFilePath": "bin\\Release\\netstandard2.0\\DefaultDocumentation.Api.dll",
+	"OutputDirectoryPath": "..\\..\\documentation\\api",
 	"GeneratedAccessModifiers": "Public,Protected,ProtectedInternal",
 	"GeneratedPages": "Assembly,Types,Members",
 	"FileNameFactory": "Name",
 	"ExternLinksFilePaths": [
-		"documentation\\ICSharpCode.Decompiler.txt"
+		"..\\..\\documentation\\ICSharpCode.Decompiler.txt"
 	],
-	"LinksOutputFilePath": "documentation\\DefaultDocumentation.Api.txt",
+	"LinksOutputFilePath": "..\\..\\documentation\\DefaultDocumentation.Api.txt",
 	"LinksBaseUrl": "https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/",
 	"NamespaceDocItem": {
 		"Sections": [
 			"Title",
+			"summary",
 			"TableOfContents"
 		],
 		"Markdown.TableOfContentsModes": "IncludeKind,IncludeSummary"
