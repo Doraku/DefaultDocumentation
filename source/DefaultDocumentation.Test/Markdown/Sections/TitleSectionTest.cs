@@ -120,7 +120,7 @@ namespace DefaultDocumentation.Markdown.Sections
         [Fact]
         public void Write_should_write_When_TypeParameterDocItem() => Test(
             AssemblyInfo.ClassWithTypeParameterDocItem.TypeParameters.Single(),
-@"<a name='DefaultDocumentation.AssemblyInfo.ClassWithTypeParameter<T>.T'></a>
+@"<a name='DefaultDocumentation.AssemblyInfo.ClassWithTypeParameter_T_.T'></a>
 
 `T`");
     }

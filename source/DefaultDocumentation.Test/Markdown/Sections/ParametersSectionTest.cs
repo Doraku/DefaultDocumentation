@@ -56,11 +56,11 @@ namespace DefaultDocumentation.Markdown.Sections
             AssemblyInfo.OperatorDocItem,
 @"#### Parameters
 
-<a name='DefaultDocumentation.AssemblyInfo.op_Addition(DefaultDocumentation.AssemblyInfo, int)._'></a>
+<a name='DefaultDocumentation.AssemblyInfo.op_Addition(DefaultDocumentation.AssemblyInfo,int)._'></a>
 
 `_` [AssemblyInfo](AssemblyInfo 'DefaultDocumentation.AssemblyInfo')
 
-<a name='DefaultDocumentation.AssemblyInfo.op_Addition(DefaultDocumentation.AssemblyInfo, int).__'></a>
+<a name='DefaultDocumentation.AssemblyInfo.op_Addition(DefaultDocumentation.AssemblyInfo,int).__'></a>
 
 `__` System.Int32");
 

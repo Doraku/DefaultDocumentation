@@ -37,7 +37,7 @@ namespace DefaultDocumentation.Markdown.Sections
             AssemblyInfo.ClassWithTypeParameterDocItem,
 @"#### Type parameters
 
-<a name='DefaultDocumentation.AssemblyInfo.ClassWithTypeParameter<T>.T'></a>
+<a name='DefaultDocumentation.AssemblyInfo.ClassWithTypeParameter_T_.T'></a>
 
 `T`");
 
@@ -51,23 +51,23 @@ namespace DefaultDocumentation.Markdown.Sections
             AssemblyInfo.MethodWithGenericConstrainsDocItem,
 @"#### Type parameters
 
-<a name='DefaultDocumentation.AssemblyInfo.MethodWithGenericConstrains<T1,T2,T3,T4,T5>().T1'></a>
+<a name='DefaultDocumentation.AssemblyInfo.MethodWithGenericConstrains_T1,T2,T3,T4,T5_().T1'></a>
 
 `T1`
 
-<a name='DefaultDocumentation.AssemblyInfo.MethodWithGenericConstrains<T1,T2,T3,T4,T5>().T2'></a>
+<a name='DefaultDocumentation.AssemblyInfo.MethodWithGenericConstrains_T1,T2,T3,T4,T5_().T2'></a>
 
 `T2`
 
-<a name='DefaultDocumentation.AssemblyInfo.MethodWithGenericConstrains<T1,T2,T3,T4,T5>().T3'></a>
+<a name='DefaultDocumentation.AssemblyInfo.MethodWithGenericConstrains_T1,T2,T3,T4,T5_().T3'></a>
 
 `T3`
 
-<a name='DefaultDocumentation.AssemblyInfo.MethodWithGenericConstrains<T1,T2,T3,T4,T5>().T4'></a>
+<a name='DefaultDocumentation.AssemblyInfo.MethodWithGenericConstrains_T1,T2,T3,T4,T5_().T4'></a>
 
 `T4`
 
-<a name='DefaultDocumentation.AssemblyInfo.MethodWithGenericConstrains<T1,T2,T3,T4,T5>().T5'></a>
+<a name='DefaultDocumentation.AssemblyInfo.MethodWithGenericConstrains_T1,T2,T3,T4,T5_().T5'></a>
 
 `T5`");
     }
