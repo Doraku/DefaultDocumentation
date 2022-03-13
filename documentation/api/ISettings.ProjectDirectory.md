@@ -1,0 +1,13 @@
+#### [DefaultDocumentation.Api](index.md 'index')
+### [DefaultDocumentation](index.md#DefaultDocumentation 'DefaultDocumentation').[ISettings](ISettings.md 'DefaultDocumentation.ISettings')
+
+## ISettings.ProjectDirectory Property
+
+Gets the root project directory where the sources of the [AssemblyFile](ISettings.AssemblyFile.md 'DefaultDocumentation.ISettings.AssemblyFile') are.
+
+```csharp
+System.IO.DirectoryInfo? ProjectDirectory { get; }
+```
+
+#### Property Value
+[System.IO.DirectoryInfo](https_//docs.microsoft.com/en-us/dotnet/api/System.IO.DirectoryInfo 'System.IO.DirectoryInfo')

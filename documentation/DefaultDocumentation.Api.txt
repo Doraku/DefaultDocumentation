@@ -1,0 +1,164 @@
+https://github.com/Doraku/DefaultEcs/blob/master/documentation/api/
+M:DefaultDocumentation.IGeneralContextExtension.GetUrl(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem)|IGeneralContextExtension.GetUrl(thisIGeneralContext,DocItem).md|GetUrl(this IGeneralContext, DocItem)
+M:DefaultDocumentation.IGeneralContextExtension.GetContext(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem)|IGeneralContextExtension.GetContext(thisIGeneralContext,DocItem).md|GetContext(this IGeneralContext, DocItem)
+M:DefaultDocumentation.IGeneralContextExtension.GetSetting``1(DefaultDocumentation.IGeneralContext,System.Type,System.Func{DefaultDocumentation.IContext,``0})|IGeneralContextExtension.GetSetting_T_(thisIGeneralContext,Type,Func_IContext,T_).md|GetSetting<T>(this IGeneralContext, Type, Func<IContext,T>)
+M:DefaultDocumentation.IGeneralContextExtension.GetSetting``1(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem,System.Func{DefaultDocumentation.IContext,``0})|IGeneralContextExtension.GetSetting_T_(thisIGeneralContext,DocItem,Func_IContext,T_).md|GetSetting<T>(this IGeneralContext, DocItem, Func<IContext,T>)
+N:DefaultDocumentation|index.md#DefaultDocumentation|DefaultDocumentation
+T:DefaultDocumentation.IGeneralContextExtension|IGeneralContextExtension.md|IGeneralContextExtension
+F:DefaultDocumentation.GeneratedAccessModifiers.Default|GeneratedAccessModifiers.md#DefaultDocumentation.GeneratedAccessModifiers.Default|Default
+F:DefaultDocumentation.GeneratedAccessModifiers.Public|GeneratedAccessModifiers.md#DefaultDocumentation.GeneratedAccessModifiers.Public|Public
+F:DefaultDocumentation.GeneratedAccessModifiers.Private|GeneratedAccessModifiers.md#DefaultDocumentation.GeneratedAccessModifiers.Private|Private
+F:DefaultDocumentation.GeneratedAccessModifiers.Protected|GeneratedAccessModifiers.md#DefaultDocumentation.GeneratedAccessModifiers.Protected|Protected
+F:DefaultDocumentation.GeneratedAccessModifiers.Internal|GeneratedAccessModifiers.md#DefaultDocumentation.GeneratedAccessModifiers.Internal|Internal
+F:DefaultDocumentation.GeneratedAccessModifiers.ProtectedInternal|GeneratedAccessModifiers.md#DefaultDocumentation.GeneratedAccessModifiers.ProtectedInternal|ProtectedInternal
+F:DefaultDocumentation.GeneratedAccessModifiers.PrivateProtected|GeneratedAccessModifiers.md#DefaultDocumentation.GeneratedAccessModifiers.PrivateProtected|PrivateProtected
+T:DefaultDocumentation.GeneratedAccessModifiers|GeneratedAccessModifiers.md|GeneratedAccessModifiers
+F:DefaultDocumentation.GeneratedPages.Default|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Default|Default
+F:DefaultDocumentation.GeneratedPages.Assembly|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Assembly|Assembly
+F:DefaultDocumentation.GeneratedPages.Namespaces|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Namespaces|Namespaces
+F:DefaultDocumentation.GeneratedPages.Classes|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Classes|Classes
+F:DefaultDocumentation.GeneratedPages.Delegates|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Delegates|Delegates
+F:DefaultDocumentation.GeneratedPages.Enums|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Enums|Enums
+F:DefaultDocumentation.GeneratedPages.Structs|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Structs|Structs
+F:DefaultDocumentation.GeneratedPages.Interfaces|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Interfaces|Interfaces
+F:DefaultDocumentation.GeneratedPages.Types|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Types|Types
+F:DefaultDocumentation.GeneratedPages.Constructors|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Constructors|Constructors
+F:DefaultDocumentation.GeneratedPages.Events|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Events|Events
+F:DefaultDocumentation.GeneratedPages.Fields|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Fields|Fields
+F:DefaultDocumentation.GeneratedPages.Methods|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Methods|Methods
+F:DefaultDocumentation.GeneratedPages.Operators|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Operators|Operators
+F:DefaultDocumentation.GeneratedPages.Properties|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Properties|Properties
+F:DefaultDocumentation.GeneratedPages.ExplicitInterfaceImplementations|GeneratedPages.md#DefaultDocumentation.GeneratedPages.ExplicitInterfaceImplementations|ExplicitInterfaceImplementations
+F:DefaultDocumentation.GeneratedPages.Members|GeneratedPages.md#DefaultDocumentation.GeneratedPages.Members|Members
+T:DefaultDocumentation.GeneratedPages|GeneratedPages.md|GeneratedPages
+P:DefaultDocumentation.IContext.FileNameFactory|IContext.FileNameFactory.md|FileNameFactory
+P:DefaultDocumentation.IContext.Sections|IContext.Sections.md|Sections
+M:DefaultDocumentation.IContext.GetSetting``1(System.String)|IContext.GetSetting_T_(string).md|GetSetting<T>(string)
+T:DefaultDocumentation.IContext|IContext.md|IContext
+P:DefaultDocumentation.IGeneralContext.Settings|IGeneralContext.Settings.md|Settings
+P:DefaultDocumentation.IGeneralContext.Items|IGeneralContext.Items.md|Items
+P:DefaultDocumentation.IGeneralContext.Elements|IGeneralContext.Elements.md|Elements
+M:DefaultDocumentation.IGeneralContext.GetContext(System.Type)|IGeneralContext.GetContext(Type).md|GetContext(Type)
+M:DefaultDocumentation.IGeneralContext.GetFileName(DefaultDocumentation.Models.DocItem)|IGeneralContext.GetFileName(DocItem).md|GetFileName(DocItem)
+M:DefaultDocumentation.IGeneralContext.GetUrl(System.String)|IGeneralContext.GetUrl(string).md|GetUrl(string)
+T:DefaultDocumentation.IGeneralContext|IGeneralContext.md|IGeneralContext
+P:DefaultDocumentation.ISettings.Logger|ISettings.Logger.md|Logger
+P:DefaultDocumentation.ISettings.AssemblyFile|ISettings.AssemblyFile.md|AssemblyFile
+P:DefaultDocumentation.ISettings.DocumentationFile|ISettings.DocumentationFile.md|DocumentationFile
+P:DefaultDocumentation.ISettings.ProjectDirectory|ISettings.ProjectDirectory.md|ProjectDirectory
+P:DefaultDocumentation.ISettings.OutputDirectory|ISettings.OutputDirectory.md|OutputDirectory
+P:DefaultDocumentation.ISettings.AssemblyPageName|ISettings.AssemblyPageName.md|AssemblyPageName
+P:DefaultDocumentation.ISettings.InvalidCharReplacement|ISettings.InvalidCharReplacement.md|InvalidCharReplacement
+P:DefaultDocumentation.ISettings.GeneratedPages|ISettings.GeneratedPages.md|GeneratedPages
+P:DefaultDocumentation.ISettings.GeneratedAccessModifiers|ISettings.GeneratedAccessModifiers.md|GeneratedAccessModifiers
+P:DefaultDocumentation.ISettings.IncludeUndocumentedItems|ISettings.IncludeUndocumentedItems.md|IncludeUndocumentedItems
+P:DefaultDocumentation.ISettings.LinksOutputFile|ISettings.LinksOutputFile.md|LinksOutputFile
+P:DefaultDocumentation.ISettings.LinksBaseUrl|ISettings.LinksBaseUrl.md|LinksBaseUrl
+P:DefaultDocumentation.ISettings.ExternLinksFiles|ISettings.ExternLinksFiles.md|ExternLinksFiles
+T:DefaultDocumentation.ISettings|ISettings.md|ISettings
+M:DefaultDocumentation.Models.DocItemExtension.HasOwnPage(DefaultDocumentation.Models.DocItem,DefaultDocumentation.IGeneralContext)|DocItemExtension.HasOwnPage(thisDocItem,IGeneralContext).md|HasOwnPage(this DocItem, IGeneralContext)
+M:DefaultDocumentation.Models.DocItemExtension.TryGetTypeParameterDocItem(DefaultDocumentation.Models.DocItem,System.String,DefaultDocumentation.Models.Parameters.TypeParameterDocItem@)|DocItemExtension.TryGetTypeParameterDocItem(thisDocItem,string,TypeParameterDocItem).md|TryGetTypeParameterDocItem(this DocItem, string, TypeParameterDocItem)
+M:DefaultDocumentation.Models.DocItemExtension.TryGetParameterDocItem(DefaultDocumentation.Models.DocItem,System.String,DefaultDocumentation.Models.Parameters.ParameterDocItem@)|DocItemExtension.TryGetParameterDocItem(thisDocItem,string,ParameterDocItem).md|TryGetParameterDocItem(this DocItem, string, ParameterDocItem)
+M:DefaultDocumentation.Models.DocItemExtension.GetParents(DefaultDocumentation.Models.DocItem)|DocItemExtension.GetParents(thisDocItem).md|GetParents(this DocItem)
+N:DefaultDocumentation.Models|index.md#DefaultDocumentation.Models|DefaultDocumentation.Models
+T:DefaultDocumentation.Models.DocItemExtension|DocItemExtension.md|DocItemExtension
+M:DefaultDocumentation.Models.AssemblyDocItem.#ctor(System.String,System.String,System.Xml.Linq.XElement)|AssemblyDocItem.AssemblyDocItem(string,string,XElement).md|AssemblyDocItem(string, string, XElement)
+T:DefaultDocumentation.Models.AssemblyDocItem|AssemblyDocItem.md|AssemblyDocItem
+P:DefaultDocumentation.Models.DocItem.Parent|DocItem.Parent.md|Parent
+P:DefaultDocumentation.Models.DocItem.Id|DocItem.Id.md|Id
+P:DefaultDocumentation.Models.DocItem.FullName|DocItem.FullName.md|FullName
+P:DefaultDocumentation.Models.DocItem.Name|DocItem.Name.md|Name
+P:DefaultDocumentation.Models.DocItem.Documentation|DocItem.Documentation.md|Documentation
+T:DefaultDocumentation.Models.DocItem|DocItem.md|DocItem
+P:DefaultDocumentation.Models.EntityDocItem.Entity|EntityDocItem.Entity.md|Entity
+T:DefaultDocumentation.Models.EntityDocItem|EntityDocItem.md|EntityDocItem
+P:DefaultDocumentation.Models.ExternDocItem.Url|ExternDocItem.Url.md|Url
+M:DefaultDocumentation.Models.ExternDocItem.#ctor(System.String,System.String,System.String)|ExternDocItem.ExternDocItem(string,string,string).md|ExternDocItem(string, string, string)
+T:DefaultDocumentation.Models.ExternDocItem|ExternDocItem.md|ExternDocItem
+P:DefaultDocumentation.Models.IParameterizedDocItem.Parameters|IParameterizedDocItem.Parameters.md|Parameters
+T:DefaultDocumentation.Models.IParameterizedDocItem|IParameterizedDocItem.md|IParameterizedDocItem
+P:DefaultDocumentation.Models.ITypeParameterizedDocItem.TypeParameters|ITypeParameterizedDocItem.TypeParameters.md|TypeParameters
+T:DefaultDocumentation.Models.ITypeParameterizedDocItem|ITypeParameterizedDocItem.md|ITypeParameterizedDocItem
+M:DefaultDocumentation.Models.NamespaceDocItem.#ctor(DefaultDocumentation.Models.AssemblyDocItem,System.String,System.Xml.Linq.XElement)|NamespaceDocItem.NamespaceDocItem(AssemblyDocItem,string,XElement).md|NamespaceDocItem(AssemblyDocItem, string, XElement)
+T:DefaultDocumentation.Models.NamespaceDocItem|NamespaceDocItem.md|NamespaceDocItem
+M:DefaultDocumentation.Models.Types.ClassDocItem.#ctor(DefaultDocumentation.Models.DocItem,ICSharpCode.Decompiler.TypeSystem.ITypeDefinition,System.Xml.Linq.XElement)|ClassDocItem.ClassDocItem(DocItem,ITypeDefinition,XElement).md|ClassDocItem(DocItem, ITypeDefinition, XElement)
+N:DefaultDocumentation.Models.Types|index.md#DefaultDocumentation.Models.Types|DefaultDocumentation.Models.Types
+T:DefaultDocumentation.Models.Types.ClassDocItem|ClassDocItem.md|ClassDocItem
+P:DefaultDocumentation.Models.Types.DelegateDocItem.InvokeMethod|DelegateDocItem.InvokeMethod.md|InvokeMethod
+P:DefaultDocumentation.Models.Types.DelegateDocItem.Parameters|DelegateDocItem.Parameters.md|Parameters
+M:DefaultDocumentation.Models.Types.DelegateDocItem.#ctor(DefaultDocumentation.Models.DocItem,ICSharpCode.Decompiler.TypeSystem.ITypeDefinition,System.Xml.Linq.XElement)|DelegateDocItem.DelegateDocItem(DocItem,ITypeDefinition,XElement).md|DelegateDocItem(DocItem, ITypeDefinition, XElement)
+T:DefaultDocumentation.Models.Types.DelegateDocItem|DelegateDocItem.md|DelegateDocItem
+M:DefaultDocumentation.Models.Types.EnumDocItem.#ctor(DefaultDocumentation.Models.DocItem,ICSharpCode.Decompiler.TypeSystem.ITypeDefinition,System.Xml.Linq.XElement)|EnumDocItem.EnumDocItem(DocItem,ITypeDefinition,XElement).md|EnumDocItem(DocItem, ITypeDefinition, XElement)
+T:DefaultDocumentation.Models.Types.EnumDocItem|EnumDocItem.md|EnumDocItem
+M:DefaultDocumentation.Models.Types.InterfaceDocItem.#ctor(DefaultDocumentation.Models.DocItem,ICSharpCode.Decompiler.TypeSystem.ITypeDefinition,System.Xml.Linq.XElement)|InterfaceDocItem.InterfaceDocItem(DocItem,ITypeDefinition,XElement).md|InterfaceDocItem(DocItem, ITypeDefinition, XElement)
+T:DefaultDocumentation.Models.Types.InterfaceDocItem|InterfaceDocItem.md|InterfaceDocItem
+M:DefaultDocumentation.Models.Types.StructDocItem.#ctor(DefaultDocumentation.Models.DocItem,ICSharpCode.Decompiler.TypeSystem.ITypeDefinition,System.Xml.Linq.XElement)|StructDocItem.StructDocItem(DocItem,ITypeDefinition,XElement).md|StructDocItem(DocItem, ITypeDefinition, XElement)
+T:DefaultDocumentation.Models.Types.StructDocItem|StructDocItem.md|StructDocItem
+P:DefaultDocumentation.Models.Types.TypeDocItem.Type|TypeDocItem.Type.md|Type
+P:DefaultDocumentation.Models.Types.TypeDocItem.TypeParameters|TypeDocItem.TypeParameters.md|TypeParameters
+T:DefaultDocumentation.Models.Types.TypeDocItem|TypeDocItem.md|TypeDocItem
+P:DefaultDocumentation.Models.Parameters.ParameterDocItem.Parameter|ParameterDocItem.Parameter.md|Parameter
+N:DefaultDocumentation.Models.Parameters|index.md#DefaultDocumentation.Models.Parameters|DefaultDocumentation.Models.Parameters
+T:DefaultDocumentation.Models.Parameters.ParameterDocItem|ParameterDocItem.md|ParameterDocItem
+P:DefaultDocumentation.Models.Parameters.TypeParameterDocItem.TypeParameter|TypeParameterDocItem.TypeParameter.md|TypeParameter
+T:DefaultDocumentation.Models.Parameters.TypeParameterDocItem|TypeParameterDocItem.md|TypeParameterDocItem
+P:DefaultDocumentation.Models.Members.ConstructorDocItem.Method|ConstructorDocItem.Method.md|Method
+P:DefaultDocumentation.Models.Members.ConstructorDocItem.Parameters|ConstructorDocItem.Parameters.md|Parameters
+M:DefaultDocumentation.Models.Members.ConstructorDocItem.#ctor(DefaultDocumentation.Models.Types.TypeDocItem,ICSharpCode.Decompiler.TypeSystem.IMethod,System.Xml.Linq.XElement)|ConstructorDocItem.ConstructorDocItem(TypeDocItem,IMethod,XElement).md|ConstructorDocItem(TypeDocItem, IMethod, XElement)
+N:DefaultDocumentation.Models.Members|index.md#DefaultDocumentation.Models.Members|DefaultDocumentation.Models.Members
+T:DefaultDocumentation.Models.Members.ConstructorDocItem|ConstructorDocItem.md|ConstructorDocItem
+P:DefaultDocumentation.Models.Members.EnumFieldDocItem.Field|EnumFieldDocItem.Field.md|Field
+M:DefaultDocumentation.Models.Members.EnumFieldDocItem.#ctor(DefaultDocumentation.Models.Types.EnumDocItem,ICSharpCode.Decompiler.TypeSystem.IField,System.Xml.Linq.XElement)|EnumFieldDocItem.EnumFieldDocItem(EnumDocItem,IField,XElement).md|EnumFieldDocItem(EnumDocItem, IField, XElement)
+T:DefaultDocumentation.Models.Members.EnumFieldDocItem|EnumFieldDocItem.md|EnumFieldDocItem
+P:DefaultDocumentation.Models.Members.EventDocItem.Event|EventDocItem.Event.md|Event
+M:DefaultDocumentation.Models.Members.EventDocItem.#ctor(DefaultDocumentation.Models.Types.TypeDocItem,ICSharpCode.Decompiler.TypeSystem.IEvent,System.Xml.Linq.XElement)|EventDocItem.EventDocItem(TypeDocItem,IEvent,XElement).md|EventDocItem(TypeDocItem, IEvent, XElement)
+T:DefaultDocumentation.Models.Members.EventDocItem|EventDocItem.md|EventDocItem
+P:DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem.Member|ExplicitInterfaceImplementationDocItem.Member.md|Member
+P:DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem.TypeParameters|ExplicitInterfaceImplementationDocItem.TypeParameters.md|TypeParameters
+P:DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem.Parameters|ExplicitInterfaceImplementationDocItem.Parameters.md|Parameters
+M:DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem.#ctor(DefaultDocumentation.Models.Types.TypeDocItem,ICSharpCode.Decompiler.TypeSystem.IEvent,System.Xml.Linq.XElement)|ExplicitInterfaceImplementationDocItem.ExplicitInterfaceImplementationDocItem(TypeDocItem,IEvent,XElement).md|ExplicitInterfaceImplementationDocItem(TypeDocItem, IEvent, XElement)
+M:DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem.#ctor(DefaultDocumentation.Models.Types.TypeDocItem,ICSharpCode.Decompiler.TypeSystem.IProperty,System.Xml.Linq.XElement)|ExplicitInterfaceImplementationDocItem.ExplicitInterfaceImplementationDocItem(TypeDocItem,IProperty,XElement).md|ExplicitInterfaceImplementationDocItem(TypeDocItem, IProperty, XElement)
+M:DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem.#ctor(DefaultDocumentation.Models.Types.TypeDocItem,ICSharpCode.Decompiler.TypeSystem.IMethod,System.Xml.Linq.XElement)|ExplicitInterfaceImplementationDocItem.ExplicitInterfaceImplementationDocItem(TypeDocItem,IMethod,XElement).md|ExplicitInterfaceImplementationDocItem(TypeDocItem, IMethod, XElement)
+T:DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem|ExplicitInterfaceImplementationDocItem.md|ExplicitInterfaceImplementationDocItem
+P:DefaultDocumentation.Models.Members.FieldDocItem.Field|FieldDocItem.Field.md|Field
+M:DefaultDocumentation.Models.Members.FieldDocItem.#ctor(DefaultDocumentation.Models.Types.TypeDocItem,ICSharpCode.Decompiler.TypeSystem.IField,System.Xml.Linq.XElement)|FieldDocItem.FieldDocItem(TypeDocItem,IField,XElement).md|FieldDocItem(TypeDocItem, IField, XElement)
+T:DefaultDocumentation.Models.Members.FieldDocItem|FieldDocItem.md|FieldDocItem
+P:DefaultDocumentation.Models.Members.MethodDocItem.Method|MethodDocItem.Method.md|Method
+P:DefaultDocumentation.Models.Members.MethodDocItem.TypeParameters|MethodDocItem.TypeParameters.md|TypeParameters
+P:DefaultDocumentation.Models.Members.MethodDocItem.Parameters|MethodDocItem.Parameters.md|Parameters
+M:DefaultDocumentation.Models.Members.MethodDocItem.#ctor(DefaultDocumentation.Models.Types.TypeDocItem,ICSharpCode.Decompiler.TypeSystem.IMethod,System.Xml.Linq.XElement)|MethodDocItem.MethodDocItem(TypeDocItem,IMethod,XElement).md|MethodDocItem(TypeDocItem, IMethod, XElement)
+T:DefaultDocumentation.Models.Members.MethodDocItem|MethodDocItem.md|MethodDocItem
+P:DefaultDocumentation.Models.Members.OperatorDocItem.Method|OperatorDocItem.Method.md|Method
+P:DefaultDocumentation.Models.Members.OperatorDocItem.Parameters|OperatorDocItem.Parameters.md|Parameters
+M:DefaultDocumentation.Models.Members.OperatorDocItem.#ctor(DefaultDocumentation.Models.Types.TypeDocItem,ICSharpCode.Decompiler.TypeSystem.IMethod,System.Xml.Linq.XElement)|OperatorDocItem.OperatorDocItem(TypeDocItem,IMethod,XElement).md|OperatorDocItem(TypeDocItem, IMethod, XElement)
+T:DefaultDocumentation.Models.Members.OperatorDocItem|OperatorDocItem.md|OperatorDocItem
+P:DefaultDocumentation.Models.Members.PropertyDocItem.Property|PropertyDocItem.Property.md|Property
+P:DefaultDocumentation.Models.Members.PropertyDocItem.Parameters|PropertyDocItem.Parameters.md|Parameters
+M:DefaultDocumentation.Models.Members.PropertyDocItem.#ctor(DefaultDocumentation.Models.Types.TypeDocItem,ICSharpCode.Decompiler.TypeSystem.IProperty,System.Xml.Linq.XElement)|PropertyDocItem.PropertyDocItem(TypeDocItem,IProperty,XElement).md|PropertyDocItem(TypeDocItem, IProperty, XElement)
+T:DefaultDocumentation.Models.Members.PropertyDocItem|PropertyDocItem.md|PropertyDocItem
+P:DefaultDocumentation.Api.IElement.Name|IElement.Name.md|Name
+M:DefaultDocumentation.Api.IElement.Write(DefaultDocumentation.Api.IWriter,System.Xml.Linq.XElement)|IElement.Write(IWriter,XElement).md|Write(IWriter, XElement)
+N:DefaultDocumentation.Api|index.md#DefaultDocumentation.Api|DefaultDocumentation.Api
+T:DefaultDocumentation.Api.IElement|IElement.md|IElement
+P:DefaultDocumentation.Api.IFileNameFactory.Name|IFileNameFactory.Name.md|Name
+M:DefaultDocumentation.Api.IFileNameFactory.Clean(DefaultDocumentation.IGeneralContext)|IFileNameFactory.Clean(IGeneralContext).md|Clean(IGeneralContext)
+M:DefaultDocumentation.Api.IFileNameFactory.GetFileName(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem)|IFileNameFactory.GetFileName(IGeneralContext,DocItem).md|GetFileName(IGeneralContext, DocItem)
+T:DefaultDocumentation.Api.IFileNameFactory|IFileNameFactory.md|IFileNameFactory
+P:DefaultDocumentation.Api.ISection.Name|ISection.Name.md|Name
+M:DefaultDocumentation.Api.ISection.Write(DefaultDocumentation.Api.IWriter)|ISection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Api.ISection|ISection.md|ISection
+P:DefaultDocumentation.Api.IUrlFactory.Name|IUrlFactory.Name.md|Name
+M:DefaultDocumentation.Api.IUrlFactory.GetUrl(DefaultDocumentation.IGeneralContext,System.String)|IUrlFactory.GetUrl(IGeneralContext,string).md|GetUrl(IGeneralContext, string)
+T:DefaultDocumentation.Api.IUrlFactory|IUrlFactory.md|IUrlFactory
+P:DefaultDocumentation.Api.IWriter.Context|IWriter.Context.md|Context
+P:DefaultDocumentation.Api.IWriter.DocItem|IWriter.DocItem.md|DocItem
+P:DefaultDocumentation.Api.IWriter.Length|IWriter.Length.md|Length
+P:DefaultDocumentation.Api.IWriter.Item(System.String)|IWriter.this[string].md|this[string]
+M:DefaultDocumentation.Api.IWriter.Append(System.String)|IWriter.Append(string).md|Append(string)
+M:DefaultDocumentation.Api.IWriter.AppendLine|IWriter.AppendLine().md|AppendLine()
+M:DefaultDocumentation.Api.IWriter.EndsWith(System.String)|IWriter.EndsWith(string).md|EndsWith(string)
+T:DefaultDocumentation.Api.IWriter|IWriter.md|IWriter
+M:DefaultDocumentation.Api.IWriterExtension.Append(DefaultDocumentation.Api.IWriter,System.Xml.Linq.XElement)|IWriterExtension.Append(thisIWriter,XElement).md|Append(this IWriter, XElement)
+M:DefaultDocumentation.Api.IWriterExtension.AppendLine(DefaultDocumentation.Api.IWriter,System.String)|IWriterExtension.AppendLine(thisIWriter,string).md|AppendLine(this IWriter, string)
+M:DefaultDocumentation.Api.IWriterExtension.TrimEnd(DefaultDocumentation.Api.IWriter,System.String[])|IWriterExtension.TrimEnd(thisIWriter,string[]).md|TrimEnd(this IWriter, string[])
+T:DefaultDocumentation.Api.IWriterExtension|IWriterExtension.md|IWriterExtension
