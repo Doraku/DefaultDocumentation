@@ -26,7 +26,7 @@ namespace DefaultDocumentation.Markdown.Sections
         [Fact]
         public void Write_should_write_When_TypeDocItem() => Test(
             AssemblyInfo.ClassDocItem,
-            "Implements [IInterface](IInterface 'DefaultDocumentation.AssemblyInfo.IInterface'), [System.Collections.IEnumerator](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.IEnumerator 'System.Collections.IEnumerator')");
+            "Implements [IInterface](T:DefaultDocumentation.AssemblyInfo.IInterface 'DefaultDocumentation.AssemblyInfo.IInterface'), [System.Collections.IEnumerator](T:System.Collections.IEnumerator 'System.Collections.IEnumerator')");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
@@ -34,26 +34,26 @@ namespace DefaultDocumentation.Markdown.Sections
             w => w.Append("pouet"),
 @"pouet
 
-Implements [IInterface](IInterface 'DefaultDocumentation.AssemblyInfo.IInterface'), [System.Collections.IEnumerator](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.IEnumerator 'System.Collections.IEnumerator')");
+Implements [IInterface](T:DefaultDocumentation.AssemblyInfo.IInterface 'DefaultDocumentation.AssemblyInfo.IInterface'), [System.Collections.IEnumerator](T:System.Collections.IEnumerator 'System.Collections.IEnumerator')");
 
         [Fact]
         public void Write_should_write_When_MethodDocItem() => Test(
             new MethodDocItem(AssemblyInfo.ClassDocItem, AssemblyInfo.Get<IMethod>($"M:{typeof(AssemblyInfo).FullName}.{nameof(AssemblyInfo.MoveNext)}"), null),
-            "Implements [MoveNext()](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.IEnumerator.MoveNext 'System.Collections.IEnumerator.MoveNext')");
+            "Implements [MoveNext()](M:System.Collections.IEnumerator.MoveNext 'System.Collections.IEnumerator.MoveNext')");
 
         [Fact]
         public void Write_should_write_When_PropertyDocItem() => Test(
             new PropertyDocItem(AssemblyInfo.ClassDocItem, AssemblyInfo.Get<IProperty>($"P:{typeof(AssemblyInfo).FullName}.{nameof(AssemblyInfo.Current)}"), null),
-            "Implements [Current](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.IEnumerator.Current 'System.Collections.IEnumerator.Current')");
+            "Implements [Current](P:System.Collections.IEnumerator.Current 'System.Collections.IEnumerator.Current')");
 
         [Fact]
         public void Write_should_write_When_EventDocItem() => Test(
             new EventDocItem(AssemblyInfo.ClassDocItem, AssemblyInfo.Get<IEvent>($"E:{typeof(AssemblyInfo).FullName}.{nameof(AssemblyInfo.SecondEvent)}"), null),
-            "Implements [SecondEvent](SecondEvent 'DefaultDocumentation.AssemblyInfo.IInterface.SecondEvent')");
+            "Implements [SecondEvent](E:DefaultDocumentation.AssemblyInfo.IInterface.SecondEvent 'DefaultDocumentation.AssemblyInfo.IInterface.SecondEvent')");
 
         [Fact]
         public void Write_should_write_When_ExplicitInterfaceImplementationDocItem() => Test(
             AssemblyInfo.ExplicitMethodDocItem,
-            "Implements [Method()](Method() 'DefaultDocumentation.AssemblyInfo.IInterface.Method()')");
+            "Implements [Method()](M:DefaultDocumentation.AssemblyInfo.IInterface.Method 'DefaultDocumentation.AssemblyInfo.IInterface.Method()')");
     }
 }

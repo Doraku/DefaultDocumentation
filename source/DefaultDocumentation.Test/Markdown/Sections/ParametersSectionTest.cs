@@ -1,4 +1,8 @@
-﻿using DefaultDocumentation.Api;
+﻿using System.Collections.Generic;
+using System.Linq;
+using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.UrlFactories;
+using DefaultDocumentation.Models;
 using NFluent;
 using Xunit;
 
@@ -6,6 +10,17 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class ParametersSectionTest : ASectionTest<ParametersSection>
     {
+        protected override IReadOnlyDictionary<string, DocItem> GetItems() =>
+            AssemblyInfo.MethodWithParameterDocItem.Parameters.AsEnumerable<DocItem>()
+            .Concat(AssemblyInfo.OperatorDocItem.Parameters)
+            .Concat(Enumerable.Repeat(AssemblyInfo.ClassDocItem, 1))
+            .ToDictionary(i => i.Id);
+
+        protected override IUrlFactory[] GetUrlFactories() => new IUrlFactory[]
+        {
+            new DocItemFactory()
+        };
+
         protected override ISection[] GetSections() => new ISection[]
         {
             new TitleSection()
@@ -22,9 +37,9 @@ namespace DefaultDocumentation.Markdown.Sections
             AssemblyInfo.MethodWithParameterDocItem,
 @"#### Parameters
 
-<a name='parameter'></a>
+<a name='DefaultDocumentation.AssemblyInfo.MethodWithParameter(int).parameter'></a>
 
-`parameter` [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+`parameter` System.Int32");
 
         [Fact]
         public void Write_should_write_When_ConstructorDocItem() => Test(
@@ -41,13 +56,13 @@ namespace DefaultDocumentation.Markdown.Sections
             AssemblyInfo.OperatorDocItem,
 @"#### Parameters
 
-<a name='_'></a>
+<a name='DefaultDocumentation.AssemblyInfo.op_Addition(DefaultDocumentation.AssemblyInfo, int)._'></a>
 
-`_` [DefaultDocumentation.AssemblyInfo](https://docs.microsoft.com/en-us/dotnet/api/DefaultDocumentation.AssemblyInfo 'DefaultDocumentation.AssemblyInfo')
+`_` [AssemblyInfo](AssemblyInfo 'DefaultDocumentation.AssemblyInfo')
 
-<a name='__'></a>
+<a name='DefaultDocumentation.AssemblyInfo.op_Addition(DefaultDocumentation.AssemblyInfo, int).__'></a>
 
-`__` [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+`__` System.Int32");
 
         [Fact]
         public void Write_should_write_When_PropertyDocItem() => Test(

@@ -8,6 +8,7 @@ using System.Threading;
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Internal;
 using DefaultDocumentation.Models;
+using DefaultDocumentation.Models.Parameters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -149,7 +150,7 @@ namespace DefaultDocumentation
                 using StreamWriter writer = _context.Settings.LinksOutputFile.CreateText();
 
                 writer.WriteLine(_context.Settings.LinksBaseUrl);
-                foreach (DocItem item in _context.Items.Values.Where(i => i is not ExternDocItem and not AssemblyDocItem))
+                foreach (DocItem item in _context.Items.Values.Where(i => i is not ExternDocItem and not AssemblyDocItem and not TypeParameterDocItem and not ParameterDocItem))
                 {
                     writer.Write(item.Id);
                     writer.Write('|');

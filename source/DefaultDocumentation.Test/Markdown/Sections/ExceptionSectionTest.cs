@@ -25,10 +25,10 @@ namespace DefaultDocumentation.Markdown.Sections
                     new XElement("exception", new XAttribute("cref", "T:System.Exception"), "test"))),
 @"#### Exceptions
 
-[System.Exception](https://docs.microsoft.com/en-us/dotnet/api/System.Exception 'System.Exception')  
+[System.Exception](T:System.Exception 'System.Exception')  
 test
 
-[System.Exception](https://docs.microsoft.com/en-us/dotnet/api/System.Exception 'System.Exception')  
+[System.Exception](T:System.Exception 'System.Exception')  
 test");
 
         [Fact]
@@ -42,7 +42,7 @@ test");
 
 #### Exceptions
 
-[System.Exception](https://docs.microsoft.com/en-us/dotnet/api/System.Exception 'System.Exception')  
+[System.Exception](T:System.Exception 'System.Exception')  
 test");
     }
 }

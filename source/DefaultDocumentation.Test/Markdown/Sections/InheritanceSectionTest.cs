@@ -25,7 +25,7 @@ namespace DefaultDocumentation.Markdown.Sections
         [Fact]
         public void Write_should_write() => Test(
             AssemblyInfo.ClassDocItem,
-            "Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; AssemblyInfo");
+            "Inheritance [System.Object](T:System.Object 'System.Object') &#129106; AssemblyInfo");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
@@ -33,6 +33,6 @@ namespace DefaultDocumentation.Markdown.Sections
             w => w.Append("pouet"),
 @"pouet
 
-Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; AssemblyInfo");
+Inheritance [System.Object](T:System.Object 'System.Object') &#129106; AssemblyInfo");
     }
 }

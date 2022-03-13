@@ -5,6 +5,7 @@ using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Members;
+using DefaultDocumentation.Models.Parameters;
 using DefaultDocumentation.Models.Types;
 using ICSharpCode.Decompiler;
 using ICSharpCode.Decompiler.CSharp;
@@ -327,6 +328,22 @@ namespace DefaultDocumentation.Internal
             {
                 _logger.Debug($"adding DocItem \"{item}\" with id \"{item.Id}\"");
                 _items.Add(item.Id, item);
+
+                if (item is ITypeParameterizedDocItem typeParameterized)
+                {
+                    foreach (TypeParameterDocItem typeParameter in typeParameterized.TypeParameters)
+                    {
+                        Add(typeParameter);
+                    }
+                }
+
+                if (item is IParameterizedDocItem parameterized)
+                {
+                    foreach (ParameterDocItem parameter in parameterized.Parameters)
+                    {
+                        Add(parameter);
+                    }
+                }
             }
             else
             {

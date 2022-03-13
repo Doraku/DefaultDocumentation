@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Models;
 using NFluent;
@@ -8,10 +9,7 @@ namespace DefaultDocumentation.Markdown.Elements
 {
     public sealed class SeeElementTest : AElementTest<SeeElement>
     {
-        protected override IReadOnlyDictionary<string, DocItem> GetItems() => new Dictionary<string, DocItem>
-        {
-            [AssemblyInfo.NamespaceDocItem.Id] = AssemblyInfo.NamespaceDocItem
-        };
+        protected override IReadOnlyDictionary<string, DocItem> GetItems() => new DocItem[] { AssemblyInfo.NamespaceDocItem }.ToDictionary(i => i.Id);
 
         [Fact]
         public void Name_should_be_see() => Check.That(Name).IsEqualTo("see");
@@ -19,16 +17,12 @@ namespace DefaultDocumentation.Markdown.Elements
         [Fact]
         public void Write_should_write_When_cref() => Test(
             new XElement("see", new XAttribute("cref", AssemblyInfo.NamespaceDocItem.Id)),
-            "[DefaultDocumentation](DefaultDocumentation 'DefaultDocumentation')");
+            "[DefaultDocumentation](N:DefaultDocumentation 'DefaultDocumentation')");
 
         [Fact]
         public void Write_should_write_When_cref_with_value() => Test(
             new XElement("see", new XAttribute("cref", AssemblyInfo.NamespaceDocItem.Id), "dummy"),
-            "[dummy](DefaultDocumentation 'DefaultDocumentation')");
-        [Fact]
-        public void Write_should_write_When_not_assembly_id() => Test(
-            new XElement("see", new XAttribute("cref", "T:System.Int32")),
-            "[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+            "[dummy](N:DefaultDocumentation 'DefaultDocumentation')");
 
         [Fact]
         public void Write_should_write_When_href() => Test(

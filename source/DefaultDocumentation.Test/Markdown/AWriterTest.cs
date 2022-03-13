@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Models;
@@ -21,11 +22,21 @@ namespace DefaultDocumentation.Markdown
             public string GetFileName(IGeneralContext context, DocItem item) => item.Name;
         }
 
+        private sealed class UrlFactory : IUrlFactory
+        {
+            public string Name { get; }
+
+            public string GetUrl(IGeneralContext context, string id) => id;
+        }
+
         private sealed class GeneralContext : IGeneralContext
         {
+            private IEnumerable<IUrlFactory> _urlFactories;
+
             public GeneralContext(
                 ISettings settings,
                 IFileNameFactory fileNameFactory,
+                IEnumerable<IUrlFactory> urlFactories,
                 IReadOnlyDictionary<string, DocItem> items,
                 IReadOnlyDictionary<string, IElement> elements,
                 IEnumerable<ISection> sections)
@@ -34,6 +45,7 @@ namespace DefaultDocumentation.Markdown
                 Items = items;
                 Elements = elements;
                 FileNameFactory = fileNameFactory;
+                _urlFactories = urlFactories;
                 Sections = sections;
             }
 
@@ -47,30 +59,13 @@ namespace DefaultDocumentation.Markdown
 
             public IEnumerable<ISection> Sections { get; }
 
-            public IContext GetContext(DocItem item) => null;
+            public IContext GetContext(Type type) => this;
 
             public string GetFileName(DocItem item) => FileNameFactory.GetFileName(this, item);
 
             public T GetSetting<T>(string name) => default;
 
-            public string GetUrl(string id)
-            {
-                if (Items.TryGetValue(id, out DocItem item))
-                {
-                    return item.Name;
-                }
-
-                id = id[2..];
-                int parametersIndex = id.IndexOf("(", StringComparison.Ordinal);
-                if (parametersIndex > 0)
-                {
-                    string methodName = id[..parametersIndex];
-
-                    id = $"{methodName}#{id.Replace('.', '_').Replace('`', '_').Replace('(', '_').Replace(')', '_')}";
-                }
-
-                return "https://docs.microsoft.com/en-us/dotnet/api/" + id.Replace('`', '-');
-            }
+            public string GetUrl(string id) => _urlFactories.Select(f => f.GetUrl(this, id)).FirstOrDefault(url => url is not null) ?? "";
         }
 
         protected readonly StringBuilder _builder;
@@ -96,14 +91,20 @@ namespace DefaultDocumentation.Markdown
             _context = new Lazy<IGeneralContext>(() => new GeneralContext(
                 _settings.Value,
                 GetFileNameFactory(),
+                GetUrlFactories(),
                 GetItems(),
                 GetElements(),
                 GetSections()));
         }
 
-        protected virtual GeneratedPages GetGeneratedPages() => GeneratedPages.Default;
+        protected virtual GeneratedPages GetGeneratedPages() => GeneratedPages.Assembly | GeneratedPages.Namespaces | GeneratedPages.Types | GeneratedPages.Members;
 
         protected virtual IFileNameFactory GetFileNameFactory() => new FileNameFactory();
+
+        protected virtual IUrlFactory[] GetUrlFactories() => new IUrlFactory[]
+        {
+            new UrlFactory()
+        };
 
         protected virtual ISection[] GetSections() => Array.Empty<ISection>();
 

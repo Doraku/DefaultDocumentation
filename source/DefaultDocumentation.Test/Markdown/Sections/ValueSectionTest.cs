@@ -20,13 +20,13 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Write_should_write() => Test(
             AssemblyInfo.PropertyDocItem,
 @"#### Property Value
-[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+[System.Int32](T:System.Int32 'System.Int32')");
 
         [Fact]
         public void Write_should_write_value_When_present() => Test(
             new PropertyDocItem(AssemblyInfo.ClassDocItem, AssemblyInfo.PropertyDocItem.Property, new XElement("doc", new XElement("value", "test"))),
 @"#### Property Value
-[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')  
+[System.Int32](T:System.Int32 'System.Int32')  
 test");
 
         [Fact]
@@ -36,6 +36,6 @@ test");
 @"pouet
 
 #### Property Value
-[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+[System.Int32](T:System.Int32 'System.Int32')");
     }
 }

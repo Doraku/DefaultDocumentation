@@ -18,7 +18,7 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Write_should_write() => Test(
             AssemblyInfo.FieldDocItem,
 @"#### Field Value
-[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+[System.Int32](T:System.Int32 'System.Int32')");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
@@ -27,6 +27,6 @@ namespace DefaultDocumentation.Markdown.Sections
 @"pouet
 
 #### Field Value
-[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+[System.Int32](T:System.Int32 'System.Int32')");
     }
 }

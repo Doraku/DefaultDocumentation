@@ -1,4 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.UrlFactories;
+using DefaultDocumentation.Models;
 using NFluent;
 using Xunit;
 
@@ -6,6 +10,19 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class TitleSectionTest : ASectionTest<TitleSection>
     {
+        protected override IUrlFactory[] GetUrlFactories() => new IUrlFactory[]
+        {
+            new DocItemFactory()
+        };
+
+        protected override IReadOnlyDictionary<string, DocItem> GetItems() =>
+            AssemblyInfo.MethodWithParameterDocItem.Parameters
+                .AsEnumerable<DocItem>()
+                .Concat(AssemblyInfo.ClassWithTypeParameterDocItem.TypeParameters)
+                .Concat(Enumerable.Repeat(AssemblyInfo.EnumFieldDocItem, 1))
+                .Concat(Enumerable.Repeat(AssemblyInfo.EnumFieldWithConstantDocItem, 1))
+                .ToDictionary(i => i.Id);
+
         protected override GeneratedPages GetGeneratedPages() =>
             GeneratedPages.Assembly
             | GeneratedPages.Namespaces
@@ -82,28 +99,28 @@ namespace DefaultDocumentation.Markdown.Sections
         [Fact]
         public void Write_should_write_When_EnumFieldDocItem() => Test(
             AssemblyInfo.EnumFieldDocItem,
-@"<a name='Value'></a>
+@"<a name='DefaultDocumentation.AssemblyInfo.Enum.Value'></a>
 
 `Value` 0");
 
         [Fact]
         public void Write_should_write_When_EnumFieldDocItem_and_constant_value() => Test(
             AssemblyInfo.EnumFieldWithConstantDocItem,
-@"<a name='ValueWithConstant'></a>
+@"<a name='DefaultDocumentation.AssemblyInfo.Enum.ValueWithConstant'></a>
 
 `ValueWithConstant` 42");
 
         [Fact]
         public void Write_should_write_When_ParameterDocItem() => Test(
             AssemblyInfo.MethodWithParameterDocItem.Parameters.Single(),
-@"<a name='parameter'></a>
+@"<a name='DefaultDocumentation.AssemblyInfo.MethodWithParameter(int).parameter'></a>
 
-`parameter` [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+`parameter` System.Int32");
 
         [Fact]
         public void Write_should_write_When_TypeParameterDocItem() => Test(
             AssemblyInfo.ClassWithTypeParameterDocItem.TypeParameters.Single(),
-@"<a name='T'></a>
+@"<a name='DefaultDocumentation.AssemblyInfo.ClassWithTypeParameter<T>.T'></a>
 
 `T`");
     }

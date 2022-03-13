@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Types;
@@ -8,11 +9,11 @@ namespace DefaultDocumentation
     public static class IGeneralContextExtension
     {
         private const string NestedTypeVisibilitiesKey = "Markdown.NestedTypeVisibilities";
-        private const string RemoveFileExtensionFromUrlKey = "Markdown.NestedTypeVisibilities";
+        private const string RemoveFileExtensionFromUrlKey = "Markdown.RemoveFileExtensionFromUrl";
 
-        public static NestedTypeVisibilities GetNestedTypeVisibilities(this IGeneralContext context, DocItem item)
+        public static NestedTypeVisibilities GetNestedTypeVisibilities(this IGeneralContext context, Type type)
         {
-            NestedTypeVisibilities value = context.GetSetting(item, c => c.GetSetting<NestedTypeVisibilities?>(NestedTypeVisibilitiesKey)) ?? NestedTypeVisibilities.Default;
+            NestedTypeVisibilities value = context.GetSetting(type, c => c.GetSetting<NestedTypeVisibilities?>(NestedTypeVisibilitiesKey)) ?? NestedTypeVisibilities.Default;
 
             if (value is NestedTypeVisibilities.Default)
             {
@@ -41,8 +42,8 @@ namespace DefaultDocumentation
 
             return (item switch
             {
-                NamespaceDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (context.GetNestedTypeVisibilities(item) & NestedTypeVisibilities.Namespace) != 0 => GetAllChildren(item),
-                TypeDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (context.GetNestedTypeVisibilities(item) & NestedTypeVisibilities.DeclaringType) == 0 => Enumerable.Empty<T>(),
+                NamespaceDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (context.GetNestedTypeVisibilities(typeof(T)) & NestedTypeVisibilities.Namespace) != 0 => GetAllChildren(item),
+                TypeDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (context.GetNestedTypeVisibilities(typeof(T)) & NestedTypeVisibilities.DeclaringType) == 0 => Enumerable.Empty<T>(),
                 _ => context.Items.Values.Where(i => i.Parent == item)
             }).OfType<T>().OrderBy(c => c.FullName);
         }

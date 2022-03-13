@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Models;
 
@@ -25,11 +26,11 @@ namespace DefaultDocumentation
         IReadOnlyDictionary<string, IElement> Elements { get; }
 
         /// <summary>
-        /// Gets the specific <see cref="IContext"/> for the given <see cref="DocItem"/> kind.
+        /// Gets the specific <see cref="IContext"/> for the given <see cref="Type"/>.
         /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        IContext? GetContext(DocItem item);
+        /// <param name="type">The <see cref="Type"/> for which to get the specific <see cref="IContext"/>.</param>
+        /// <returns>The <see cref="IContext"/> specific to the provided <see cref="Type"/>.</returns>
+        IContext GetContext(Type type);
 
         /// <summary>
         /// Gets the file name for the given <see cref="DocItem"/>.

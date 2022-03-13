@@ -18,7 +18,7 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Write_should_write() => Test(
             AssemblyInfo.EventDocItem,
 @"#### Event Type
-[System.Action](https://docs.microsoft.com/en-us/dotnet/api/System.Action 'System.Action')");
+[System.Action](T:System.Action 'System.Action')");
 
         [Fact]
         public void Write_should_write_newline_When_needed() => Test(
@@ -27,6 +27,6 @@ namespace DefaultDocumentation.Markdown.Sections
 @"pouet
 
 #### Event Type
-[System.Action](https://docs.microsoft.com/en-us/dotnet/api/System.Action 'System.Action')");
+[System.Action](T:System.Action 'System.Action')");
     }
 }

@@ -1,4 +1,5 @@
-﻿using NFluent;
+﻿using System;
+using NFluent;
 using NSubstitute;
 using Xunit;
 
@@ -16,7 +17,7 @@ namespace DefaultDocumentation
             context.GetSetting<string>("test").Returns("specific");
             generalContext.GetContext(null).Returns(context);
 
-            Check.That(generalContext.GetSetting(null, c => c.GetSetting<string>("test"))).IsEqualTo("specific");
+            Check.That(generalContext.GetSetting(default(Type), c => c.GetSetting<string>("test"))).IsEqualTo("specific");
         }
 
         [Fact]
@@ -29,7 +30,7 @@ namespace DefaultDocumentation
             context.GetSetting<string>("test").Returns(default(string));
             generalContext.GetContext(null).Returns(context);
 
-            Check.That(generalContext.GetSetting(null, c => c.GetSetting<string>("test"))).IsEqualTo("general");
+            Check.That(generalContext.GetSetting(default(Type), c => c.GetSetting<string>("test"))).IsEqualTo("general");
         }
     }
 }

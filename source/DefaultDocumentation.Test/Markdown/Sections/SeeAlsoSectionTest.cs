@@ -26,9 +26,9 @@ namespace DefaultDocumentation.Markdown.Sections
                     new XElement("seealso", new XAttribute("cref", "T:System.Int32"), "test"),
                     new XElement("seealso", new XAttribute("href", "dummyurl"), "test"))),
 @"### See Also
-- [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')
+- [System.Int32](T:System.Int32 'System.Int32')
 - [dummyurl](dummyurl 'dummyurl')
-- [test](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')
+- [test](T:System.Int32 'System.Int32')
 - [test](dummyurl 'dummyurl')");
 
         [Fact]
@@ -41,6 +41,6 @@ namespace DefaultDocumentation.Markdown.Sections
 @"pouet
 
 ### See Also
-- [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')");
+- [System.Int32](T:System.Int32 'System.Int32')");
     }
 }

@@ -54,15 +54,26 @@ namespace DefaultDocumentation.Markdown.Extensions
             return writer;
         }
 
-        public static IWriter AppendUrl(this IWriter writer, string url, string displayedName = null, string tooltip = null) =>
-            writer
-                .Append("[")
-                .Append((displayedName ?? url).Prettify())
-                .Append("](")
-                .Append(url)
-                .Append(" '")
-                .Append(tooltip ?? url)
-                .Append("')");
+        public static IWriter AppendUrl(this IWriter writer, string url, string displayedName = null, string tooltip = null)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                writer.Append((displayedName ?? "").Prettify());
+            }
+            else
+            {
+                writer
+                    .Append("[")
+                    .Append((displayedName ?? url).Prettify())
+                    .Append("](")
+                    .Append(url)
+                    .Append(" '")
+                    .Append(tooltip ?? url)
+                    .Append("')");
+            }
+
+            return writer;
+        }
 
         public static IWriter AppendLink(this IWriter writer, DocItem item, string displayedName = null) => writer.AppendUrl(writer.Context.GetUrl(item), displayedName ?? item.Name, item.FullName);
 

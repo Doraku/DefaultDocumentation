@@ -98,11 +98,11 @@ namespace DefaultDocumentation.Internal
 
         public IReadOnlyDictionary<string, IElement> Elements { get; }
 
-        public IContext GetContext(DocItem item) => _contexts.TryGetValue(item.GetType(), out Context context) ? context : null;
+        public IContext GetContext(Type type) => _contexts.TryGetValue(type, out Context context) ? context : this;
 
-        public string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i => _pathCleaner.Clean((GetContext(item)?.FileNameFactory ?? FileNameFactory).GetFileName(this, i)));
+        public string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i => _pathCleaner.Clean((this.GetContext(item)?.FileNameFactory ?? FileNameFactory).GetFileName(this, i)));
 
-        public string GetUrl(string id) => _urls.GetOrAdd(id, i => _urlFactories.Select(f => f.GetUrl(this, i)).FirstOrDefault(url => url is not null) ?? "");
+        public string GetUrl(string id) => _urls.GetOrAdd(id, i => _pathCleaner.Clean(_urlFactories.Select(f => f.GetUrl(this, i)).FirstOrDefault(url => url is not null)));
 
         #endregion
     }

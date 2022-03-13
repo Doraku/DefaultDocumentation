@@ -2,7 +2,7 @@
   "profiles": {
     "DefaultDocumentation.Console": {
       "commandName": "Project",
-      "commandLineArgs": "-j D:\\Projects\\DefaultEcs\\source\\DefaultEcs\\DefaultDocumentation.config -a D:\\Projects\\DefaultEcs\\source\\DefaultEcs\\bin\\Release\\netstandard2.1\\DefaultEcs.dll -o D:\\Projects\\DefaultEcs\\documentation\\api"
+      "commandLineArgs": "--ConfigurationFilePath D:\\Projects\\DefaultDocumentation\\pouet.json"
     }
   }
 }

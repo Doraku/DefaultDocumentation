@@ -33,7 +33,7 @@ namespace DefaultDocumentation.Markdown.UrlFactories
             }
             if (item != pagedItem)
             {
-                url += "#";// + _pathCleaner.Clean(item.FullName);
+                url += "#" + item.FullName;
             }
 
             return url;

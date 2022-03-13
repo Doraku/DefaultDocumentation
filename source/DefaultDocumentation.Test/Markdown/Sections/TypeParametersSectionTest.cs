@@ -1,4 +1,8 @@
-﻿using DefaultDocumentation.Api;
+﻿using System.Collections.Generic;
+using System.Linq;
+using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.UrlFactories;
+using DefaultDocumentation.Models;
 using NFluent;
 using Xunit;
 
@@ -6,6 +10,17 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class TypeParametersSectionTest : ASectionTest<TypeParametersSection>
     {
+        protected override IUrlFactory[] GetUrlFactories() => new IUrlFactory[]
+        {
+            new DocItemFactory()
+        };
+
+        protected override IReadOnlyDictionary<string, DocItem> GetItems() =>
+            AssemblyInfo.MethodWithGenericConstrainsDocItem.TypeParameters
+                .AsEnumerable<DocItem>()
+                .Concat(AssemblyInfo.ClassWithTypeParameterDocItem.TypeParameters)
+                .ToDictionary(i => i.Id);
+
         protected override ISection[] GetSections() => new ISection[]
         {
             new TitleSection()
@@ -22,7 +37,7 @@ namespace DefaultDocumentation.Markdown.Sections
             AssemblyInfo.ClassWithTypeParameterDocItem,
 @"#### Type parameters
 
-<a name='T'></a>
+<a name='DefaultDocumentation.AssemblyInfo.ClassWithTypeParameter<T>.T'></a>
 
 `T`");
 
@@ -36,23 +51,23 @@ namespace DefaultDocumentation.Markdown.Sections
             AssemblyInfo.MethodWithGenericConstrainsDocItem,
 @"#### Type parameters
 
-<a name='T1'></a>
+<a name='DefaultDocumentation.AssemblyInfo.MethodWithGenericConstrains<T1,T2,T3,T4,T5>().T1'></a>
 
 `T1`
 
-<a name='T2'></a>
+<a name='DefaultDocumentation.AssemblyInfo.MethodWithGenericConstrains<T1,T2,T3,T4,T5>().T2'></a>
 
 `T2`
 
-<a name='T3'></a>
+<a name='DefaultDocumentation.AssemblyInfo.MethodWithGenericConstrains<T1,T2,T3,T4,T5>().T3'></a>
 
 `T3`
 
-<a name='T4'></a>
+<a name='DefaultDocumentation.AssemblyInfo.MethodWithGenericConstrains<T1,T2,T3,T4,T5>().T4'></a>
 
 `T4`
 
-<a name='T5'></a>
+<a name='DefaultDocumentation.AssemblyInfo.MethodWithGenericConstrains<T1,T2,T3,T4,T5>().T5'></a>
 
 `T5`");
     }
