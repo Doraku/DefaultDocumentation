@@ -21,7 +21,7 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Collect coverage
-      run: dotnet test source\DefaultDocumentation.sln -c Release -p:CollectCoverage=true -p:CoverletOutputFormat=lcov -p:CoverletOutput=..\..\build\lcov.info -p:Exclude="[*]System.Diagnostics.CodeAnalysis.NullableAttributes*" /p:TEST=true
+      run: dotnet test source\DefaultDocumentation.sln -c Release -p:CollectCoverage=true -p:CoverletOutputFormat=lcov -p:CoverletOutput=..\..\build\lcov.info -p:Exclude="[*]System.Diagnostics.CodeAnalysis*" /p:TEST=true
 
     - name: Upload to coverall
       uses: coverallsapp/github-action@master
