@@ -12,7 +12,7 @@ DefaultDocumentation.Api.IWriter Append(string value);
 
 <a name='DefaultDocumentation.Api.IWriter.Append(string).value'></a>
 
-`value` [System.String](https_//docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
+`value` [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
 
 #### Returns
 [IWriter](IWriter.md 'DefaultDocumentation.Api.IWriter')  

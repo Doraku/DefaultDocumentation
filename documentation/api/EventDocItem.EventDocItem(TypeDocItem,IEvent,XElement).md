@@ -18,12 +18,12 @@ The [TypeDocItem](TypeDocItem.md 'DefaultDocumentation.Models.Types.TypeDocItem'
 
 <a name='DefaultDocumentation.Models.Members.EventDocItem.EventDocItem(DefaultDocumentation.Models.Types.TypeDocItem,IEvent,System.Xml.Linq.XElement).event'></a>
 
-`event` [ICSharpCode.Decompiler.TypeSystem.IEvent](https_//docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.IEvent 'ICSharpCode.Decompiler.TypeSystem.IEvent')
+`event` [ICSharpCode.Decompiler.TypeSystem.IEvent](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.IEvent 'ICSharpCode.Decompiler.TypeSystem.IEvent')
 
-The [IEvent](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IEvent') of the event.
+The [IEvent](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IEvent') of the event.
 
 <a name='DefaultDocumentation.Models.Members.EventDocItem.EventDocItem(DefaultDocumentation.Models.Types.TypeDocItem,IEvent,System.Xml.Linq.XElement).documentation'></a>
 
-`documentation` [System.Xml.Linq.XElement](https_//docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement')
+`documentation` [System.Xml.Linq.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement')
 
-The [System.Xml.Linq.XElement](https_//docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement') documentation element of the event.
+The [System.Xml.Linq.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement') documentation element of the event.

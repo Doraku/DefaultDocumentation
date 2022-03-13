@@ -55,7 +55,6 @@
 			GeneratedAccessModifiers="$(DefaultDocumentationGeneratedAccessModifiers)"
 			IncludeUndocumentedItems="$(DefaultDocumentationIncludeUndocumentedItems)"
 			GeneratedPages="$(DefaultDocumentationGeneratedPages)"
-			InvalidCharReplacement="$(DefaultDocumentationInvalidCharReplacement)"
 			RemoveFileExtensionFromLinks="$(DefaultDocumentationRemoveFileExtensionFromLinks)"
 			LinksOutputFilePath="$(_DefaultDocumentationLinksOutputFile)"
 			LinksBaseUrl="$(DefaultDocumentationLinksBaseUrl)"

@@ -3,11 +3,11 @@
 
 ## TypeParameterDocItem.TypeParameter Property
 
-Gets the [ITypeParameter](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.ITypeParameter') of the current instance.
+Gets the [ITypeParameter](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.ITypeParameter') of the current instance.
 
 ```csharp
 public ITypeParameter TypeParameter { get; }
 ```
 
 #### Property Value
-[ICSharpCode.Decompiler.TypeSystem.ITypeParameter](https_//docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.ITypeParameter 'ICSharpCode.Decompiler.TypeSystem.ITypeParameter')
+[ICSharpCode.Decompiler.TypeSystem.ITypeParameter](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.ITypeParameter 'ICSharpCode.Decompiler.TypeSystem.ITypeParameter')

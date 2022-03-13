@@ -3,14 +3,14 @@
 
 ## PropertyDocItem Class
 
-Represents an [IProperty](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IProperty') documentation.
+Represents an [IProperty](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IProperty') documentation.
 
 ```csharp
 public sealed class PropertyDocItem : DefaultDocumentation.Models.EntityDocItem,
 DefaultDocumentation.Models.IParameterizedDocItem
 ```
 
-Inheritance [System.Object](https_//docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') &#129106; [EntityDocItem](EntityDocItem.md 'DefaultDocumentation.Models.EntityDocItem') &#129106; PropertyDocItem
+Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') &#129106; [EntityDocItem](EntityDocItem.md 'DefaultDocumentation.Models.EntityDocItem') &#129106; PropertyDocItem
 
 Implements [IParameterizedDocItem](IParameterizedDocItem.md 'DefaultDocumentation.Models.IParameterizedDocItem')
 
@@ -21,4 +21,4 @@ Implements [IParameterizedDocItem](IParameterizedDocItem.md 'DefaultDocumentatio
 | Properties | |
 | :--- | :--- |
 | [Parameters](PropertyDocItem.Parameters.md 'DefaultDocumentation.Models.Members.PropertyDocItem.Parameters') | Gets the [ParameterDocItem](ParameterDocItem.md 'DefaultDocumentation.Models.Parameters.ParameterDocItem') of this instance. |
-| [Property](PropertyDocItem.Property.md 'DefaultDocumentation.Models.Members.PropertyDocItem.Property') | Gets the [IProperty](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IProperty') of the current instance. |
+| [Property](PropertyDocItem.Property.md 'DefaultDocumentation.Models.Members.PropertyDocItem.Property') | Gets the [IProperty](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IProperty') of the current instance. |

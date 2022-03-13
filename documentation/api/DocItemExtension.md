@@ -9,7 +9,7 @@ Provides extension methods on the [DocItem](DocItem.md 'DefaultDocumentation.Mod
 public static class DocItemExtension
 ```
 
-Inheritance [System.Object](https_//docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; DocItemExtension
+Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; DocItemExtension
 
 | Methods | |
 | :--- | :--- |

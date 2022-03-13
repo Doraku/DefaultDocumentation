@@ -18,12 +18,12 @@ The [EnumDocItem](EnumDocItem.md 'DefaultDocumentation.Models.Types.EnumDocItem'
 
 <a name='DefaultDocumentation.Models.Members.EnumFieldDocItem.EnumFieldDocItem(DefaultDocumentation.Models.Types.EnumDocItem,IField,System.Xml.Linq.XElement).field'></a>
 
-`field` [ICSharpCode.Decompiler.TypeSystem.IField](https_//docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.IField 'ICSharpCode.Decompiler.TypeSystem.IField')
+`field` [ICSharpCode.Decompiler.TypeSystem.IField](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.IField 'ICSharpCode.Decompiler.TypeSystem.IField')
 
-The [IField](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IField') of the enum field.
+The [IField](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IField') of the enum field.
 
 <a name='DefaultDocumentation.Models.Members.EnumFieldDocItem.EnumFieldDocItem(DefaultDocumentation.Models.Types.EnumDocItem,IField,System.Xml.Linq.XElement).documentation'></a>
 
-`documentation` [System.Xml.Linq.XElement](https_//docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement')
+`documentation` [System.Xml.Linq.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement')
 
-The [System.Xml.Linq.XElement](https_//docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement') documentation element of the enum field.
+The [System.Xml.Linq.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement') documentation element of the enum field.

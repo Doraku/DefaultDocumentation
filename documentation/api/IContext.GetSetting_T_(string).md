@@ -19,7 +19,7 @@ The type of the setting to get.
 
 <a name='DefaultDocumentation.IContext.GetSetting_T_(string).name'></a>
 
-`name` [System.String](https_//docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
+`name` [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
 
 The name of the setting to get.
 

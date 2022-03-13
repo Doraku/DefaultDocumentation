@@ -18,10 +18,10 @@ The [IGeneralContext](IGeneralContext.md 'DefaultDocumentation.IGeneralContext')
 
 <a name='DefaultDocumentation.Api.IUrlFactory.GetUrl(DefaultDocumentation.IGeneralContext,string).id'></a>
 
-`id` [System.String](https_//docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
+`id` [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
 
 The id to get the url for.
 
 #### Returns
-[System.String](https_//docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')  
+[System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')  
 The url of the given id.

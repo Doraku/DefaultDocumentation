@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.Internal;
 using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.UrlFactories
@@ -33,7 +34,7 @@ namespace DefaultDocumentation.Markdown.UrlFactories
             }
             if (item != pagedItem)
             {
-                url += "#" + item.FullName;
+                url += "#" + PathCleaner.Clean(item.FullName, context.GetInvalidCharReplacement());
             }
 
             return url;

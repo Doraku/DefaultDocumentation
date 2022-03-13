@@ -12,9 +12,9 @@ object? this[string key] { get; set; }
 
 <a name='DefaultDocumentation.Api.IWriter.this[string].key'></a>
 
-`key` [System.String](https_//docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
+`key` [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
 
 The key of the data.
 
 #### Property Value
-[System.Object](https_//docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object')
+[System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object')

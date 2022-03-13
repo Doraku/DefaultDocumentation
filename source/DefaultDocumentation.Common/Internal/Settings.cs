@@ -24,7 +24,6 @@ namespace DefaultDocumentation.Internal
             GeneratedAccessModifiers generatedAccessModifiers,
             GeneratedPages generatedPages,
             bool includeUndocumentedItems,
-            string invalidCharReplacement,
             string linksOutputFile,
             string linksBaseUrl,
             IEnumerable<string> externlinksFilePaths)
@@ -39,7 +38,6 @@ namespace DefaultDocumentation.Internal
             GeneratedAccessModifiers = generatedAccessModifiers == GeneratedAccessModifiers.Default ? _defaultGeneratedAccessModifiers : generatedAccessModifiers;
             GeneratedPages = generatedPages == GeneratedPages.Default ? _defaultGeneratedPages : generatedPages;
             IncludeUndocumentedItems = includeUndocumentedItems;
-            InvalidCharReplacement = string.IsNullOrEmpty(invalidCharReplacement) ? "_" : invalidCharReplacement;
             LinksOutputFile = string.IsNullOrEmpty(linksOutputFile) ? null : new FileInfo(linksOutputFile);
             LinksBaseUrl = linksBaseUrl ?? string.Empty;
             ExternLinksFiles = (externlinksFilePaths ?? Enumerable.Empty<string>()).SelectMany(GetFilePaths).Distinct().Select(f => new FileInfo(f)).Where(f => f.Exists && f.FullName != LinksOutputFile?.FullName).ToArray();
@@ -53,7 +51,6 @@ namespace DefaultDocumentation.Internal
   {nameof(GeneratedAccessModifiers)}: {GeneratedAccessModifiers}
   {nameof(GeneratedPages)}: {GeneratedPages}
   {nameof(IncludeUndocumentedItems)}: {IncludeUndocumentedItems}
-  {nameof(InvalidCharReplacement)}: {InvalidCharReplacement}
   {nameof(LinksOutputFile)}: {LinksOutputFile?.FullName}
   {nameof(LinksBaseUrl)}: {LinksBaseUrl}
   {nameof(ExternLinksFiles)}:{string.Concat(ExternLinksFiles.Select(f => $"{Environment.NewLine}\t{f.FullName}"))}");
@@ -93,8 +90,6 @@ namespace DefaultDocumentation.Internal
         public DirectoryInfo OutputDirectory { get; }
 
         public string AssemblyPageName { get; }
-
-        public string InvalidCharReplacement { get; }
 
         public GeneratedPages GeneratedPages { get; }
 

@@ -3,13 +3,13 @@
 
 ## EntityDocItem Class
 
-Represent an [IEntity](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IEntity') documentation.
+Represent an [IEntity](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IEntity') documentation.
 
 ```csharp
 public abstract class EntityDocItem : DefaultDocumentation.Models.DocItem
 ```
 
-Inheritance [System.Object](https_//docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') &#129106; EntityDocItem
+Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') &#129106; EntityDocItem
 
 Derived  
 &#8627; [ConstructorDocItem](ConstructorDocItem.md 'DefaultDocumentation.Models.Members.ConstructorDocItem')  
@@ -24,4 +24,4 @@ Derived
 
 | Properties | |
 | :--- | :--- |
-| [Entity](EntityDocItem.Entity.md 'DefaultDocumentation.Models.EntityDocItem.Entity') | Gets the [IEntity](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IEntity') of the current instance. |
+| [Entity](EntityDocItem.Entity.md 'DefaultDocumentation.Models.EntityDocItem.Entity') | Gets the [IEntity](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IEntity') of the current instance. |

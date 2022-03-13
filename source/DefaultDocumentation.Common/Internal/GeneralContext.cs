@@ -11,7 +11,6 @@ namespace DefaultDocumentation.Internal
     internal sealed class GeneralContext : Context, IGeneralContext
     {
         private readonly Dictionary<Type, Context> _contexts;
-        private readonly PathCleaner _pathCleaner;
         private readonly ConcurrentDictionary<DocItem, string> _fileNames;
         private readonly ConcurrentDictionary<string, string> _urls;
         private readonly IUrlFactory[] _urlFactories;
@@ -57,7 +56,6 @@ namespace DefaultDocumentation.Internal
                 .Select(t => (t, GetSetting<JObject>(t.Name)))
                 .Where(t => t.Item2 != null)
                 .ToDictionary(t => t.t, t => new Context(t.Item2, availableTypes));
-            _pathCleaner = new PathCleaner(settings.InvalidCharReplacement);
             _fileNames = new ConcurrentDictionary<DocItem, string>();
             _urls = new ConcurrentDictionary<string, string>();
 
@@ -100,9 +98,9 @@ namespace DefaultDocumentation.Internal
 
         public IContext GetContext(Type type) => _contexts.TryGetValue(type, out Context context) ? context : this;
 
-        public string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i => _pathCleaner.Clean((this.GetContext(item)?.FileNameFactory ?? FileNameFactory).GetFileName(this, i)));
+        public string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i => (this.GetContext(item)?.FileNameFactory ?? FileNameFactory).GetFileName(this, i));
 
-        public string GetUrl(string id) => _urls.GetOrAdd(id, i => _pathCleaner.Clean(_urlFactories.Select(f => f.GetUrl(this, i)).FirstOrDefault(url => url is not null)));
+        public string GetUrl(string id) => _urls.GetOrAdd(id, i => _urlFactories.Select(f => f.GetUrl(this, i)).FirstOrDefault(url => url is not null));
 
         #endregion
     }

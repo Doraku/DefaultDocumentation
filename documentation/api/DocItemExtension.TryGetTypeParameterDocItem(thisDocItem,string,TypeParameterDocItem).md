@@ -18,7 +18,7 @@ The [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') starting point f
 
 <a name='DefaultDocumentation.Models.DocItemExtension.TryGetTypeParameterDocItem(thisDefaultDocumentation.Models.DocItem,string,DefaultDocumentation.Models.Parameters.TypeParameterDocItem).name'></a>
 
-`name` [System.String](https_//docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
+`name` [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
 
 The name of the [TypeParameterDocItem](TypeParameterDocItem.md 'DefaultDocumentation.Models.Parameters.TypeParameterDocItem').
 
@@ -29,5 +29,5 @@ The name of the [TypeParameterDocItem](TypeParameterDocItem.md 'DefaultDocumenta
 The [TypeParameterDocItem](TypeParameterDocItem.md 'DefaultDocumentation.Models.Parameters.TypeParameterDocItem') if found, else [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null').
 
 #### Returns
-[System.Boolean](https_//docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System.Boolean')  
+[System.Boolean](https://docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System.Boolean')  
 [true](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool') if the [TypeParameterDocItem](TypeParameterDocItem.md 'DefaultDocumentation.Models.Parameters.TypeParameterDocItem') was found, else [false](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool').

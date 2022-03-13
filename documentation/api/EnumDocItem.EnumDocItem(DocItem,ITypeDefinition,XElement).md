@@ -18,12 +18,12 @@ The [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') parent type or n
 
 <a name='DefaultDocumentation.Models.Types.EnumDocItem.EnumDocItem(DefaultDocumentation.Models.DocItem,ITypeDefinition,System.Xml.Linq.XElement).type'></a>
 
-`type` [ICSharpCode.Decompiler.TypeSystem.ITypeDefinition](https_//docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.ITypeDefinition 'ICSharpCode.Decompiler.TypeSystem.ITypeDefinition')
+`type` [ICSharpCode.Decompiler.TypeSystem.ITypeDefinition](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.ITypeDefinition 'ICSharpCode.Decompiler.TypeSystem.ITypeDefinition')
 
-The [ITypeDefinition](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.ITypeDefinition') of the enum.
+The [ITypeDefinition](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.ITypeDefinition') of the enum.
 
 <a name='DefaultDocumentation.Models.Types.EnumDocItem.EnumDocItem(DefaultDocumentation.Models.DocItem,ITypeDefinition,System.Xml.Linq.XElement).documentation'></a>
 
-`documentation` [System.Xml.Linq.XElement](https_//docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement')
+`documentation` [System.Xml.Linq.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement')
 
-The [System.Xml.Linq.XElement](https_//docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement') documentation element of the enum.
+The [System.Xml.Linq.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement') documentation element of the enum.

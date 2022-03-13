@@ -3,13 +3,13 @@
 
 ## EnumFieldDocItem Class
 
-Represents an enum [IField](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IField') documentation.
+Represents an enum [IField](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IField') documentation.
 
 ```csharp
 public sealed class EnumFieldDocItem : DefaultDocumentation.Models.EntityDocItem
 ```
 
-Inheritance [System.Object](https_//docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') &#129106; [EntityDocItem](EntityDocItem.md 'DefaultDocumentation.Models.EntityDocItem') &#129106; EnumFieldDocItem
+Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') &#129106; [EntityDocItem](EntityDocItem.md 'DefaultDocumentation.Models.EntityDocItem') &#129106; EnumFieldDocItem
 
 | Constructors | |
 | :--- | :--- |
@@ -17,4 +17,4 @@ Inheritance [System.Object](https_//docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Properties | |
 | :--- | :--- |
-| [Field](EnumFieldDocItem.Field.md 'DefaultDocumentation.Models.Members.EnumFieldDocItem.Field') | Gets the [IField](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IField') of the current instance. |
+| [Field](EnumFieldDocItem.Field.md 'DefaultDocumentation.Models.Members.EnumFieldDocItem.Field') | Gets the [IField](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IField') of the current instance. |

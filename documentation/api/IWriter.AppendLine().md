@@ -3,7 +3,7 @@
 
 ## IWriter.AppendLine() Method
 
-Appends a [System.Environment.NewLine](https_//docs.microsoft.com/en-us/dotnet/api/System.Environment.NewLine 'System.Environment.NewLine') at the end of the documentation text.
+Appends a [System.Environment.NewLine](https://docs.microsoft.com/en-us/dotnet/api/System.Environment.NewLine 'System.Environment.NewLine') at the end of the documentation text.
 
 ```csharp
 DefaultDocumentation.Api.IWriter AppendLine();

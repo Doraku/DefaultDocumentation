@@ -10,4 +10,4 @@ System.IO.FileInfo AssemblyFile { get; }
 ```
 
 #### Property Value
-[System.IO.FileInfo](https_//docs.microsoft.com/en-us/dotnet/api/System.IO.FileInfo 'System.IO.FileInfo')
+[System.IO.FileInfo](https://docs.microsoft.com/en-us/dotnet/api/System.IO.FileInfo 'System.IO.FileInfo')

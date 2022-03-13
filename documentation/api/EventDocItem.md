@@ -3,13 +3,13 @@
 
 ## EventDocItem Class
 
-Represents an [IEvent](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IEvent') documentation.
+Represents an [IEvent](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IEvent') documentation.
 
 ```csharp
 public sealed class EventDocItem : DefaultDocumentation.Models.EntityDocItem
 ```
 
-Inheritance [System.Object](https_//docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') &#129106; [EntityDocItem](EntityDocItem.md 'DefaultDocumentation.Models.EntityDocItem') &#129106; EventDocItem
+Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') &#129106; [EntityDocItem](EntityDocItem.md 'DefaultDocumentation.Models.EntityDocItem') &#129106; EventDocItem
 
 | Constructors | |
 | :--- | :--- |
@@ -17,4 +17,4 @@ Inheritance [System.Object](https_//docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Properties | |
 | :--- | :--- |
-| [Event](EventDocItem.Event.md 'DefaultDocumentation.Models.Members.EventDocItem.Event') | Gets the [IEvent](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IEvent') of the current instance. |
+| [Event](EventDocItem.Event.md 'DefaultDocumentation.Models.Members.EventDocItem.Event') | Gets the [IEvent](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IEvent') of the current instance. |

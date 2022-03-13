@@ -10,4 +10,4 @@ public string Url { get; }
 ```
 
 #### Property Value
-[System.String](https_//docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
+[System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')

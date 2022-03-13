@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.Internal;
 using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.FileNameFactories
@@ -52,6 +53,6 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
             }
         }
 
-        public string GetFileName(IGeneralContext context, DocItem item) => (item is AssemblyDocItem ? item.FullName : GetMarkdownFileName(context, item)) + ".md";
+        public string GetFileName(IGeneralContext context, DocItem item) => PathCleaner.Clean(item is AssemblyDocItem ? item.FullName : GetMarkdownFileName(context, item), context.GetInvalidCharReplacement()) + ".md";
     }
 }

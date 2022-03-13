@@ -40,11 +40,6 @@ namespace DefaultDocumentation
         public string? AssemblyPageName { get; }
 
         /// <summary>
-        /// Gets the <see cref="string"/> used to replace characters that are invalid for a path or a file name.
-        /// </summary>
-        public string InvalidCharReplacement { get; }
-
-        /// <summary>
         /// Gets the <see cref="DefaultDocumentation.GeneratedPages"/> flags stating which kind should have their own page and which should be inlined.
         /// </summary>
         public GeneratedPages GeneratedPages { get; }

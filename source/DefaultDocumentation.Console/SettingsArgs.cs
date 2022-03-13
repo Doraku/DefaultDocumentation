@@ -50,9 +50,6 @@ namespace DefaultDocumentation
         [Option('g', nameof(GeneratedPages), Separator = ',', HelpText = "State which elements should have their own page")]
         public IEnumerable<GeneratedPages> GeneratedPages { get; set; }
 
-        [Option('c', nameof(InvalidCharReplacement), HelpText = "Replacement for url invalid char")]
-        public string InvalidCharReplacement { get; set; }
-
         [Option('l', nameof(LinksOutputFilePath), HelpText = "File path where the documentation will generate its links")]
         public string LinksOutputFilePath { get; set; }
 

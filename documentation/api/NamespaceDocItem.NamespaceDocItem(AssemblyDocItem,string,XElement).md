@@ -18,12 +18,12 @@ The [AssemblyDocItem](AssemblyDocItem.md 'DefaultDocumentation.Models.AssemblyDo
 
 <a name='DefaultDocumentation.Models.NamespaceDocItem.NamespaceDocItem(DefaultDocumentation.Models.AssemblyDocItem,string,System.Xml.Linq.XElement).name'></a>
 
-`name` [System.String](https_//docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
+`name` [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
 
 The name of the namespace.
 
 <a name='DefaultDocumentation.Models.NamespaceDocItem.NamespaceDocItem(DefaultDocumentation.Models.AssemblyDocItem,string,System.Xml.Linq.XElement).documentation'></a>
 
-`documentation` [System.Xml.Linq.XElement](https_//docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement')
+`documentation` [System.Xml.Linq.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement')
 
-The [System.Xml.Linq.XElement](https_//docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement') documentation element of the namespace.
+The [System.Xml.Linq.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System.Xml.Linq.XElement') documentation element of the namespace.

@@ -10,4 +10,4 @@ System.IO.DirectoryInfo? ProjectDirectory { get; }
 ```
 
 #### Property Value
-[System.IO.DirectoryInfo](https_//docs.microsoft.com/en-us/dotnet/api/System.IO.DirectoryInfo 'System.IO.DirectoryInfo')
+[System.IO.DirectoryInfo](https://docs.microsoft.com/en-us/dotnet/api/System.IO.DirectoryInfo 'System.IO.DirectoryInfo')

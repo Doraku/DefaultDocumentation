@@ -23,5 +23,5 @@ The [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') for which to get
 The [IGeneralContext](IGeneralContext.md 'DefaultDocumentation.IGeneralContext') used to generation the documentation.
 
 #### Returns
-[System.Boolean](https_//docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System.Boolean')  
+[System.Boolean](https://docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System.Boolean')  
 [true](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool') if the [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') has its own page, otherwise [false](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool').

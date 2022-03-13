@@ -18,9 +18,9 @@ The [IWriter](IWriter.md 'DefaultDocumentation.Api.IWriter') to trim.
 
 <a name='DefaultDocumentation.Api.IWriterExtension.TrimEnd(thisDefaultDocumentation.Api.IWriter,string[]).values'></a>
 
-`values` [System.String](https_//docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')[[]](https_//docs.microsoft.com/en-us/dotnet/api/System.Array 'System.Array')
+`values` [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')[[]](https://docs.microsoft.com/en-us/dotnet/api/System.Array 'System.Array')
 
-The [System.String](https_//docs.microsoft.com/en-us/dotnet/api/System.String 'System.String') values to trim from the end.
+The [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String') values to trim from the end.
 
 #### Returns
 [IWriter](IWriter.md 'DefaultDocumentation.Api.IWriter')  

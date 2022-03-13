@@ -3,14 +3,14 @@
 
 ## ConstructorDocItem Class
 
-Represents a constructor [IMethod](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IMethod') documentation.
+Represents a constructor [IMethod](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IMethod') documentation.
 
 ```csharp
 public sealed class ConstructorDocItem : DefaultDocumentation.Models.EntityDocItem,
 DefaultDocumentation.Models.IParameterizedDocItem
 ```
 
-Inheritance [System.Object](https_//docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') &#129106; [EntityDocItem](EntityDocItem.md 'DefaultDocumentation.Models.EntityDocItem') &#129106; ConstructorDocItem
+Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') &#129106; [EntityDocItem](EntityDocItem.md 'DefaultDocumentation.Models.EntityDocItem') &#129106; ConstructorDocItem
 
 Implements [IParameterizedDocItem](IParameterizedDocItem.md 'DefaultDocumentation.Models.IParameterizedDocItem')
 
@@ -20,5 +20,5 @@ Implements [IParameterizedDocItem](IParameterizedDocItem.md 'DefaultDocumentatio
 
 | Properties | |
 | :--- | :--- |
-| [Method](ConstructorDocItem.Method.md 'DefaultDocumentation.Models.Members.ConstructorDocItem.Method') | Gets the [IMethod](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IMethod') of the current instance. |
+| [Method](ConstructorDocItem.Method.md 'DefaultDocumentation.Models.Members.ConstructorDocItem.Method') | Gets the [IMethod](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IMethod') of the current instance. |
 | [Parameters](ConstructorDocItem.Parameters.md 'DefaultDocumentation.Models.Members.ConstructorDocItem.Parameters') | Gets the [ParameterDocItem](ParameterDocItem.md 'DefaultDocumentation.Models.Parameters.ParameterDocItem') of this instance. |

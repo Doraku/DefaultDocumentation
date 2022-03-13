@@ -10,4 +10,4 @@ System.Collections.Generic.IEnumerable<DefaultDocumentation.Api.ISection> Sectio
 ```
 
 #### Property Value
-[System.Collections.Generic.IEnumerable&lt;](https_//docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')[ISection](ISection.md 'DefaultDocumentation.Api.ISection')[&gt;](https_//docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')
+[System.Collections.Generic.IEnumerable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')[ISection](ISection.md 'DefaultDocumentation.Api.ISection')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')

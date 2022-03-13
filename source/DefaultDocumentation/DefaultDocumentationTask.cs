@@ -29,8 +29,6 @@ namespace DefaultDocumentation
 
         public string GeneratedPages { get; set; }
 
-        public string InvalidCharReplacement { get; set; }
-
         public string LinksOutputFilePath { get; set; }
 
         public string LinksBaseUrl { get; set; }

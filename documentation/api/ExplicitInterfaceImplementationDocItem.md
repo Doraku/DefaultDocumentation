@@ -11,7 +11,7 @@ DefaultDocumentation.Models.ITypeParameterizedDocItem,
 DefaultDocumentation.Models.IParameterizedDocItem
 ```
 
-Inheritance [System.Object](https_//docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') &#129106; [EntityDocItem](EntityDocItem.md 'DefaultDocumentation.Models.EntityDocItem') &#129106; ExplicitInterfaceImplementationDocItem
+Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') &#129106; [EntityDocItem](EntityDocItem.md 'DefaultDocumentation.Models.EntityDocItem') &#129106; ExplicitInterfaceImplementationDocItem
 
 Implements [ITypeParameterizedDocItem](ITypeParameterizedDocItem.md 'DefaultDocumentation.Models.ITypeParameterizedDocItem'), [IParameterizedDocItem](IParameterizedDocItem.md 'DefaultDocumentation.Models.IParameterizedDocItem')
 
@@ -23,6 +23,6 @@ Implements [ITypeParameterizedDocItem](ITypeParameterizedDocItem.md 'DefaultDocu
 
 | Properties | |
 | :--- | :--- |
-| [Member](ExplicitInterfaceImplementationDocItem.Member.md 'DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem.Member') | Gets the [IMember](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IMember') of the current instance.<br/>It can either be an [IEvent](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IEvent'), [IProperty](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IProperty') or [IMethod](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IMethod'). |
+| [Member](ExplicitInterfaceImplementationDocItem.Member.md 'DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem.Member') | Gets the [IMember](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IMember') of the current instance.<br/>It can either be an [IEvent](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IEvent'), [IProperty](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IProperty') or [IMethod](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IMethod'). |
 | [Parameters](ExplicitInterfaceImplementationDocItem.Parameters.md 'DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem.Parameters') | Gets the [ParameterDocItem](ParameterDocItem.md 'DefaultDocumentation.Models.Parameters.ParameterDocItem') of this instance. |
 | [TypeParameters](ExplicitInterfaceImplementationDocItem.TypeParameters.md 'DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem.TypeParameters') | Gets the [TypeParameterDocItem](TypeParameterDocItem.md 'DefaultDocumentation.Models.Parameters.TypeParameterDocItem') of this instance. |

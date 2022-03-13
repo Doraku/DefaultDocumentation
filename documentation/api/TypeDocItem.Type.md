@@ -3,11 +3,11 @@
 
 ## TypeDocItem.Type Property
 
-Gets the [ITypeDefinition](https_//github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.ITypeDefinition') of the current instance.
+Gets the [ITypeDefinition](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.ITypeDefinition') of the current instance.
 
 ```csharp
 public ITypeDefinition Type { get; }
 ```
 
 #### Property Value
-[ICSharpCode.Decompiler.TypeSystem.ITypeDefinition](https_//docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.ITypeDefinition 'ICSharpCode.Decompiler.TypeSystem.ITypeDefinition')
+[ICSharpCode.Decompiler.TypeSystem.ITypeDefinition](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.ITypeDefinition 'ICSharpCode.Decompiler.TypeSystem.ITypeDefinition')

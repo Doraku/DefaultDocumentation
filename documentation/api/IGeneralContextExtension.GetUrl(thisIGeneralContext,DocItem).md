@@ -23,5 +23,5 @@ The [IGeneralContext](IGeneralContext.md 'DefaultDocumentation.IGeneralContext')
 The [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') for which to get the url.
 
 #### Returns
-[System.String](https_//docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')  
+[System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')  
 The url of the given [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem').

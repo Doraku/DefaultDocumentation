@@ -9,7 +9,7 @@ Represent a documentation item.
 public abstract class DocItem
 ```
 
-Inheritance [System.Object](https_//docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; DocItem
+Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; DocItem
 
 Derived  
 &#8627; [AssemblyDocItem](AssemblyDocItem.md 'DefaultDocumentation.Models.AssemblyDocItem')  
