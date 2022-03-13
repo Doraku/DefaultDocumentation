@@ -1,4 +1,4 @@
-https://github.com/Doraku/DefaultEcs/blob/master/documentation/api/
+https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/
 M:DefaultDocumentation.IGeneralContextExtension.GetUrl(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem)|IGeneralContextExtension.GetUrl(thisIGeneralContext,DocItem).md|GetUrl(this IGeneralContext, DocItem)
 M:DefaultDocumentation.IGeneralContextExtension.GetContext(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem)|IGeneralContextExtension.GetContext(thisIGeneralContext,DocItem).md|GetContext(this IGeneralContext, DocItem)
 M:DefaultDocumentation.IGeneralContextExtension.GetSetting``1(DefaultDocumentation.IGeneralContext,System.Type,System.Func{DefaultDocumentation.IContext,``0})|IGeneralContextExtension.GetSetting_T_(thisIGeneralContext,Type,Func_IContext,T_).md|GetSetting<T>(this IGeneralContext, Type, Func<IContext,T>)

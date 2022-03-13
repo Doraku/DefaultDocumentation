@@ -8,7 +8,7 @@
 		"documentation\\ICSharpCode.Decompiler.txt"
 	],
 	"LinksOutputFilePath": "documentation\\DefaultDocumentation.Api.txt",
-	"LinksBaseUrl": "https://github.com/Doraku/DefaultEcs/blob/master/documentation/api/",
+	"LinksBaseUrl": "https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/",
 	"NamespaceDocItem": {
 		"Sections": [
 			"Title",
