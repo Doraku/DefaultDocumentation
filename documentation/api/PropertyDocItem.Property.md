@@ -10,4 +10,4 @@ public IProperty Property { get; }
 ```
 
 #### Property Value
-[ICSharpCode.Decompiler.TypeSystem.IProperty](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.IProperty 'ICSharpCode.Decompiler.TypeSystem.IProperty')
+[IProperty](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IProperty')

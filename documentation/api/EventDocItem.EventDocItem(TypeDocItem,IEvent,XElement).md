@@ -18,7 +18,7 @@ The [TypeDocItem](TypeDocItem.md 'DefaultDocumentation.Models.Types.TypeDocItem'
 
 <a name='DefaultDocumentation.Models.Members.EventDocItem.EventDocItem(DefaultDocumentation.Models.Types.TypeDocItem,IEvent,System.Xml.Linq.XElement).event'></a>
 
-`event` [ICSharpCode.Decompiler.TypeSystem.IEvent](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.IEvent 'ICSharpCode.Decompiler.TypeSystem.IEvent')
+`event` [IEvent](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IEvent')
 
 The [IEvent](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IEvent') of the event.
 

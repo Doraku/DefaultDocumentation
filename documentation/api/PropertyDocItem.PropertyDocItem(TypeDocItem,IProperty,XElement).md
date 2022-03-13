@@ -18,7 +18,7 @@ The [TypeDocItem](TypeDocItem.md 'DefaultDocumentation.Models.Types.TypeDocItem'
 
 <a name='DefaultDocumentation.Models.Members.PropertyDocItem.PropertyDocItem(DefaultDocumentation.Models.Types.TypeDocItem,IProperty,System.Xml.Linq.XElement).property'></a>
 
-`property` [ICSharpCode.Decompiler.TypeSystem.IProperty](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.IProperty 'ICSharpCode.Decompiler.TypeSystem.IProperty')
+`property` [IProperty](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IProperty')
 
 The [IProperty](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IProperty') of the property.
 

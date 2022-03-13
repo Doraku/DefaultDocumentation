@@ -10,4 +10,4 @@ public IField Field { get; }
 ```
 
 #### Property Value
-[ICSharpCode.Decompiler.TypeSystem.IField](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.IField 'ICSharpCode.Decompiler.TypeSystem.IField')
+[IField](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IField')

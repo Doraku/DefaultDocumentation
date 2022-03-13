@@ -11,4 +11,4 @@ public IMember Member { get; }
 ```
 
 #### Property Value
-[ICSharpCode.Decompiler.TypeSystem.IMember](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.IMember 'ICSharpCode.Decompiler.TypeSystem.IMember')
+[IMember](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IMember')

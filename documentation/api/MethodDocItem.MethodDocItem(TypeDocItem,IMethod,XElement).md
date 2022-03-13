@@ -18,7 +18,7 @@ The [TypeDocItem](TypeDocItem.md 'DefaultDocumentation.Models.Types.TypeDocItem'
 
 <a name='DefaultDocumentation.Models.Members.MethodDocItem.MethodDocItem(DefaultDocumentation.Models.Types.TypeDocItem,IMethod,System.Xml.Linq.XElement).method'></a>
 
-`method` [ICSharpCode.Decompiler.TypeSystem.IMethod](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.IMethod 'ICSharpCode.Decompiler.TypeSystem.IMethod')
+`method` [IMethod](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IMethod')
 
 The [IMethod](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IMethod') of the method.
 

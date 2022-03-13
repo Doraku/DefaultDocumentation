@@ -18,7 +18,7 @@ The [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') parent type or n
 
 <a name='DefaultDocumentation.Models.Types.EnumDocItem.EnumDocItem(DefaultDocumentation.Models.DocItem,ITypeDefinition,System.Xml.Linq.XElement).type'></a>
 
-`type` [ICSharpCode.Decompiler.TypeSystem.ITypeDefinition](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.ITypeDefinition 'ICSharpCode.Decompiler.TypeSystem.ITypeDefinition')
+`type` [ITypeDefinition](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.ITypeDefinition')
 
 The [ITypeDefinition](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.ITypeDefinition') of the enum.
 

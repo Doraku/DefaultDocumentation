@@ -10,4 +10,4 @@ public IEvent Event { get; }
 ```
 
 #### Property Value
-[ICSharpCode.Decompiler.TypeSystem.IEvent](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.IEvent 'ICSharpCode.Decompiler.TypeSystem.IEvent')
+[IEvent](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IEvent')

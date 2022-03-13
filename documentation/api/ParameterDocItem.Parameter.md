@@ -10,4 +10,4 @@ public IParameter Parameter { get; }
 ```
 
 #### Property Value
-[ICSharpCode.Decompiler.TypeSystem.IParameter](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.IParameter 'ICSharpCode.Decompiler.TypeSystem.IParameter')
+[IParameter](https://github.com/icsharpcode/ILSpy 'ICSharpCode.Decompiler.TypeSystem.IParameter')
