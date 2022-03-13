@@ -8,6 +8,16 @@ namespace DefaultDocumentation
     public sealed class IGeneralContextExtensionTest
     {
         [Fact]
+        public void GetContext_Should_return_GetContext_Type()
+        {
+            IGeneralContext generalContext = Substitute.For<IGeneralContext>();
+
+            generalContext.GetContext(AssemblyInfo.AssemblyDocItem.GetType()).Returns(generalContext);
+
+            Check.That(generalContext.GetContext(AssemblyInfo.AssemblyDocItem)).IsEqualTo(generalContext);
+        }
+
+        [Fact]
         public void GetSetting_Should_return_from_specific_context_When_not_null()
         {
             IGeneralContext generalContext = Substitute.For<IGeneralContext>();
