@@ -27,11 +27,10 @@
 	<Target Name="DefaultDocumentation" AfterTargets="PostBuildEvent" Condition="'$(DocumentationFile)' != '' AND '$(DisableDefaultDocumentation)' != 'true'">
 		<PropertyGroup>
 			<_DefaultDocumentationConfigurationFile Condition="'$(DefaultDocumentationConfigurationFile)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationConfigurationFile)))</_DefaultDocumentationConfigurationFile>
-			<_DefaultDocumentationConfigurationFile Condition="'$(DefaultDocumentationConfigurationFile)' == ''">$(ProjectDir)DefaultDocumentation.config</_DefaultDocumentationConfigurationFile>
+			<_DefaultDocumentationConfigurationFile Condition="'$(DefaultDocumentationConfigurationFile)' == ''">$(ProjectDir)DefaultDocumentation.json</_DefaultDocumentationConfigurationFile>
 			<_DefaultDocumentationDocumentationFile>$([System.IO.Path]::GetFullPath($(DocumentationFile)))</_DefaultDocumentationDocumentationFile>
 			<_DefaultDocumentationFolder Condition="'$(DefaultDocumentationFolder)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationFolder)))</_DefaultDocumentationFolder>
 			<_DefaultDocumentationLinksOutputFile Condition="'$(DefaultDocumentationLinksOutputFile)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationLinksOutputFile)))</_DefaultDocumentationLinksOutputFile>
-			<DefaultDocumentationFileNameFactory Condition="'$(DefaultDocumentationFileNameFactory)' == '' AND '$(DefaultDocumentationFileNameMode)' != ''">$(DefaultDocumentationFileNameMode)</DefaultDocumentationFileNameFactory>
 		</PropertyGroup>
 
 		<EnsureDefaultDocumentationExternLinksFilesRooted Condition="'$(DefaultDocumentationExternLinksFiles)' != ''" FilePaths="$(DefaultDocumentationExternLinksFiles)">
@@ -41,8 +40,6 @@
 		<EnsureDefaultDocumentationExternLinksFilesRooted Condition="'$(DefaultDocumentationPlugins)' != ''" FilePaths="$(DefaultDocumentationPlugins)">
 			<Output PropertyName="_DefaultDocumentationPlugins" TaskParameter="Result" />
 		</EnsureDefaultDocumentationExternLinksFilesRooted>
-
-		<Warning Condition="'$(DefaultDocumentationFileNameMode)' != ''" Text="DefaultDocumentationFileNameMode property is deprecated, please use DefaultDocumentationFileNameFactory instead" />
 
 		<DefaultDocumentationTask
 			LogLevel="$(DefaultDocumentationLogLevel)"
@@ -55,13 +52,13 @@
 			GeneratedAccessModifiers="$(DefaultDocumentationGeneratedAccessModifiers)"
 			IncludeUndocumentedItems="$(DefaultDocumentationIncludeUndocumentedItems)"
 			GeneratedPages="$(DefaultDocumentationGeneratedPages)"
-			RemoveFileExtensionFromLinks="$(DefaultDocumentationRemoveFileExtensionFromLinks)"
 			LinksOutputFilePath="$(_DefaultDocumentationLinksOutputFile)"
 			LinksBaseUrl="$(DefaultDocumentationLinksBaseUrl)"
 			ExternLinksFilePaths="$(_DefaultDocumentationExternLinksFiles)"
 			Plugins="$(_DefaultDocumentationPlugins)"
 			FileNameFactory="$(DefaultDocumentationFileNameFactory)"
+			UrlFactories="$(DefaultDocumentationUrlFactories)"
 			Sections="$(DefaultDocumentationSections)"
-Elements="$(_DefaultDocumentationElements)"/>
+			Elements="$(DefaultDocumentationElements)"/>
 	</Target>
 </Project>
