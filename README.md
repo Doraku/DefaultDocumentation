@@ -482,7 +482,7 @@ The default value is `Header|Default`.
 
 <a name='MarkdownConfiguration'></a>
 # Markdown Configuration
-The default implementations to generate markdown documentation also comes with its own specific settings. Those can only be set in the configuration file may or may not be overridable by specific `DocItem` types.
+The default implementations to generate markdown documentation also comes with its own specific settings. Those can only be set in the configuration file and may or may not be overridable by specific `DocItem` types.
 
 <a name='MarkdownConfiguration_NestedTypeVisibilities'></a>
 ## NestedTypeVisibilities
@@ -491,6 +491,7 @@ The default implementations to generate markdown documentation also comes with i
 States where nested types should be visible. Available values are:
 - `Namespace`: nested types will be displayed in their parent namespace
 - `DeclaringType`: nested types will be displayed in their parent type
+
 Default value is `Namespace`.  
 This setting can be overriden by specific `DocItem` types.
 
@@ -523,6 +524,7 @@ States how the table of contents should be rendered. Available values are:
 - `IncludeSummary`: the `<summary>` element of the `DocItem` should be displayed
 - `IncludeNewLine`: their should be a newline between the `DocItem` name and its `<summary>` if displayed
 - `IncludeSummaryWithNewLine`: same as `IncludeSummary,IncludeNewLine`
+
 This setting can be overriden by specific `DocItem` types.
 
 <a name='Samples'></a>
