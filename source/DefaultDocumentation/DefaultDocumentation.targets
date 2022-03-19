@@ -56,9 +56,9 @@
 			LinksBaseUrl="$(DefaultDocumentationLinksBaseUrl)"
 			ExternLinksFilePaths="$(_DefaultDocumentationExternLinksFiles)"
 			Plugins="$(_DefaultDocumentationPlugins)"
-			FileNameFactory="$(DefaultDocumentationFileNameFactory)"
 			UrlFactories="$(DefaultDocumentationUrlFactories)"
-			Sections="$(DefaultDocumentationSections)"
-			Elements="$(DefaultDocumentationElements)"/>
+			Elements="$(DefaultDocumentationElements)"
+			FileNameFactory="$(DefaultDocumentationFileNameFactory)"
+			Sections="$(DefaultDocumentationSections)"/>
 	</Target>
 </Project>

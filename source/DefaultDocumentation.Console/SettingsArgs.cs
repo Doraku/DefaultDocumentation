@@ -62,17 +62,17 @@ namespace DefaultDocumentation
         [Option(nameof(Plugins), Separator = '|', HelpText = "plugin files to use to create the documentation")]
         public IEnumerable<string> Plugins { get; set; }
 
-        [Option(nameof(FileNameFactory), HelpText = "Name or [Assembly Type] of the IFileNameFactory to use to create documentation files")]
-        public string FileNameFactory { get; set; }
-
-        [Option(nameof(UrlFactories), HelpText = "Name or [Assembly Type] of the IUrlFactory to use to create documentation url")]
+        [Option(nameof(UrlFactories), Separator = '|', HelpText = "Name or [Type Assembly] of the IUrlFactory to use to create documentation url")]
         public IEnumerable<string> UrlFactories { get; set; }
 
-        [Option(nameof(Sections), Separator = '|', HelpText = "Name or [Assembly Type] of the ISectionWriter to use to create the documentation")]
-        public IEnumerable<string> Sections { get; set; }
-
-        [Option(nameof(Elements), Separator = '|', HelpText = "[Assembly Type] of the explicit element implementations to use to create the documentation")]
+        [Option(nameof(Elements), Separator = '|', HelpText = "[Type Assembly] of the explicit element implementations to use to create the documentation")]
         public IEnumerable<string> Elements { get; set; }
+
+        [Option(nameof(FileNameFactory), HelpText = "Name or [Type Assembly] of the IFileNameFactory to use to create documentation files")]
+        public string FileNameFactory { get; set; }
+
+        [Option(nameof(Sections), Separator = '|', HelpText = "Name or [Type Assembly] of the ISectionWriter to use to create the documentation")]
+        public IEnumerable<string> Sections { get; set; }
 
         GeneratedAccessModifiers IRawSettings.GeneratedAccessModifiers => GetEnum(GeneratedAccessModifiers);
 
