@@ -392,10 +392,10 @@ The different `DocItem` types are:
 
 `Name` or `Type Assembly` of the `IFileNameFactory` implementation to use to generate the name of pages. Available implementations are:
 - `FullName` or `DefaultDocumentation.Markdown.FileNameFactories.FullNameFactory DefaultDocumentation.Markdown` uses the fully qualified name of each member
-- `Name` or `DefaultDocumentation.Markdown.FileNameFactories.NameFactory DefaultDocumentation.Markdown removes the namespace (collisions can happen if there is multiple types with the same name in different namespaces)
+- `Name` or `DefaultDocumentation.Markdown.FileNameFactories.NameFactory DefaultDocumentation.Markdown` removes the namespace (collisions can happen if there is multiple types with the same name in different namespaces)
 - `Md5` or `DefaultDocumentation.Markdown.FileNameFactories.Md5Factory DefaultDocumentation.Markdown` uses a Md5 of the full name of each member to produce shorter name, collisions can happen
 - `NameAndMd5Mix` or `DefaultDocumentation.Markdown.FileNameFactories.NameAndMd5MixFactory DefaultDocumentation.Markdown` removes the namespace and use a Md5 for parameters
-The default value is `FullName`.
+The default value is `FullName`. All those implementations *WILL* delete any `.md` file *EXCEPT* a file named `readme.md`.
 
 <a name='DocItemConfiguration_Sections'></a>
 ## Sections
