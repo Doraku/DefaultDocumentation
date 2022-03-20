@@ -478,6 +478,7 @@ The default value is `FullName`. All those implementations *WILL* delete any `.m
   - `ignorelinebreak` attribute used to change the default setting of [IgnoreLineBreak](#MarkdownConfiguration_IgnoreLineBreak) for the content of this element
 - `value` or `DefaultDocumentation.Markdown.Sections.ValueSection DefaultDocumentation.Markdown` to write the [`<value>`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#value) element
   - `ignorelinebreak` attribute used to change the default setting of [IgnoreLineBreak](#MarkdownConfiguration_IgnoreLineBreak) for the content of this element
+
 The default value is `Header|Default`.
 
 <a name='MarkdownConfiguration'></a>
