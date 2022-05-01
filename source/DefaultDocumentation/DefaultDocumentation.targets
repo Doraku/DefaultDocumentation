@@ -28,7 +28,8 @@
 		<PropertyGroup>
 			<_DefaultDocumentationConfigurationFile Condition="'$(DefaultDocumentationConfigurationFile)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationConfigurationFile)))</_DefaultDocumentationConfigurationFile>
 			<_DefaultDocumentationConfigurationFile Condition="'$(DefaultDocumentationConfigurationFile)' == ''">$(ProjectDir)DefaultDocumentation.json</_DefaultDocumentationConfigurationFile>
-			<_DefaultDocumentationDocumentationFile>$([System.IO.Path]::GetFullPath($(DocumentationFile)))</_DefaultDocumentationDocumentationFile>
+			<_DefaultDocumentationDocumentationFile Condition="'$(MSBuildProjectExtension)' != '.vbproj'">$([System.IO.Path]::GetFullPath($(DocumentationFile)))</_DefaultDocumentationDocumentationFile>
+			<_DefaultDocumentationDocumentationFile Condition="'$(MSBuildProjectExtension)' == '.vbproj'">$([System.IO.Path]::GetFullPath($(IntermediateOutputPath)$(DocumentationFile)))</_DefaultDocumentationDocumentationFile>
 			<_DefaultDocumentationFolder Condition="'$(DefaultDocumentationFolder)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationFolder)))</_DefaultDocumentationFolder>
 			<_DefaultDocumentationLinksOutputFile Condition="'$(DefaultDocumentationLinksOutputFile)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationLinksOutputFile)))</_DefaultDocumentationLinksOutputFile>
 		</PropertyGroup>
