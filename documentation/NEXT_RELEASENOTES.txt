@@ -1,3 +1,0 @@
-## Bug fixes
-
-- fixed documentation generation for vbproject (#106 thanks to @bwood4)
