@@ -279,7 +279,8 @@ States which item should have their own pages, if not their documentation will b
 
 <a name='Configuration_LinksOutputFilePath'></a>
 ## LinksOutputFilePath
-- csproj property: `<DefaultDocumentationLinksOutputFile>...</DefaultDocumentationLinksOutputFile>`
+- csproj property: `<
+sOutputFile>...</DefaultDocumentationLinksOutputFile>`
 - tool argument: `-l ...` `--LinksOutputFilePath ...`
 - configuration file: `"LinksOutputFilePath": "..."`
 
@@ -295,7 +296,7 @@ The base url to use for the links file, see [Extern links](#Overview_Links) for 
 
 <a name='Configuration_ExternLinksFilePaths'></a>
 ## ExternLinksFilePaths
-- csproj property: `<DefaultDocumentationLinksBaseUrl>...</DefaultDocumentationLinksBaseUrl>`
+- csproj property: `<DefaultDocumentationExternLinksFiles>...|...</DefaultDocumentationExternLinksFiles>`
 - tool argument: `-e ...|...` `--ExternLinksFilePaths ...|...`
 - configuration file: `"ExternLinksFilePaths": [ "...", "..." ]`
 
