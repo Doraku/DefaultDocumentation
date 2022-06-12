@@ -1,0 +1,3 @@
+## Bug fixes
+
+- fixed cmd usage with default markdown plugin loading (#109 thanks to @aremes)

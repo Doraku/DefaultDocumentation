@@ -116,15 +116,11 @@ namespace DefaultDocumentation
             _context = new GeneralContext(
                 _configuration,
                 new[] { typeof(Markdown.Writers.MarkdownWriter).Assembly }
-                    .Concat(
-                        (GetSetting<string[]>(nameof(settings.Plugins)) ?? Enumerable.Empty<string>())
-                        .Select(Assembly.LoadFrom)
-                    )
+                    .Concat((GetSetting<string[]>(nameof(settings.Plugins)) ?? Enumerable.Empty<string>()).Select(Assembly.LoadFrom))
                     .SelectMany(a => a.GetTypes())
                     .ToArray(),
                 resolvedSettings,
                 DocItemReader.GetItems(resolvedSettings));
-
         }
 
         private void WritePage(DocItem item, StringBuilder builder)
