@@ -30,7 +30,7 @@ namespace DefaultDocumentation.Markdown.Internal
             }
         }
 
-        public static string Extract(string fileContent, string region)
+        public static string? Extract(string fileContent, string region)
         {
             (int start, int end)[] comments = GetComments(fileContent).ToArray();
 

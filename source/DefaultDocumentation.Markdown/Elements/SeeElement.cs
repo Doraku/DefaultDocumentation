@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
-using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
@@ -11,7 +11,7 @@ namespace DefaultDocumentation.Markdown.Elements
 
         public void Write(IWriter writer, XElement element)
         {
-            string @ref = element.GetCRefAttribute();
+            string? @ref = element.GetCRefAttribute();
             if (@ref is not null)
             {
                 writer.AppendLink(@ref, element.Value.NullIfEmpty());

@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
@@ -9,8 +10,8 @@ namespace DefaultDocumentation.Markdown.Elements
     {
         private static void WriteItem(IWriter writer, XElement element)
         {
-            XElement term = element.GetTerm();
-            XElement description = element.GetDescription();
+            XElement? term = element.GetTerm();
+            XElement? description = element.GetDescription();
 
             if (term is not null && description is not null)
             {
@@ -62,7 +63,7 @@ namespace DefaultDocumentation.Markdown.Elements
                 .EnsureLineStartAndAppendLine()
                 .Append("|");
 
-            foreach (XElement description in element.GetListHeader().GetTerms())
+            foreach (XElement description in element.GetListHeader()?.GetTerms() ?? Enumerable.Empty<XElement>())
             {
                 ++columnCount;
 

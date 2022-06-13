@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Xml.Linq;
-using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
@@ -16,7 +16,7 @@ namespace DefaultDocumentation.Markdown.Elements
                 return;
             }
 
-            string type = element.GetTypeAttribute()?.ToLower(CultureInfo.InvariantCulture);
+            string? type = element.GetTypeAttribute()?.ToLower(CultureInfo.InvariantCulture);
             string notePrefix = type switch
             {
                 "note" or "tip" or "caution" or "warning" or "important" => char.ToUpper(type[0], CultureInfo.InvariantCulture) + type.Substring(1),

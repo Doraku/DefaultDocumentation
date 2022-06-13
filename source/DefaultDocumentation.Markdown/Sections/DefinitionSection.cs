@@ -220,7 +220,7 @@ namespace DefaultDocumentation.Markdown.Sections
                             .Append(_baseTypeAmbience.ConvertType(baseType));
                     }
 
-                    foreach (IType @interface in item.Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface && t.GetDefinition().Accessibility == Accessibility.Public))
+                    foreach (IType @interface in item.Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface && t.GetDefinition()?.Accessibility == Accessibility.Public))
                     {
                         w
                             .AppendLine(baseType is null ? " :" : ",")

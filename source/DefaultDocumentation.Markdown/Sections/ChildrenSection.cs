@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Members;
 using DefaultDocumentation.Models.Parameters;
 using DefaultDocumentation.Models.Types;
-using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
@@ -22,7 +22,7 @@ namespace DefaultDocumentation.Markdown.Sections
             _title = title;
         }
 
-        protected virtual IEnumerable<T> GetChildren(IGeneralContext context, DocItem item) => context.GetChildren<T>(item);
+        protected virtual IEnumerable<T>? GetChildren(IGeneralContext context, DocItem item) => context.GetChildren<T>(item);
 
         public string Name { get; }
 
@@ -64,13 +64,13 @@ namespace DefaultDocumentation.Markdown.Sections
                         .AppendLink(item, item is TypeDocItem ? string.Join(".", item.GetParents().OfType<TypeDocItem>().Concat(Enumerable.Repeat(item, 1)).Select(i => i.Name)) : null)
                         .Append(" | ")
                         .SetDisplayAsSingleLine(true)
-                        .AppendAsMarkdown(item.Documentation.GetSummary())
+                        .AppendAsMarkdown(item.Documentation?.GetSummary())
                         .SetDisplayAsSingleLine(false)
                         .AppendLine(" |");
                 }
                 else
                 {
-                    foreach (ISection sectionWriter in writer.Context.GetSetting(item, c => c.Sections))
+                    foreach (ISection sectionWriter in writer.Context.GetSetting(item, c => c.Sections)!)
                     {
                         sectionWriter.Write(childWriter);
                     }
@@ -85,7 +85,7 @@ namespace DefaultDocumentation.Markdown.Sections
             : base("TypeParameters", "#### Type parameters")
         { }
 
-        protected override IEnumerable<TypeParameterDocItem> GetChildren(IGeneralContext context, DocItem item) => (item as ITypeParameterizedDocItem)?.TypeParameters;
+        protected override IEnumerable<TypeParameterDocItem>? GetChildren(IGeneralContext context, DocItem item) => (item as ITypeParameterizedDocItem)?.TypeParameters;
     }
 
     public sealed class ParametersSection : ChildrenSection<ParameterDocItem>
@@ -94,7 +94,7 @@ namespace DefaultDocumentation.Markdown.Sections
             : base("Parameters", "#### Parameters")
         { }
 
-        protected override IEnumerable<ParameterDocItem> GetChildren(IGeneralContext context, DocItem item) => (item as IParameterizedDocItem)?.Parameters;
+        protected override IEnumerable<ParameterDocItem>? GetChildren(IGeneralContext context, DocItem item) => (item as IParameterizedDocItem)?.Parameters;
     }
 
     public sealed class EnumFieldsSection : ChildrenSection<EnumFieldDocItem>

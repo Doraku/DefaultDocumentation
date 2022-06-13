@@ -9,7 +9,7 @@ namespace DefaultDocumentation.Markdown.Elements
 {
     public sealed class CodeElement : IElement
     {
-        private static string GetCode(ISettings settings, string source, string region = null)
+        private static string GetCode(ISettings settings, string source, string? region = null)
         {
             if (!Path.IsPathRooted(source) && settings.ProjectDirectory != null)
             {
@@ -21,10 +21,10 @@ namespace DefaultDocumentation.Markdown.Elements
                 throw new FileNotFoundException($"Unable to find code documentation file \"{source}\".");
             }
 
-            string code = File.ReadAllText(source);
+            string? code = File.ReadAllText(source);
             if (!string.IsNullOrEmpty(region))
             {
-                code = CodeRegion.Extract(code, region);
+                code = CodeRegion.Extract(code, region!);
                 if (code is null)
                 {
                     throw new InvalidOperationException($"Unable to find region \"{region}\" in file \"{source}\".");
@@ -44,7 +44,7 @@ namespace DefaultDocumentation.Markdown.Elements
                 return;
             }
 
-            string source = element.GetSourceAttribute();
+            string? source = element.GetSourceAttribute();
 
             writer
                 .EnsureLineStartAndAppendLine()

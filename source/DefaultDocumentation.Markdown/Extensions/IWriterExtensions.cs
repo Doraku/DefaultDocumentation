@@ -54,7 +54,7 @@ namespace DefaultDocumentation.Markdown.Extensions
             return writer;
         }
 
-        public static IWriter AppendUrl(this IWriter writer, string url, string displayedName = null, string tooltip = null)
+        public static IWriter AppendUrl(this IWriter writer, string url, string? displayedName = null, string? tooltip = null)
         {
             if (string.IsNullOrEmpty(url))
             {
@@ -75,9 +75,9 @@ namespace DefaultDocumentation.Markdown.Extensions
             return writer;
         }
 
-        public static IWriter AppendLink(this IWriter writer, DocItem item, string displayedName = null) => writer.AppendUrl(writer.Context.GetUrl(item), displayedName ?? item.Name, item.FullName);
+        public static IWriter AppendLink(this IWriter writer, DocItem item, string? displayedName = null) => writer.AppendUrl(writer.Context.GetUrl(item), displayedName ?? item.Name, item.FullName);
 
-        public static IWriter AppendLink(this IWriter writer, string id, string displayedName = null) =>
+        public static IWriter AppendLink(this IWriter writer, string id, string? displayedName = null) =>
             writer.Context.Items.TryGetValue(id, out DocItem item)
             ? writer.AppendLink(item, displayedName)
             : writer.AppendUrl(writer.Context.GetUrl(id), displayedName ?? id.Substring(2), id.Substring(2));
@@ -158,7 +158,7 @@ namespace DefaultDocumentation.Markdown.Extensions
                     TypeKind.FunctionPointer when type is FunctionPointerType functionPointerType => HandleFunctionPointer(functionPointerType),
                     TypeKind.Pointer when type is TypeWithElementType pointerType => writer.AppendLink(item, pointerType.ElementType).Append("*"),
                     TypeKind.ByReference when type is TypeWithElementType innerType => writer.AppendLink(item, innerType.ElementType),
-                    TypeKind.TypeParameter => item.TryGetTypeParameterDocItem(type.Name, out TypeParameterDocItem typeParameter) ? writer.AppendLink(typeParameter) : writer.Append(type.Name),
+                    TypeKind.TypeParameter => item.TryGetTypeParameterDocItem(type.Name, out TypeParameterDocItem? typeParameter) ? writer.AppendLink(typeParameter) : writer.Append(type.Name),
                     TypeKind.Dynamic => writer.AppendUrl("https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/using-type-dynamic", "dynamic"),
                     TypeKind.Tuple when type is TupleType tupleType => HandleTupleType(tupleType),
                     TypeKind.Unknown => writer.AppendLink("T:" + type.FullName),
@@ -180,7 +180,7 @@ namespace DefaultDocumentation.Markdown.Extensions
             .EnsureLineStart()
             .AppendLine();
 
-        public static IWriter AppendAsMarkdown(this IWriter writer, XElement element)
+        public static IWriter AppendAsMarkdown(this IWriter writer, XElement? element)
         {
             new MarkdownWriter(writer)
                 .SetIgnoreLineBreakLine(element?.GetIgnoreLineBreak())

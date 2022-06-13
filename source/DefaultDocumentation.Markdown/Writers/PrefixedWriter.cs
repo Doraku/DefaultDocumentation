@@ -1,6 +1,6 @@
 ﻿using System;
-using DefaultDocumentation.Models;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.Writers
 {
@@ -27,7 +27,7 @@ namespace DefaultDocumentation.Markdown.Writers
             set => _writer.Length = value;
         }
 
-        public object this[string key]
+        public object? this[string key]
         {
             get => _writer[key];
             set => _writer[key] = value;

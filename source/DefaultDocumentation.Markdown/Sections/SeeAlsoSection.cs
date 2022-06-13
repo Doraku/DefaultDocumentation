@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Xml.Linq;
-using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
@@ -23,7 +23,7 @@ namespace DefaultDocumentation.Markdown.Sections
                         .Append("### See Also");
                 }
 
-                string @ref = seeAlso.GetCRefAttribute();
+                string? @ref = seeAlso.GetCRefAttribute();
                 if (@ref is not null)
                 {
                     writer

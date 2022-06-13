@@ -17,7 +17,7 @@ namespace DefaultDocumentation.Markdown.Sections
         {
             DocItem currentItem = writer.GetCurrentItem();
 
-            Action<IWriter> action = currentItem switch
+            Action<IWriter>? action = currentItem switch
             {
                 AssemblyDocItem => w => w.Append($"## {currentItem.Name} Assembly"),
                 NamespaceDocItem => w => w.Append($"## {currentItem.Name} Namespace"),

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models.Members;
 using DefaultDocumentation.Models.Types;
-using DefaultDocumentation.Api;
 using ICSharpCode.Decompiler.Documentation;
 using ICSharpCode.Decompiler.TypeSystem;
 
@@ -24,14 +24,14 @@ namespace DefaultDocumentation.Markdown.Sections
                     .GetAllBaseTypeDefinitions()
                     .Reverse()
                     .Skip(1)
-                    .Where(t => t.Kind == TypeKind.Interface && t.GetDefinition().Accessibility == Accessibility.Public)
+                    .Where(t => t.Kind == TypeKind.Interface && t.GetDefinition()?.Accessibility == Accessibility.Public)
                     .SelectMany(t => t.Members)
                     .Where(e => e.GetIdString().Substring(e.DeclaringTypeDefinition.GetIdString().Length) == id);
             }
 
             List<INamedElement> implementations = (writer.GetCurrentItem() switch
             {
-                TypeDocItem typeItem => typeItem.Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface && t.GetDefinition().Accessibility == Accessibility.Public).OfType<INamedElement>(),
+                TypeDocItem typeItem => typeItem.Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface && t.GetDefinition()?.Accessibility == Accessibility.Public).OfType<INamedElement>(),
                 PropertyDocItem propertyItem => GetImplementation(propertyItem.Property),
                 MethodDocItem methodItem => GetImplementation(methodItem.Method),
                 EventDocItem eventItem => GetImplementation(eventItem.Event),

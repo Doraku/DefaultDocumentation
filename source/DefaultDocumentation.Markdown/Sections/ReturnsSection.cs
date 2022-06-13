@@ -1,7 +1,7 @@
-﻿using DefaultDocumentation.Markdown.Extensions;
+﻿using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models.Members;
 using DefaultDocumentation.Models.Types;
-using DefaultDocumentation.Api;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
@@ -12,7 +12,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         public void Write(IWriter writer)
         {
-            IType returnType = writer.GetCurrentItem() switch
+            IType? returnType = writer.GetCurrentItem() switch
             {
                 DelegateDocItem delegateItem => delegateItem.InvokeMethod.ReturnType,
                 MethodDocItem methodItem => methodItem.Method.ReturnType,

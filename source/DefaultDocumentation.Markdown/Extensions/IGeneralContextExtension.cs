@@ -26,7 +26,7 @@ namespace DefaultDocumentation
 
         public static bool GetRemoveFileExtensionFromUrl(this IGeneralContext context) => context.GetSetting<bool>(RemoveFileExtensionFromUrlKey);
 
-        public static string GetInvalidCharReplacement(this IGeneralContext context) => context.GetSetting<string>(InvalidCharReplacementKey);
+        public static string? GetInvalidCharReplacement(this IGeneralContext context) => context.GetSetting<string>(InvalidCharReplacementKey);
 
         public static IEnumerable<T> GetChildren<T>(this IGeneralContext context, DocItem item)
             where T : DocItem

@@ -9,7 +9,7 @@ namespace DefaultDocumentation.Markdown.UrlFactories
     {
         public string Name => "DocItem";
 
-        public string GetUrl(IGeneralContext context, string id)
+        public string? GetUrl(IGeneralContext context, string id)
         {
             if (!context.Items.TryGetValue(id, out DocItem item))
             {
@@ -24,7 +24,7 @@ namespace DefaultDocumentation.Markdown.UrlFactories
             DocItem pagedItem = item;
             while (!pagedItem.HasOwnPage(context))
             {
-                pagedItem = pagedItem.Parent;
+                pagedItem = pagedItem.Parent!;
             }
 
             string url = context.GetFileName(pagedItem);

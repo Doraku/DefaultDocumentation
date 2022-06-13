@@ -8,7 +8,7 @@ namespace DefaultDocumentation.Markdown.Internal
         private static readonly string[] toTrimChars = new[] { '=', ' ' }.Select(c => $"{c}").ToArray();
         private static readonly string[] invalidChars = new[] { '\"', '<', '>', ':', '*', '?' }.Concat(Path.GetInvalidPathChars()).Select(c => $"{c}").ToArray();
 
-        public static string Clean(string value, string invalidCharReplacement)
+        public static string Clean(string value, string? invalidCharReplacement)
         {
             foreach (string toTrimChar in toTrimChars)
             {

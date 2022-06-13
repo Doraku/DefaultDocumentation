@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using DefaultDocumentation.Models;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.Writers
 {
@@ -15,12 +15,12 @@ namespace DefaultDocumentation.Markdown.Writers
         }
 
         private readonly IWriter _writer;
-        private readonly Dictionary<string, object> _data;
+        private readonly Dictionary<string, object?> _data;
 
         public OverrideWriter(IWriter writer)
         {
             _writer = writer;
-            _data = new Dictionary<string, object>(new StringComparer());
+            _data = new Dictionary<string, object?>(new StringComparer());
         }
 
         #region IWriter
@@ -35,9 +35,9 @@ namespace DefaultDocumentation.Markdown.Writers
             set => _writer.Length = value;
         }
 
-        public object this[string key]
+        public object? this[string key]
         {
-            get => (_data.TryGetValue(key, out object value) ? value : null) ?? _writer[key];
+            get => (_data.TryGetValue(key, out object? value) ? value : null) ?? _writer[key];
             set => _data[key] = value;
         }
 

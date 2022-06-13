@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Xml.Linq;
-using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
@@ -22,14 +22,17 @@ namespace DefaultDocumentation.Markdown.Sections
                         .Append("#### Exceptions");
                 }
 
-                string cref = exception.GetCRefAttribute();
+                string? cref = exception.GetCRefAttribute();
 
-                writer
-                    .AppendLine()
-                    .AppendLine()
-                    .AppendLink(cref)
-                    .AppendLine("  ")
-                    .AppendAsMarkdown(exception);
+                if (cref != null)
+                {
+                    writer
+                        .AppendLine()
+                        .AppendLine()
+                        .AppendLink(cref)
+                        .AppendLine("  ")
+                        .AppendAsMarkdown(exception);
+                }
             }
         }
     }
