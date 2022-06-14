@@ -9,12 +9,24 @@ using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.FileNameFactories
 {
+    /// <summary>
+    /// Base implementation of the <see cref="IFileNameFactory"/> to generate file with a <c>.md</c> extension.
+    /// It will also replace invalid char that may be present with the <see href="https://github.com/Doraku/DefaultDocumentation#invalidcharreplacement">Markdown.InvalidCharReplacement</see> setting.
+    /// </summary>
     public abstract class AMarkdownFactory : IFileNameFactory
     {
+        /// <inheritdoc/>
         public abstract string Name { get; }
 
+        /// <summary>
+        /// Gets the file name to use for the given <see cref="DocItem"/>.
+        /// </summary>
+        /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation generation process.</param>
+        /// <param name="item">The <see cref="DocItem"/> for which to get the documentation file name.</param>
+        /// <returns>The file name to use.</returns>
         protected abstract string GetMarkdownFileName(IGeneralContext context, DocItem item);
 
+        /// <inheritdoc/>
         public void Clean(IGeneralContext context)
         {
             context.Settings.Logger.Debug($"Cleaning output folder \"{context.Settings.OutputDirectory}\"");
@@ -53,6 +65,7 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
             }
         }
 
+        /// <inheritdoc/>
         public string GetFileName(IGeneralContext context, DocItem item) => PathCleaner.Clean(item is AssemblyDocItem ? item.FullName : GetMarkdownFileName(context, item), context.GetInvalidCharReplacement()) + ".md";
     }
 }

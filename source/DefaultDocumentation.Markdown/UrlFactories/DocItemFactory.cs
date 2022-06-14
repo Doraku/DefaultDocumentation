@@ -5,10 +5,20 @@ using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.UrlFactories
 {
+    /// <summary>
+    /// Handles id for known <see cref="DocItem"/>.
+    /// </summary>
     public sealed class DocItemFactory : IUrlFactory
     {
-        public string Name => "DocItem";
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "DocItem";
 
+        /// <inheritdoc/>
+        public string Name => ConfigName;
+
+        /// <inheritdoc/>
         public string? GetUrl(IGeneralContext context, string id)
         {
             if (!context.Items.TryGetValue(id, out DocItem item))

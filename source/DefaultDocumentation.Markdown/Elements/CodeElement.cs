@@ -7,6 +7,9 @@ using DefaultDocumentation.Markdown.Internal;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
+    /// <summary>
+    /// Handles <c>code</c> xml element.
+    /// </summary>
     public sealed class CodeElement : IElement
     {
         private static string GetCode(ISettings settings, string source, string? region = null)
@@ -35,8 +38,10 @@ namespace DefaultDocumentation.Markdown.Elements
             return code.Replace("\r", string.Empty);
         }
 
+        /// <inheritdoc/>
         public string Name => "code";
 
+        /// <inheritdoc/>
         public void Write(IWriter writer, XElement element)
         {
             if (writer.GetDisplayAsSingleLine())

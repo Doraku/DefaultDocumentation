@@ -6,6 +6,9 @@ using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
+    /// <summary>
+    /// Handles <c>list</c> xml element.
+    /// </summary>
     public sealed class ListElement : IElement
     {
         private static void WriteItem(IWriter writer, XElement element)
@@ -105,8 +108,10 @@ namespace DefaultDocumentation.Markdown.Elements
             }
         }
 
+        /// <inheritdoc/>
         public string Name => "list";
 
+        /// <inheritdoc/>
         public void Write(IWriter writer, XElement element)
         {
             if (writer.GetDisplayAsSingleLine())

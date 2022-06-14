@@ -6,10 +6,20 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
+    /// <summary>
+    /// <see cref="ISection"/> implementation to write the <c>returns</c> top level element.
+    /// </summary>
     public sealed class ReturnsSection : ISection
     {
-        public string Name => "returns";
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "returns";
 
+        /// <inheritdoc/>
+        public string Name => ConfigName;
+
+        /// <inheritdoc/>
         public void Write(IWriter writer)
         {
             IType? returnType = writer.GetCurrentItem() switch

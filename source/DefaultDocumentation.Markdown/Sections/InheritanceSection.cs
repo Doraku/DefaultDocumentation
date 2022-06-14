@@ -1,15 +1,25 @@
 ﻿using System.Linq;
+using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models.Types;
-using DefaultDocumentation.Api;
 using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
+    /// <summary>
+    /// <see cref="ISection"/> implementation to write the types inherited by the <see cref="TypeDocItem"/>.
+    /// </summary>
     public sealed class InheritanceSection : ISection
     {
-        public string Name => "Inheritance";
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "Inheritance";
 
+        /// <inheritdoc/>
+        public string Name => ConfigName;
+
+        /// <inheritdoc/>
         public void Write(IWriter writer)
         {
             if (writer.GetCurrentItem() is TypeDocItem typeItem && typeItem.Type.Kind == TypeKind.Class)

@@ -6,10 +6,20 @@ using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.FileNameFactories
 {
+    /// <summary>
+    /// <see cref="Api.IFileNameFactory"/> implementation using <see cref="DocItem.Name"/> and an md5 on the <see cref="DocItem.FullName"/> as file name.
+    /// </summary>
     public sealed class NameAndMd5MixFactory : AMarkdownFactory
     {
-        public override string Name => "NameAndMd5Mix";
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "NameAndMd5Mix";
 
+        /// <inheritdoc/>
+        public override string Name => ConfigName;
+
+        /// <inheritdoc/>
         protected override string GetMarkdownFileName(IGeneralContext context, DocItem item)
         {
             using MD5 md5 = MD5.Create();

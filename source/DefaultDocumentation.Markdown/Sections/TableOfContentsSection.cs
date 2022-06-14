@@ -1,26 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
+using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Members;
 using DefaultDocumentation.Models.Parameters;
 using DefaultDocumentation.Models.Types;
-using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
+    /// <summary>
+    /// <see cref="ISection"/> implementation to write a table of content of all children of the <see cref="DocItem"/>.
+    /// </summary>
     public sealed class TableOfContentsSection : ISection
     {
+        /// <summary>
+        /// The different options to customize the table of contents.
+        /// </summary>
         [Flags]
         public enum Modes
         {
+            /// <summary>
+            /// Default generation.
+            /// </summary>
             None = 0,
+            /// <summary>
+            /// <see cref="DocItem"/> will appear in their kind section.
+            /// </summary>
             Grouped = 1 << 0,
+            /// <summary>
+            /// The kind of each <see cref="DocItem"/> will appear explicitely.
+            /// </summary>
             IncludeKind = 1 << 1,
+            /// <summary>
+            /// The summary of each <see cref="DocItem"/> will be displayed.
+            /// </summary>
             IncludeSummary = 1 << 2,
+            /// <summary>
+            /// There should be a new line when displaying the summary of the <see cref="DocItem"/>.
+            /// </summary>
             IncludeNewLine = 1 << 3,
+            /// <summary>
+            /// Same as <see cref="IncludeSummary"/> and <see cref="IncludeNewLine"/>
+            /// </summary>
             IncludeSummaryWithNewLine = IncludeSummary | IncludeNewLine
         }
+
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "TableOfContents";
 
         private static void Write(IWriter writer, Modes modes, DocItem item)
         {
@@ -97,8 +126,10 @@ namespace DefaultDocumentation.Markdown.Sections
             }
         }
 
-        public string Name => "TableOfContents";
+        /// <inheritdoc/>
+        public string Name => ConfigName;
 
+        /// <inheritdoc/>
         public void Write(IWriter writer)
         {
             Modes modes = writer.Context.GetSetting(writer.GetCurrentItem(), c => c.GetSetting<Modes?>("Markdown.TableOfContentsModes")).GetValueOrDefault();

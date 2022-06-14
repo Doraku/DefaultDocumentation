@@ -3,10 +3,20 @@ using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.UrlFactories
 {
+    /// <summary>
+    /// Transforms any id as a dotnet api url.
+    /// </summary>
     public sealed class DotnetApiFactory : IUrlFactory
     {
-        public string Name => "DotnetApi";
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "DotnetApi";
 
+        /// <inheritdoc/>
+        public string Name => ConfigName;
+
+        /// <inheritdoc/>
         public string GetUrl(IGeneralContext context, string id)
         {
             id = id.Substring(2);

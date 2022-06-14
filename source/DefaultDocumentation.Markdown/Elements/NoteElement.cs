@@ -5,10 +5,15 @@ using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
+    /// <summary>
+    /// Handles <c>note</c> xml element.
+    /// </summary>
     public sealed class NoteElement : IElement
     {
+        /// <inheritdoc/>
         public string Name => "note";
 
+        /// <inheritdoc/>
         public void Write(IWriter writer, XElement element)
         {
             if (writer.GetDisplayAsSingleLine())

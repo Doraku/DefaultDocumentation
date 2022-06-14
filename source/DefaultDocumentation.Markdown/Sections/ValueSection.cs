@@ -1,13 +1,23 @@
-﻿using DefaultDocumentation.Markdown.Extensions;
+﻿using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models.Members;
-using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
+    /// <summary>
+    /// <see cref="ISection"/> implementation to write the <c>value</c> top level element.
+    /// </summary>
     public sealed class ValueSection : ISection
     {
-        public string Name => "value";
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "value";
 
+        /// <inheritdoc/>
+        public string Name => ConfigName;
+
+        /// <inheritdoc/>
         public void Write(IWriter writer)
         {
             if (writer.GetCurrentItem() is PropertyDocItem propertyItem)

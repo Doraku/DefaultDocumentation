@@ -5,10 +5,15 @@ using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
+    /// <summary>
+    /// Handles <c>see</c> xml element.
+    /// </summary>
     public sealed class SeeElement : IElement
     {
+        /// <inheritdoc/>
         public string Name => "see";
 
+        /// <inheritdoc/>
         public void Write(IWriter writer, XElement element)
         {
             string? @ref = element.GetCRefAttribute();

@@ -6,10 +6,15 @@ using DefaultDocumentation.Models.Parameters;
 
 namespace DefaultDocumentation.Markdown.Elements
 {
+    /// <summary>
+    /// Handles <c>typeparamref</c> xml element.
+    /// </summary>
     public sealed class TypeParamRefElement : IElement
     {
+        /// <inheritdoc/>
         public string Name => "typeparamref";
 
+        /// <inheritdoc/>
         public void Write(IWriter writer, XElement element)
         {
             string? name = element.GetNameAttribute();

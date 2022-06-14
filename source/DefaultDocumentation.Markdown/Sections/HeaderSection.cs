@@ -1,14 +1,24 @@
 ﻿using System.Linq;
+using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models;
-using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
+    /// <summary>
+    /// <see cref="ISection"/> implementation to write a link to the top level documentation page.
+    /// </summary>
     public sealed class HeaderSection : ISection
     {
-        public string Name => "Header";
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "Header";
 
+        /// <inheritdoc/>
+        public string Name => ConfigName;
+
+        /// <inheritdoc/>
         public void Write(IWriter writer)
         {
             if (writer.GetCurrentItem() != writer.DocItem)

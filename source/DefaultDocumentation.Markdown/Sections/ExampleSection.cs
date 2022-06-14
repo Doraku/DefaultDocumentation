@@ -4,10 +4,20 @@ using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
+    /// <summary>
+    /// <see cref="ISection"/> implementation to write the <c>example</c> top level element.
+    /// </summary>
     public sealed class ExampleSection : ISection
     {
-        public string Name => "example";
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "example";
 
+        /// <inheritdoc/>
+        public string Name => ConfigName;
+
+        /// <inheritdoc/>
         public void Write(IWriter writer)
         {
             XElement? example = writer.GetCurrentItem().Documentation?.Element(Name);

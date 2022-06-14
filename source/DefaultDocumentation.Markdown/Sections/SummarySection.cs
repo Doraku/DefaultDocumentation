@@ -1,14 +1,24 @@
-﻿using DefaultDocumentation.Markdown.Extensions;
+﻿using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Parameters;
-using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
+    /// <summary>
+    /// <see cref="ISection"/> implementation to write the <c>summary</c> top level element.
+    /// </summary>
     public sealed class SummarySection : ISection
     {
-        public string Name => "summary";
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "summary";
 
+        /// <inheritdoc/>
+        public string Name => ConfigName;
+
+        /// <inheritdoc/>
         public void Write(IWriter writer)
         {
             writer

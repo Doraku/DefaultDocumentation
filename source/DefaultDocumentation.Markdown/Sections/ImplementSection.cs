@@ -9,10 +9,20 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
+    /// <summary>
+    /// <see cref="ISection"/> implementation to write the types/members implemented by the <see cref="Models.DocItem"/>.
+    /// </summary>
     public sealed class ImplementSection : ISection
     {
-        public string Name => "Implement";
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "Implement";
 
+        /// <inheritdoc/>
+        public string Name => ConfigName;
+
+        /// <inheritdoc/>
         public void Write(IWriter writer)
         {
             IEnumerable<INamedElement> GetImplementation(IMember member)

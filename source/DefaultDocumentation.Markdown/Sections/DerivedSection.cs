@@ -1,16 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models.Types;
-using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
+    /// <summary>
+    /// <see cref="ISection"/> implementation to write the derived type of <see cref="TypeDocItem"/>.
+    /// </summary>
     public sealed class DerivedSection : ISection
     {
-        public string Name => "Derived";
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "Derived";
 
+        /// <inheritdoc/>
+        public string Name => ConfigName;
+
+        /// <inheritdoc/>
         public void Write(IWriter writer)
         {
             if (writer.GetCurrentItem() is TypeDocItem typeItem)

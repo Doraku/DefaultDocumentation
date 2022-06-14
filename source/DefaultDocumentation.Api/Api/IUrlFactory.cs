@@ -1,7 +1,7 @@
 ﻿namespace DefaultDocumentation.Api
 {
     /// <summary>
-    /// Exposes methods related to the documentation files cleaning and creation.
+    /// Exposes methods related to the documentation files url creation.
     /// </summary>
     public interface IUrlFactory
     {
@@ -11,7 +11,7 @@
         string Name { get; }
 
         /// <summary>
-        /// Gets thr url of the given id.
+        /// Gets the url of the given id. Returns null of the instance does not know how to handle the provided id.
         /// </summary>
         /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation generation process.</param>
         /// <param name="id">The id to get the url for.</param>

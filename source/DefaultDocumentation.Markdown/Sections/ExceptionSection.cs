@@ -5,10 +5,20 @@ using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
+    /// <summary>
+    /// <see cref="ISection"/> implementation to write the <c>exception</c> top level elements.
+    /// </summary>
     public sealed class ExceptionSection : ISection
     {
-        public string Name => "exception";
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "exception";
 
+        /// <inheritdoc/>
+        public string Name => ConfigName;
+
+        /// <inheritdoc/>
         public void Write(IWriter writer)
         {
             bool titleWritten = false;

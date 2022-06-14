@@ -12,8 +12,16 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
+    /// <summary>
+    /// <see cref="ISection"/> implementation to write the definition of <see cref="DocItem"/>.
+    /// </summary>
     public sealed class DefinitionSection : ISection
     {
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "Definition";
+
         private static readonly CSharpAmbience _typeAmbience = new()
         {
             ConversionFlags =
@@ -99,9 +107,10 @@ namespace DefaultDocumentation.Markdown.Sections
                 | ConversionFlags.ShowReturnType
         };
 
-        public string Name => "Definition";
+        /// <inheritdoc/>
+        public string Name => ConfigName;
 
-        public static void WriteConstraints(IWriter writer, ITypeParameterizedDocItem item)
+        private static void WriteConstraints(IWriter writer, ITypeParameterizedDocItem item)
         {
             static void WriteWhere(IWriter writer, ITypeParameter typeParameter, ref bool whereWritten, string constraint)
             {
@@ -157,6 +166,7 @@ namespace DefaultDocumentation.Markdown.Sections
             }
         }
 
+        /// <inheritdoc/>
         public void Write(IWriter writer)
         {
             static IWriter Write(IWriter writer, Action<IWriter> writeAction)

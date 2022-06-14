@@ -9,10 +9,20 @@ using ICSharpCode.Decompiler.TypeSystem;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
+    /// <summary>
+    /// <see cref="ISection"/> implementation to write a title of the <see cref="DocItem"/>.
+    /// </summary>
     public sealed class TitleSection : ISection
     {
-        public string Name => "Title";
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "Title";
 
+        /// <inheritdoc/>
+        public string Name => ConfigName;
+
+        /// <inheritdoc/>
         public void Write(IWriter writer)
         {
             DocItem currentItem = writer.GetCurrentItem();

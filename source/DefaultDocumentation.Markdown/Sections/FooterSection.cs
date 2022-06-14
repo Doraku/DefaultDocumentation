@@ -1,12 +1,22 @@
-﻿using DefaultDocumentation.Markdown.Extensions;
-using DefaultDocumentation.Api;
+﻿using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Sections
 {
+    /// <summary>
+    /// <see cref="ISection"/> implementation to write a link to <see href="https://github.com/Doraku/DefaultDocumentation">DefaultDocumentation</see>.
+    /// </summary>
     public sealed class FooterSection : ISection
     {
-        public string Name => "Footer";
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "Footer";
 
+        /// <inheritdoc/>
+        public string Name => ConfigName;
+
+        /// <inheritdoc/>
         public void Write(IWriter writer)
         {
             if (writer.GetCurrentItem() != writer.DocItem)
