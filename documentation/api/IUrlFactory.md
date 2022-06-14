@@ -3,7 +3,7 @@
 
 ## IUrlFactory Interface
 
-Exposes methods related to the documentation files cleaning and creation.
+Exposes methods related to the documentation files url creation.
 
 ```csharp
 public interface IUrlFactory
@@ -15,4 +15,4 @@ public interface IUrlFactory
 
 | Methods | |
 | :--- | :--- |
-| [GetUrl(IGeneralContext, string)](IUrlFactory.GetUrl(IGeneralContext,string).md 'DefaultDocumentation.Api.IUrlFactory.GetUrl(DefaultDocumentation.IGeneralContext, string)') | Gets thr url of the given id. |
+| [GetUrl(IGeneralContext, string)](IUrlFactory.GetUrl(IGeneralContext,string).md 'DefaultDocumentation.Api.IUrlFactory.GetUrl(DefaultDocumentation.IGeneralContext, string)') | Gets the url of the given id. Returns null of the instance does not know how to handle the provided id. |

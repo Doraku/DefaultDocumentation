@@ -51,7 +51,9 @@ jobs:
       run: echo "" | Out-File documentation\NEXT_RELEASENOTES.txt -NoNewLine
 
     - name: Generate documentation
-      run: dotnet run --project source\DefaultDocumentation.Console\DefaultDocumentation.Console.csproj --framework net6.0 -c Release --ConfigurationFilePath source\DefaultDocumentation.Api\DefaultDocumentation.json
+      run: |
+        dotnet run --project source\DefaultDocumentation.Console\DefaultDocumentation.Console.csproj --framework net6.0 -c Release --ConfigurationFilePath source\DefaultDocumentation.Api\DefaultDocumentation.json
+        dotnet run --project source\DefaultDocumentation.Console\DefaultDocumentation.Console.csproj --framework net6.0 -c Release --ConfigurationFilePath source\DefaultDocumentation.Markdown\DefaultDocumentation.json
       
     - name: Publish packages
       run: dotnet nuget push build\*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json

@@ -3,7 +3,7 @@
 
 ## IUrlFactory.GetUrl(IGeneralContext, string) Method
 
-Gets thr url of the given id.
+Gets the url of the given id. Returns null of the instance does not know how to handle the provided id.
 
 ```csharp
 string? GetUrl(DefaultDocumentation.IGeneralContext context, string id);

@@ -84,9 +84,9 @@ The [DefaultDocumentation.Api](index.md#DefaultDocumentation.Api 'DefaultDocumen
 - **[ISection](ISection.md 'DefaultDocumentation.Api.ISection')** `Interface` Exposes a method to write a specific section when writing documentation.
   - **[Name](ISection.Name.md 'DefaultDocumentation.Api.ISection.Name')** `Property` Gets the name of the section, used to identify it at the configuration level.
   - **[Write(IWriter)](ISection.Write(IWriter).md 'DefaultDocumentation.Api.ISection.Write(DefaultDocumentation.Api.IWriter)')** `Method` Writes the section to a given [IWriter](IWriter.md 'DefaultDocumentation.Api.IWriter').
-- **[IUrlFactory](IUrlFactory.md 'DefaultDocumentation.Api.IUrlFactory')** `Interface` Exposes methods related to the documentation files cleaning and creation.
+- **[IUrlFactory](IUrlFactory.md 'DefaultDocumentation.Api.IUrlFactory')** `Interface` Exposes methods related to the documentation files url creation.
   - **[Name](IUrlFactory.Name.md 'DefaultDocumentation.Api.IUrlFactory.Name')** `Property` Gets the name of the factory, used to identify it at the configuration level.
-  - **[GetUrl(IGeneralContext, string)](IUrlFactory.GetUrl(IGeneralContext,string).md 'DefaultDocumentation.Api.IUrlFactory.GetUrl(DefaultDocumentation.IGeneralContext, string)')** `Method` Gets thr url of the given id.
+  - **[GetUrl(IGeneralContext, string)](IUrlFactory.GetUrl(IGeneralContext,string).md 'DefaultDocumentation.Api.IUrlFactory.GetUrl(DefaultDocumentation.IGeneralContext, string)')** `Method` Gets the url of the given id. Returns null of the instance does not know how to handle the provided id.
 - **[IWriter](IWriter.md 'DefaultDocumentation.Api.IWriter')** `Interface` Exposes properties and methods use to generate a documentation file for a specific [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem').
   - **[Context](IWriter.Context.md 'DefaultDocumentation.Api.IWriter.Context')** `Property` Gets the [IGeneralContext](IGeneralContext.md 'DefaultDocumentation.IGeneralContext') of the current documentation generation process.
   - **[DocItem](IWriter.DocItem.md 'DefaultDocumentation.Api.IWriter.DocItem')** `Property` Gets the [DocItem](DocItem.md 'DefaultDocumentation.Models.DocItem') for which the documentation is being generated.

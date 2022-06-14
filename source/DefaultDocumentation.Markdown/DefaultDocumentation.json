@@ -1,0 +1,21 @@
+﻿{
+	"AssemblyFilePath": "bin\\Release\\netstandard2.0\\DefaultDocumentation.Markdown.dll",
+	"OutputDirectoryPath": "..\\..\\documentation\\markdown",
+	"GeneratedAccessModifiers": "Public,Protected,ProtectedInternal",
+	"GeneratedPages": "Assembly,Types,Members",
+	"FileNameFactory": "Name",
+	"ExternLinksFilePaths": [
+		"..\\..\\documentation\\ICSharpCode.Decompiler.txt",
+		"..\\..\\documentation\\DefaultDocumentation.Api.txt"
+	],
+	"LinksOutputFilePath": "..\\..\\documentation\\DefaultDocumentation.Markdown.txt",
+	"LinksBaseUrl": "https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/markdown/",
+	"NamespaceDocItem": {
+		"Sections": [
+			"Title",
+			"summary",
+			"TableOfContents"
+		],
+		"Markdown.TableOfContentsModes": "IncludeKind,IncludeSummary"
+	}
+}

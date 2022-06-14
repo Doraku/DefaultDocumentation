@@ -1,0 +1,251 @@
+https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/markdown/
+M:DefaultDocumentation.IGeneralContextExtension.GetNestedTypeVisibilities(DefaultDocumentation.IGeneralContext,System.Type)|IGeneralContextExtension.GetNestedTypeVisibilities(thisIGeneralContext,Type).md|GetNestedTypeVisibilities(this IGeneralContext, Type)
+M:DefaultDocumentation.IGeneralContextExtension.GetRemoveFileExtensionFromUrl(DefaultDocumentation.IGeneralContext)|IGeneralContextExtension.GetRemoveFileExtensionFromUrl(thisIGeneralContext).md|GetRemoveFileExtensionFromUrl(this IGeneralContext)
+M:DefaultDocumentation.IGeneralContextExtension.GetInvalidCharReplacement(DefaultDocumentation.IGeneralContext)|IGeneralContextExtension.GetInvalidCharReplacement(thisIGeneralContext).md|GetInvalidCharReplacement(this IGeneralContext)
+M:DefaultDocumentation.IGeneralContextExtension.GetChildren``1(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem)|IGeneralContextExtension.GetChildren_T_(thisIGeneralContext,DocItem).md|GetChildren<T>(this IGeneralContext, DocItem)
+N:DefaultDocumentation|index.md#DefaultDocumentation|DefaultDocumentation
+T:DefaultDocumentation.IGeneralContextExtension|IGeneralContextExtension.md|IGeneralContextExtension
+F:DefaultDocumentation.NestedTypeVisibilities.Default|NestedTypeVisibilities.md#DefaultDocumentation.NestedTypeVisibilities.Default|Default
+F:DefaultDocumentation.NestedTypeVisibilities.Namespace|NestedTypeVisibilities.md#DefaultDocumentation.NestedTypeVisibilities.Namespace|Namespace
+F:DefaultDocumentation.NestedTypeVisibilities.DeclaringType|NestedTypeVisibilities.md#DefaultDocumentation.NestedTypeVisibilities.DeclaringType|DeclaringType
+T:DefaultDocumentation.NestedTypeVisibilities|NestedTypeVisibilities.md|NestedTypeVisibilities
+M:DefaultDocumentation.Models.DocItemExtension.GetLongName(DefaultDocumentation.Models.DocItem)|DocItemExtension.GetLongName(thisDocItem).md|GetLongName(this DocItem)
+N:DefaultDocumentation.Models|index.md#DefaultDocumentation.Models|DefaultDocumentation.Models
+T:DefaultDocumentation.Models.DocItemExtension|DocItemExtension.md|DocItemExtension
+P:DefaultDocumentation.Markdown.Writers.MarkdownWriter.Context|MarkdownWriter.Context.md|Context
+P:DefaultDocumentation.Markdown.Writers.MarkdownWriter.DocItem|MarkdownWriter.DocItem.md|DocItem
+P:DefaultDocumentation.Markdown.Writers.MarkdownWriter.Length|MarkdownWriter.Length.md|Length
+P:DefaultDocumentation.Markdown.Writers.MarkdownWriter.Item(System.String)|MarkdownWriter.this[string].md|this[string]
+M:DefaultDocumentation.Markdown.Writers.MarkdownWriter.#ctor(DefaultDocumentation.Api.IWriter)|MarkdownWriter.MarkdownWriter(IWriter).md|MarkdownWriter(IWriter)
+M:DefaultDocumentation.Markdown.Writers.MarkdownWriter.Append(System.String)|MarkdownWriter.Append(string).md|Append(string)
+M:DefaultDocumentation.Markdown.Writers.MarkdownWriter.AppendLine|MarkdownWriter.AppendLine().md|AppendLine()
+M:DefaultDocumentation.Markdown.Writers.MarkdownWriter.EndsWith(System.String)|MarkdownWriter.EndsWith(string).md|EndsWith(string)
+N:DefaultDocumentation.Markdown.Writers|index.md#DefaultDocumentation.Markdown.Writers|DefaultDocumentation.Markdown.Writers
+T:DefaultDocumentation.Markdown.Writers.MarkdownWriter|MarkdownWriter.md|MarkdownWriter
+P:DefaultDocumentation.Markdown.Writers.OverrideWriter.Context|OverrideWriter.Context.md|Context
+P:DefaultDocumentation.Markdown.Writers.OverrideWriter.DocItem|OverrideWriter.DocItem.md|DocItem
+P:DefaultDocumentation.Markdown.Writers.OverrideWriter.Length|OverrideWriter.Length.md|Length
+P:DefaultDocumentation.Markdown.Writers.OverrideWriter.Item(System.String)|OverrideWriter.this[string].md|this[string]
+M:DefaultDocumentation.Markdown.Writers.OverrideWriter.#ctor(DefaultDocumentation.Api.IWriter)|OverrideWriter.OverrideWriter(IWriter).md|OverrideWriter(IWriter)
+M:DefaultDocumentation.Markdown.Writers.OverrideWriter.Append(System.String)|OverrideWriter.Append(string).md|Append(string)
+M:DefaultDocumentation.Markdown.Writers.OverrideWriter.AppendLine|OverrideWriter.AppendLine().md|AppendLine()
+M:DefaultDocumentation.Markdown.Writers.OverrideWriter.EndsWith(System.String)|OverrideWriter.EndsWith(string).md|EndsWith(string)
+T:DefaultDocumentation.Markdown.Writers.OverrideWriter|OverrideWriter.md|OverrideWriter
+P:DefaultDocumentation.Markdown.Writers.PrefixedWriter.Context|PrefixedWriter.Context.md|Context
+P:DefaultDocumentation.Markdown.Writers.PrefixedWriter.DocItem|PrefixedWriter.DocItem.md|DocItem
+P:DefaultDocumentation.Markdown.Writers.PrefixedWriter.Length|PrefixedWriter.Length.md|Length
+P:DefaultDocumentation.Markdown.Writers.PrefixedWriter.Item(System.String)|PrefixedWriter.this[string].md|this[string]
+M:DefaultDocumentation.Markdown.Writers.PrefixedWriter.#ctor(DefaultDocumentation.Api.IWriter,System.String)|PrefixedWriter.PrefixedWriter(IWriter,string).md|PrefixedWriter(IWriter, string)
+M:DefaultDocumentation.Markdown.Writers.PrefixedWriter.Append(System.String)|PrefixedWriter.Append(string).md|Append(string)
+M:DefaultDocumentation.Markdown.Writers.PrefixedWriter.AppendLine|PrefixedWriter.AppendLine().md|AppendLine()
+M:DefaultDocumentation.Markdown.Writers.PrefixedWriter.EndsWith(System.String)|PrefixedWriter.EndsWith(string).md|EndsWith(string)
+T:DefaultDocumentation.Markdown.Writers.PrefixedWriter|PrefixedWriter.md|PrefixedWriter
+F:DefaultDocumentation.Markdown.UrlFactories.DocItemFactory.ConfigName|DocItemFactory.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.UrlFactories.DocItemFactory.Name|DocItemFactory.Name.md|Name
+M:DefaultDocumentation.Markdown.UrlFactories.DocItemFactory.GetUrl(DefaultDocumentation.IGeneralContext,System.String)|DocItemFactory.GetUrl(IGeneralContext,string).md|GetUrl(IGeneralContext, string)
+N:DefaultDocumentation.Markdown.UrlFactories|index.md#DefaultDocumentation.Markdown.UrlFactories|DefaultDocumentation.Markdown.UrlFactories
+T:DefaultDocumentation.Markdown.UrlFactories.DocItemFactory|DocItemFactory.md|DocItemFactory
+F:DefaultDocumentation.Markdown.UrlFactories.DotnetApiFactory.ConfigName|DotnetApiFactory.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.UrlFactories.DotnetApiFactory.Name|DotnetApiFactory.Name.md|Name
+M:DefaultDocumentation.Markdown.UrlFactories.DotnetApiFactory.GetUrl(DefaultDocumentation.IGeneralContext,System.String)|DotnetApiFactory.GetUrl(IGeneralContext,string).md|GetUrl(IGeneralContext, string)
+T:DefaultDocumentation.Markdown.UrlFactories.DotnetApiFactory|DotnetApiFactory.md|DotnetApiFactory
+P:DefaultDocumentation.Markdown.Sections.ChildrenSection`1.Name|ChildrenSection_T_.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.ChildrenSection`1.#ctor(System.String,System.String)|ChildrenSection_T_.ChildrenSection(string,string).md|ChildrenSection(string, string)
+M:DefaultDocumentation.Markdown.Sections.ChildrenSection`1.GetChildren(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem)|ChildrenSection_T_.GetChildren(IGeneralContext,DocItem).md|GetChildren(IGeneralContext, DocItem)
+M:DefaultDocumentation.Markdown.Sections.ChildrenSection`1.Write(DefaultDocumentation.Api.IWriter)|ChildrenSection_T_.Write(IWriter).md|Write(IWriter)
+N:DefaultDocumentation.Markdown.Sections|index.md#DefaultDocumentation.Markdown.Sections|DefaultDocumentation.Markdown.Sections
+T:DefaultDocumentation.Markdown.Sections.ChildrenSection`1|ChildrenSection_T_.md|ChildrenSection<T>
+F:DefaultDocumentation.Markdown.Sections.TypeParametersSection.ConfigName|TypeParametersSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.TypeParametersSection.#ctor|TypeParametersSection.TypeParametersSection().md|TypeParametersSection()
+M:DefaultDocumentation.Markdown.Sections.TypeParametersSection.GetChildren(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem)|TypeParametersSection.GetChildren(IGeneralContext,DocItem).md|GetChildren(IGeneralContext, DocItem)
+T:DefaultDocumentation.Markdown.Sections.TypeParametersSection|TypeParametersSection.md|TypeParametersSection
+F:DefaultDocumentation.Markdown.Sections.ParametersSection.ConfigName|ParametersSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.ParametersSection.#ctor|ParametersSection.ParametersSection().md|ParametersSection()
+M:DefaultDocumentation.Markdown.Sections.ParametersSection.GetChildren(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem)|ParametersSection.GetChildren(IGeneralContext,DocItem).md|GetChildren(IGeneralContext, DocItem)
+T:DefaultDocumentation.Markdown.Sections.ParametersSection|ParametersSection.md|ParametersSection
+F:DefaultDocumentation.Markdown.Sections.EnumFieldsSection.ConfigName|EnumFieldsSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.EnumFieldsSection.#ctor|EnumFieldsSection.EnumFieldsSection().md|EnumFieldsSection()
+T:DefaultDocumentation.Markdown.Sections.EnumFieldsSection|EnumFieldsSection.md|EnumFieldsSection
+F:DefaultDocumentation.Markdown.Sections.ConstructorsSection.ConfigName|ConstructorsSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.ConstructorsSection.#ctor|ConstructorsSection.ConstructorsSection().md|ConstructorsSection()
+T:DefaultDocumentation.Markdown.Sections.ConstructorsSection|ConstructorsSection.md|ConstructorsSection
+F:DefaultDocumentation.Markdown.Sections.FieldsSection.ConfigName|FieldsSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.FieldsSection.#ctor|FieldsSection.FieldsSection().md|FieldsSection()
+T:DefaultDocumentation.Markdown.Sections.FieldsSection|FieldsSection.md|FieldsSection
+F:DefaultDocumentation.Markdown.Sections.PropertiesSection.ConfigName|PropertiesSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.PropertiesSection.#ctor|PropertiesSection.PropertiesSection().md|PropertiesSection()
+T:DefaultDocumentation.Markdown.Sections.PropertiesSection|PropertiesSection.md|PropertiesSection
+F:DefaultDocumentation.Markdown.Sections.MethodsSection.ConfigName|MethodsSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.MethodsSection.#ctor|MethodsSection.MethodsSection().md|MethodsSection()
+T:DefaultDocumentation.Markdown.Sections.MethodsSection|MethodsSection.md|MethodsSection
+F:DefaultDocumentation.Markdown.Sections.EventsSection.ConfigName|EventsSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.EventsSection.#ctor|EventsSection.EventsSection().md|EventsSection()
+T:DefaultDocumentation.Markdown.Sections.EventsSection|EventsSection.md|EventsSection
+F:DefaultDocumentation.Markdown.Sections.OperatorsSection.ConfigName|OperatorsSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.OperatorsSection.#ctor|OperatorsSection.OperatorsSection().md|OperatorsSection()
+T:DefaultDocumentation.Markdown.Sections.OperatorsSection|OperatorsSection.md|OperatorsSection
+F:DefaultDocumentation.Markdown.Sections.ExplicitInterfaceImplementationsSection.ConfigName|ExplicitInterfaceImplementationsSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.ExplicitInterfaceImplementationsSection.#ctor|ExplicitInterfaceImplementationsSection.ExplicitInterfaceImplementationsSection().md|ExplicitInterfaceImplementationsSection()
+T:DefaultDocumentation.Markdown.Sections.ExplicitInterfaceImplementationsSection|ExplicitInterfaceImplementationsSection.md|ExplicitInterfaceImplementationsSection
+F:DefaultDocumentation.Markdown.Sections.ClassesSection.ConfigName|ClassesSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.ClassesSection.#ctor|ClassesSection.ClassesSection().md|ClassesSection()
+T:DefaultDocumentation.Markdown.Sections.ClassesSection|ClassesSection.md|ClassesSection
+F:DefaultDocumentation.Markdown.Sections.StructsSection.ConfigName|StructsSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.StructsSection.#ctor|StructsSection.StructsSection().md|StructsSection()
+T:DefaultDocumentation.Markdown.Sections.StructsSection|StructsSection.md|StructsSection
+F:DefaultDocumentation.Markdown.Sections.InterfacesSection.ConfigName|InterfacesSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.InterfacesSection.#ctor|InterfacesSection.InterfacesSection().md|InterfacesSection()
+T:DefaultDocumentation.Markdown.Sections.InterfacesSection|InterfacesSection.md|InterfacesSection
+F:DefaultDocumentation.Markdown.Sections.EnumsSection.ConfigName|EnumsSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.EnumsSection.#ctor|EnumsSection.EnumsSection().md|EnumsSection()
+T:DefaultDocumentation.Markdown.Sections.EnumsSection|EnumsSection.md|EnumsSection
+F:DefaultDocumentation.Markdown.Sections.DelegatesSection.ConfigName|DelegatesSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.DelegatesSection.#ctor|DelegatesSection.DelegatesSection().md|DelegatesSection()
+T:DefaultDocumentation.Markdown.Sections.DelegatesSection|DelegatesSection.md|DelegatesSection
+F:DefaultDocumentation.Markdown.Sections.NamespacesSection.ConfigName|NamespacesSection.ConfigName.md|ConfigName
+M:DefaultDocumentation.Markdown.Sections.NamespacesSection.#ctor|NamespacesSection.NamespacesSection().md|NamespacesSection()
+T:DefaultDocumentation.Markdown.Sections.NamespacesSection|NamespacesSection.md|NamespacesSection
+F:DefaultDocumentation.Markdown.Sections.DefaultSection.ConfigName|DefaultSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.DefaultSection.Name|DefaultSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.DefaultSection.#ctor|DefaultSection.DefaultSection().md|DefaultSection()
+M:DefaultDocumentation.Markdown.Sections.DefaultSection.Write(DefaultDocumentation.Api.IWriter)|DefaultSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.DefaultSection|DefaultSection.md|DefaultSection
+F:DefaultDocumentation.Markdown.Sections.DefinitionSection.ConfigName|DefinitionSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.DefinitionSection.Name|DefinitionSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.DefinitionSection.Write(DefaultDocumentation.Api.IWriter)|DefinitionSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.DefinitionSection|DefinitionSection.md|DefinitionSection
+F:DefaultDocumentation.Markdown.Sections.DerivedSection.ConfigName|DerivedSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.DerivedSection.Name|DerivedSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.DerivedSection.Write(DefaultDocumentation.Api.IWriter)|DerivedSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.DerivedSection|DerivedSection.md|DerivedSection
+F:DefaultDocumentation.Markdown.Sections.EventTypeSection.ConfigName|EventTypeSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.EventTypeSection.Name|EventTypeSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.EventTypeSection.Write(DefaultDocumentation.Api.IWriter)|EventTypeSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.EventTypeSection|EventTypeSection.md|EventTypeSection
+F:DefaultDocumentation.Markdown.Sections.ExampleSection.ConfigName|ExampleSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.ExampleSection.Name|ExampleSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.ExampleSection.Write(DefaultDocumentation.Api.IWriter)|ExampleSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.ExampleSection|ExampleSection.md|ExampleSection
+F:DefaultDocumentation.Markdown.Sections.ExceptionSection.ConfigName|ExceptionSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.ExceptionSection.Name|ExceptionSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.ExceptionSection.Write(DefaultDocumentation.Api.IWriter)|ExceptionSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.ExceptionSection|ExceptionSection.md|ExceptionSection
+F:DefaultDocumentation.Markdown.Sections.FieldValueSection.ConfigName|FieldValueSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.FieldValueSection.Name|FieldValueSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.FieldValueSection.Write(DefaultDocumentation.Api.IWriter)|FieldValueSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.FieldValueSection|FieldValueSection.md|FieldValueSection
+F:DefaultDocumentation.Markdown.Sections.FooterSection.ConfigName|FooterSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.FooterSection.Name|FooterSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.FooterSection.Write(DefaultDocumentation.Api.IWriter)|FooterSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.FooterSection|FooterSection.md|FooterSection
+F:DefaultDocumentation.Markdown.Sections.HeaderSection.ConfigName|HeaderSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.HeaderSection.Name|HeaderSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.HeaderSection.Write(DefaultDocumentation.Api.IWriter)|HeaderSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.HeaderSection|HeaderSection.md|HeaderSection
+F:DefaultDocumentation.Markdown.Sections.ImplementSection.ConfigName|ImplementSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.ImplementSection.Name|ImplementSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.ImplementSection.Write(DefaultDocumentation.Api.IWriter)|ImplementSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.ImplementSection|ImplementSection.md|ImplementSection
+F:DefaultDocumentation.Markdown.Sections.InheritanceSection.ConfigName|InheritanceSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.InheritanceSection.Name|InheritanceSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.InheritanceSection.Write(DefaultDocumentation.Api.IWriter)|InheritanceSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.InheritanceSection|InheritanceSection.md|InheritanceSection
+F:DefaultDocumentation.Markdown.Sections.RemarksSection.ConfigName|RemarksSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.RemarksSection.Name|RemarksSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.RemarksSection.Write(DefaultDocumentation.Api.IWriter)|RemarksSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.RemarksSection|RemarksSection.md|RemarksSection
+F:DefaultDocumentation.Markdown.Sections.ReturnsSection.ConfigName|ReturnsSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.ReturnsSection.Name|ReturnsSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.ReturnsSection.Write(DefaultDocumentation.Api.IWriter)|ReturnsSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.ReturnsSection|ReturnsSection.md|ReturnsSection
+F:DefaultDocumentation.Markdown.Sections.SeeAlsoSection.ConfigName|SeeAlsoSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.SeeAlsoSection.Name|SeeAlsoSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.SeeAlsoSection.Write(DefaultDocumentation.Api.IWriter)|SeeAlsoSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.SeeAlsoSection|SeeAlsoSection.md|SeeAlsoSection
+F:DefaultDocumentation.Markdown.Sections.SummarySection.ConfigName|SummarySection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.SummarySection.Name|SummarySection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.SummarySection.Write(DefaultDocumentation.Api.IWriter)|SummarySection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.SummarySection|SummarySection.md|SummarySection
+F:DefaultDocumentation.Markdown.Sections.TableOfContentsSection.ConfigName|TableOfContentsSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Name|TableOfContentsSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Write(DefaultDocumentation.Api.IWriter)|TableOfContentsSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.TableOfContentsSection|TableOfContentsSection.md|TableOfContentsSection
+F:DefaultDocumentation.Markdown.Sections.TitleSection.ConfigName|TitleSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.TitleSection.Name|TitleSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.TitleSection.Write(DefaultDocumentation.Api.IWriter)|TitleSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.TitleSection|TitleSection.md|TitleSection
+F:DefaultDocumentation.Markdown.Sections.ValueSection.ConfigName|ValueSection.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.Sections.ValueSection.Name|ValueSection.Name.md|Name
+M:DefaultDocumentation.Markdown.Sections.ValueSection.Write(DefaultDocumentation.Api.IWriter)|ValueSection.Write(IWriter).md|Write(IWriter)
+T:DefaultDocumentation.Markdown.Sections.ValueSection|ValueSection.md|ValueSection
+P:DefaultDocumentation.Markdown.FileNameFactories.AMarkdownFactory.Name|AMarkdownFactory.Name.md|Name
+M:DefaultDocumentation.Markdown.FileNameFactories.AMarkdownFactory.GetMarkdownFileName(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem)|AMarkdownFactory.GetMarkdownFileName(IGeneralContext,DocItem).md|GetMarkdownFileName(IGeneralContext, DocItem)
+M:DefaultDocumentation.Markdown.FileNameFactories.AMarkdownFactory.Clean(DefaultDocumentation.IGeneralContext)|AMarkdownFactory.Clean(IGeneralContext).md|Clean(IGeneralContext)
+M:DefaultDocumentation.Markdown.FileNameFactories.AMarkdownFactory.GetFileName(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem)|AMarkdownFactory.GetFileName(IGeneralContext,DocItem).md|GetFileName(IGeneralContext, DocItem)
+N:DefaultDocumentation.Markdown.FileNameFactories|index.md#DefaultDocumentation.Markdown.FileNameFactories|DefaultDocumentation.Markdown.FileNameFactories
+T:DefaultDocumentation.Markdown.FileNameFactories.AMarkdownFactory|AMarkdownFactory.md|AMarkdownFactory
+F:DefaultDocumentation.Markdown.FileNameFactories.FullNameFactory.ConfigName|FullNameFactory.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.FileNameFactories.FullNameFactory.Name|FullNameFactory.Name.md|Name
+M:DefaultDocumentation.Markdown.FileNameFactories.FullNameFactory.GetMarkdownFileName(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem)|FullNameFactory.GetMarkdownFileName(IGeneralContext,DocItem).md|GetMarkdownFileName(IGeneralContext, DocItem)
+T:DefaultDocumentation.Markdown.FileNameFactories.FullNameFactory|FullNameFactory.md|FullNameFactory
+F:DefaultDocumentation.Markdown.FileNameFactories.Md5Factory.ConfigName|Md5Factory.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.FileNameFactories.Md5Factory.Name|Md5Factory.Name.md|Name
+M:DefaultDocumentation.Markdown.FileNameFactories.Md5Factory.GetMarkdownFileName(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem)|Md5Factory.GetMarkdownFileName(IGeneralContext,DocItem).md|GetMarkdownFileName(IGeneralContext, DocItem)
+T:DefaultDocumentation.Markdown.FileNameFactories.Md5Factory|Md5Factory.md|Md5Factory
+F:DefaultDocumentation.Markdown.FileNameFactories.NameAndMd5MixFactory.ConfigName|NameAndMd5MixFactory.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.FileNameFactories.NameAndMd5MixFactory.Name|NameAndMd5MixFactory.Name.md|Name
+M:DefaultDocumentation.Markdown.FileNameFactories.NameAndMd5MixFactory.GetMarkdownFileName(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem)|NameAndMd5MixFactory.GetMarkdownFileName(IGeneralContext,DocItem).md|GetMarkdownFileName(IGeneralContext, DocItem)
+T:DefaultDocumentation.Markdown.FileNameFactories.NameAndMd5MixFactory|NameAndMd5MixFactory.md|NameAndMd5MixFactory
+F:DefaultDocumentation.Markdown.FileNameFactories.NameFactory.ConfigName|NameFactory.ConfigName.md|ConfigName
+P:DefaultDocumentation.Markdown.FileNameFactories.NameFactory.Name|NameFactory.Name.md|Name
+M:DefaultDocumentation.Markdown.FileNameFactories.NameFactory.GetMarkdownFileName(DefaultDocumentation.IGeneralContext,DefaultDocumentation.Models.DocItem)|NameFactory.GetMarkdownFileName(IGeneralContext,DocItem).md|GetMarkdownFileName(IGeneralContext, DocItem)
+T:DefaultDocumentation.Markdown.FileNameFactories.NameFactory|NameFactory.md|NameFactory
+M:DefaultDocumentation.Markdown.Extensions.IWriterExtension.GetCurrentItem(DefaultDocumentation.Api.IWriter)|IWriterExtension.GetCurrentItem(thisIWriter).md|GetCurrentItem(this IWriter)
+M:DefaultDocumentation.Markdown.Extensions.IWriterExtension.SetCurrentItem(DefaultDocumentation.Api.IWriter,DefaultDocumentation.Models.DocItem)|IWriterExtension.SetCurrentItem(thisIWriter,DocItem).md|SetCurrentItem(this IWriter, DocItem)
+M:DefaultDocumentation.Markdown.Extensions.IWriterExtension.GetDisplayAsSingleLine(DefaultDocumentation.Api.IWriter)|IWriterExtension.GetDisplayAsSingleLine(thisIWriter).md|GetDisplayAsSingleLine(this IWriter)
+M:DefaultDocumentation.Markdown.Extensions.IWriterExtension.SetDisplayAsSingleLine(DefaultDocumentation.Api.IWriter,System.Nullable{System.Boolean})|IWriterExtension.SetDisplayAsSingleLine(thisIWriter,Nullable_bool_).md|SetDisplayAsSingleLine(this IWriter, Nullable<bool>)
+M:DefaultDocumentation.Markdown.Extensions.IWriterExtension.GetIgnoreLineBreak(DefaultDocumentation.Api.IWriter)|IWriterExtension.GetIgnoreLineBreak(thisIWriter).md|GetIgnoreLineBreak(this IWriter)
+M:DefaultDocumentation.Markdown.Extensions.IWriterExtension.SetIgnoreLineBreakLine(DefaultDocumentation.Api.IWriter,System.Nullable{System.Boolean})|IWriterExtension.SetIgnoreLineBreakLine(thisIWriter,Nullable_bool_).md|SetIgnoreLineBreakLine(this IWriter, Nullable<bool>)
+M:DefaultDocumentation.Markdown.Extensions.IWriterExtension.AppendUrl(DefaultDocumentation.Api.IWriter,System.String,System.String,System.String)|IWriterExtension.AppendUrl(thisIWriter,string,string,string).md|AppendUrl(this IWriter, string, string, string)
+M:DefaultDocumentation.Markdown.Extensions.IWriterExtension.AppendLink(DefaultDocumentation.Api.IWriter,DefaultDocumentation.Models.DocItem,System.String)|IWriterExtension.AppendLink(thisIWriter,DocItem,string).md|AppendLink(this IWriter, DocItem, string)
+M:DefaultDocumentation.Markdown.Extensions.IWriterExtension.AppendLink(DefaultDocumentation.Api.IWriter,System.String,System.String)|IWriterExtension.AppendLink(thisIWriter,string,string).md|AppendLink(this IWriter, string, string)
+M:DefaultDocumentation.Markdown.Extensions.IWriterExtension.AppendLink(DefaultDocumentation.Api.IWriter,DefaultDocumentation.Models.DocItem,ICSharpCode.Decompiler.TypeSystem.INamedElement)|IWriterExtension.AppendLink(thisIWriter,DocItem,INamedElement).md|AppendLink(this IWriter, DocItem, INamedElement)
+M:DefaultDocumentation.Markdown.Extensions.IWriterExtension.EnsureLineStart(DefaultDocumentation.Api.IWriter)|IWriterExtension.EnsureLineStart(thisIWriter).md|EnsureLineStart(this IWriter)
+M:DefaultDocumentation.Markdown.Extensions.IWriterExtension.EnsureLineStartAndAppendLine(DefaultDocumentation.Api.IWriter)|IWriterExtension.EnsureLineStartAndAppendLine(thisIWriter).md|EnsureLineStartAndAppendLine(this IWriter)
+M:DefaultDocumentation.Markdown.Extensions.IWriterExtension.AppendAsMarkdown(DefaultDocumentation.Api.IWriter,System.Xml.Linq.XElement)|IWriterExtension.AppendAsMarkdown(thisIWriter,XElement).md|AppendAsMarkdown(this IWriter, XElement)
+M:DefaultDocumentation.Markdown.Extensions.IWriterExtension.ToPrefixedWriter(DefaultDocumentation.Api.IWriter,System.String)|IWriterExtension.ToPrefixedWriter(thisIWriter,string).md|ToPrefixedWriter(this IWriter, string)
+M:DefaultDocumentation.Markdown.Extensions.IWriterExtension.ToOverrideWriter(DefaultDocumentation.Api.IWriter)|IWriterExtension.ToOverrideWriter(thisIWriter).md|ToOverrideWriter(this IWriter)
+N:DefaultDocumentation.Markdown.Extensions|index.md#DefaultDocumentation.Markdown.Extensions|DefaultDocumentation.Markdown.Extensions
+T:DefaultDocumentation.Markdown.Extensions.IWriterExtension|IWriterExtension.md|IWriterExtension
+P:DefaultDocumentation.Markdown.Elements.CElement.Name|CElement.Name.md|Name
+M:DefaultDocumentation.Markdown.Elements.CElement.Write(DefaultDocumentation.Api.IWriter,System.Xml.Linq.XElement)|CElement.Write(IWriter,XElement).md|Write(IWriter, XElement)
+N:DefaultDocumentation.Markdown.Elements|index.md#DefaultDocumentation.Markdown.Elements|DefaultDocumentation.Markdown.Elements
+T:DefaultDocumentation.Markdown.Elements.CElement|CElement.md|CElement
+P:DefaultDocumentation.Markdown.Elements.CodeElement.Name|CodeElement.Name.md|Name
+M:DefaultDocumentation.Markdown.Elements.CodeElement.Write(DefaultDocumentation.Api.IWriter,System.Xml.Linq.XElement)|CodeElement.Write(IWriter,XElement).md|Write(IWriter, XElement)
+T:DefaultDocumentation.Markdown.Elements.CodeElement|CodeElement.md|CodeElement
+P:DefaultDocumentation.Markdown.Elements.ListElement.Name|ListElement.Name.md|Name
+M:DefaultDocumentation.Markdown.Elements.ListElement.Write(DefaultDocumentation.Api.IWriter,System.Xml.Linq.XElement)|ListElement.Write(IWriter,XElement).md|Write(IWriter, XElement)
+T:DefaultDocumentation.Markdown.Elements.ListElement|ListElement.md|ListElement
+P:DefaultDocumentation.Markdown.Elements.NoteElement.Name|NoteElement.Name.md|Name
+M:DefaultDocumentation.Markdown.Elements.NoteElement.Write(DefaultDocumentation.Api.IWriter,System.Xml.Linq.XElement)|NoteElement.Write(IWriter,XElement).md|Write(IWriter, XElement)
+T:DefaultDocumentation.Markdown.Elements.NoteElement|NoteElement.md|NoteElement
+P:DefaultDocumentation.Markdown.Elements.ParaElement.Name|ParaElement.Name.md|Name
+M:DefaultDocumentation.Markdown.Elements.ParaElement.Write(DefaultDocumentation.Api.IWriter,System.Xml.Linq.XElement)|ParaElement.Write(IWriter,XElement).md|Write(IWriter, XElement)
+T:DefaultDocumentation.Markdown.Elements.ParaElement|ParaElement.md|ParaElement
+P:DefaultDocumentation.Markdown.Elements.ParamRefElement.Name|ParamRefElement.Name.md|Name
+M:DefaultDocumentation.Markdown.Elements.ParamRefElement.Write(DefaultDocumentation.Api.IWriter,System.Xml.Linq.XElement)|ParamRefElement.Write(IWriter,XElement).md|Write(IWriter, XElement)
+T:DefaultDocumentation.Markdown.Elements.ParamRefElement|ParamRefElement.md|ParamRefElement
+P:DefaultDocumentation.Markdown.Elements.SeeElement.Name|SeeElement.Name.md|Name
+M:DefaultDocumentation.Markdown.Elements.SeeElement.Write(DefaultDocumentation.Api.IWriter,System.Xml.Linq.XElement)|SeeElement.Write(IWriter,XElement).md|Write(IWriter, XElement)
+T:DefaultDocumentation.Markdown.Elements.SeeElement|SeeElement.md|SeeElement
+P:DefaultDocumentation.Markdown.Elements.TypeParamRefElement.Name|TypeParamRefElement.Name.md|Name
+M:DefaultDocumentation.Markdown.Elements.TypeParamRefElement.Write(DefaultDocumentation.Api.IWriter,System.Xml.Linq.XElement)|TypeParamRefElement.Write(IWriter,XElement).md|Write(IWriter, XElement)
+T:DefaultDocumentation.Markdown.Elements.TypeParamRefElement|TypeParamRefElement.md|TypeParamRefElement
+F:DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.None|TableOfContentsSection.Modes.md#DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.None|None
+F:DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.Grouped|TableOfContentsSection.Modes.md#DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.Grouped|Grouped
+F:DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.IncludeKind|TableOfContentsSection.Modes.md#DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.IncludeKind|IncludeKind
+F:DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.IncludeSummary|TableOfContentsSection.Modes.md#DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.IncludeSummary|IncludeSummary
+F:DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.IncludeNewLine|TableOfContentsSection.Modes.md#DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.IncludeNewLine|IncludeNewLine
+F:DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.IncludeSummaryWithNewLine|TableOfContentsSection.Modes.md#DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.IncludeSummaryWithNewLine|IncludeSummaryWithNewLine
+T:DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes|TableOfContentsSection.Modes.md|Modes
