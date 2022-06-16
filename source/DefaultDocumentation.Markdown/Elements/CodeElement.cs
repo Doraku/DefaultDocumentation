@@ -12,6 +12,11 @@ namespace DefaultDocumentation.Markdown.Elements
     /// </summary>
     public sealed class CodeElement : IElement
     {
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "code";
+
         private static string GetCode(ISettings settings, string source, string? region = null)
         {
             if (!Path.IsPathRooted(source) && settings.ProjectDirectory != null)
@@ -39,7 +44,7 @@ namespace DefaultDocumentation.Markdown.Elements
         }
 
         /// <inheritdoc/>
-        public string Name => "code";
+        public string Name => ConfigName;
 
         /// <inheritdoc/>
         public void Write(IWriter writer, XElement element)

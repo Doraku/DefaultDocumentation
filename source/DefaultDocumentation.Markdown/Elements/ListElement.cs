@@ -11,6 +11,11 @@ namespace DefaultDocumentation.Markdown.Elements
     /// </summary>
     public sealed class ListElement : IElement
     {
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "list";
+
         private static void WriteItem(IWriter writer, XElement element)
         {
             XElement? term = element.GetTerm();
@@ -109,7 +114,7 @@ namespace DefaultDocumentation.Markdown.Elements
         }
 
         /// <inheritdoc/>
-        public string Name => "list";
+        public string Name => ConfigName;
 
         /// <inheritdoc/>
         public void Write(IWriter writer, XElement element)

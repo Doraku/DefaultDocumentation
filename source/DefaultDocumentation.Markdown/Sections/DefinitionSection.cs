@@ -185,7 +185,28 @@ namespace DefaultDocumentation.Markdown.Sections
 
             _ = writer.GetCurrentItem() switch
             {
-                FieldDocItem item => Write(writer, w => w.Append($"{_fieldAmbience.ConvertSymbol(item.Field)}{(item.Field.IsConst ? $" = {item.Field.GetConstantValue()}" : string.Empty)};")),
+                FieldDocItem item => Write(writer, w =>
+                {
+                    w.Append(_fieldAmbience.ConvertSymbol(item.Field));
+
+                    if (item.Field.IsConst)
+                    {
+                        string typeDelimiter =
+                            item.Field.Type.IsKnownType(KnownTypeCode.String)
+                            ? "\""
+                            : item.Field.Type.IsKnownType(KnownTypeCode.Char)
+                            ? "'"
+                            : string.Empty;
+
+                        w
+                            .Append(" = ")
+                            .Append(typeDelimiter)
+                            .Append($"{item.Field.GetConstantValue()}")
+                            .Append(typeDelimiter);
+                    }
+
+                    w.Append(";");
+                }),
                 PropertyDocItem item => Write(writer, w => w.Append(_propertyAmbience.ConvertSymbol(item.Property))),
                 EventDocItem item => Write(writer, w => w.Append(_eventAmbience.ConvertSymbol(item.Event))),
                 ConstructorDocItem item => Write(writer, w => w.Append(_methodAmbience.ConvertSymbol(item.Method)).Append(";")),

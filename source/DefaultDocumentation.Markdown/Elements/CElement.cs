@@ -8,8 +8,13 @@ namespace DefaultDocumentation.Markdown.Elements
     /// </summary>
     public sealed class CElement : IElement
     {
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "c";
+
         /// <inheritdoc/>
-        public string Name => "c";
+        public string Name => ConfigName;
 
         /// <inheritdoc/>
         public void Write(IWriter writer, XElement element)

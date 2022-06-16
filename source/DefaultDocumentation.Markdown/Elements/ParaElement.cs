@@ -9,8 +9,13 @@ namespace DefaultDocumentation.Markdown.Elements
     /// </summary>
     public sealed class ParaElement : IElement
     {
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "para";
+
         /// <inheritdoc/>
-        public string Name => "para";
+        public string Name => ConfigName;
 
         /// <inheritdoc/>
         public void Write(IWriter writer, XElement element)

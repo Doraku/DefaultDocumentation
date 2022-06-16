@@ -11,8 +11,13 @@ namespace DefaultDocumentation.Markdown.Elements
     /// </summary>
     public sealed class TypeParamRefElement : IElement
     {
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "typeparamref";
+
         /// <inheritdoc/>
-        public string Name => "typeparamref";
+        public string Name => ConfigName;
 
         /// <inheritdoc/>
         public void Write(IWriter writer, XElement element)

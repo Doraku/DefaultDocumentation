@@ -53,6 +53,10 @@ namespace DefaultDocumentation
 
         private const int _constField = 42;
 
+        private const string _constStringField = "string";
+
+        private const char _constCharField = 'e';
+
 #pragma warning disable CS0649
         private static readonly int _field;
 #pragma warning restore CS0649
@@ -107,6 +111,8 @@ namespace DefaultDocumentation
         public static readonly ClassDocItem ClassDocItem = new(NamespaceDocItem, Get<ITypeDefinition>($"T:{typeof(AssemblyInfo).FullName}"), null);
         public static readonly EventDocItem EventDocItem = new(ClassDocItem, Get<IEvent>($"E:{typeof(AssemblyInfo).FullName}.{nameof(Event)}"), null);
         public static readonly FieldDocItem ConstFieldDocItem = new(ClassDocItem, Get<IField>($"F:{typeof(AssemblyInfo).FullName}.{nameof(_constField)}"), null);
+        public static readonly FieldDocItem ConstStringFieldDocItem = new(ClassDocItem, Get<IField>($"F:{typeof(AssemblyInfo).FullName}.{nameof(_constStringField)}"), null);
+        public static readonly FieldDocItem ConstCharFieldDocItem = new(ClassDocItem, Get<IField>($"F:{typeof(AssemblyInfo).FullName}.{nameof(_constCharField)}"), null);
         public static readonly FieldDocItem FieldDocItem = new(ClassDocItem, Get<IField>($"F:{typeof(AssemblyInfo).FullName}.{nameof(_field)}"), null);
         public static readonly PropertyDocItem PropertyDocItem = new(ClassDocItem, Get<IProperty>($"P:{typeof(AssemblyInfo).FullName}.{nameof(Property)}"), null);
         public static readonly MethodDocItem MethodWithGenericConstrainsDocItem = new(ClassDocItem, Get<IMethod>($"M:{typeof(AssemblyInfo).FullName}.{nameof(MethodWithGenericConstrains)}``5"), null);

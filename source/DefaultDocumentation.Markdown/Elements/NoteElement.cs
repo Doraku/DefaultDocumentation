@@ -10,8 +10,13 @@ namespace DefaultDocumentation.Markdown.Elements
     /// </summary>
     public sealed class NoteElement : IElement
     {
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "note";
+
         /// <inheritdoc/>
-        public string Name => "note";
+        public string Name => ConfigName;
 
         /// <inheritdoc/>
         public void Write(IWriter writer, XElement element)

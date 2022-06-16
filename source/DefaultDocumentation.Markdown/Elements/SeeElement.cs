@@ -10,8 +10,13 @@ namespace DefaultDocumentation.Markdown.Elements
     /// </summary>
     public sealed class SeeElement : IElement
     {
+        /// <summary>
+        /// The name of this implementation used at the configuration level.
+        /// </summary>
+        public const string ConfigName = "see";
+
         /// <inheritdoc/>
-        public string Name => "see";
+        public string Name => ConfigName;
 
         /// <inheritdoc/>
         public void Write(IWriter writer, XElement element)

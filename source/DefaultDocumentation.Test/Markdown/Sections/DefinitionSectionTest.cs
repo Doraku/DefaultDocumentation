@@ -50,6 +50,20 @@ private const int _constField = 42;
 ```");
 
         [Fact]
+        public void Write_should_write_When_FieldDocItem_and_constant_string() => Test(
+            AssemblyInfo.ConstStringFieldDocItem,
+@"```csharp
+private const string _constStringField = ""string"";
+```");
+
+        [Fact]
+        public void Write_should_write_When_FieldDocItem_and_constant_char() => Test(
+            AssemblyInfo.ConstCharFieldDocItem,
+@"```csharp
+private const char _constCharField = 'e';
+```");
+
+        [Fact]
         public void Write_should_write_When_PropertyDocItem() => Test(
             AssemblyInfo.PropertyDocItem,
 @"```csharp

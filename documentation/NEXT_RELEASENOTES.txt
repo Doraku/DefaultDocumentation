@@ -1,0 +1,3 @@
+## Bug fixes
+
+- fixed string and char const field definition
