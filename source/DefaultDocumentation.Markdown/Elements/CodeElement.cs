@@ -2,7 +2,6 @@
 using System.IO;
 using System.Xml.Linq;
 using DefaultDocumentation.Api;
-using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Markdown.Internal;
 
 namespace DefaultDocumentation.Markdown.Elements

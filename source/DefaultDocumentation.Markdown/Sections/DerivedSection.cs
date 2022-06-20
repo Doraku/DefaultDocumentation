@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using DefaultDocumentation.Api;
-using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models.Types;
 
 namespace DefaultDocumentation.Markdown.Sections

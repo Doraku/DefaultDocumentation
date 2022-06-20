@@ -2,7 +2,7 @@
   "profiles": {
     "DefaultDocumentation.Console": {
       "commandName": "Project",
-      "commandLineArgs": "--ConfigurationFilePath D:\\Projects\\DefaultDocumentation\\source\\DefaultDocumentation.Api\\DefaultDocumentation.json",
+      "commandLineArgs": "--ConfigurationFilePath D:\\Projects\\DefaultDocumentation\\source\\DefaultDocumentation.Api\\DefaultDocumentation.json\r\n--Plugins \"D:\\Projects\\DefaultDocumentation\\source\\Sample\\DefaultDocumentation.PluginExample\\bin\\Debug\\netstandard2.0\\DefaultDocumentation.PluginExample.dll\"\r\n--FileNameFactory Folder",
       "workingDirectory": "D:\\Projects\\DefaultDocumentation"
     }
   }

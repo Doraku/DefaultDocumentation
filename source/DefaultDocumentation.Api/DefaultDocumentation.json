@@ -9,8 +9,13 @@
 	],
 	"LinksOutputFilePath": "..\\..\\documentation\\DefaultDocumentation.Api.txt",
 	"LinksBaseUrl": "https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/",
+	"Sections": [
+		"FolderFileNameOverrides",
+		"Default"
+	],
 	"NamespaceDocItem": {
 		"Sections": [
+			"FolderFileNameOverrides",
 			"Title",
 			"summary",
 			"TableOfContents"

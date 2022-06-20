@@ -1,6 +1,5 @@
 ﻿using System;
 using DefaultDocumentation.Api;
-using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.Writers

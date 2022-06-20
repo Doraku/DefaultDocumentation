@@ -10,7 +10,7 @@ using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 using ICSharpCode.Decompiler.TypeSystem.Implementation;
 
-namespace DefaultDocumentation.Markdown.Extensions
+namespace DefaultDocumentation.Api
 {
     /// <summary>
     /// Provides extension methods on the <see cref="IWriter"/> type.
@@ -27,6 +27,8 @@ namespace DefaultDocumentation.Markdown.Extensions
         private const string CurrentItemKey = "Markdown.CurrentItem";
         private const string DisplayAsSingleLineKey = "Markdown.DisplayAsSingleLine";
         private const string IgnoreLineBreakLineKey = "Markdown.IgnoreLineBreak";
+        private const string AppendLinkOverride = "Markdown.AppendLink(DocItem,string)";
+        private const string AppendUrlOverride = "Markdown.AppendUrl(string,string,string)";
 
         /// <summary>
         /// Gets the current item that is being processed by this <see cref="IWriter"/>.
@@ -99,6 +101,32 @@ namespace DefaultDocumentation.Markdown.Extensions
         }
 
         /// <summary>
+        /// Sets an override of the default action for <see cref="AppendLink(IWriter, DocItem, string?)"/>.
+        /// </summary>
+        /// <param name="writer">The <see cref="IWriter"/> for which to set this override.</param>
+        /// <param name="value">The action to use.</param>
+        /// <returns>The given <see cref="IWriter"/>.</returns>
+        public static IWriter SetAppendLinkOverride(this IWriter writer, Action<IWriter, DocItem, string?>? value)
+        {
+            writer[AppendLinkOverride] = value;
+
+            return writer;
+        }
+
+        /// <summary>
+        /// Sets an override of the default action for <see cref="AppendUrl(IWriter, string, string?, string?)"/>.
+        /// </summary>
+        /// <param name="writer">The <see cref="IWriter"/> for which to set this override.</param>
+        /// <param name="value">The action to use.</param>
+        /// <returns>The given <see cref="IWriter"/>.</returns>
+        public static IWriter SetAppendUrlOverride(this IWriter writer, Action<IWriter, string, string?, string?>? value)
+        {
+            writer[AppendUrlOverride] = value;
+
+            return writer;
+        }
+
+        /// <summary>
         /// Append an url in the markdown format.
         /// </summary>
         /// <param name="writer">The <see cref="IWriter"/> to use.</param>
@@ -108,21 +136,26 @@ namespace DefaultDocumentation.Markdown.Extensions
         /// <returns>The given <see cref="IWriter"/>.</returns>
         public static IWriter AppendUrl(this IWriter writer, string url, string? displayedName = null, string? tooltip = null)
         {
-            if (string.IsNullOrEmpty(url))
+            static void Default(IWriter writer, string url, string? displayedName, string? tooltip)
             {
-                writer.Append((displayedName ?? "").Prettify());
+                if (string.IsNullOrEmpty(url))
+                {
+                    writer.Append((displayedName ?? "").Prettify());
+                }
+                else
+                {
+                    writer
+                        .Append("[")
+                        .Append((displayedName ?? url).Prettify())
+                        .Append("](")
+                        .Append(url)
+                        .Append(" '")
+                        .Append(tooltip ?? url)
+                        .Append("')");
+                }
             }
-            else
-            {
-                writer
-                    .Append("[")
-                    .Append((displayedName ?? url).Prettify())
-                    .Append("](")
-                    .Append(url)
-                    .Append(" '")
-                    .Append(tooltip ?? url)
-                    .Append("')");
-            }
+
+            ((writer[AppendUrlOverride] as Action<IWriter, string, string?, string?>) ?? Default)(writer, url, displayedName, tooltip);
 
             return writer;
         }
@@ -134,7 +167,14 @@ namespace DefaultDocumentation.Markdown.Extensions
         /// <param name="item">The <see cref="DocItem"/> to link to.</param>
         /// <param name="displayedName">The displayed name of the link.</param>
         /// <returns>The given <see cref="IWriter"/>.</returns>
-        public static IWriter AppendLink(this IWriter writer, DocItem item, string? displayedName = null) => writer.AppendUrl(writer.Context.GetUrl(item), displayedName ?? item.Name, item.FullName);
+        public static IWriter AppendLink(this IWriter writer, DocItem item, string? displayedName = null)
+        {
+            static void Default(IWriter writer, DocItem item, string? displayedName) => writer.AppendUrl(writer.Context.GetUrl(item), displayedName ?? item.Name, item.FullName);
+
+            ((writer[AppendLinkOverride] as Action<IWriter, DocItem, string?>) ?? Default)(writer, item, displayedName);
+
+            return writer;
+        }
 
         /// <summary>
         /// Append an link to an id using <see cref="IGeneralContext.GetUrl(string)"/> to resolve the url in the markdown format.

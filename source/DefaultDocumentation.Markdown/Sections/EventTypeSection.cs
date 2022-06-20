@@ -1,5 +1,4 @@
 ﻿using DefaultDocumentation.Api;
-using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models.Members;
 
 namespace DefaultDocumentation.Markdown.Sections
