@@ -260,7 +260,7 @@ If `true` items with no documentation will also be included in the generated doc
 - configuration file: `"GeneratedPages": "...,..."`
 
 States which item should have their own pages, if not their documentation will be inlined in their parent's one, `Namespaces,Types,Members` by default. Available values are:
-- `Assembly`: the assembly should have its own page, see [AssemblyPageName](Configuration_AssemblyPageName) for case when the assembly will have its page generated regardless of this flag being present
+- `Assembly`: the assembly should have its own page, see [AssemblyPageName](#Configuration_AssemblyPageName) for case when the assembly will have its page generated regardless of this flag being present
 - `Namespaces`: namespaces should have their own pages
 - `Classes`: classes should have their own pages
 - `Delegates`: delegates should have their own pages
