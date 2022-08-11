@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System.Linq;
 using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.FileNameFactories
