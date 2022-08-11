@@ -20,6 +20,6 @@ namespace DefaultDocumentation.Markdown.Markdown.FileNameFactories
         public void GetFileName_Should_return_LongName_When_no_parameter() => Test(AssemblyInfo.PropertyDocItem, $"{AssemblyInfo.PropertyDocItem.GetLongName()}.md");
 
         [Fact]
-        public void GetFileName_Should_return_LongName_and_Md5_When_parameters() => Test(AssemblyInfo.MethodWithParameterDocItem, "AssemblyInfo.MethodWithParameter.bcDxH9Sg4M1dGXINePLLPg.md");
+        public void GetFileName_Should_return_LongName_and_Md5_When_parameters() => Test(AssemblyInfo.MethodWithParameterDocItem, "AssemblyInfo.MethodWithParameter.5EBN351WOG79CZJJQ2Y6P5UP3.md");
     }
 }
