@@ -22,10 +22,8 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
         /// <inheritdoc/>
         protected override string GetMarkdownFileName(IGeneralContext context, DocItem item)
         {
-            using MD5 md5 = MD5.Create();
-
             return item is EntityDocItem entity && item is IParameterizedDocItem parameterized && parameterized.Parameters.Any()
-                ? $"{item.Parent!.GetLongName()}.{entity.Entity.Name}.{Convert.ToBase64String(md5.ComputeHash(Encoding.UTF8.GetBytes(item.FullName)))}"
+                ? $"{item.Parent!.GetLongName()}.{entity.Entity.Name}.{Md5Factory.GetMd5HashBase36(item.FullName)}"
                 : item.GetLongName();
         }
     }
