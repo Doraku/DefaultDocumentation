@@ -157,7 +157,7 @@ Links files have no defined extension.
 
 <a name='Overview_Plugins'></a>
 ## Plugins
-DefaultDocumentation is completely extensible in the form of plugin. The [api](https://www.nuget.org/packages/DefaultDocumentation.Api) serves as a base contracts your can use to add features to your own documentation generation.  
+DefaultDocumentation is completely extensible in the form of plugin. The [api](https://www.nuget.org/packages/DefaultDocumentation.Api) serves as a base for contracts you can use to add features to your own documentation generation.  
 See the [api reference](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/index.md#DefaultDocumentation.Api) for the list of interfaces for which you can provide your own implementations.  
 See [Plugins](#Configuration_Plugins) setting for how to use a plugin and the [samples](https://github.com/Doraku/DefaultDocumentation/tree/master/source/Sample) for examples of implementations.
 
