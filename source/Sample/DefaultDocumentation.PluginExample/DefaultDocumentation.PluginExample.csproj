@@ -11,6 +11,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DefaultDocumentation.Api" Version="0.8.1" />
+		<PackageReference Include="DefaultDocumentation.Api" Version="0.8.2" />
 	</ItemGroup>
 </Project>

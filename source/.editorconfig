@@ -57,6 +57,9 @@ dotnet_diagnostic.IDE0072.severity = none
 # IDE0130: Namespace does not match folder structure
 dotnet_diagnostic.IDE0130.severity = none
 
+# IDE0210: Convert to top-level statements
+dotnet_diagnostic.IDE0210.severity = none
+
 # RCS1161: Enum should declare explicit values.
 dotnet_diagnostic.RCS1161.severity = none
 
