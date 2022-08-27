@@ -12,7 +12,7 @@ namespace DefaultDocumentation.Markdown.Markdown.FileNameFactories
 
         [Fact]
         public void GetFileName_Should_return_Md5() => Test(AssemblyInfo.ClassDocItem, "NFMDH6WUUDQ1ZFSD9PKB7FIB9.md");
- 
+
         [Fact]
         public void GetFileName_Should_encode_as_nonnegative_BigInteger() =>
             // Note: this name value was specifically chosen so that new BigInteger(MD5(UTF8Bytes(name))) < 0, therefore
