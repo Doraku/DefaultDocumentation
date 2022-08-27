@@ -20,12 +20,8 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
         public override string Name => ConfigName;
 
         /// <inheritdoc/>
-        protected override string GetMarkdownFileName(IGeneralContext context, DocItem item)
-        {
-            using MD5 md5 = MD5.Create();
-
-            return GetMd5HashBase36(item.FullName);
-        }
+        protected override string GetMarkdownFileName(IGeneralContext context, DocItem item) =>
+            GetMd5HashBase36(item.FullName);
 
         internal static string GetMd5HashBase36(string text)
         {
