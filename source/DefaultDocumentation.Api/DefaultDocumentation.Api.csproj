@@ -9,7 +9,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="ICSharpCode.Decompiler" Version="7.2.1.6856" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 		<PackageReference Include="NLog" Version="5.0.2" />
 	</ItemGroup>
 </Project>
