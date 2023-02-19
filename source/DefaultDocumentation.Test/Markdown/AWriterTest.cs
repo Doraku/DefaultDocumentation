@@ -63,7 +63,11 @@ namespace DefaultDocumentation.Markdown
 
             public string GetFileName(DocItem item) => FileNameFactory.GetFileName(this, item);
 
-            public T GetSetting<T>(string name) => default;
+            public T GetSetting<T>(string name) => name switch
+            {
+                "Markdown.NestedTypeVisibilities" => (T)(object)(NestedTypeVisibilities.Namespace | NestedTypeVisibilities.DeclaringType),
+                _ => default
+            };
 
             public string GetUrl(string id) => _urlFactories.Select(f => f.GetUrl(this, id)).FirstOrDefault(url => url is not null) ?? "";
         }

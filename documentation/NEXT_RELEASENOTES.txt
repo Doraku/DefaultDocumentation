@@ -1,3 +1,4 @@
 ## Bug fixes
 
 - fixed string and char const field definition
+- fixed ExplicitInterfaceImplementationsSection config name (fixes #141)

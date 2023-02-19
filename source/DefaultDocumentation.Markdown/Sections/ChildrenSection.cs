@@ -272,7 +272,7 @@ namespace DefaultDocumentation.Markdown.Sections
         /// <summary>
         /// The name of this implementation used at the configuration level.
         /// </summary>
-        public const string ConfigName = "Explicitinterfaceimplementations";
+        public const string ConfigName = "ExplicitInterfaceImplementations";
 
         /// <summary>
         /// Initialize a new instance of the <see cref="ExplicitInterfaceImplementationsSection"/> type.
