@@ -252,9 +252,11 @@ namespace DefaultDocumentation.Internal
             };
         }
 
-        private bool TryGetDocumentation(IEntity entity, out XElement documentation)
+        private bool TryGetDocumentation(IEntity entity, out XElement documentation, HashSet<string> referencedIds = null)
         {
             static XElement ConvertToDocumentation(string documentationString) => documentationString is null ? null : XElement.Parse($"<doc>{documentationString}</doc>");
+
+            referencedIds ??= new HashSet<string>();
 
             _logger.Trace($"looking for documentation of \"{entity?.FullName}\"");
             if (entity is null)
@@ -286,11 +288,11 @@ namespace DefaultDocumentation.Internal
                             .GetAllBaseTypeDefinitions()
                             .Reverse()
                             .Skip(1)
-                            .FirstOrDefault(t => TryGetDocumentation(t, out baseDocumentation));
+                            .FirstOrDefault(t => TryGetDocumentation(t, out baseDocumentation, referencedIds));
                     }
                     else if (entity is IMember member && member.IsExplicitInterfaceImplementation)
                     {
-                        return TryGetDocumentation(member.ExplicitlyImplementedInterfaceMembers.FirstOrDefault(), out documentation);
+                        return TryGetDocumentation(member.ExplicitlyImplementedInterfaceMembers.FirstOrDefault(), out documentation, referencedIds);
                     }
                     else
                     {
@@ -301,15 +303,23 @@ namespace DefaultDocumentation.Internal
                             .Reverse()
                             .Skip(1)
                             .SelectMany(t => t.Members)
-                            .FirstOrDefault(e => e.GetIdString().Substring(e.DeclaringTypeDefinition.GetIdString().Length) == id && TryGetDocumentation(e, out baseDocumentation));
+                            .FirstOrDefault(e => e.GetIdString().Substring(e.DeclaringTypeDefinition.GetIdString().Length) == id && TryGetDocumentation(e, out baseDocumentation, referencedIds));
                     }
 
                     documentation = baseDocumentation;
                 }
-                else
+                else if (referencedIds.Add(referenceName))
                 {
                     _logger.Trace($"looking for inherited documentation of \"{entity.FullName}\" cref \"{referenceName}\"");
-                    return TryGetDocumentation(IdStringProvider.FindEntity(referenceName, _resolver), out documentation);
+
+                    return TryGetDocumentation(IdStringProvider.FindEntity(referenceName, _resolver), out documentation, referencedIds);
+                }
+                else
+                {
+                    _logger.Trace($"cyclic inherited documentation detected for cref \"{referenceName}\", handled as no documentation available");
+
+                    documentation = null;
+                    return false;
                 }
             }
 
