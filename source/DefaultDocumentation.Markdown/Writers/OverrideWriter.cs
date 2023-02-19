@@ -10,7 +10,7 @@ namespace DefaultDocumentation.Markdown.Writers
     /// </summary>
     public sealed class OverrideWriter : IWriter
     {
-        private class StringComparer : IEqualityComparer<string>
+        private sealed class StringComparer : IEqualityComparer<string>
         {
             public bool Equals(string x, string y) => string.Equals(x, y, StringComparison.OrdinalIgnoreCase);
 

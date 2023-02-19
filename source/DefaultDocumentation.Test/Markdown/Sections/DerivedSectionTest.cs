@@ -8,15 +8,6 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class DerivedSectionTest : ASectionTest<DerivedSection>
     {
-        private interface IInterface
-        { }
-
-        private class Class1 : IInterface
-        { }
-
-        private class Class2 : IInterface
-        { }
-
         protected override IReadOnlyDictionary<string, DocItem> GetItems() => new DocItem[]
         {
             AssemblyInfo.ClassDocItem,

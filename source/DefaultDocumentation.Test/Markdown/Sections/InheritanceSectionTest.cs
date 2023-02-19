@@ -5,12 +5,6 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class InheritanceSectionTest : ASectionTest<InheritanceSection>
     {
-        private struct Struct
-        { }
-
-        private class Class
-        { }
-
         [Fact]
         public void Name_should_be_Inheritance() => Check.That(Name).IsEqualTo("Inheritance");
 

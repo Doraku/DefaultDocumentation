@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using DefaultDocumentation.Models;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Internal
 {
     internal sealed class PageWriter : IWriter
     {
-        private class StringComparer : IEqualityComparer<string>
+        private sealed class StringComparer : IEqualityComparer<string>
         {
             public bool Equals(string x, string y) => string.Equals(x, y, StringComparison.OrdinalIgnoreCase);
 
