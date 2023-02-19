@@ -36,5 +36,9 @@ namespace DefaultDocumentation
         /// Generates documentation for 'private protected' access modifier.
         /// </summary>
         PrivateProtected = 1 << 5,
+        /// <summary>
+        /// Generates documentation for 'public', 'protected' and 'protected internal' access modifier.
+        /// </summary>
+        Api = Public | Protected | ProtectedInternal
     }
 }

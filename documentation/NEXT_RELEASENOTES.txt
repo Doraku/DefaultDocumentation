@@ -1,3 +1,7 @@
+## New features
+
+- added DefaultDocumentation.GeneratedAccessModifiers.Api which regroup Public, Protected and InternalProtected access modifiers (closes #116)
+
 ## Bug fixes
 
 - fixed string and char const field definition
