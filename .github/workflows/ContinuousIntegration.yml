@@ -40,7 +40,7 @@ jobs:
 
     - name: Create package
       run: |
-        dotnet pack source\DefaultDocumentation.sln -c Release -o build /p:CI_VERSION=true
+        dotnet pack source\DefaultDocumentation.sln -c Release /p:PublishDir=build /p:CI_VERSION=true
 
     - name: Publish packages
       run: nuget push build\*.nupkg

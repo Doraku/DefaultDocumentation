@@ -28,7 +28,7 @@ jobs:
 
     - name: Create packages
       run: |
-        dotnet pack source\DefaultDocumentation.sln -c Release -o build /p:Version=${{ github.event.release.tag_name }}
+        dotnet pack source\DefaultDocumentation.sln -c Release /p:PublishDir=build /p:Version=${{ github.event.release.tag_name }}
         
     - name: Create RELEASE.txt
       run: |
