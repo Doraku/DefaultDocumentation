@@ -113,6 +113,7 @@ namespace DefaultDocumentation
                 GetSetting<string>(nameof(settings.LinksBaseUrl)),
                 GetSetting<string[]>(nameof(settings.ExternLinksFilePaths)));
 
+            AppDomain.CurrentDomain.AssemblyResolve += OnResolve;
             _context = new GeneralContext(
                 _configuration,
                 new[] { typeof(Markdown.Writers.MarkdownWriter).Assembly }
@@ -121,6 +122,11 @@ namespace DefaultDocumentation
                     .ToArray(),
                 resolvedSettings,
                 DocItemReader.GetItems(resolvedSettings));
+        }
+
+        private Assembly OnResolve(Object sender, ResolveEventArgs e)
+        {
+            return Array.Find(AppDomain.CurrentDomain.GetAssemblies(), asm => asm.FullName == e.Name);
         }
 
         private void WritePage(DocItem item, StringBuilder builder)
