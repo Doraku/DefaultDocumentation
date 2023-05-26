@@ -7,6 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DefaultDocumentation.Api" Version="0.8.2" />
+	    <ProjectReference Include="..\DefaultDocumentation.Api\DefaultDocumentation.Api.csproj" />
 	</ItemGroup>
 </Project>
