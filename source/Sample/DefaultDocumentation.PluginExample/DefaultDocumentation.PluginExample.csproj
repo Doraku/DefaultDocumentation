@@ -3,6 +3,8 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<DevelopmentDependency>true</DevelopmentDependency>
 		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)ds.snk</AssemblyOriginatorKeyFile>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 
@@ -11,6 +13,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DefaultDocumentation.Api" Version="0.8.2" />
+		<PackageReference Include="DefaultDocumentation.Api" Version="0.8.2" PrivateAssets="all" />
 	</ItemGroup>
 </Project>
