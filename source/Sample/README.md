@@ -2,6 +2,9 @@
 
 This is an example of a plugin project to extend DefaultDocumentation features.
 The .targets file automatically adds the plugin to the `<DefaultDocumentationPlugins>` property so that referencing this plugin as a `PackageReference` is enough (you need to removed the `<IsPackable>false</IsPackable>` property from the csproj if you wish to do so).
+
+`<SignAssembly>True</SignAssembly>` and `AssemblyOriginatorKeyFile` properties are required to sign the assembly. The plugin will NOT work properly if its assembly is unsigned. You must set the `AssemblyOriginatorKeyFile` to the path of your snk file.
+
 - in case of a custom `IFileNameFactory`, you still need to select the one you want with the `<DefaultDocumentationFileNameFactory>` property or `--FileNameFactory` arg
 - in case of a custom `IElement`, it will be automatically used
 - in case of a custom `ISection`, you still need to use it explicitly in the `<DefaultDocumentationSections>` property or `--Section` arg
