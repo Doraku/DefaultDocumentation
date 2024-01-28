@@ -27,22 +27,6 @@ namespace DefaultDocumentation.Internal
 
         private DocItemReader(Settings settings)
         {
-            bool IsGenerated(IEntity? entity) => entity.EffectiveAccessibility() switch
-            {
-                Accessibility.Public => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Public) != 0,
-                Accessibility.Private => entity switch
-                {
-                    IProperty property when property.IsExplicitInterfaceImplementation => IsGenerated(property.ExplicitlyImplementedInterfaceMembers.First().DeclaringTypeDefinition),
-                    IMethod method when method.IsExplicitInterfaceImplementation => IsGenerated(method.ExplicitlyImplementedInterfaceMembers.First().DeclaringTypeDefinition),
-                    _ => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Private) != 0
-                },
-                Accessibility.Protected => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Protected) != 0,
-                Accessibility.Internal => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Internal) != 0,
-                Accessibility.ProtectedOrInternal => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.ProtectedInternal) != 0,
-                Accessibility.ProtectedAndInternal => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.PrivateProtected) != 0,
-                _ => false
-            };
-
             _logger = settings.Logger;
             _decompiler = new CSharpDecompiler(settings.AssemblyFile.FullName, new DecompilerSettings { ThrowOnAssemblyResolveErrors = false });
             _resolver = new CSharpResolver(_decompiler.TypeSystem);
@@ -75,7 +59,7 @@ namespace DefaultDocumentation.Internal
                     continue;
                 }
 
-                if (!IsGenerated(type))
+                if (!type.IsVisibleInDocumentation(settings))
                 {
                     _logger.Debug($"Skipping documentation for type \"{type.FullName}\": accessibility \"{type.EffectiveAccessibility()}\" not generated");
                     continue;
@@ -155,7 +139,7 @@ namespace DefaultDocumentation.Internal
                             continue;
                         }
 
-                        if (!IsGenerated(entity))
+                        if (!entity.IsVisibleInDocumentation(settings))
                         {
                             _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": accessibility \"{entity.EffectiveAccessibility()}\" not generated");
                             continue;

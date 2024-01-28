@@ -63,7 +63,28 @@ private const char _constCharField = 'e';
         public void Write_should_write_When_PropertyDocItem() => Test(
             AssemblyInfo.PropertyDocItem,
 @"```csharp
-private static int Property { get; }
+public static int Property { get; }
+```");
+
+        [Fact]
+        public void Write_should_write_When_PropertyDocItem_with_private_set() => Test(
+            AssemblyInfo.PropertyPrivateSetDocItem,
+@"```csharp
+public static int PropertyPrivateSet { get; }
+```");
+
+        [Fact]
+        public void Write_should_write_When_PropertyDocItem_with_internal_set() => Test(
+            AssemblyInfo.PropertyInternalSetDocItem,
+@"```csharp
+public static int PropertyInternalSet { get; }
+```");
+
+        [Fact]
+        public void Write_should_write_When_PropertyDocItem_with_init() => Test(
+            AssemblyInfo.RecordPropertyDocItem,
+@"```csharp
+public int Property { get; init; }
 ```");
 
         [Fact]
@@ -160,13 +181,6 @@ public sealed record AssemblyInfo.ClassRecord : System.IEquatable<DefaultDocumen
           AssemblyInfo.StructRecordDocItem,
 @"```csharp
 public readonly record struct AssemblyInfo.StructRecord : System.IEquatable<DefaultDocumentation.AssemblyInfo.StructRecord>
-```");
-
-        //[Fact] to uncomment once https://github.com/icsharpcode/ILSpy/issues/3159 is solved
-        public void Write_should_write_When_PropertyDocItem_with_init() => Test(
-            AssemblyInfo.RecordPropertyDocItem,
-@"```csharp
-public int Property { get; init; }
 ```");
     }
 }

@@ -87,6 +87,7 @@ namespace DefaultDocumentation.Markdown
                 settings.AssemblyFile.Returns(new FileInfo("test.dll"));
                 settings.ProjectDirectory.Returns(new DirectoryInfo(Path.GetTempPath()));
                 settings.GeneratedPages.Returns(GetGeneratedPages());
+                settings.GeneratedAccessModifiers.Returns(GetGeneratedAccessModifiers());
 
                 return settings;
             });
@@ -102,6 +103,8 @@ namespace DefaultDocumentation.Markdown
         }
 
         protected virtual GeneratedPages GetGeneratedPages() => GeneratedPages.Assembly | GeneratedPages.Namespaces | GeneratedPages.Types | GeneratedPages.Members;
+
+        protected virtual GeneratedAccessModifiers GetGeneratedAccessModifiers() => GeneratedAccessModifiers.Api;
 
         protected virtual IFileNameFactory GetFileNameFactory() => new DummyFileNameFactory();
 

@@ -8,3 +8,4 @@
 - fixed string and char const field definition
 - fixed ExplicitInterfaceImplementationsSection config name (fixes #141)
 - fixed StackOverflowException when using cyclic inheritdoc (fixes #142)
+- fixed property getter/setter access modifier not taken into account (fixes #151)

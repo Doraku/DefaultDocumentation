@@ -63,7 +63,11 @@ namespace DefaultDocumentation
 
         private static readonly int _field;
 
-        private static int Property { get; }
+        public static int Property { get; }
+
+        public static int PropertyPrivateSet { get; private set; }
+
+        public static int PropertyInternalSet { get; internal set; }
 
         private static void MethodWithParameter(int parameter)
         { }
@@ -117,6 +121,8 @@ namespace DefaultDocumentation
         public static readonly FieldDocItem ConstCharFieldDocItem = new(ClassDocItem, Get<IField>($"F:{typeof(AssemblyInfo).FullName}.{nameof(_constCharField)}"), null);
         public static readonly FieldDocItem FieldDocItem = new(ClassDocItem, Get<IField>($"F:{typeof(AssemblyInfo).FullName}.{nameof(_field)}"), null);
         public static readonly PropertyDocItem PropertyDocItem = new(ClassDocItem, Get<IProperty>($"P:{typeof(AssemblyInfo).FullName}.{nameof(Property)}"), null);
+        public static readonly PropertyDocItem PropertyPrivateSetDocItem = new(ClassDocItem, Get<IProperty>($"P:{typeof(AssemblyInfo).FullName}.{nameof(PropertyPrivateSet)}"), null);
+        public static readonly PropertyDocItem PropertyInternalSetDocItem = new(ClassDocItem, Get<IProperty>($"P:{typeof(AssemblyInfo).FullName}.{nameof(PropertyInternalSet)}"), null);
         public static readonly MethodDocItem MethodWithGenericConstrainsDocItem = new(ClassDocItem, Get<IMethod>($"M:{typeof(AssemblyInfo).FullName}.{nameof(MethodWithGenericConstrains)}``5"), null);
         public static readonly MethodDocItem MethodWithParameterDocItem = new(ClassDocItem, Get<IMethod>($"M:{typeof(AssemblyInfo).FullName}.{nameof(MethodWithParameter)}({typeof(int).FullName})"), null);
         public static readonly MethodDocItem MethodWithReturnDocItem = new(ClassDocItem, Get<IMethod>($"M:{typeof(AssemblyInfo).FullName}.{nameof(MoveNext)}"), null);

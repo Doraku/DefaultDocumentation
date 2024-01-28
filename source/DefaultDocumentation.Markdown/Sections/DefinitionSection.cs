@@ -89,7 +89,6 @@ namespace DefaultDocumentation.Markdown.Sections
         {
             ConversionFlags =
                 ConversionFlags.ShowAccessibility
-                | ConversionFlags.ShowBody
                 | ConversionFlags.ShowModifiers
                 | ConversionFlags.ShowParameterDefaultValues
                 | ConversionFlags.ShowParameterList
@@ -186,6 +185,40 @@ namespace DefaultDocumentation.Markdown.Sections
                     .Append("```");
             }
 
+
+            static void WritePropertyMethod(IWriter writer, IMethod? method, string name)
+            {
+                if (!method.IsVisibleInDocumentation(writer.Context.Settings))
+                {
+                    return;
+                }
+
+                writer
+                    .Append((method!.IsExplicitInterfaceImplementation ? method.ExplicitlyImplementedInterfaceMembers.FirstOrDefault() : method).Accessibility switch
+                    {
+                        Accessibility.Private => " private ",
+                        Accessibility.Internal => " internal ",
+                        Accessibility.Protected => " protected ",
+                        Accessibility.ProtectedAndInternal => " private protected ",
+                        Accessibility.ProtectedOrInternal => " protected internal ",
+                        _ => " "
+                    })
+                    .Append(name)
+                    .Append(";");
+            }
+
+            static void WriteProperty(IWriter writer, IProperty property)
+            {
+                writer
+                    .Append(property.ToString(_propertyAmbience))
+                    .Append(" {");
+
+                WritePropertyMethod(writer, property.Getter, "get");
+                WritePropertyMethod(writer, property.Setter, property.Setter?.IsInitOnly ?? false ? "init" : "set");
+
+                writer.Append(" }");
+            }
+
             _ = writer.GetCurrentItem() switch
             {
                 FieldDocItem item => Write(writer, w =>
@@ -210,12 +243,12 @@ namespace DefaultDocumentation.Markdown.Sections
 
                     w.Append(";");
                 }),
-                PropertyDocItem item => Write(writer, w => w.Append(item.Property.ToString(_propertyAmbience))),
+                PropertyDocItem item => Write(writer, w => WriteProperty(w, item.Property)),
                 EventDocItem item => Write(writer, w => w.Append(item.Event.ToString(_eventAmbience))),
                 ConstructorDocItem item => Write(writer, w => w.Append(item.Method.ToString(_methodAmbience)).Append(";")),
                 OperatorDocItem item => Write(writer, w => w.Append(item.Method.ToString(_methodAmbience)).Append(";")),
                 ExplicitInterfaceImplementationDocItem item when item.Member is IEvent => Write(writer, w => w.Append(item.Member.ToString(_eventAmbience))),
-                ExplicitInterfaceImplementationDocItem item when item.Member is IProperty => Write(writer, w => w.Append(item.Member.ToString(_propertyAmbience))),
+                ExplicitInterfaceImplementationDocItem item when item.Member is IProperty property => Write(writer, w => WriteProperty(w, property)),
                 ExplicitInterfaceImplementationDocItem item when item.Member is IMethod => Write(writer, w =>
                 {
                     w.Append(item.Member.ToString(_methodAmbience));
