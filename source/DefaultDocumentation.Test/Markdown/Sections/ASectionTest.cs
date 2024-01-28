@@ -1,6 +1,7 @@
 ﻿using System;
-using DefaultDocumentation.Models;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Internal;
+using DefaultDocumentation.Models;
 using NFluent;
 
 namespace DefaultDocumentation.Markdown.Sections
@@ -20,7 +21,7 @@ namespace DefaultDocumentation.Markdown.Sections
         protected void Test(DocItem item, Func<IWriter, IWriter> initializer, string expectedOutput)
         {
             _builder.Clear();
-            IWriter writer = initializer(new PageWriter(_builder, _context.Value, item));
+            IWriter writer = initializer(new PageWriter(_builder, new PageContext(_context.Value, item)));
 
             _sectionWriter.Write(writer);
 

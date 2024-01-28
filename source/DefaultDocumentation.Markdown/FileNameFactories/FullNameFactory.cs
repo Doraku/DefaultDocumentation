@@ -5,7 +5,7 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
     /// <summary>
     /// <see cref="Api.IFileNameFactory"/> implementation using <see cref="DocItem.FullName"/> as file name.
     /// </summary>
-    public sealed class FullNameFactory : AMarkdownFactory
+    public sealed class FullNameFactory : BaseMarkdownFileNameFactory
     {
         /// <summary>
         /// The name of this implementation used at the configuration level.

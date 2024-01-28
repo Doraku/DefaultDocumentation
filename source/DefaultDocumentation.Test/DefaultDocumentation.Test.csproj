@@ -1,20 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
-		<RootNamespace>DefaultDocumentation.Markdown</RootNamespace>
-		<IsPackable>false</IsPackable>
-	</PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="coverlet.msbuild" Version="3.2.0" PrivateAssets="all" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
-		<PackageReference Include="NFluent" Version="2.8.0" />
-		<PackageReference Include="NSubstitute" Version="5.0.0" />
-		<PackageReference Include="xunit" Version="2.4.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="all" />
-	</ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>DefaultDocumentation</RootNamespace>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\DefaultDocumentation.Markdown\DefaultDocumentation.Markdown.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\DefaultDocumentation.Common\Internal\PageContext.cs" Link="Internal\PageContext.cs" />
+    <Compile Include="..\DefaultDocumentation.Common\Internal\PageWriter.cs" Link="Internal\PageWriter.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.msbuild" Version="6.0.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="NFluent" Version="3.0.3" />
+    <PackageReference Include="NSubstitute" Version="5.1.0" />
+    <PackageReference Include="xunit" Version="2.6.6" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DefaultDocumentation.Markdown\DefaultDocumentation.Markdown.csproj" />
+  </ItemGroup>
+
 </Project>

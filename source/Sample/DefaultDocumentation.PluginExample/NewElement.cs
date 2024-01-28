@@ -9,6 +9,9 @@ namespace DefaultDocumentation.PluginExample
 
         public void Write(IWriter writer, XElement element)
         {
+            ArgumentNullException.ThrowIfNull(writer);
+            ArgumentNullException.ThrowIfNull(element);
+
             writer.Append("hello ").Append(element.Value);
         }
     }

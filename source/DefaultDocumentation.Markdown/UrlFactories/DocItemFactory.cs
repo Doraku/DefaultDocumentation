@@ -19,8 +19,11 @@ namespace DefaultDocumentation.Markdown.UrlFactories
         public string Name => ConfigName;
 
         /// <inheritdoc/>
-        public string? GetUrl(IGeneralContext context, string id)
+        public string? GetUrl(IPageContext context, string id)
         {
+            ArgumentNullException.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(id);
+
             if (!context.Items.TryGetValue(id, out DocItem item))
             {
                 return null;
@@ -38,10 +41,17 @@ namespace DefaultDocumentation.Markdown.UrlFactories
             }
 
             string url = context.GetFileName(pagedItem);
+
+            if (context.GetUseFullUrl() && !string.IsNullOrWhiteSpace(context.Settings.LinksBaseUrl))
+            {
+                url = context.Settings.LinksBaseUrl!.Trim('/') + '/' + url;
+            }
+
             if (context.GetRemoveFileExtensionFromUrl() && Path.HasExtension(url))
             {
                 url = url.Substring(0, url.Length - Path.GetExtension(url).Length);
             }
+
             if (item != pagedItem)
             {
                 url += "#" + PathCleaner.Clean(item.FullName, context.GetInvalidCharReplacement());

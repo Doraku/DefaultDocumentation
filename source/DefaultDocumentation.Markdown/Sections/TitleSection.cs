@@ -25,6 +25,8 @@ namespace DefaultDocumentation.Markdown.Sections
         /// <inheritdoc/>
         public void Write(IWriter writer)
         {
+            ArgumentNullException.ThrowIfNull(writer);
+
             DocItem currentItem = writer.GetCurrentItem();
 
             Action<IWriter>? action = currentItem switch
@@ -55,13 +57,17 @@ namespace DefaultDocumentation.Markdown.Sections
             {
                 if (!currentItem.HasOwnPage(writer.Context))
                 {
-                    string url = writer.Context.GetUrl(currentItem);
-                    int startIndex = url.IndexOf('#') + 1;
-                    writer
-                        .EnsureLineStartAndAppendLine()
-                        .Append("<a name='")
-                        .Append(url.Substring(startIndex, url.Length - startIndex))
-                        .Append("'></a>");
+                    string? url = writer.Context.GetUrl(currentItem);
+
+                    if (url != null)
+                    {
+                        int startIndex = url.IndexOf('#') + 1;
+                        writer
+                            .EnsureLineStartAndAppendLine()
+                            .Append("<a name='")
+                            .Append(url.Substring(startIndex, url.Length - startIndex))
+                            .Append("'></a>");
+                    }
                 }
 
                 writer.EnsureLineStartAndAppendLine();

@@ -23,7 +23,7 @@ namespace DefaultDocumentation.Models.Types
         private protected TypeDocItem(DocItem parent, ITypeDefinition type, XElement? documentation)
             : base(
                   parent is NamespaceDocItem or TypeDocItem ? parent : throw new ArgumentException($"must be either {nameof(NamespaceDocItem)} or {nameof(TypeDocItem)}", nameof(parent)),
-                  type ?? throw new ArgumentNullException(nameof(type)),
+                  type ?? throw new System.ArgumentNullException(nameof(type)),
                   documentation)
         {
             Type = type;

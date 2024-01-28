@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -26,7 +27,7 @@ namespace DefaultDocumentation.Internal
 
         private DocItemReader(Settings settings)
         {
-            bool IsGenerated(IEntity entity) => entity.EffectiveAccessibility() switch
+            bool IsGenerated(IEntity? entity) => entity.EffectiveAccessibility() switch
             {
                 Accessibility.Public => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Public) != 0,
                 Accessibility.Private => entity switch
@@ -83,7 +84,7 @@ namespace DefaultDocumentation.Internal
                 List<ITypeDefinition> declaringTypes = new(type.GetDeclaringTypeDefinitions().Skip(1).Reverse());
                 List<DocItem> docItemsToAdd = new();
 
-                if (!_items.TryGetValue($"N:{(declaringTypes.FirstOrDefault() ?? type).Namespace}", out DocItem parentDocItem))
+                if (!_items.TryGetValue($"N:{(declaringTypes.FirstOrDefault() ?? type).Namespace}", out DocItem? parentDocItem))
                 {
                     parentDocItem = new NamespaceDocItem(
                         assemblyDocItem,
@@ -160,7 +161,7 @@ namespace DefaultDocumentation.Internal
                             continue;
                         }
 
-                        if (!TryGetDocumentation(entity, out XElement documentation) && !settings.IncludeUndocumentedItems)
+                        if (!TryGetDocumentation(entity, out XElement? documentation) && !settings.IncludeUndocumentedItems)
                         {
                             _logger.Debug($"Skipping documentation for member \"{entity.FullName}\": no documentation");
                             continue;
@@ -217,7 +218,7 @@ namespace DefaultDocumentation.Internal
                 string baseLink = string.Empty;
                 while (!reader.EndOfStream)
                 {
-                    string[] items = reader.ReadLine().Split(new[] { '|' }, 3);
+                    string[] items = reader.ReadLine().Split(['|'], 3);
 
                     switch (items.Length)
                     {
@@ -239,7 +240,7 @@ namespace DefaultDocumentation.Internal
 
         private TypeDocItem GetDocItem(ITypeDefinition type, DocItem parentDocItem)
         {
-            TryGetDocumentation(type, out XElement documentation);
+            TryGetDocumentation(type, out XElement? documentation);
 
             return type.Kind switch
             {
@@ -252,14 +253,14 @@ namespace DefaultDocumentation.Internal
             };
         }
 
-        private bool TryGetDocumentation(IEntity entity, out XElement documentation, HashSet<string> referencedIds = null)
+        private bool TryGetDocumentation(IEntity? entity, [NotNullWhen(true)] out XElement? documentation, HashSet<string>? referencedIds = null)
         {
-            static XElement ConvertToDocumentation(string documentationString) => documentationString is null ? null : XElement.Parse($"<doc>{documentationString}</doc>");
+            static XElement? ConvertToDocumentation(string? documentationString) => documentationString is null ? null : XElement.Parse($"<doc>{documentationString}</doc>");
 
             referencedIds ??= new HashSet<string>();
 
             _logger.Trace($"looking for documentation of \"{entity?.FullName}\"");
-            if (entity is null)
+            if (entity?.ParentModule?.PEFile is null)
             {
                 documentation = null;
                 return false;
@@ -274,14 +275,14 @@ namespace DefaultDocumentation.Internal
 
             documentation = ConvertToDocumentation(documentationProvider?.GetDocumentation(entity));
 
-            if (documentation.HasInheritDoc(out XElement inheritDoc))
+            if (documentation.HasInheritDoc(out XElement? inheritDoc))
             {
-                string referenceName = inheritDoc.GetCRefAttribute();
+                string? referenceName = inheritDoc.GetCRefAttribute();
 
                 if (referenceName is null)
                 {
                     _logger.Trace($"looking for inherited documentation of \"{entity.FullName}\"");
-                    XElement baseDocumentation = null;
+                    XElement? baseDocumentation = null;
                     if (entity is ITypeDefinition type)
                     {
                         _ = type
@@ -326,10 +327,10 @@ namespace DefaultDocumentation.Internal
             return documentation != null;
         }
 
-        private XElement GetDocumentation(string id)
+        private XElement? GetDocumentation(string id)
         {
             _logger.Trace($"looking for documentation of \"{id}\"");
-            return TryGetDocumentation(IdStringProvider.FindEntity(id, _resolver), out XElement documentation) ? documentation : null;
+            return TryGetDocumentation(IdStringProvider.FindEntity(id, _resolver), out XElement? documentation) ? documentation : null;
         }
 
         private void Add(DocItem item)

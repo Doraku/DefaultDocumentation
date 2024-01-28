@@ -1,22 +1,23 @@
 ﻿using System.Collections.Generic;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation
 {
     /// <summary>
-    /// Exposes settings used to generate documentation.
+    /// Exposes settings used to generate documentation for a given <see cref="DocItem"/> type.
     /// </summary>
     public interface IContext
     {
         /// <summary>
         /// Gets the <see cref="IFileNameFactory"/> to use to generate a file for a documentation page.
         /// </summary>
-        IFileNameFactory FileNameFactory { get; }
+        IFileNameFactory? FileNameFactory { get; }
 
         /// <summary>
         /// Gets the <see cref="ISection"/> to use to generate a documentation page.
         /// </summary>
-        IEnumerable<ISection> Sections { get; }
+        IEnumerable<ISection>? Sections { get; }
 
         /// <summary>
         /// Gets a <typeparamref name="T"/> setting with the given name.

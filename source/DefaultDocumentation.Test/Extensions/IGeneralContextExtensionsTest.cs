@@ -5,7 +5,7 @@ using Xunit;
 
 namespace DefaultDocumentation
 {
-    public sealed class IGeneralContextExtensionTest
+    public sealed class IGeneralContextExtensionsTest
     {
         [Fact]
         public void GetContext_Should_return_GetContext_Type()

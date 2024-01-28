@@ -46,10 +46,14 @@ namespace DefaultDocumentation
             event Action SecondEvent;
         }
 
-        private static class ClassWithTypeParameter<T>
-        { }
+        private static class ClassWithTypeParameter<T>;
 
-        private static event Action Event;
+        public sealed record ClassRecord(
+            int Property);
+
+        public readonly record struct StructRecord;
+
+        private static event Action? Event;
 
         private const int _constField = 42;
 
@@ -57,9 +61,7 @@ namespace DefaultDocumentation
 
         private const char _constCharField = 'e';
 
-#pragma warning disable CS0649
         private static readonly int _field;
-#pragma warning restore CS0649
 
         private static int Property { get; }
 
@@ -74,7 +76,7 @@ namespace DefaultDocumentation
             where T5 : class?
         { }
 
-        public object Current { get; }
+        public object? Current { get; }
 
         public bool MoveNext() => false;
 
@@ -83,7 +85,7 @@ namespace DefaultDocumentation
 
         int IInterface.Property { get; set; }
 
-        public event Action SecondEvent;
+        public event Action? SecondEvent;
 
         event Action IInterface.Event
         {
@@ -106,7 +108,7 @@ namespace DefaultDocumentation
 
         public static readonly AssemblyDocItem AssemblyDocItem = new("Test", "Test", null);
 
-        public static readonly NamespaceDocItem NamespaceDocItem = new(AssemblyDocItem, typeof(AssemblyInfo).Namespace, null);
+        public static readonly NamespaceDocItem NamespaceDocItem = new(AssemblyDocItem, typeof(AssemblyInfo).Namespace!, null);
 
         public static readonly ClassDocItem ClassDocItem = new(NamespaceDocItem, Get<ITypeDefinition>($"T:{typeof(AssemblyInfo).FullName}"), null);
         public static readonly EventDocItem EventDocItem = new(ClassDocItem, Get<IEvent>($"E:{typeof(AssemblyInfo).FullName}.{nameof(Event)}"), null);
@@ -120,9 +122,9 @@ namespace DefaultDocumentation
         public static readonly MethodDocItem MethodWithReturnDocItem = new(ClassDocItem, Get<IMethod>($"M:{typeof(AssemblyInfo).FullName}.{nameof(MoveNext)}"), null);
         public static readonly ConstructorDocItem ConstructorDocItem = new(ClassDocItem, Get<IMethod>($"M:{typeof(AssemblyInfo).FullName}.#ctor"), null);
         public static readonly OperatorDocItem OperatorDocItem = new(ClassDocItem, Get<IMethod>($"M:{typeof(AssemblyInfo).FullName}.op_Addition({typeof(AssemblyInfo).FullName},System.Int32)"), null);
-        public static readonly ExplicitInterfaceImplementationDocItem ExplicitEventDocItem = new(ClassDocItem, Get<IEvent>($"E:{typeof(AssemblyInfo).FullName}.{typeof(IInterface).FullName.Replace('.', '#').Replace('+', '#')}#{nameof(IInterface.Event)}"), null);
-        public static readonly ExplicitInterfaceImplementationDocItem ExplicitPropertyDocItem = new(ClassDocItem, Get<IProperty>($"P:{typeof(AssemblyInfo).FullName}.{typeof(IInterface).FullName.Replace('.', '#').Replace('+', '#')}#{nameof(IInterface.Property)}"), null);
-        public static readonly ExplicitInterfaceImplementationDocItem ExplicitMethodDocItem = new(ClassDocItem, Get<IMethod>($"M:{typeof(AssemblyInfo).FullName}.{typeof(IInterface).FullName.Replace('.', '#').Replace('+', '#')}#{nameof(IInterface.Method)}"), null);
+        public static readonly ExplicitInterfaceImplementationDocItem ExplicitEventDocItem = new(ClassDocItem, Get<IEvent>($"E:{typeof(AssemblyInfo).FullName}.{typeof(IInterface).FullName!.Replace('.', '#').Replace('+', '#')}#{nameof(IInterface.Event)}"), null);
+        public static readonly ExplicitInterfaceImplementationDocItem ExplicitPropertyDocItem = new(ClassDocItem, Get<IProperty>($"P:{typeof(AssemblyInfo).FullName}.{typeof(IInterface).FullName!.Replace('.', '#').Replace('+', '#')}#{nameof(IInterface.Property)}"), null);
+        public static readonly ExplicitInterfaceImplementationDocItem ExplicitMethodDocItem = new(ClassDocItem, Get<IMethod>($"M:{typeof(AssemblyInfo).FullName}.{typeof(IInterface).FullName!.Replace('.', '#').Replace('+', '#')}#{nameof(IInterface.Method)}"), null);
 
         public static readonly EnumDocItem EnumDocItem = new(ClassDocItem, Get<ITypeDefinition>($"T:{typeof(Enum).FullName}"), null);
         public static readonly EnumFieldDocItem EnumFieldDocItem = new(EnumDocItem, Get<IField>($"F:{typeof(Enum).FullName}.{nameof(Enum.Value)}"), null);
@@ -139,5 +141,10 @@ namespace DefaultDocumentation
         public static readonly InterfaceDocItem InterfaceDocItem = new(ClassDocItem, Get<ITypeDefinition>($"T:{typeof(IInterface).FullName}"), null);
         public static readonly MethodDocItem InterfaceMethodDocItem = new(InterfaceDocItem, Get<IMethod>($"M:{typeof(IInterface).FullName}.{nameof(IInterface.Method)}"), null);
         public static readonly EventDocItem InterfaceEventDocItem = new(InterfaceDocItem, Get<IEvent>($"E:{typeof(IInterface).FullName}.{nameof(IInterface.SecondEvent)}"), null);
+
+        public static readonly ClassDocItem ClassRecordDocItem = new(NamespaceDocItem, Get<ITypeDefinition>($"T:{typeof(AssemblyInfo).FullName}.{nameof(ClassRecord)}"), null);
+        public static readonly PropertyDocItem RecordPropertyDocItem = new(ClassRecordDocItem, Get<IProperty>($"P:{typeof(AssemblyInfo).FullName}.{nameof(ClassRecord)}.{nameof(ClassRecord.Property)}"), null);
+
+        public static readonly StructDocItem StructRecordDocItem = new(NamespaceDocItem, Get<ITypeDefinition>($"T:{typeof(AssemblyInfo).FullName}.{nameof(StructRecord)}"), null);
     }
 }

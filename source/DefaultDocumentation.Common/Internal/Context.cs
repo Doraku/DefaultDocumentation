@@ -16,14 +16,15 @@ namespace DefaultDocumentation.Internal
         {
             _configuration = configuration;
 
-            string fileNameFactory = GetSetting<string>(nameof(IRawSettings.FileNameFactory));
+            string? fileNameFactory = GetSetting<string>(nameof(IRawSettings.FileNameFactory));
             FileNameFactory = string.IsNullOrEmpty(fileNameFactory) ? null : availableTypes
                 .Where(t => typeof(IFileNameFactory).IsAssignableFrom(t) && !t.IsAbstract)
                 .Select(t => (IFileNameFactory)Activator.CreateInstance(t))
                 .LastOrDefault(f => f.Name == fileNameFactory || $"{f.GetType().FullName} {f.GetType().Assembly.GetName().Name}" == fileNameFactory)
                 ?? throw new Exception($"FileNameFactory '{fileNameFactory}' not found");
 
-            string[] sections = GetSetting<string[]>(nameof(IRawSettings.Sections));
+            string[]? sections = GetSetting<string[]>(nameof(IRawSettings.Sections));
+
             if (sections != null)
             {
                 Dictionary<string, ISection> availableSections = availableTypes
@@ -47,11 +48,11 @@ namespace DefaultDocumentation.Internal
 
         #region IContext
 
-        public IFileNameFactory FileNameFactory { get; }
+        public IFileNameFactory? FileNameFactory { get; }
 
-        public IEnumerable<ISection> Sections { get; }
+        public IEnumerable<ISection>? Sections { get; }
 
-        public T GetSetting<T>(string name) => _configuration.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out JToken value) ? value.ToObject<T>() : default;
+        public T? GetSetting<T>(string name) => _configuration.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out JToken? value) ? value.ToObject<T>() : default;
 
         #endregion
     }

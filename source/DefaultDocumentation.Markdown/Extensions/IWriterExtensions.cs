@@ -15,7 +15,7 @@ namespace DefaultDocumentation.Markdown.Extensions
     /// <summary>
     /// Provides extension methods on the <see cref="IWriter"/> type.
     /// </summary>
-    public static class IWriterExtension
+    public static class IWriterExtensions
     {
         private static readonly CSharpAmbience _nameAmbience = new()
         {
@@ -30,22 +30,30 @@ namespace DefaultDocumentation.Markdown.Extensions
 
         /// <summary>
         /// Gets the current item that is being processed by this <see cref="IWriter"/>.
-        /// It can be different from the <see cref="IWriter.DocItem"/> when inlining child documentation in its parent page.
+        /// It can be different from the <see cref="IPageContext.DocItem"/> when inlining child documentation in its parent page.
         /// </summary>
         /// <param name="writer">The <see cref="IWriter"/> for which to get the current item.</param>
         /// <returns>The <see cref="DocItem"/> for which the documentation is being generated.</returns>
-        public static DocItem GetCurrentItem(this IWriter writer) => writer[CurrentItemKey] as DocItem ?? writer.DocItem;
+        public static DocItem GetCurrentItem(this IWriter writer)
+        {
+            ArgumentNullException.ThrowIfNull(writer);
+
+            return writer.Context[CurrentItemKey] as DocItem ?? writer.Context.DocItem;
+        }
 
         /// <summary>
         /// Sets the current item that is being processed by this <see cref="IWriter"/>.
-        /// It can be different from the <see cref="IWriter.DocItem"/> when inlining child documentation in its parent page.
+        /// It can be different from the <see cref="IPageContext.DocItem"/> when inlining child documentation in its parent page.
         /// </summary>
         /// <param name="writer">The <see cref="IWriter"/> for which to set the current item.</param>
         /// <param name="value">The <see cref="DocItem"/> for which the documentation is being generated.</param>
         /// <returns>The given <see cref="IWriter"/>.</returns>
         public static IWriter SetCurrentItem(this IWriter writer, DocItem value)
         {
-            writer[CurrentItemKey] = value;
+            ArgumentNullException.ThrowIfNull(writer);
+            ArgumentNullException.ThrowIfNull(value);
+
+            writer.Context[CurrentItemKey] = value;
 
             return writer;
         }
@@ -56,7 +64,12 @@ namespace DefaultDocumentation.Markdown.Extensions
         /// </summary>
         /// <param name="writer">The <see cref="IWriter"/> for which to get this setting.</param>
         /// <returns>Whether all futur data to happend should stay on the same line.</returns>
-        public static bool GetDisplayAsSingleLine(this IWriter writer) => writer[DisplayAsSingleLineKey] as bool? ?? false;
+        public static bool GetDisplayAsSingleLine(this IWriter writer)
+        {
+            ArgumentNullException.ThrowIfNull(writer);
+
+            return writer.Context[DisplayAsSingleLineKey] as bool? ?? false;
+        }
 
         /// <summary>
         /// Sets whether all futur data appended to the given <see cref="IWriter"/> should stay on the same line (usefull for table).
@@ -67,7 +80,9 @@ namespace DefaultDocumentation.Markdown.Extensions
         /// <returns>The given <see cref="IWriter"/>.</returns>
         public static IWriter SetDisplayAsSingleLine(this IWriter writer, bool? value)
         {
-            writer[DisplayAsSingleLineKey] = value;
+            ArgumentNullException.ThrowIfNull(writer);
+
+            writer.Context[DisplayAsSingleLineKey] = value;
 
             return writer;
         }
@@ -79,9 +94,13 @@ namespace DefaultDocumentation.Markdown.Extensions
         /// <param name="writer">The <see cref="IWriter"/> for which to get this setting.</param>
         /// <returns>Whether line break in the xml documentation should be ignored in the generated markdown.</returns>
         /// <seealso href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_IgnoreLineBreak">Markdown.IgnoreLineBreak</seealso>
-        public static bool GetIgnoreLineBreak(this IWriter writer) =>
-            writer[IgnoreLineBreakLineKey] as bool?
-            ?? writer.Context.GetSetting(writer.GetCurrentItem(), c => c.GetSetting<bool?>(IgnoreLineBreakLineKey)).GetValueOrDefault();
+        public static bool GetIgnoreLineBreak(this IWriter writer)
+        {
+            ArgumentNullException.ThrowIfNull(writer);
+
+            return writer.Context[IgnoreLineBreakLineKey] as bool?
+                ?? writer.Context.GetSetting(writer.GetCurrentItem(), c => c.GetSetting<bool?>(IgnoreLineBreakLineKey)).GetValueOrDefault();
+        }
 
         /// <summary>
         /// Sets whether line break in the xml documentation should be ignored in the generated markdown.
@@ -93,7 +112,9 @@ namespace DefaultDocumentation.Markdown.Extensions
         /// <seealso href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_IgnoreLineBreak">Markdown.IgnoreLineBreak</seealso>
         public static IWriter SetIgnoreLineBreakLine(this IWriter writer, bool? value)
         {
-            writer[IgnoreLineBreakLineKey] = value;
+            ArgumentNullException.ThrowIfNull(writer);
+
+            writer.Context[IgnoreLineBreakLineKey] = value;
 
             return writer;
         }
@@ -106,8 +127,10 @@ namespace DefaultDocumentation.Markdown.Extensions
         /// <param name="displayedName">The displayed name of the link.</param>
         /// <param name="tooltip">The tooltip of the link.</param>
         /// <returns>The given <see cref="IWriter"/>.</returns>
-        public static IWriter AppendUrl(this IWriter writer, string url, string? displayedName = null, string? tooltip = null)
+        public static IWriter AppendUrl(this IWriter writer, string? url, string? displayedName = null, string? tooltip = null)
         {
+            ArgumentNullException.ThrowIfNull(writer);
+
             if (string.IsNullOrEmpty(url))
             {
                 writer.Append((displayedName ?? "").Prettify());
@@ -116,11 +139,11 @@ namespace DefaultDocumentation.Markdown.Extensions
             {
                 writer
                     .Append("[")
-                    .Append((displayedName ?? url).Prettify())
+                    .Append((displayedName ?? url!).Prettify())
                     .Append("](")
-                    .Append(url)
+                    .Append(url!)
                     .Append(" '")
-                    .Append(tooltip ?? url)
+                    .Append(tooltip ?? url!)
                     .Append("')");
             }
 
@@ -134,19 +157,30 @@ namespace DefaultDocumentation.Markdown.Extensions
         /// <param name="item">The <see cref="DocItem"/> to link to.</param>
         /// <param name="displayedName">The displayed name of the link.</param>
         /// <returns>The given <see cref="IWriter"/>.</returns>
-        public static IWriter AppendLink(this IWriter writer, DocItem item, string? displayedName = null) => writer.AppendUrl(writer.Context.GetUrl(item), displayedName ?? item.Name, item.FullName);
+        public static IWriter AppendLink(this IWriter writer, DocItem item, string? displayedName = null)
+        {
+            ArgumentNullException.ThrowIfNull(writer);
+            ArgumentNullException.ThrowIfNull(item);
+
+            return writer.AppendUrl(writer.Context.GetUrl(item), displayedName ?? item.Name, item.FullName);
+        }
 
         /// <summary>
-        /// Append an link to an id using <see cref="IGeneralContext.GetUrl(string)"/> to resolve the url in the markdown format.
+        /// Append an link to an id using <see cref="IGeneralContext.UrlFactories"/> to resolve the url in the markdown format.
         /// </summary>
         /// <param name="writer">The <see cref="IWriter"/> to use.</param>
         /// <param name="id">The id to link to.</param>
         /// <param name="displayedName">The displayed name of the link.</param>
         /// <returns>The given <see cref="IWriter"/>.</returns>
-        public static IWriter AppendLink(this IWriter writer, string id, string? displayedName = null) =>
-            writer.Context.Items.TryGetValue(id, out DocItem item)
-            ? writer.AppendLink(item, displayedName)
-            : writer.AppendUrl(writer.Context.GetUrl(id), displayedName ?? id.Substring(2), id.Substring(2));
+        public static IWriter AppendLink(this IWriter writer, string id, string? displayedName = null)
+        {
+            ArgumentNullException.ThrowIfNull(writer);
+            ArgumentNullException.ThrowIfNull(id);
+
+            return writer.Context.Items.TryGetValue(id, out DocItem item)
+                ? writer.AppendLink(item, displayedName)
+                : writer.AppendUrl(writer.Context.GetUrl(id), displayedName ?? id.Substring(2), id.Substring(2));
+        }
 
         /// <summary>
         /// Append an link to an <see cref="INamedElement"/> in the markdown format.
@@ -157,6 +191,10 @@ namespace DefaultDocumentation.Markdown.Extensions
         /// <returns>The given <see cref="IWriter"/>.</returns>
         public static IWriter AppendLink(this IWriter writer, DocItem item, INamedElement element)
         {
+            ArgumentNullException.ThrowIfNull(writer);
+            ArgumentNullException.ThrowIfNull(item);
+            ArgumentNullException.ThrowIfNull(element);
+
             IWriter HandleParameterizedType(ParameterizedType genericType)
             {
                 string id = genericType.GetDefinition().GetIdString();
@@ -238,8 +276,8 @@ namespace DefaultDocumentation.Markdown.Extensions
                     _ when type is ParameterizedType genericType => HandleParameterizedType(genericType),
                     _ => writer.AppendLink(type.GetDefinition().GetIdString())
                 },
-                IMember member => writer.AppendLink(member.MemberDefinition.GetIdString(), _nameAmbience.ConvertSymbol(member).Replace("?", string.Empty)),
-                IEntity entity => writer.AppendLink(entity.GetIdString(), _nameAmbience.ConvertSymbol(entity).Replace("?", string.Empty)),
+                IMember member => writer.AppendLink(member.MemberDefinition.GetIdString(), member.ToString(_nameAmbience).Replace("?", string.Empty)),
+                IEntity entity => writer.AppendLink(entity.GetIdString(), entity.ToString(_nameAmbience).Replace("?", string.Empty)),
                 _ => writer.Append(element.FullName)
             };
         }
@@ -249,19 +287,28 @@ namespace DefaultDocumentation.Markdown.Extensions
         /// </summary>
         /// <param name="writer">The <see cref="IWriter"/> to check.</param>
         /// <returns>The given <see cref="IWriter"/>.</returns>
-        public static IWriter EnsureLineStart(this IWriter writer) =>
-            writer.Length > 0 && (!writer.EndsWith(Environment.NewLine) || (writer.GetDisplayAsSingleLine() && !writer.EndsWith("<br/>")))
-            ? writer.AppendLine()
-            : writer;
+        public static IWriter EnsureLineStart(this IWriter writer)
+        {
+            ArgumentNullException.ThrowIfNull(writer);
+
+            return writer.Length > 0 && (!writer.EndsWith(Environment.NewLine) || (writer.GetDisplayAsSingleLine() && !writer.EndsWith("<br/>")))
+                ? writer.AppendLine()
+                : writer;
+        }
 
         /// <summary>
         /// Calls <see cref="EnsureLineStart(IWriter)"/> and <see cref="IWriter.AppendLine"/>.
         /// </summary>
         /// <param name="writer">The <see cref="IWriter"/> to write to.</param>
         /// <returns>The given <see cref="IWriter"/>.</returns>
-        public static IWriter EnsureLineStartAndAppendLine(this IWriter writer) => writer
-            .EnsureLineStart()
-            .AppendLine();
+        public static IWriter EnsureLineStartAndAppendLine(this IWriter writer)
+        {
+            ArgumentNullException.ThrowIfNull(writer);
+
+            return writer
+                .EnsureLineStart()
+                .AppendLine();
+        }
 
         /// <summary>
         /// Appends a <see cref="XElement"/> decorating the <see cref="IWriter"/> with a <see cref="MarkdownWriter"/>.
@@ -271,6 +318,8 @@ namespace DefaultDocumentation.Markdown.Extensions
         /// <returns>The given <see cref="IWriter"/>.</returns>
         public static IWriter AppendAsMarkdown(this IWriter writer, XElement? element)
         {
+            ArgumentNullException.ThrowIfNull(writer);
+
             new MarkdownWriter(writer)
                 .SetIgnoreLineBreakLine(element?.GetIgnoreLineBreak())
                 .Append(element);
@@ -284,13 +333,24 @@ namespace DefaultDocumentation.Markdown.Extensions
         /// <param name="writer">The <see cref="IWriter"/> to decorate.</param>
         /// <param name="prefix">The string to prefix every new line with.</param>
         /// <returns>The decorated <see cref="IWriter"/>.</returns>
-        public static IWriter ToPrefixedWriter(this IWriter writer, string prefix) => new PrefixedWriter(writer, prefix);
+        public static IWriter ToPrefixedWriter(this IWriter writer, string prefix)
+        {
+            ArgumentNullException.ThrowIfNull(writer);
+            ArgumentNullException.ThrowIfNull(prefix);
+
+            return new PrefixedWriter(writer, prefix);
+        }
 
         /// <summary>
         /// Decorates the given <see cref="IWriter"/> with a <see cref="OverrideWriter"/> to override its setting in a given scope.
         /// </summary>
         /// <param name="writer">The <see cref="IWriter"/> to decorate.</param>
         /// <returns>The decorated <see cref="IWriter"/>.</returns>
-        public static IWriter ToOverrideWriter(this IWriter writer) => new OverrideWriter(writer);
+        public static IWriter ToOverrideWriter(this IWriter writer)
+        {
+            ArgumentNullException.ThrowIfNull(writer);
+
+            return new OverrideWriter(writer);
+        }
     }
 }

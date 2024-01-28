@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace System.Xml.Linq
 {
-    internal static class XElementExtension
+    internal static class XElementExtensions
     {
         public static IEnumerable<XElement> GetTypeParameters(this XElement? element) => element?.Elements("typeparam") ?? Enumerable.Empty<XElement>();
 

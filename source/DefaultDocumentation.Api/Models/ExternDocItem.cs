@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DefaultDocumentation.Models
+﻿namespace DefaultDocumentation.Models
 {
     /// <summary>
     /// Represent an external documentation.
@@ -18,10 +16,17 @@ namespace DefaultDocumentation.Models
         /// <param name="id">The id of the external item.</param>
         /// <param name="url">The url of the documentation.</param>
         /// <param name="name">The name of the external item.</param>
-        public ExternDocItem(string id, string url, string name)
-            : base(null, id, id.Substring(2), name ?? id.Substring(2), null)
+        public ExternDocItem(string id, string url, string? name)
+            : base(
+                  null,
+                  id,
+                  (id ?? throw new System.ArgumentNullException(nameof(id))).Substring(2),
+                  name ?? id.Substring(2),
+                  null)
         {
-            Url = url ?? throw new ArgumentNullException(nameof(url));
+            ArgumentNullException.ThrowIfNull(url);
+
+            Url = url;
         }
     }
 }

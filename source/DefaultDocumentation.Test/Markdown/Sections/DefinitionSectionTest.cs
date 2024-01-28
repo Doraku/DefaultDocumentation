@@ -18,9 +18,7 @@ namespace DefaultDocumentation.Markdown.Sections
         public void Write_should_write_When_TypeDocItem() => Test(
             AssemblyInfo.ClassDocItem,
 @"```csharp
-public sealed class AssemblyInfo :
-DefaultDocumentation.AssemblyInfo.IInterface,
-System.Collections.IEnumerator
+public sealed class AssemblyInfo : DefaultDocumentation.AssemblyInfo.IInterface, System.Collections.IEnumerator
 ```");
 
         [Fact]
@@ -30,9 +28,7 @@ System.Collections.IEnumerator
 @"pouet
 
 ```csharp
-public sealed class AssemblyInfo :
-DefaultDocumentation.AssemblyInfo.IInterface,
-System.Collections.IEnumerator
+public sealed class AssemblyInfo : DefaultDocumentation.AssemblyInfo.IInterface, System.Collections.IEnumerator
 ```");
 
         [Fact]
@@ -74,7 +70,7 @@ private static int Property { get; }
         public void Write_should_write_When_EventDocItem() => Test(
             AssemblyInfo.EventDocItem,
 @"```csharp
-private static event Action Event;
+private static event Action? Event;
 ```");
 
         [Fact]
@@ -150,6 +146,27 @@ private delegate int AssemblyInfo.DelegateWithReturn();
             new ClassDocItem(AssemblyInfo.NamespaceDocItem, AssemblyInfo.Get<ITypeDefinition>($"T:{typeof(DefinitionSectionTest).FullName}"), null),
 @"```csharp
 public sealed class DefinitionSectionTest : DefaultDocumentation.Markdown.Sections.ASectionTest<DefaultDocumentation.Markdown.Sections.DefinitionSection>
+```");
+
+        [Fact]
+        public void Write_should_write_When_TypeDocItem_for_record_class() => Test(
+            AssemblyInfo.ClassRecordDocItem,
+@"```csharp
+public sealed record AssemblyInfo.ClassRecord : System.IEquatable<DefaultDocumentation.AssemblyInfo.ClassRecord>
+```");
+
+        [Fact]
+        public void Write_should_write_When_TypeDocItem_for_record_struct() => Test(
+          AssemblyInfo.StructRecordDocItem,
+@"```csharp
+public readonly record struct AssemblyInfo.StructRecord : System.IEquatable<DefaultDocumentation.AssemblyInfo.StructRecord>
+```");
+
+        //[Fact] to uncomment once https://github.com/icsharpcode/ILSpy/issues/3159 is solved
+        public void Write_should_write_When_PropertyDocItem_with_init() => Test(
+            AssemblyInfo.RecordPropertyDocItem,
+@"```csharp
+public int Property { get; init; }
 ```");
     }
 }

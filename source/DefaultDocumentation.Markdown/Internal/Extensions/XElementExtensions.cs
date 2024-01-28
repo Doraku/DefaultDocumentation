@@ -2,7 +2,7 @@
 
 namespace System.Xml.Linq
 {
-    internal static class XElementExtension
+    internal static class XElementExtensions
     {
         public static IEnumerable<XElement> GetItems(this XElement element) => element.Elements("item");
 

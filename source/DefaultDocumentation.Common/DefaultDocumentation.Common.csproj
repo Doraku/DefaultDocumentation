@@ -1,11 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<RootNamespace>DefaultDocumentation</RootNamespace>
-		<TargetFramework>netstandard2.0</TargetFramework>
-		<IsPackable>false</IsPackable>
-	</PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\DefaultDocumentation.Markdown\DefaultDocumentation.Markdown.csproj" />
-	</ItemGroup>
+  <PropertyGroup>
+    <RootNamespace>DefaultDocumentation</RootNamespace>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\DefaultDocumentation.Api\Internal\MissingAPIs\*.cs" Visible="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DefaultDocumentation.Markdown\DefaultDocumentation.Markdown.csproj" />
+  </ItemGroup>
+
 </Project>

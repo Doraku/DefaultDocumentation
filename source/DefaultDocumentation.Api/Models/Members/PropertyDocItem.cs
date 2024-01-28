@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Models.Parameters;
@@ -29,8 +28,8 @@ namespace DefaultDocumentation.Models.Members
         /// <param name="documentation">The <see cref="XElement"/> documentation element of the property.</param>
         public PropertyDocItem(TypeDocItem parent, IProperty property, XElement? documentation)
             : base(
-                  parent ?? throw new ArgumentNullException(nameof(parent)),
-                  property ?? throw new ArgumentNullException(nameof(property)),
+                  parent ?? throw new System.ArgumentNullException(nameof(parent)),
+                  property ?? throw new System.ArgumentNullException(nameof(property)),
                   documentation)
         {
             Property = property;

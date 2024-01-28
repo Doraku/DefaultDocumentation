@@ -22,8 +22,9 @@ namespace DefaultDocumentation
     {
         private static readonly JsonSerializer _serializer;
 
+        private readonly IRawSettings _settings;
         private readonly JObject _configuration;
-        private readonly ILogger _logger;
+        private readonly Logger _logger;
         private readonly GeneralContext _context;
 
         static Generator()
@@ -34,20 +35,9 @@ namespace DefaultDocumentation
 
         private Generator(Target loggerTarget, IRawSettings settings)
         {
-            T GetSetting<T>(string name) => _configuration.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out JToken value) ? value.ToObject<T>() : default;
+            T? GetSetting<T>(string name) => _configuration.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out JToken? value) ? value.ToObject<T>() : default;
 
-            void AddSetting<TSetting, TConfig>(Expression<Func<IRawSettings, TSetting>> property, Predicate<TSetting> noValue, Func<TSetting, TConfig> convert)
-            {
-                string name = ((MemberExpression)property.Body).Member.Name;
-                TSetting value = property.Compile().Invoke(settings);
-
-                if (!noValue(value))
-                {
-                    _configuration.Property(name, StringComparison.OrdinalIgnoreCase)?.Remove();
-                    _configuration.Add(name, JToken.FromObject(convert(value), _serializer));
-                }
-            }
-
+            _settings = settings;
             _configuration = new JObject();
 
             if (File.Exists(settings.ConfigurationFilePath))
@@ -56,45 +46,30 @@ namespace DefaultDocumentation
                 Environment.CurrentDirectory = Path.GetDirectoryName(settings.ConfigurationFilePath);
             }
 
-            AddSetting(s => s.LogLevel, string.IsNullOrEmpty, v => v);
-            AddSetting(s => s.AssemblyFilePath, string.IsNullOrEmpty, v => v);
-            AddSetting(s => s.DocumentationFilePath, string.IsNullOrEmpty, v => v);
-            AddSetting(s => s.ProjectDirectoryPath, string.IsNullOrEmpty, v => v);
-            AddSetting(s => s.OutputDirectoryPath, string.IsNullOrEmpty, v => v);
-            AddSetting(s => s.AssemblyPageName, string.IsNullOrEmpty, v => v);
-            AddSetting(s => s.GeneratedAccessModifiers, v => v == GeneratedAccessModifiers.Default, v => v);
-            AddSetting(s => s.IncludeUndocumentedItems, v => !v, v => v);
-            AddSetting(s => s.GeneratedPages, v => v == GeneratedPages.Default, v => v);
-            AddSetting(s => s.LinksOutputFilePath, string.IsNullOrEmpty, v => v);
-            AddSetting(s => s.LinksBaseUrl, string.IsNullOrEmpty, v => v);
+            AddSetting(s => s.LogLevel, string.IsNullOrEmpty);
+            AddSetting(s => s.AssemblyFilePath, string.IsNullOrEmpty);
+            AddSetting(s => s.DocumentationFilePath, string.IsNullOrEmpty);
+            AddSetting(s => s.ProjectDirectoryPath, string.IsNullOrEmpty);
+            AddSetting(s => s.OutputDirectoryPath, string.IsNullOrEmpty);
+            AddSetting(s => s.AssemblyPageName, string.IsNullOrEmpty);
+            AddSetting(s => s.GeneratedAccessModifiers, v => v == GeneratedAccessModifiers.Default);
+            AddSetting(s => s.IncludeUndocumentedItems, v => !v);
+            AddSetting(s => s.GeneratedPages, v => v == GeneratedPages.Default);
+            AddSetting(s => s.LinksOutputFilePath, string.IsNullOrEmpty);
+            AddSetting(s => s.LinksBaseUrl, string.IsNullOrEmpty);
             AddSetting(s => s.ExternLinksFilePaths, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray());
             // context settings
             AddSetting(s => s.Plugins, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray());
-            AddSetting(s => s.FileNameFactory, string.IsNullOrEmpty, v => v);
-            if (string.IsNullOrEmpty(GetSetting<string>(nameof(settings.FileNameFactory))))
-            {
-                AddSetting(s => s.FileNameFactory, _ => false, _ => "FullName");
-            }
-            AddSetting(s => s.UrlFactories, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray());
-            if (GetSetting<string[]>(nameof(settings.UrlFactories)) is null)
-            {
-                AddSetting(s => s.UrlFactories, _ => false, _ => new[] { "DocItem", "DotnetApi" });
-            }
-            AddSetting(s => s.Sections, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray());
-            if (GetSetting<string[]>(nameof(settings.Sections)) is null)
-            {
-                AddSetting(s => s.Sections, _ => false, _ => new[] { "Header", "Default" });
-            }
+            AddSetting(s => s.FileNameFactory, string.IsNullOrEmpty, "FullName");
+            AddSetting(s => s.UrlFactories, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray(), ["DocItem", "DotnetApi"]);
+            AddSetting(s => s.Sections, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray(), ["Header", "Default"]);
             AddSetting(s => s.Elements, v => !(v ?? Enumerable.Empty<string>()).Any(), v => v.ToArray());
 
-            string logLevel = GetSetting<string>(nameof(logLevel));
-            if (loggerTarget != null)
-            {
-                LoggingConfiguration logConfiguration = new();
-                logConfiguration.AddTarget(loggerTarget);
-                logConfiguration.AddRule(LogLevel.FromString(string.IsNullOrEmpty(logLevel) ? nameof(LogLevel.Info) : logLevel), LogLevel.Fatal, loggerTarget);
-                LogManager.Configuration = logConfiguration;
-            }
+            string? logLevel = GetSetting<string>(nameof(logLevel));
+            LoggingConfiguration logConfiguration = new();
+            logConfiguration.AddTarget(loggerTarget);
+            logConfiguration.AddRule(LogLevel.FromString(string.IsNullOrEmpty(logLevel) ? nameof(LogLevel.Info) : logLevel), LogLevel.Fatal, loggerTarget);
+            LogManager.Configuration = logConfiguration;
 
             _logger = LogManager.GetLogger("DefaultDocumentation");
             _logger.Info($"Starting DefaultDocumentation with this configuration:{Environment.NewLine}{_configuration.ToString(Formatting.Indented)}");
@@ -123,14 +98,41 @@ namespace DefaultDocumentation
                 DocItemReader.GetItems(resolvedSettings));
         }
 
+        private void AddSetting<TSetting, TConfig>(
+            Expression<Func<IRawSettings, TSetting>> property,
+            Predicate<TSetting> noValuePredicate,
+            Func<TSetting, TConfig> convert,
+            TConfig? defaultValue = default)
+        {
+            string name = ((MemberExpression)property.Body).Member.Name;
+            TSetting value = property.Compile().Invoke(_settings);
+
+            if (!noValuePredicate(value))
+            {
+                _configuration.Property(name, StringComparison.OrdinalIgnoreCase)?.Remove();
+                _configuration.Add(name, JToken.FromObject(convert(value)!, _serializer));
+            }
+            else if (!Equals(defaultValue, default(TConfig)))
+            {
+                _configuration.Property(name, StringComparison.OrdinalIgnoreCase)?.Remove();
+                _configuration.Add(name, JToken.FromObject(defaultValue!, _serializer));
+            }
+        }
+
+        private void AddSetting<TSetting>(
+            Expression<Func<IRawSettings, TSetting>> property,
+            Predicate<TSetting> noValuePredicate,
+            TSetting? defaultValue = default)
+            => AddSetting<TSetting, TSetting>(property, noValuePredicate, v => v, defaultValue);
+
         private void WritePage(DocItem item, StringBuilder builder)
         {
             _context.Settings.Logger.Debug($"Writing DocItem \"{item}\" with id \"{item.Id}\"");
             builder.Clear();
 
-            PageWriter writer = new(builder, _context, item);
+            PageWriter writer = new(builder, new PageContext(_context, item));
 
-            foreach (ISection sectionWriter in writer.Context.GetSetting(item, c => c.Sections))
+            foreach (ISection sectionWriter in writer.Context.GetSetting(item, c => c.Sections) ?? Array.Empty<ISection>())
             {
                 sectionWriter.Write(writer);
             }
@@ -152,12 +154,14 @@ namespace DefaultDocumentation
 
                 using StreamWriter writer = _context.Settings.LinksOutputFile.CreateText();
 
+                PageContext context = new(_context, new ExternDocItem("", "", ""));
+
                 writer.WriteLine(_context.Settings.LinksBaseUrl);
                 foreach (DocItem item in _context.Items.Values.Where(i => i is not ExternDocItem and not AssemblyDocItem and not TypeParameterDocItem and not ParameterDocItem))
                 {
                     writer.Write(item.Id);
                     writer.Write('|');
-                    writer.Write(_context.GetUrl(item));
+                    writer.Write(context.GetUrl(item));
                     writer.Write('|');
                     writer.WriteLine(item.Name);
                 }
@@ -192,6 +196,9 @@ namespace DefaultDocumentation
 
         public static void Execute(Target loggerTarget, IRawSettings settings)
         {
+            ArgumentNullException.ThrowIfNull(loggerTarget);
+            ArgumentNullException.ThrowIfNull(settings);
+
             Generator generator = new(loggerTarget, settings);
 
             using Mutex mutex = new(false, "DefaultDocumenation:" + generator._context.Settings.OutputDirectory.FullName.Replace('\\', '|').Replace('/', '|').TrimEnd('|'));

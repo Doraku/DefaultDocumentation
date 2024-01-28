@@ -6,7 +6,7 @@ namespace DefaultDocumentation.Api
     /// <summary>
     /// Provides extension methods on the <see cref="IWriter"/> type.
     /// </summary>
-    public static class IWriterExtension
+    public static class IWriterExtensions
     {
         /// <summary>
         /// Appends an <see cref="XElement"/> to a <see cref="IWriter"/> by using the <see cref="IGeneralContext.Elements"/> of <see cref="IWriter.Context"/>.
@@ -17,6 +17,8 @@ namespace DefaultDocumentation.Api
         /// <returns>The given <see cref="IWriter"/>.</returns>
         public static IWriter Append(this IWriter writer, XElement? value)
         {
+            ArgumentNullException.ThrowIfNull(writer);
+
             static void AppendMultiline(IWriter writer, string text, ref int? textStartIndex, ref bool startingNewLine)
             {
                 string[] lines = text.Split('\n');
@@ -91,7 +93,13 @@ namespace DefaultDocumentation.Api
         /// <param name="writer">The <see cref="IWriter"/> to append to.</param>
         /// <param name="value">The <see cref="string"/> to append before the line.</param>
         /// <returns>The given <see cref="IWriter"/>.</returns>
-        public static IWriter AppendLine(this IWriter writer, string value) => writer.Append(value).AppendLine();
+        public static IWriter AppendLine(this IWriter writer, string value)
+        {
+            ArgumentNullException.ThrowIfNull(writer);
+            ArgumentNullException.ThrowIfNull(value);
+
+            return writer.Append(value).AppendLine();
+        }
 
         /// <summary>
         /// Trims from the end of a <see cref="IWriter"/> all the provided values.
@@ -101,7 +109,10 @@ namespace DefaultDocumentation.Api
         /// <returns>The given <see cref="IWriter"/>.</returns>
         public static IWriter TrimEnd(this IWriter writer, params string[] values)
         {
-        Start:
+            ArgumentNullException.ThrowIfNull(writer);
+            ArgumentNullException.ThrowIfNull(values);
+
+Start:
             foreach (string value in values)
             {
                 if (!string.IsNullOrEmpty(value) && writer.EndsWith(value))

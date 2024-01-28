@@ -21,7 +21,9 @@ namespace DefaultDocumentation.Markdown.Sections
         /// <inheritdoc/>
         public void Write(IWriter writer)
         {
-            if (writer.GetCurrentItem() != writer.DocItem)
+            ArgumentNullException.ThrowIfNull(writer);
+
+            if (writer.GetCurrentItem() != writer.Context.DocItem)
             {
                 return;
             }
@@ -36,7 +38,7 @@ namespace DefaultDocumentation.Markdown.Sections
             }
 
             bool firstWritten = false;
-            foreach (DocItem parent in writer.DocItem.GetParents().Skip(1))
+            foreach (DocItem parent in writer.Context.DocItem.GetParents().Skip(1))
             {
                 if (!firstWritten)
                 {

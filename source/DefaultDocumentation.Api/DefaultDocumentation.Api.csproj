@@ -1,15 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<Description>Api to extend the creation of documentation of DefaultDocumentation.</Description>
-		<RootNamespace>DefaultDocumentation</RootNamespace>
-		<TargetFramework>netstandard2.0</TargetFramework>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="ICSharpCode.Decompiler" Version="7.2.1.6856" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-		<PackageReference Include="NLog" Version="5.1.2" />
-	</ItemGroup>
+  <PropertyGroup>
+    <Description>Api to extend the creation of documentation of DefaultDocumentation.</Description>
+    <RootNamespace>DefaultDocumentation</RootNamespace>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ICSharpCode.Decompiler" Version="8.2.0.7535" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NLog" Version="5.2.8" />
+  </ItemGroup>
+
 </Project>

@@ -12,14 +12,12 @@ namespace DefaultDocumentation.Internal
     {
         private readonly Dictionary<Type, Context> _contexts;
         private readonly ConcurrentDictionary<DocItem, string> _fileNames;
-        private readonly ConcurrentDictionary<string, string> _urls;
-        private readonly IUrlFactory[] _urlFactories;
 
         public IEnumerable<IFileNameFactory> AllFileNameFactory => _contexts
             .Values
             .Concat(Enumerable.Repeat(this, 1))
-            .Select(c => c.FileNameFactory)
-            .Where(f => f != null)
+            .Where(c => c.FileNameFactory != null)
+            .Select(c => c.FileNameFactory!)
             .Distinct();
 
         public GeneralContext(
@@ -29,6 +27,8 @@ namespace DefaultDocumentation.Internal
             IReadOnlyDictionary<string, DocItem> items)
             : base(config, availableTypes)
         {
+            ArgumentNullException.ThrowIfNull(FileNameFactory, nameof(FileNameFactory));
+
             Dictionary<string, IElement> availableElements = availableTypes
                 .Where(t => typeof(IElement).IsAssignableFrom(t) && !t.IsAbstract)
                 .Select(t => (IElement)Activator.CreateInstance(t))
@@ -55,17 +55,16 @@ namespace DefaultDocumentation.Internal
                 .Where(t => typeof(DocItem).IsAssignableFrom(t) && !t.IsAbstract)
                 .Select(t => (t, GetSetting<JObject>(t.Name)))
                 .Where(t => t.Item2 != null)
-                .ToDictionary(t => t.t, t => new Context(t.Item2, availableTypes));
+                .ToDictionary(t => t.t, t => new Context(t.Item2!, availableTypes));
             _fileNames = new ConcurrentDictionary<DocItem, string>();
-            _urls = new ConcurrentDictionary<string, string>();
 
-            string[] urlFactories = GetSetting<string[]>(nameof(IRawSettings.UrlFactories));
+            string[] urlFactories = GetSetting<string[]>(nameof(IRawSettings.UrlFactories)) ?? Array.Empty<string>();
             Dictionary<string, IUrlFactory> availableUrlFactories = availableTypes
                 .Where(t => typeof(IUrlFactory).IsAssignableFrom(t) && !t.IsAbstract)
                 .Select(t => (IUrlFactory)Activator.CreateInstance(t))
                 .GroupBy(w => w.Name)
                 .ToDictionary(w => w.Key, w => w.Last());
-            _urlFactories = urlFactories
+            UrlFactories = urlFactories
                 .Select(id =>
                     availableUrlFactories.TryGetValue(id, out IUrlFactory urlFactory)
                     ? urlFactory
@@ -78,7 +77,7 @@ namespace DefaultDocumentation.Internal
 
             Settings.Logger.Info($"Elements that will be used:{string.Concat(Elements.Select(e => $"{Environment.NewLine}  {e.Key}: {e.Value.GetType().AssemblyQualifiedName}"))}");
             Settings.Logger.Info($"FileNameFactory that will be used: {FileNameFactory?.GetType().AssemblyQualifiedName}");
-            Settings.Logger.Info($"UrlFactories that will be used:{string.Concat(_urlFactories?.Select(s => $"{Environment.NewLine}  {s.GetType().AssemblyQualifiedName}") ?? Enumerable.Empty<string>())}");
+            Settings.Logger.Info($"UrlFactories that will be used:{string.Concat(UrlFactories.Select(s => $"{Environment.NewLine}  {s.GetType().AssemblyQualifiedName}"))}");
             Settings.Logger.Info($"Sections that will be used:{string.Concat(Sections?.Select(s => $"{Environment.NewLine}  {s.GetType().AssemblyQualifiedName}") ?? Enumerable.Empty<string>())}");
 
             foreach (KeyValuePair<Type, Context> pair in _contexts)
@@ -96,11 +95,11 @@ namespace DefaultDocumentation.Internal
 
         public IReadOnlyDictionary<string, IElement> Elements { get; }
 
-        public IContext GetContext(Type type) => _contexts.TryGetValue(type, out Context context) ? context : this;
+        public IEnumerable<IUrlFactory> UrlFactories { get; }
 
-        public string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i => (this.GetContext(item)?.FileNameFactory ?? FileNameFactory).GetFileName(this, i));
+        public IContext GetContext(Type? type) => type != null && _contexts.TryGetValue(type, out Context context) ? context : this;
 
-        public string GetUrl(string id) => _urls.GetOrAdd(id, i => _urlFactories.Select(f => f.GetUrl(this, i)).FirstOrDefault(url => url is not null));
+        public string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, i => (this.GetContext(item).FileNameFactory ?? FileNameFactory!).GetFileName(this, i));
 
         #endregion
     }

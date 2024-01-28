@@ -1,5 +1,4 @@
 ﻿using System.Xml.Linq;
-using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Members;
 using NFluent;
 using Xunit;
@@ -13,7 +12,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         [Fact]
         public void Write_should_not_write_When_not_PropertyDocItem() => Test(
-            default(DocItem),
+            AssemblyInfo.AssemblyDocItem,
             string.Empty);
 
         [Fact]

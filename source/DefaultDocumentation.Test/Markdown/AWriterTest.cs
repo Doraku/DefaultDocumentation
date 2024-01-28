@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Internal;
 using DefaultDocumentation.Models;
 using NLog;
 using NSubstitute;
@@ -12,9 +12,9 @@ namespace DefaultDocumentation.Markdown
 {
     public abstract class AWriterTest
     {
-        private sealed class FileNameFactory : IFileNameFactory
+        private sealed class DummyFileNameFactory : IFileNameFactory
         {
-            public string Name { get; }
+            public string Name { get; } = "Dummy";
 
             public void Clean(IGeneralContext context)
             { }
@@ -22,17 +22,15 @@ namespace DefaultDocumentation.Markdown
             public string GetFileName(IGeneralContext context, DocItem item) => item.Name;
         }
 
-        private sealed class UrlFactory : IUrlFactory
+        private sealed class DummyUrlFactory : IUrlFactory
         {
-            public string Name { get; }
+            public string Name { get; } = "Dummy";
 
-            public string GetUrl(IGeneralContext context, string id) => id;
+            public string GetUrl(IPageContext context, string id) => id;
         }
 
         private sealed class GeneralContext : IGeneralContext
         {
-            private IEnumerable<IUrlFactory> _urlFactories;
-
             public GeneralContext(
                 ISettings settings,
                 IFileNameFactory fileNameFactory,
@@ -45,7 +43,7 @@ namespace DefaultDocumentation.Markdown
                 Items = items;
                 Elements = elements;
                 FileNameFactory = fileNameFactory;
-                _urlFactories = urlFactories;
+                UrlFactories = urlFactories;
                 Sections = sections;
             }
 
@@ -57,25 +55,25 @@ namespace DefaultDocumentation.Markdown
 
             public IFileNameFactory FileNameFactory { get; }
 
+            public IEnumerable<IUrlFactory> UrlFactories { get; }
+
             public IEnumerable<ISection> Sections { get; }
 
-            public IContext GetContext(Type type) => this;
+            public IContext GetContext(Type? type) => this;
 
             public string GetFileName(DocItem item) => FileNameFactory.GetFileName(this, item);
 
-            public T GetSetting<T>(string name) => name switch
+            public T? GetSetting<T>(string name) => name switch
             {
                 "Markdown.NestedTypeVisibilities" => (T)(object)(NestedTypeVisibilities.Namespace | NestedTypeVisibilities.DeclaringType),
                 _ => default
             };
-
-            public string GetUrl(string id) => _urlFactories.Select(f => f.GetUrl(this, id)).FirstOrDefault(url => url is not null) ?? "";
         }
 
         protected readonly StringBuilder _builder;
         protected readonly DocItem _docItem;
         protected readonly Lazy<ISettings> _settings;
-        protected readonly Lazy<IGeneralContext> _context;
+        protected readonly Lazy<IPageContext> _context;
 
         protected AWriterTest()
         {
@@ -92,22 +90,24 @@ namespace DefaultDocumentation.Markdown
 
                 return settings;
             });
-            _context = new Lazy<IGeneralContext>(() => new GeneralContext(
-                _settings.Value,
-                GetFileNameFactory(),
-                GetUrlFactories(),
-                GetItems(),
-                GetElements(),
-                GetSections()));
+            _context = new Lazy<IPageContext>(() => new PageContext(
+                new GeneralContext(
+                    _settings.Value,
+                    GetFileNameFactory(),
+                    GetUrlFactories(),
+                    GetItems(),
+                    GetElements(),
+                    GetSections()),
+                _docItem));
         }
 
         protected virtual GeneratedPages GetGeneratedPages() => GeneratedPages.Assembly | GeneratedPages.Namespaces | GeneratedPages.Types | GeneratedPages.Members;
 
-        protected virtual IFileNameFactory GetFileNameFactory() => new FileNameFactory();
+        protected virtual IFileNameFactory GetFileNameFactory() => new DummyFileNameFactory();
 
         protected virtual IUrlFactory[] GetUrlFactories() => new IUrlFactory[]
         {
-            new UrlFactory()
+            new DummyUrlFactory()
         };
 
         protected virtual ISection[] GetSections() => Array.Empty<ISection>();

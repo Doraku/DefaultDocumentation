@@ -1,5 +1,4 @@
-﻿using DefaultDocumentation.Models;
-using NFluent;
+﻿using NFluent;
 using Xunit;
 
 namespace DefaultDocumentation.Markdown.Sections
@@ -11,7 +10,7 @@ namespace DefaultDocumentation.Markdown.Sections
 
         [Fact]
         public void Write_should_not_write_When_not_FieldDocItem() => Test(
-            default(DocItem),
+            AssemblyInfo.AssemblyDocItem,
             string.Empty);
 
         [Fact]

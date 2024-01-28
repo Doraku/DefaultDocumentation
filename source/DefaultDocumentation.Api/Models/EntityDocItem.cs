@@ -35,14 +35,14 @@ namespace DefaultDocumentation.Models
         public IEntity Entity { get; }
 
         private protected EntityDocItem(DocItem parent, IEntity entity, XElement? documentation)
-            : base(parent, entity.GetIdString(), GetFullName(entity).Replace("?", string.Empty), _nameAmbience.ConvertSymbol(entity).Replace("?", string.Empty), documentation)
+            : base(parent, entity.GetIdString(), GetFullName(entity).Replace("?", string.Empty), entity.ToString(_nameAmbience).Replace("?", string.Empty), documentation)
         {
             Entity = entity;
         }
 
         private static string GetFullName(IEntity entity)
         {
-            string fullName = _fullNameAmbience.ConvertSymbol(entity);
+            string fullName = entity.ToString(_fullNameAmbience);
 
             if (entity.SymbolKind == SymbolKind.Operator)
             {

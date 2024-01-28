@@ -10,10 +10,7 @@ namespace DefaultDocumentation.Markdown.Sections
 {
     public sealed class TitleSectionTest : ASectionTest<TitleSection>
     {
-        protected override IUrlFactory[] GetUrlFactories() => new IUrlFactory[]
-        {
-            new DocItemFactory()
-        };
+        protected override IUrlFactory[] GetUrlFactories() => [new DocItemFactory()];
 
         protected override IReadOnlyDictionary<string, DocItem> GetItems() =>
             AssemblyInfo.MethodWithParameterDocItem.Parameters

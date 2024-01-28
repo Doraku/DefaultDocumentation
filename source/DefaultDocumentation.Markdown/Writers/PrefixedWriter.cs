@@ -1,6 +1,5 @@
 ﻿using System;
 using DefaultDocumentation.Api;
-using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.Writers
 {
@@ -19,6 +18,9 @@ namespace DefaultDocumentation.Markdown.Writers
         /// <param name="prefix">The prefix to use at every new line start.</param>
         public PrefixedWriter(IWriter writer, string prefix)
         {
+            ArgumentNullException.ThrowIfNull(writer);
+            ArgumentNullException.ThrowIfNull(prefix);
+
             _writer = writer;
             _prefix = prefix;
         }
@@ -26,23 +28,13 @@ namespace DefaultDocumentation.Markdown.Writers
         #region IWriter
 
         /// <inheritdoc/>
-        public IGeneralContext Context => _writer.Context;
-
-        /// <inheritdoc/>
-        public DocItem DocItem => _writer.DocItem;
+        public IPageContext Context => _writer.Context;
 
         /// <inheritdoc/>
         public int Length
         {
             get => _writer.Length;
             set => _writer.Length = value;
-        }
-
-        /// <inheritdoc/>
-        public object? this[string key]
-        {
-            get => _writer[key];
-            set => _writer[key] = value;
         }
 
         /// <inheritdoc/>

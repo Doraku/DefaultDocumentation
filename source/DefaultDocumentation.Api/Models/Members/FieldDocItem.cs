@@ -23,8 +23,8 @@ namespace DefaultDocumentation.Models.Members
         /// <param name="documentation">The <see cref="XElement"/> documentation element of the field.</param>
         public FieldDocItem(TypeDocItem parent, IField field, XElement? documentation)
             : base(
-                  parent ?? throw new ArgumentNullException(nameof(parent)),
-                  field ?? throw new ArgumentNullException(nameof(field)),
+                  parent ?? throw new System.ArgumentNullException(nameof(parent)),
+                  field ?? throw new System.ArgumentNullException(nameof(field)),
                   documentation)
         {
             Field = field;

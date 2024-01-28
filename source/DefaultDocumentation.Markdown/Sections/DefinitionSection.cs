@@ -31,6 +31,8 @@ namespace DefaultDocumentation.Markdown.Sections
                 | ConversionFlags.ShowModifiers
                 | ConversionFlags.ShowTypeParameterList
                 | ConversionFlags.ShowTypeParameterVarianceModifier
+                | ConversionFlags.SupportRecordClasses
+                | ConversionFlags.SupportRecordStructs
         };
 
         private static readonly CSharpAmbience _baseTypeAmbience = new()
@@ -95,6 +97,7 @@ namespace DefaultDocumentation.Markdown.Sections
                 | ConversionFlags.ShowParameterNames
                 | ConversionFlags.ShowReturnType
                 | ConversionFlags.UseFullyQualifiedTypeNames
+                | ConversionFlags.SupportInitAccessors
         };
 
         private static readonly CSharpAmbience _eventAmbience = new()
@@ -187,7 +190,7 @@ namespace DefaultDocumentation.Markdown.Sections
             {
                 FieldDocItem item => Write(writer, w =>
                 {
-                    w.Append(_fieldAmbience.ConvertSymbol(item.Field));
+                    w.Append(item.Field.ToString(_fieldAmbience));
 
                     if (item.Field.IsConst)
                     {
@@ -207,21 +210,21 @@ namespace DefaultDocumentation.Markdown.Sections
 
                     w.Append(";");
                 }),
-                PropertyDocItem item => Write(writer, w => w.Append(_propertyAmbience.ConvertSymbol(item.Property))),
-                EventDocItem item => Write(writer, w => w.Append(_eventAmbience.ConvertSymbol(item.Event))),
-                ConstructorDocItem item => Write(writer, w => w.Append(_methodAmbience.ConvertSymbol(item.Method)).Append(";")),
-                OperatorDocItem item => Write(writer, w => w.Append(_methodAmbience.ConvertSymbol(item.Method)).Append(";")),
-                ExplicitInterfaceImplementationDocItem item when item.Member is IEvent => Write(writer, w => w.Append(_eventAmbience.ConvertSymbol(item.Member))),
-                ExplicitInterfaceImplementationDocItem item when item.Member is IProperty => Write(writer, w => w.Append(_propertyAmbience.ConvertSymbol(item.Member))),
+                PropertyDocItem item => Write(writer, w => w.Append(item.Property.ToString(_propertyAmbience))),
+                EventDocItem item => Write(writer, w => w.Append(item.Event.ToString(_eventAmbience))),
+                ConstructorDocItem item => Write(writer, w => w.Append(item.Method.ToString(_methodAmbience)).Append(";")),
+                OperatorDocItem item => Write(writer, w => w.Append(item.Method.ToString(_methodAmbience)).Append(";")),
+                ExplicitInterfaceImplementationDocItem item when item.Member is IEvent => Write(writer, w => w.Append(item.Member.ToString(_eventAmbience))),
+                ExplicitInterfaceImplementationDocItem item when item.Member is IProperty => Write(writer, w => w.Append(item.Member.ToString(_propertyAmbience))),
                 ExplicitInterfaceImplementationDocItem item when item.Member is IMethod => Write(writer, w =>
                 {
-                    w.Append(_methodAmbience.ConvertSymbol(item.Member));
+                    w.Append(item.Member.ToString(_methodAmbience));
                     WriteConstraints(w, item);
                     w.Append(";");
                 }),
                 MethodDocItem item => Write(writer, w =>
                 {
-                    w.Append(_methodAmbience.ConvertSymbol(item.Method));
+                    w.Append(item.Method.ToString(_methodAmbience));
                     WriteConstraints(w, item);
                     w.Append(";");
                 }),
@@ -230,18 +233,18 @@ namespace DefaultDocumentation.Markdown.Sections
                     IType enumType = item.Type.GetEnumUnderlyingType();
 
                     w
-                        .Append(_typeAmbience.ConvertSymbol(item.Type))
+                        .Append(item.Type.ToString(_typeAmbience))
                         .Append(enumType.IsKnownType(KnownTypeCode.Int32) ? string.Empty : " : " + enumType.FullName);
                 }),
                 DelegateDocItem item => Write(writer, w =>
                 {
-                    w.Append(_delegateAmbience.ConvertSymbol(item.Type));
+                    w.Append(item.Type.ToString(_delegateAmbience));
                     WriteConstraints(writer, item);
                     w.Append(";");
                 }),
                 TypeDocItem item => Write(writer, w =>
                 {
-                    w.Append(_typeAmbience.ConvertSymbol(item.Type));
+                    w.Append(item.Type.ToString(_typeAmbience));
 
                     IType baseType = item.Type.DirectBaseTypes.FirstOrDefault(t => t.Kind == TypeKind.Class && !t.IsKnownType(KnownTypeCode.Object) && !t.IsKnownType(KnownTypeCode.ValueType));
                     if (baseType != null)
@@ -254,7 +257,7 @@ namespace DefaultDocumentation.Markdown.Sections
                     foreach (IType @interface in item.Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface && t.GetDefinition()?.Accessibility == Accessibility.Public))
                     {
                         w
-                            .AppendLine(baseType is null ? " :" : ",")
+                            .Append(baseType is null ? " : " : ", ")
                             .Append(_baseTypeAmbience.ConvertType(@interface));
 
                         baseType = @interface;

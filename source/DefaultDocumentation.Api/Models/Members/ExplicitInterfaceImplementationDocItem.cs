@@ -33,8 +33,8 @@ namespace DefaultDocumentation.Models.Members
         /// <param name="documentation">The <see cref="XElement"/> documentation element of the interface event explicitly implemented.</param>
         public ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IEvent @event, XElement? documentation)
             : base(
-                  parent ?? throw new ArgumentNullException(nameof(parent)),
-                  @event ?? throw new ArgumentNullException(nameof(@event)),
+                  parent ?? throw new System.ArgumentNullException(nameof(parent)),
+                  @event ?? throw new System.ArgumentNullException(nameof(@event)),
                   documentation)
         {
             Member = @event;
@@ -50,8 +50,8 @@ namespace DefaultDocumentation.Models.Members
         /// <param name="documentation">The <see cref="XElement"/> documentation element of the interface property explicitly implemented.</param>
         public ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IProperty property, XElement? documentation)
             : base(
-                  parent ?? throw new ArgumentNullException(nameof(parent)),
-                  property ?? throw new ArgumentNullException(nameof(property)),
+                  parent ?? throw new System.ArgumentNullException(nameof(parent)),
+                  property ?? throw new System.ArgumentNullException(nameof(property)),
                   documentation)
         {
             Member = property;
@@ -67,8 +67,8 @@ namespace DefaultDocumentation.Models.Members
         /// <param name="documentation">The <see cref="XElement"/> documentation element of the interface method explicitly implemented.</param>
         public ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
             : base(
-                  parent ?? throw new ArgumentNullException(nameof(parent)),
-                  method ?? throw new ArgumentNullException(nameof(method)),
+                  parent ?? throw new System.ArgumentNullException(nameof(parent)),
+                  method ?? throw new System.ArgumentNullException(nameof(method)),
                   documentation)
         {
             Member = method;

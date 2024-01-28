@@ -8,6 +8,8 @@ namespace DefaultDocumentation.PluginExample
 
         public void Write(IWriter writer)
         {
+            ArgumentNullException.ThrowIfNull(writer);
+
             writer.Append("helloworld");
         }
     }

@@ -1,6 +1,7 @@
 ## New features
 
 - added DefaultDocumentation.GeneratedAccessModifiers.Api which regroup Public, Protected and InternalProtected access modifiers (closes #116)
+- added support for record
 
 ## Bug fixes
 

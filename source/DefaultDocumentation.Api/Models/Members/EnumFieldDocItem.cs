@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using DefaultDocumentation.Models.Types;
 using ICSharpCode.Decompiler.TypeSystem;
 
@@ -23,8 +22,8 @@ namespace DefaultDocumentation.Models.Members
         /// <param name="documentation">The <see cref="XElement"/> documentation element of the enum field.</param>
         public EnumFieldDocItem(EnumDocItem parent, IField field, XElement? documentation)
             : base(
-                  parent ?? throw new ArgumentNullException(nameof(parent)),
-                  field ?? throw new ArgumentNullException(nameof(field)),
+                  parent ?? throw new System.ArgumentNullException(nameof(parent)),
+                  field ?? throw new System.ArgumentNullException(nameof(field)),
                   documentation)
         {
             Field = field;

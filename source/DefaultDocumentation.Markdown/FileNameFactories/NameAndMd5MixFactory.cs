@@ -6,7 +6,7 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
     /// <summary>
     /// <see cref="Api.IFileNameFactory"/> implementation using <see cref="DocItem.Name"/> and an md5 on the <see cref="DocItem.FullName"/> as file name.
     /// </summary>
-    public sealed class NameAndMd5MixFactory : AMarkdownFactory
+    public sealed class NameAndMd5MixFactory : BaseMarkdownFileNameFactory
     {
         /// <summary>
         /// The name of this implementation used at the configuration level.

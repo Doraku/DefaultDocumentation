@@ -132,6 +132,8 @@ namespace DefaultDocumentation.Markdown.Sections
         /// <inheritdoc/>
         public void Write(IWriter writer)
         {
+            ArgumentNullException.ThrowIfNull(writer);
+
             Modes modes = writer.Context.GetSetting(writer.GetCurrentItem(), c => c.GetSetting<Modes?>("Markdown.TableOfContentsModes")).GetValueOrDefault();
 
             Write(writer, modes, writer.GetCurrentItem());

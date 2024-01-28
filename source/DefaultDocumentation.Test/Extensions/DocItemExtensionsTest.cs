@@ -7,7 +7,7 @@ using Xunit;
 
 namespace DefaultDocumentation.Models
 {
-    public sealed class DocItemExtensionTest
+    public sealed class DocItemExtensionsTest
     {
         public static IEnumerable<object[]> HasOwnPageData
         {

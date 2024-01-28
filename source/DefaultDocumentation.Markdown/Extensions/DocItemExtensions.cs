@@ -5,7 +5,7 @@ namespace DefaultDocumentation.Models
     /// <summary>
     /// Provides extension methods on the <see cref="DocItem"/> type.
     /// </summary>
-    public static class DocItemExtension
+    public static class DocItemExtensions
     {
         /// <summary>
         /// Gets the long name of a <see cref="DocItem"/>, being its full name without its namespace.
@@ -13,6 +13,11 @@ namespace DefaultDocumentation.Models
         /// </summary>
         /// <param name="item">The <see cref="DocItem"/> for which to get its long name.</param>
         /// <returns>The long name of the <see cref="DocItem"/>.</returns>
-        public static string GetLongName(this DocItem item) => string.Join(".", item.GetParents().Skip(2).Select(p => p.Name).Concat(Enumerable.Repeat(item.Name, 1)));
+        public static string GetLongName(this DocItem item)
+        {
+            ArgumentNullException.ThrowIfNull(item);
+
+            return string.Join(".", item.GetParents().Skip(2).Select(p => p.Name).Concat(Enumerable.Repeat(item.Name, 1)));
+        }
     }
 }

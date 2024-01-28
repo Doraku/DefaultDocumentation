@@ -10,7 +10,7 @@ namespace DefaultDocumentation.Models
     /// <summary>
     /// Provides extension methods on the <see cref="DocItem"/> type.
     /// </summary>
-    public static class DocItemExtension
+    public static class DocItemExtensions
     {
         private static GeneratedPages GetPage(DocItem item) => item switch
         {
@@ -37,11 +37,17 @@ namespace DefaultDocumentation.Models
         /// <param name="item">The <see cref="DocItem"/> for which to get if it has its own page.</param>
         /// <param name="context">The <see cref="IGeneralContext"/> used to generation the documentation.</param>
         /// <returns><see langword="true"/> if the <see cref="DocItem"/> has its own page, otherwise <see langword="false"/>.</returns>
-        public static bool HasOwnPage(this DocItem item, IGeneralContext context) => item switch
+        public static bool HasOwnPage(this DocItem item, IGeneralContext context)
         {
-            AssemblyDocItem when !string.IsNullOrEmpty(context.Settings.AssemblyPageName) || item.Documentation != null || context.Items.Values.OfType<NamespaceDocItem>().Skip(1).Any() => true,
-            _ => (context.Settings.GeneratedPages & GetPage(item)) != 0
-        };
+            ArgumentNullException.ThrowIfNull(item);
+            ArgumentNullException.ThrowIfNull(context);
+
+            return item switch
+            {
+                AssemblyDocItem when !string.IsNullOrEmpty(context.Settings.AssemblyPageName) || item.Documentation != null || context.Items.Values.OfType<NamespaceDocItem>().Skip(1).Any() => true,
+                _ => (context.Settings.GeneratedPages & GetPage(item)) != 0
+            };
+        }
 
         /// <summary>
         /// Searchs recursively on the given <see cref="DocItem"/> parent a <see cref="TypeParameterDocItem"/> with the provided name.
@@ -50,17 +56,22 @@ namespace DefaultDocumentation.Models
         /// <param name="name">The name of the <see cref="TypeParameterDocItem"/>.</param>
         /// <param name="typeParameterDocItem">The <see cref="TypeParameterDocItem"/> if found, else <see langword="null"/>.</param>
         /// <returns><see langword="true"/> if the <see cref="TypeParameterDocItem"/> was found, else <see langword="false"/>.</returns>
-        public static bool TryGetTypeParameterDocItem(this DocItem? item, string name, [NotNullWhen(true)] out TypeParameterDocItem? typeParameterDocItem)
+        public static bool TryGetTypeParameterDocItem(this DocItem item, string name, [NotNullWhen(true)] out TypeParameterDocItem? typeParameterDocItem)
         {
+            ArgumentNullException.ThrowIfNull(item);
+            ArgumentNullException.ThrowIfNull(name);
+
+            DocItem? currentItem = item;
             typeParameterDocItem = null;
-            while (item != null && typeParameterDocItem == null)
+
+            while (currentItem != null && typeParameterDocItem == null)
             {
-                if (item is ITypeParameterizedDocItem typeParameters)
+                if (currentItem is ITypeParameterizedDocItem typeParameters)
                 {
                     typeParameterDocItem = typeParameters.TypeParameters.FirstOrDefault(i => i.TypeParameter.Name == name);
                 }
 
-                item = item.Parent;
+                currentItem = currentItem.Parent;
             }
 
             return typeParameterDocItem != null;
@@ -73,17 +84,22 @@ namespace DefaultDocumentation.Models
         /// <param name="name">The name of the <see cref="ParameterDocItem"/>.</param>
         /// <param name="parameterDocItem">The <see cref="ParameterDocItem"/> if found, else <see langword="null"/>.</param>
         /// <returns><see langword="true"/> if the <see cref="ParameterDocItem"/> was found, else <see langword="false"/>.</returns>
-        public static bool TryGetParameterDocItem(this DocItem? item, string name, [NotNullWhen(true)] out ParameterDocItem? parameterDocItem)
+        public static bool TryGetParameterDocItem(this DocItem item, string name, [NotNullWhen(true)] out ParameterDocItem? parameterDocItem)
         {
+            ArgumentNullException.ThrowIfNull(item);
+            ArgumentNullException.ThrowIfNull(name);
+
+            DocItem? currentItem = item;
             parameterDocItem = null;
-            while (item != null && parameterDocItem == null)
+
+            while (currentItem != null && parameterDocItem == null)
             {
-                if (item is IParameterizedDocItem typeParameters)
+                if (currentItem is IParameterizedDocItem typeParameters)
                 {
                     parameterDocItem = typeParameters.Parameters.FirstOrDefault(i => i.Parameter.Name == name);
                 }
 
-                item = item.Parent;
+                currentItem = currentItem.Parent;
             }
 
             return parameterDocItem != null;
@@ -96,8 +112,10 @@ namespace DefaultDocumentation.Models
         /// <returns>The parents of the given <see cref="DocItem"/> from the top parent.</returns>
         public static IEnumerable<DocItem> GetParents(this DocItem item)
         {
+            ArgumentNullException.ThrowIfNull(item);
+
             Stack<DocItem> parents = new();
-            for (DocItem? parent = item.Parent; parent != null; parent = parent.Parent)
+            for (DocItem? parent = item?.Parent; parent != null; parent = parent.Parent)
             {
                 parents.Push(parent);
             }

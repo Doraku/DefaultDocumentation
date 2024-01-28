@@ -14,14 +14,19 @@ namespace DefaultDocumentation.PluginExample
 
         private const string InvalidCharReplacementKey = "Markdown.InvalidCharReplacement";
 
-        public static string GetInvalidCharReplacement(IGeneralContext context) => context.GetSetting<string>(InvalidCharReplacementKey);
+        private static string? GetInvalidCharReplacement(IGeneralContext context)
+        {
+            ArgumentNullException.ThrowIfNull(context);
+
+            return context.GetSetting<string>(InvalidCharReplacementKey);
+        }
 
         private static class PathCleaner
         {
             private static readonly string[] toTrimChars = new[] { '=', ' ' }.Select(c => $"{c}").ToArray();
             private static readonly string[] invalidChars = new[] { '\"', '<', '>', ':', '*', '?' }.Concat(Path.GetInvalidPathChars()).Select(c => $"{c}").ToArray();
 
-            public static string Clean(string value, string invalidCharReplacement)
+            public static string Clean(string value, string? invalidCharReplacement)
             {
                 foreach (string toTrimChar in toTrimChars)
                 {
@@ -43,8 +48,11 @@ namespace DefaultDocumentation.PluginExample
 
         public string Name => "Folder";
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1851:Possible multiple enumerations of 'IEnumerable' collection", Justification = "Expected")]
         public void Clean(IGeneralContext context)
         {
+            ArgumentNullException.ThrowIfNull(context);
+
             context.Settings.Logger.Debug($"Cleaning output folder \"{context.Settings.OutputDirectory}\"");
 
             if (context.Settings.OutputDirectory.Exists)
@@ -56,7 +64,7 @@ namespace DefaultDocumentation.PluginExample
                 foreach (FileInfo file in files)
                 {
                     i = 3;
-                start:
+start:
                     try
                     {
                         file.Delete();
@@ -83,6 +91,9 @@ namespace DefaultDocumentation.PluginExample
 
         public string GetFileName(IGeneralContext context, DocItem item)
         {
+            ArgumentNullException.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(item);
+
             return PathCleaner.Clean(item is AssemblyDocItem ? item.FullName : string.Join("/", item.GetParents().Skip(1).Select(p => p.Name).Concat(Enumerable.Repeat(item.Name, 1))), GetInvalidCharReplacement(context)) + ".md";
         }
     }

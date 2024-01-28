@@ -22,7 +22,10 @@ namespace DefaultDocumentation.Markdown.Sections
         /// <inheritdoc/>
         public void Write(IWriter writer)
         {
+            ArgumentNullException.ThrowIfNull(writer);
+
             bool titleWritten = false;
+
             foreach (XElement seeAlso in writer.GetCurrentItem().Documentation?.Elements(Name) ?? Enumerable.Empty<XElement>())
             {
                 if (!titleWritten)

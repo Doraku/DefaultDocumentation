@@ -9,13 +9,13 @@ namespace DefaultDocumentation.Models.Types
         [Fact]
         public void TypeDocItem_Should_throw_When_parent_is_null()
         {
-            Check.ThatCode(() => new ClassDocItem(null, null, null)).Throws<ArgumentException>();
+            Check.ThatCode(() => new ClassDocItem(null!, null!, null)).Throws<ArgumentException>();
         }
 
         [Fact]
         public void TypeDocItem_Should_throw_When_type_is_null()
         {
-            Check.ThatCode(() => new ClassDocItem(AssemblyInfo.NamespaceDocItem, null, null)).Throws<ArgumentNullException>();
+            Check.ThatCode(() => new ClassDocItem(AssemblyInfo.NamespaceDocItem, null!, null)).Throws<ArgumentNullException>();
         }
     }
 }

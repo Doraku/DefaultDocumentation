@@ -13,7 +13,7 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
     /// Base implementation of the <see cref="IFileNameFactory"/> to generate file with a <c>.md</c> extension.
     /// It will also replace invalid char that may be present with the <see href="https://github.com/Doraku/DefaultDocumentation#invalidcharreplacement">Markdown.InvalidCharReplacement</see> setting.
     /// </summary>
-    public abstract class AMarkdownFactory : IFileNameFactory
+    public abstract class BaseMarkdownFileNameFactory : IFileNameFactory
     {
         /// <inheritdoc/>
         public abstract string Name { get; }
@@ -27,8 +27,11 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
         protected abstract string GetMarkdownFileName(IGeneralContext context, DocItem item);
 
         /// <inheritdoc/>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1851:Possible multiple enumerations of 'IEnumerable' collection", Justification = "Exepected")]
         public void Clean(IGeneralContext context)
         {
+            ArgumentNullException.ThrowIfNull(context);
+
             context.Settings.Logger.Debug($"Cleaning output folder \"{context.Settings.OutputDirectory}\"");
 
             if (context.Settings.OutputDirectory.Exists)
@@ -40,7 +43,7 @@ namespace DefaultDocumentation.Markdown.FileNameFactories
                 foreach (FileInfo file in files)
                 {
                     i = 3;
-                start:
+start:
                     try
                     {
                         file.Delete();

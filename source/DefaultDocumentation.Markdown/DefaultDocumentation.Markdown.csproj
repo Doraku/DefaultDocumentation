@@ -1,12 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<Description>Default implementation for Markdown documentation generation in DefaultDocumentation.</Description>
-		<TargetFramework>netstandard2.0</TargetFramework>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\DefaultDocumentation.Api\DefaultDocumentation.Api.csproj" />
-	</ItemGroup>
+  <PropertyGroup>
+    <Description>Default implementation for Markdown documentation generation in DefaultDocumentation.</Description>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\DefaultDocumentation.Api\Internal\MissingAPIs\*.cs" Visible="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DefaultDocumentation.Api\DefaultDocumentation.Api.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -243,7 +243,8 @@ State elements with which access modifier should be generated. All by default, a
 - `Protected`: generates documentation for 'protected' access modifier
 - `Internal`: generates documentation for 'internal' access modifier
 - `ProtectedInternal`: generates documentation for 'protected internal' access modifier
-- `PrivateProtected`generates documentation for 'private protected' access modifier
+- `PrivateProtected`: generates documentation for 'private protected' access modifier
+- `Api`: generates documentation for 'public', 'protected' and 'protected internal' access modifier.
 
 <a name='Configuration_IncludeUndocumentedItems'></a>
 ## IncludeUndocumentedItems

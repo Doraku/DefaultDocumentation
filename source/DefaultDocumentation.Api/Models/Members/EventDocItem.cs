@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using DefaultDocumentation.Models.Types;
 using ICSharpCode.Decompiler.TypeSystem;
 
@@ -23,8 +22,8 @@ namespace DefaultDocumentation.Models.Members
         /// <param name="documentation">The <see cref="XElement"/> documentation element of the event.</param>
         public EventDocItem(TypeDocItem parent, IEvent @event, XElement? documentation)
             : base(
-                  parent ?? throw new ArgumentNullException(nameof(parent)),
-                  @event ?? throw new ArgumentNullException(nameof(@event)),
+                  parent ?? throw new System.ArgumentNullException(nameof(parent)),
+                  @event ?? throw new System.ArgumentNullException(nameof(@event)),
                   documentation)
         {
             Event = @event;

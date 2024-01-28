@@ -16,15 +16,9 @@ namespace DefaultDocumentation.Markdown.Sections
             .Concat(Enumerable.Repeat(AssemblyInfo.ClassDocItem, 1))
             .ToDictionary(i => i.Id);
 
-        protected override IUrlFactory[] GetUrlFactories() => new IUrlFactory[]
-        {
-            new DocItemFactory()
-        };
+        protected override IUrlFactory[] GetUrlFactories() => [new DocItemFactory()];
 
-        protected override ISection[] GetSections() => new ISection[]
-        {
-            new TitleSection()
-        };
+        protected override ISection[] GetSections() => [new TitleSection()];
 
         [Fact]
         public void Name_should_be_Parameters() => Check.That(Name).IsEqualTo("Parameters");

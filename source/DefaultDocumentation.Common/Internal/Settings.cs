@@ -16,21 +16,23 @@ namespace DefaultDocumentation.Internal
 
         public Settings(
             ILogger logger,
-            string assemblyFilePath,
-            string documentationFilePath,
-            string projectDirectoryPath,
-            string outputDirectoryPath,
-            string assemblyPageName,
+            string? assemblyFilePath,
+            string? documentationFilePath,
+            string? projectDirectoryPath,
+            string? outputDirectoryPath,
+            string? assemblyPageName,
             GeneratedAccessModifiers generatedAccessModifiers,
             GeneratedPages generatedPages,
             bool includeUndocumentedItems,
-            string linksOutputFile,
-            string linksBaseUrl,
-            IEnumerable<string> externlinksFilePaths)
+            string? linksOutputFile,
+            string? linksBaseUrl,
+            IEnumerable<string>? externlinksFilePaths)
         {
-            Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            ArgumentNullException.ThrowIfNull(logger);
 
-            AssemblyFile = !string.IsNullOrEmpty(assemblyFilePath) ? new FileInfo(assemblyFilePath) : throw new ArgumentNullException(nameof(assemblyFilePath));
+            Logger = logger;
+
+            AssemblyFile = !string.IsNullOrEmpty(assemblyFilePath) ? new FileInfo(assemblyFilePath) : throw new ArgumentException("assembly path cannot be null or empty", nameof(assemblyFilePath));
             DocumentationFile = string.IsNullOrEmpty(documentationFilePath) ? new FileInfo(Path.Combine(AssemblyFile.Directory.FullName, Path.GetFileNameWithoutExtension(AssemblyFile.Name) + ".xml")) : new FileInfo(documentationFilePath);
             ProjectDirectory = string.IsNullOrEmpty(projectDirectoryPath) ? null : new DirectoryInfo(projectDirectoryPath);
             OutputDirectory = string.IsNullOrEmpty(outputDirectoryPath) ? DocumentationFile.Directory : new DirectoryInfo(outputDirectoryPath);
@@ -85,11 +87,11 @@ namespace DefaultDocumentation.Internal
 
         public FileInfo DocumentationFile { get; }
 
-        public DirectoryInfo ProjectDirectory { get; }
+        public DirectoryInfo? ProjectDirectory { get; }
 
         public DirectoryInfo OutputDirectory { get; }
 
-        public string AssemblyPageName { get; }
+        public string? AssemblyPageName { get; }
 
         public GeneratedPages GeneratedPages { get; }
 
@@ -97,7 +99,7 @@ namespace DefaultDocumentation.Internal
 
         public bool IncludeUndocumentedItems { get; }
 
-        public FileInfo LinksOutputFile { get; }
+        public FileInfo? LinksOutputFile { get; }
 
         public string LinksBaseUrl { get; }
 

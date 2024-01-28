@@ -9,13 +9,13 @@ namespace DefaultDocumentation.Models.Members
         [Fact]
         public void PropertyDocItem_Should_throw_When_parent_is_null()
         {
-            Check.ThatCode(() => new PropertyDocItem(null, null, null)).Throws<ArgumentNullException>();
+            Check.ThatCode(() => new PropertyDocItem(null!, null!, null)).Throws<ArgumentNullException>();
         }
 
         [Fact]
         public void PropertyDocItem_Should_throw_When_event_is_null()
         {
-            Check.ThatCode(() => new PropertyDocItem(AssemblyInfo.ClassDocItem, null, null)).Throws<ArgumentNullException>();
+            Check.ThatCode(() => new PropertyDocItem(AssemblyInfo.ClassDocItem, null!, null)).Throws<ArgumentNullException>();
         }
     }
 }

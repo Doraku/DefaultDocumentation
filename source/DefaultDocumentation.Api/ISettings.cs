@@ -62,7 +62,7 @@ namespace DefaultDocumentation
         /// <summary>
         /// Gets the base url to prefix item url with when generating the links output file.
         /// </summary>
-        public string? LinksBaseUrl { get; }
+        public string LinksBaseUrl { get; }
 
         /// <summary>
         /// Gets the links files of external items which are not part of the dotnet api.

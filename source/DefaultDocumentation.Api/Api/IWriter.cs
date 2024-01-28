@@ -1,5 +1,4 @@
 ﻿using System;
-using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Api
 {
@@ -9,26 +8,14 @@ namespace DefaultDocumentation.Api
     public interface IWriter
     {
         /// <summary>
-        /// Gets the <see cref="IGeneralContext"/> of the current documentation generation process.
+        /// Gets the <see cref="IPageContext"/> of the current documentation generation process.
         /// </summary>
-        IGeneralContext Context { get; }
-
-        /// <summary>
-        /// Gets the <see cref="Models.DocItem"/> for which the documentation is being generated.
-        /// </summary>
-        DocItem DocItem { get; }
+        IPageContext Context { get; }
 
         /// <summary>
         /// Gets or sets the length of the documentation text currently produced.
         /// </summary>
         int Length { get; set; }
-
-        /// <summary>
-        /// Gets or sets extra data for the current <see cref="Models.DocItem"/> documentation generation.
-        /// </summary>
-        /// <param name="key">The key of the data.</param>
-        /// <returns>The value of the data.</returns>
-        object? this[string key] { get; set; }
 
         /// <summary>
         /// Appends a string at the end of the documentation text.

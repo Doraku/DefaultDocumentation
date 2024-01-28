@@ -32,8 +32,8 @@ namespace DefaultDocumentation.Models.Members
         /// <param name="documentation">The <see cref="XElement"/> documentation element of the method.</param>
         public MethodDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
             : base(
-                  parent ?? throw new ArgumentNullException(nameof(parent)),
-                  method ?? throw new ArgumentNullException(nameof(method)),
+                  parent ?? throw new System.ArgumentNullException(nameof(parent)),
+                  method ?? throw new System.ArgumentNullException(nameof(method)),
                   documentation)
         {
             Method = method;

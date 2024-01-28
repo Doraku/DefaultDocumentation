@@ -30,6 +30,7 @@ namespace DefaultDocumentation.Markdown.Internal
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1851:Possible multiple enumerations of 'IEnumerable' collection", Justification = "Expected")]
         public static string? Extract(string fileContent, string region)
         {
             (int start, int end)[] comments = GetComments(fileContent).ToArray();

@@ -17,8 +17,11 @@ namespace DefaultDocumentation.Markdown.UrlFactories
         public string Name => ConfigName;
 
         /// <inheritdoc/>
-        public string GetUrl(IGeneralContext context, string id)
+        public string GetUrl(IPageContext context, string id)
         {
+            ArgumentNullException.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(id);
+
             id = id.Substring(2);
             int parametersIndex = id.IndexOf("(", StringComparison.Ordinal);
             if (parametersIndex > 0)

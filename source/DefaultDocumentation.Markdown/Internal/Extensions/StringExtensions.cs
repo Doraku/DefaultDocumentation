@@ -1,6 +1,6 @@
 ﻿namespace System
 {
-    internal static class StringExtension
+    internal static class StringExtensions
     {
         public static string Prettify(this string value)
         {

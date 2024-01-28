@@ -45,7 +45,10 @@ namespace DefaultDocumentation.Markdown.Sections
         /// <inheritdoc/>
         public void Write(IWriter writer)
         {
+            ArgumentNullException.ThrowIfNull(writer);
+
             bool titleWritten = false;
+
             foreach (DocItem item in GetChildren(writer.Context, writer.GetCurrentItem()) ?? Array.Empty<T>())
             {
                 if (!titleWritten)

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Models.Parameters;
@@ -29,8 +28,8 @@ namespace DefaultDocumentation.Models.Members
         /// <param name="documentation">The <see cref="XElement"/> documentation element of the operator.</param>
         public OperatorDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
             : base(
-                  parent ?? throw new ArgumentNullException(nameof(parent)),
-                  method ?? throw new ArgumentNullException(nameof(method)),
+                  parent ?? throw new System.ArgumentNullException(nameof(parent)),
+                  method ?? throw new System.ArgumentNullException(nameof(method)),
                   documentation)
         {
             Method = method;

@@ -9,13 +9,13 @@ namespace DefaultDocumentation.Models.Members
         [Fact]
         public void EnumFieldDocItem_Should_throw_When_parent_is_null()
         {
-            Check.ThatCode(() => new EnumFieldDocItem(null, null, null)).Throws<ArgumentNullException>();
+            Check.ThatCode(() => new EnumFieldDocItem(null!, null!, null)).Throws<ArgumentNullException>();
         }
 
         [Fact]
         public void EnumFieldDocItem_Should_throw_When_field_is_null()
         {
-            Check.ThatCode(() => new EnumFieldDocItem(AssemblyInfo.EnumDocItem, null, null)).Throws<ArgumentNullException>();
+            Check.ThatCode(() => new EnumFieldDocItem(AssemblyInfo.EnumDocItem, null!, null)).Throws<ArgumentNullException>();
         }
     }
 }

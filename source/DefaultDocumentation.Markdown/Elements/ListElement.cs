@@ -119,6 +119,9 @@ namespace DefaultDocumentation.Markdown.Elements
         /// <inheritdoc/>
         public void Write(IWriter writer, XElement element)
         {
+            ArgumentNullException.ThrowIfNull(writer);
+            ArgumentNullException.ThrowIfNull(element);
+
             if (writer.GetDisplayAsSingleLine())
             {
                 return;

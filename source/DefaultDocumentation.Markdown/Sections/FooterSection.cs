@@ -19,7 +19,9 @@ namespace DefaultDocumentation.Markdown.Sections
         /// <inheritdoc/>
         public void Write(IWriter writer)
         {
-            if (writer.GetCurrentItem() != writer.DocItem)
+            ArgumentNullException.ThrowIfNull(writer);
+
+            if (writer.GetCurrentItem() != writer.Context.DocItem)
             {
                 return;
             }

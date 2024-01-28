@@ -26,11 +26,16 @@ namespace DefaultDocumentation
         IReadOnlyDictionary<string, IElement> Elements { get; }
 
         /// <summary>
+        /// Gets the <see cref="IUrlFactory"/> used to create the documentation urls.
+        /// </summary>
+        IEnumerable<IUrlFactory> UrlFactories { get; }
+
+        /// <summary>
         /// Gets the specific <see cref="IContext"/> for the given <see cref="Type"/>.
         /// </summary>
         /// <param name="type">The <see cref="Type"/> for which to get the specific <see cref="IContext"/>.</param>
         /// <returns>The <see cref="IContext"/> specific to the provided <see cref="Type"/>.</returns>
-        IContext GetContext(Type type);
+        IContext GetContext(Type? type);
 
         /// <summary>
         /// Gets the file name for the given <see cref="DocItem"/>.
@@ -38,12 +43,5 @@ namespace DefaultDocumentation
         /// <param name="item">The <see cref="DocItem"/> for which to get the page name.</param>
         /// <returns>The file name of the documentation page of the given <see cref="DocItem"/>.</returns>
         string GetFileName(DocItem item);
-
-        /// <summary>
-        /// Gets the url of the given id.
-        /// </summary>
-        /// <param name="id">The id to get the url for.</param>
-        /// <returns>The url of the given id.</returns>
-        string GetUrl(string id);
     }
 }
