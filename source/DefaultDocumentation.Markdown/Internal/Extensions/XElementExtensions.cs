@@ -34,6 +34,6 @@ namespace System.Xml.Linq
 
         public static string? GetTypeAttribute(this XElement element) => element.Attribute("type")?.Value;
 
-        public static bool? GetIgnoreLineBreak(this XElement element) => bool.TryParse(element.Attribute("ignorelinebreak")?.Value, out bool ignoreLineBreak) ? ignoreLineBreak : null;
+        public static bool? GetHandleLineBreak(this XElement element) => bool.TryParse(element.Attribute("handlelinebreak")?.Value, out bool ignoreLineBreak) ? ignoreLineBreak : null;
     }
 }

@@ -26,7 +26,7 @@ namespace DefaultDocumentation.Markdown.Extensions
 
         private const string CurrentItemKey = "Markdown.CurrentItem";
         private const string DisplayAsSingleLineKey = "Markdown.DisplayAsSingleLine";
-        private const string IgnoreLineBreakLineKey = "Markdown.IgnoreLineBreak";
+        private const string HandleLineBreakKey = "Markdown.HandleLineBreak";
 
         /// <summary>
         /// Gets the current item that is being processed by this <see cref="IWriter"/>.
@@ -88,33 +88,33 @@ namespace DefaultDocumentation.Markdown.Extensions
         }
 
         /// <summary>
-        /// Gets whether line break in the xml documentation should be ignored in the generated markdown.
+        /// Gets whether line break in the xml documentation should be handled in the generated markdown.
         /// This setting is used by the <see cref="MarkdownWriter"/> type.
         /// </summary>
         /// <param name="writer">The <see cref="IWriter"/> for which to get this setting.</param>
-        /// <returns>Whether line break in the xml documentation should be ignored in the generated markdown.</returns>
-        /// <seealso href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_IgnoreLineBreak">Markdown.IgnoreLineBreak</seealso>
-        public static bool GetIgnoreLineBreak(this IWriter writer)
+        /// <returns>Whether line break in the xml documentation should be handled in the generated markdown.</returns>
+        /// <seealso href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_HandleLineBreak">Markdown.HandleLineBreak</seealso>
+        public static bool GetHandleLineBreak(this IWriter writer)
         {
             ArgumentNullException.ThrowIfNull(writer);
 
-            return writer.Context[IgnoreLineBreakLineKey] as bool?
-                ?? writer.Context.GetSetting(writer.GetCurrentItem(), c => c.GetSetting<bool?>(IgnoreLineBreakLineKey)).GetValueOrDefault();
+            return writer.Context[HandleLineBreakKey] as bool?
+                ?? writer.Context.GetSetting(writer.GetCurrentItem(), c => c.GetSetting<bool?>(HandleLineBreakKey)).GetValueOrDefault();
         }
 
         /// <summary>
-        /// Sets whether line break in the xml documentation should be ignored in the generated markdown.
+        /// Sets whether line break in the xml documentation should be handled in the generated markdown.
         /// This setting is used by the <see cref="MarkdownWriter"/> type.
         /// </summary>
         /// <param name="writer">The <see cref="IWriter"/> for which to set this setting.</param>
-        /// <param name="value">Whether line break in the xml documentation should be ignored in the generated markdown.</param>
+        /// <param name="value">Whether line break in the xml documentation should be handled in the generated markdown.</param>
         /// <returns>The given <see cref="IWriter"/>.</returns>
-        /// <seealso href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_IgnoreLineBreak">Markdown.IgnoreLineBreak</seealso>
-        public static IWriter SetIgnoreLineBreakLine(this IWriter writer, bool? value)
+        /// <seealso href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_HandleLineBreak">Markdown.HandleLineBreak</seealso>
+        public static IWriter SetHandleLineBreak(this IWriter writer, bool? value)
         {
             ArgumentNullException.ThrowIfNull(writer);
 
-            writer.Context[IgnoreLineBreakLineKey] = value;
+            writer.Context[HandleLineBreakKey] = value;
 
             return writer;
         }
@@ -321,7 +321,7 @@ namespace DefaultDocumentation.Markdown.Extensions
             ArgumentNullException.ThrowIfNull(writer);
 
             new MarkdownWriter(writer)
-                .SetIgnoreLineBreakLine(element?.GetIgnoreLineBreak())
+                .SetHandleLineBreak(element?.GetHandleLineBreak())
                 .Append(element);
 
             return writer.TrimEnd(Environment.NewLine, "<br/>", " ");

@@ -50,7 +50,7 @@ dotnet tool
   - [NestedTypeVisibilities](#MarkdownConfiguration_NestedTypeVisibilities)
   - [RemoveFileExtensionFromUrl](#MarkdownConfiguration_RemoveFileExtensionFromUrl)
   - [InvalidCharReplacement](#MarkdownConfiguration_InvalidCharReplacement)
-  - [IgnoreLineBreak](#MarkdownConfiguration_IgnoreLineBreak)
+  - [HandleLineBreak](#MarkdownConfiguration_HandleLineBreak)
   - [TableOfContentsModes](#MarkdownConfiguration_TableOfContentsModes)
 - [Samples](#Samples)
 - [Dependencies](#Dependencies)
@@ -510,11 +510,11 @@ This setting can be overriden by specific `DocItem` types.
 
 Provides the value to use to replace invalid char for file names, `_` by default.
 
-<a name='MarkdownConfiguration_IgnoreLineBreak'></a>
-## IgnoreLineBreak
-- configuration file: `"Markdown.IgnoreLineBreak": "..."`
+<a name='MarkdownConfiguration_HandleLineBreak'></a>
+## HandleLineBreak
+- configuration file: `"Markdown.HandleLineBreak": "..."`
 
-`true` if line break in the documentation should be ignored and written as is or transformed as markdown line break (two space at the end of a line), `false` by default.  
+`true` if line break in the documentation should be transformed as markdown line break (two space at the end of a line) or not, `false` by default.  
 This setting can be overriden by specific `DocItem` types.
 
 <a name='MarkdownConfiguration_TableOfContentsModes'></a>

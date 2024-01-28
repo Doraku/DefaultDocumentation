@@ -1,3 +1,6 @@
+## Breaking changes
+- renamed Markdown.IgnoreLineBreak setting to Markdown.HandleLineBreak to change default behavior (closes #122)
+
 ## New features
 
 - added DefaultDocumentation.GeneratedAccessModifiers.Api which regroup Public, Protected and InternalProtected access modifiers (closes #116)

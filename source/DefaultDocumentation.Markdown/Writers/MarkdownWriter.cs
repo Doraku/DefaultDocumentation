@@ -5,7 +5,7 @@ using DefaultDocumentation.Markdown.Extensions;
 namespace DefaultDocumentation.Markdown.Writers
 {
     /// <summary>
-    /// Decorator of the <see cref="IWriter"/> type to handle the <see href="https://github.com/Doraku/DefaultDocumentation#ignorelinebreak">Markdown.IgnoreLineBreak</see> setting.
+    /// Decorator of the <see cref="IWriter"/> type to handle the <see href="https://github.com/Doraku/DefaultDocumentation#HandleLineBreak">Markdown.HandleLineBreak</see> setting.
     /// It also uses a <see cref="OverrideWriter"/> internally to further decorate the instance.
     /// </summary>
     public sealed class MarkdownWriter : IWriter
@@ -51,12 +51,12 @@ namespace DefaultDocumentation.Markdown.Writers
             {
                 if (this.GetDisplayAsSingleLine())
                 {
-                    _writer.Append(this.GetIgnoreLineBreak() ? " " : "<br/>");
+                    _writer.Append(this.GetHandleLineBreak() ? "<br/>" : " ");
                 }
                 else
                 {
                     _writer
-                        .Append(this.GetIgnoreLineBreak() ? string.Empty : "  ")
+                        .Append(this.GetHandleLineBreak() ? "  " : string.Empty)
                         .Append(Environment.NewLine);
                 }
             }
