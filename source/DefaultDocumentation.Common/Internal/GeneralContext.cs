@@ -82,7 +82,7 @@ internal sealed class GeneralContext : Context, IGeneralContext
 
         foreach (KeyValuePair<Type, Context> pair in _contexts)
         {
-            Settings.Logger.Info($"FileNameFactory that will be used for {pair.Key.Name}: {pair.Value.FileNameFactory!.GetType().AssemblyQualifiedName}");
+            Settings.Logger.Info($"FileNameFactory that will be used for {pair.Key.Name}: {pair.Value.FileNameFactory?.GetType().AssemblyQualifiedName}");
             Settings.Logger.Info($"SectionWriter that will be used for {pair.Key.Name}:{string.Concat(pair.Value.Sections?.Select(s => $"{Environment.NewLine}  {s.GetType().AssemblyQualifiedName}") ?? [])}");
         }
     }

@@ -112,7 +112,9 @@ public sealed class Generator
             _configuration.Property(name, StringComparison.OrdinalIgnoreCase)?.Remove();
             _configuration.Add(name, JToken.FromObject(convert(value)!, _serializer));
         }
-        else if (!Equals(defaultValue, default(TConfig)))
+        else if (!Equals(defaultValue, default(TConfig))
+            && (!(_configuration.Property(name, StringComparison.OrdinalIgnoreCase) is { } configurationProperty)
+                || configurationProperty.Value?.Type is null or JTokenType.Null))
         {
             _configuration.Property(name, StringComparison.OrdinalIgnoreCase)?.Remove();
             _configuration.Add(name, JToken.FromObject(defaultValue!, _serializer));
@@ -154,7 +156,7 @@ public sealed class Generator
 
             using StreamWriter writer = _context.Settings.LinksOutputFile.CreateText();
 
-            PageContext context = new(_context, new ExternDocItem("", "", ""));
+            PageContext context = new(_context, new ExternDocItem("T:", "", ""));
 
             writer.WriteLine(_context.Settings.LinksBaseUrl);
             foreach (DocItem item in _context.Items.Values.Where(i => i is not ExternDocItem and not AssemblyDocItem and not TypeParameterDocItem and not ParameterDocItem))
