@@ -2,27 +2,26 @@
 using CommandLine;
 using NLog.Targets;
 
-namespace DefaultDocumentation
+namespace DefaultDocumentation;
+
+internal static class Program
 {
-    internal static class Program
+    private static void Main(string[] args)
     {
-        private static void Main(string[] args)
+        using Parser parser = new(s =>
         {
-            using Parser parser = new(s =>
+            s.CaseSensitive = false;
+            s.CaseInsensitiveEnumValues = true;
+            s.HelpWriter = Console.Out;
+        });
+
+        parser
+            .ParseArguments<SettingsArgs>(args)
+            .WithParsed(a =>
             {
-                s.CaseSensitive = false;
-                s.CaseInsensitiveEnumValues = true;
-                s.HelpWriter = Console.Out;
+                using ConsoleTarget target = new("Console");
+
+                Generator.Execute(target, a);
             });
-
-            parser
-                .ParseArguments<SettingsArgs>(args)
-                .WithParsed(a =>
-                {
-                    using ConsoleTarget target = new("Console");
-
-                    Generator.Execute(target, a);
-                });
-        }
     }
 }

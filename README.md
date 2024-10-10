@@ -1,17 +1,24 @@
 # DefaultDocumentation
 As the name imply, this project lets you easily produce a markdown documentation from the generated assembly and its xml documentation produced by visual studio from comments.
 
-[![Coverage Status](https://coveralls.io/repos/github/Doraku/DefaultDocumentation/badge.svg?branch=master)](https://coveralls.io/github/Doraku/DefaultDocumentation?branch=master)
-![continuous integration status](https://github.com/doraku/defaultdocumentation/workflows/continuous%20integration/badge.svg)  
 api
-[![NuGet api](https://buildstats.info/nuget/DefaultDocumentation.Api)](https://www.nuget.org/packages/DefaultDocumentation.Api)
-[![preview api](https://img.shields.io/badge/preview-package-blue?style=flat&logo=github)](https://github.com/Doraku/DefaultDocumentation/packages/1132890)  
+[![NuGet api](https://img.shields.io/nuget/v/DefaultDocumentation.Api)](https://www.nuget.org/packages/DefaultDocumentation.Api)
+[![preview api](https://img.shields.io/badge/preview-package-blue?style=flat&logo=github)](https://github.com/Doraku/DefaultDocumentation/pkgs/nuget/DefaultDocumentation.Api)
+
+markdown
+[![NuGet markdown](https://img.shields.io/nuget/v/DefaultDocumentation.Markdown)](https://www.nuget.org/packages/DefaultDocumentation.Markdown)
+[![preview markdown](https://img.shields.io/badge/preview-package-blue?style=flat&logo=github)](https://github.com/Doraku/DefaultDocumentation/pkgs/nuget/DefaultDocumentation.Markdown)
+
 msbuild task
-[![NuGet msbuild task](https://buildstats.info/nuget/DefaultDocumentation)](https://www.nuget.org/packages/DefaultDocumentation)
-[![preview msbuild task](https://img.shields.io/badge/preview-package-blue?style=flat&logo=github)](https://github.com/Doraku/DefaultDocumentation/packages/483535)  
+[![NuGet msbuild task](https://img.shields.io/nuget/v/DefaultDocumentation)](https://www.nuget.org/packages/DefaultDocumentation)
+[![preview msbuild task](https://img.shields.io/badge/preview-package-blue?style=flat&logo=github)](https://github.com/Doraku/DefaultDocumentation/pkgs/nuget/DefaultDocumentation)
+
 dotnet tool
-[![NuGet dotnet tool](https://buildstats.info/nuget/DefaultDocumentation.Console)](https://www.nuget.org/packages/DefaultDocumentation.Console)
-[![preview dotnet tool](https://img.shields.io/badge/preview-package-blue?style=flat&logo=github)](https://github.com/Doraku/DefaultDocumentation/packages/724598)
+[![NuGet dotnet tool](https://img.shields.io/nuget/v/DefaultDocumentation.Console)](https://www.nuget.org/packages/DefaultDocumentation.Console)
+[![preview dotnet tool](https://img.shields.io/badge/preview-package-blue?style=flat&logo=github)](https://github.com/Doraku/DefaultDocumentation/pkgs/nuget/DefaultDocumentation.Console)
+
+![continuous integration status](https://github.com/doraku/defaultdocumentation/workflows/continuous%20integration/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/Doraku/DefaultDocumentation/badge.svg?branch=master)](https://coveralls.io/github/Doraku/DefaultDocumentation?branch=master)
 
 - [Api documentation](./documentation/api/index.md 'Api documentation')
 <a/>

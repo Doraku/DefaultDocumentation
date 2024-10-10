@@ -8,13 +8,9 @@ jobs:
   release:
     runs-on: windows-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        ref: master
+    - uses: actions/checkout@v4
 
-    - name: Set up dotnet
-      uses: actions/setup-dotnet@v1
+    - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
         source-url: https://api.nuget.org/v3/index.json
@@ -28,18 +24,19 @@ jobs:
 
     - name: Create packages
       run: |
-        dotnet pack source\DefaultDocumentation.sln -c Release -o build /p:Version=${{ github.event.release.tag_name }}
+        dotnet pack source -c Release -o build /p:Version=${{ github.event.release.tag_name }} /p:SignAssembly=true
         
     - name: Create RELEASE.txt
       run: |
         type documentation\NEXT_RELEASENOTES.txt | Out-File build\RELEASE.txt
         echo "" | Out-File build\RELEASE.txt -Append
-        echo "[api nuget package](https://www.nuget.org/packages/DefaultDocumentation.Api/${{ github.event.release.tag_name }})" | Out-File build\RELEASE.txt -Append
-        echo "[msbuild task nuget package](https://www.nuget.org/packages/DefaultDocumentation/${{ github.event.release.tag_name }})" | Out-File build\RELEASE.txt -Append
-        echo "[dotnet tool nuget package](https://www.nuget.org/packages/DefaultDocumentation.Console/${{ github.event.release.tag_name }})" | Out-File build\RELEASE.txt -Append
+        echo "- [api nuget package](https://www.nuget.org/packages/DefaultDocumentation.Api/${{ github.event.release.tag_name }})" | Out-File build\RELEASE.txt -Append
+        echo "- [markdown nuget package](https://www.nuget.org/packages/DefaultDocumentation.Markdown/${{ github.event.release.tag_name }})" | Out-File build\RELEASE.txt -Append
+        echo "- [msbuild task nuget package](https://www.nuget.org/packages/DefaultDocumentation/${{ github.event.release.tag_name }})" | Out-File build\RELEASE.txt -Append
+        echo "- [dotnet tool nuget package](https://www.nuget.org/packages/DefaultDocumentation.Console/${{ github.event.release.tag_name }})" | Out-File build\RELEASE.txt -Append
 
     - name: Update release
-      uses: tubone24/update_release@v1.1.0
+      uses: tubone24/update_release@v1.3.1
       env:
         GITHUB_TOKEN: ${{ github.token }}
       with:

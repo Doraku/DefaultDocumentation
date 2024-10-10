@@ -1,18 +1,18 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Xml.Linq;
 using DefaultDocumentation.Api;
 
-namespace DefaultDocumentation.PluginExample
+namespace DefaultDocumentation.PluginExample;
+
+public sealed class NewElement : IElement
 {
-    public sealed class NewElement : IElement
+    public string Name => "new";
+
+    public void Write(IWriter writer, XElement element)
     {
-        public string Name => "new";
+        writer.ThrowIfNull();
+        element.ThrowIfNull();
 
-        public void Write(IWriter writer, XElement element)
-        {
-            ArgumentNullException.ThrowIfNull(writer);
-            ArgumentNullException.ThrowIfNull(element);
-
-            writer.Append("hello ").Append(element.Value);
-        }
+        writer.Append("hello ").Append(element.Value);
     }
 }

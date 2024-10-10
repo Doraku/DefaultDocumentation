@@ -2,72 +2,70 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace DefaultDocumentation.Markdown.Internal
+namespace DefaultDocumentation.Markdown.Internal;
+
+internal static class CodeRegion
 {
-    internal static class CodeRegion
+    private static readonly Regex _regionStartRegex = new("\r*^ *#region ", RegexOptions.Multiline);
+    private static readonly Regex _regionEndRegex = new("\r*^ *#endregion", RegexOptions.Multiline);
+    private static readonly Regex _commentStartRegex = new("/\\*", RegexOptions.Multiline);
+    private static readonly Regex _commentEndRegex = new("\\*/", RegexOptions.Multiline);
+
+    private static IEnumerable<(int, int)> GetComments(string fileContent)
     {
-        private static readonly Regex _regionStartRegex = new("\r*^ *#region ", RegexOptions.Multiline);
-        private static readonly Regex _regionEndRegex = new("\r*^ *#endregion", RegexOptions.Multiline);
-        private static readonly Regex _commentStartRegex = new("/\\*", RegexOptions.Multiline);
-        private static readonly Regex _commentEndRegex = new("\\*/", RegexOptions.Multiline);
+        Match commentStart = _commentStartRegex.Match(fileContent);
 
-        private static IEnumerable<(int, int)> GetComments(string fileContent)
+        while (commentStart.Success)
         {
-            Match commentStart = _commentStartRegex.Match(fileContent);
+            Match commentEnd = _commentEndRegex.Match(fileContent, commentStart.Index + 2);
 
-            while (commentStart.Success)
+            if (!commentEnd.Success)
             {
-                Match commentEnd = _commentEndRegex.Match(fileContent, commentStart.Index + 2);
-
-                if (!commentEnd.Success)
-                {
-                    yield return (commentStart.Index, fileContent.Length);
-                    yield break;
-                }
-
-                yield return (commentStart.Index, commentEnd.Index);
-                commentStart = _commentStartRegex.Match(fileContent, commentEnd.Index + 2);
+                yield return (commentStart.Index, fileContent.Length);
+                yield break;
             }
+
+            yield return (commentStart.Index, commentEnd.Index);
+            commentStart = _commentStartRegex.Match(fileContent, commentEnd.Index + 2);
         }
+    }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1851:Possible multiple enumerations of 'IEnumerable' collection", Justification = "Expected")]
-        public static string? Extract(string fileContent, string region)
+    public static string? Extract(string fileContent, string region)
+    {
+        (int start, int end)[] comments = GetComments(fileContent).ToArray();
+
+        bool IsInComments(int i) => comments.Any(c => i > c.start && i < c.end);
+
+        Match regionStart = Match.Empty;
+        Regex regionRegex = new($"\r*^ *#region *{region.Trim()} *\r*$", RegexOptions.Multiline);
+
+        do
         {
-            (int start, int end)[] comments = GetComments(fileContent).ToArray();
+            regionStart = regionRegex.Match(fileContent, regionStart.Index + regionStart.Length);
+        }
+        while (regionStart.Success && IsInComments(regionStart.Index));
 
-            bool IsInComments(int i) => comments.Any(c => i > c.start && i < c.end);
-
-            Match regionStart = Match.Empty;
-            Regex regionRegex = new($"\r*^ *#region *{region.Trim()} *\r*$", RegexOptions.Multiline);
-
-            do
-            {
-                regionStart = regionRegex.Match(fileContent, regionStart.Index + regionStart.Length);
-            }
-            while (regionStart.Success && IsInComments(regionStart.Index));
-
-            if (!regionStart.Success)
-            {
-                return null;
-            }
-
-            int regionStartIndex = regionStart.Index + regionStart.Value.Length + 1;
-
-            IEnumerable<Match> allRegionStarts = _regionStartRegex.Matches(fileContent, regionStartIndex).OfType<Match>().Where(m => m.Success && !IsInComments(m.Index));
-
-            int innerRegionCount = 0;
-
-            foreach (Match regionEnd in _regionEndRegex.Matches(fileContent, regionStartIndex).OfType<Match>().Where(m => m.Success && !IsInComments(m.Index)))
-            {
-                if (innerRegionCount == allRegionStarts.Count(m => m.Index < regionEnd.Index))
-                {
-                    return fileContent.Substring(regionStartIndex, regionEnd.Index - regionStartIndex);
-                }
-
-                ++innerRegionCount;
-            }
-
+        if (!regionStart.Success)
+        {
             return null;
         }
+
+        int regionStartIndex = regionStart.Index + regionStart.Value.Length + 1;
+
+        IEnumerable<Match> allRegionStarts = _regionStartRegex.Matches(fileContent, regionStartIndex).OfType<Match>().Where(m => m.Success && !IsInComments(m.Index)).ToArray();
+
+        int innerRegionCount = 0;
+
+        foreach (Match regionEnd in _regionEndRegex.Matches(fileContent, regionStartIndex).OfType<Match>().Where(m => m.Success && !IsInComments(m.Index)))
+        {
+            if (innerRegionCount == allRegionStarts.Count(m => m.Index < regionEnd.Index))
+            {
+                return fileContent[regionStartIndex..regionEnd.Index];
+            }
+
+            ++innerRegionCount;
+        }
+
+        return null;
     }
 }

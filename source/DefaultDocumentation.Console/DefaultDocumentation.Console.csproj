@@ -1,17 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>Create a simple markdown documentation from the Visual Studio xml one.</Description>
-    <RootNamespace>DefaultDocumentation</RootNamespace>
-    <OutputType>Exe</OutputType>
+    
     <TargetFrameworks>
       net6.0;
       net8.0;
     </TargetFrameworks>
-    <ToolCommandName>defaultdocumentation</ToolCommandName>
-    <PackAsTool>true</PackAsTool>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>DefaultDocumentation</RootNamespace>
+    
+    <Description>Create a simple markdown documentation from the Visual Studio xml one.</Description>
+    
     <DevelopmentDependency>true</DevelopmentDependency>
     <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>defaultdocumentation</ToolCommandName>
+    
   </PropertyGroup>
 
   <ItemGroup>

@@ -3,37 +3,36 @@ using Microsoft.Build.Utilities;
 using NLog;
 using NLog.Targets;
 
-namespace DefaultDocumentation
+namespace DefaultDocumentation;
+
+internal sealed class TaskTarget : TargetWithLayoutHeaderAndFooter
 {
-    internal sealed class TaskTarget : TargetWithLayoutHeaderAndFooter
+    private readonly TaskLoggingHelper _log;
+
+    public TaskTarget(string name, TaskLoggingHelper log)
     {
-        private readonly TaskLoggingHelper _log;
+        Name = name;
+        _log = log;
+    }
 
-        public TaskTarget(string name, TaskLoggingHelper log)
+    protected override void Write(LogEventInfo logEvent)
+    {
+        string log = RenderLogEvent(Layout, logEvent);
+
+        if (logEvent.Level == LogLevel.Trace
+            || logEvent.Level == LogLevel.Debug
+            || logEvent.Level == LogLevel.Info)
         {
-            Name = name;
-            _log = log;
+            _log.LogMessage(MessageImportance.High, log);
         }
-
-        protected override void Write(LogEventInfo logEvent)
+        else if (logEvent.Level == LogLevel.Warn)
         {
-            string log = RenderLogEvent(Layout, logEvent);
-
-            if (logEvent.Level == LogLevel.Trace
-                || logEvent.Level == LogLevel.Debug
-                || logEvent.Level == LogLevel.Info)
-            {
-                _log.LogMessage(MessageImportance.High, log);
-            }
-            else if (logEvent.Level == LogLevel.Warn)
-            {
-                _log.LogWarning(log);
-            }
-            else if (logEvent.Level == LogLevel.Error
-                || logEvent.Level == LogLevel.Fatal)
-            {
-                _log.LogError(log);
-            }
+            _log.LogWarning(log);
+        }
+        else if (logEvent.Level == LogLevel.Error
+            || logEvent.Level == LogLevel.Fatal)
+        {
+            _log.LogError(log);
         }
     }
 }

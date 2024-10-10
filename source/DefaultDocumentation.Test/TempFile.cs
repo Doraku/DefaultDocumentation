@@ -1,18 +1,17 @@
 ﻿using System;
 using System.IO;
 
-namespace DefaultDocumentation.Markdown
+namespace DefaultDocumentation;
+
+public sealed class TempFile : IDisposable
 {
-    public sealed class TempFile : IDisposable
+    public FileInfo Info { get; }
+
+    public TempFile(string filePath, string content)
     {
-        public FileInfo Info { get; }
-
-        public TempFile(string filePath, string content)
-        {
-            Info = new FileInfo(filePath);
-            File.WriteAllText(Info.FullName, content);
-        }
-
-        public void Dispose() => Info.Delete();
+        Info = new FileInfo(filePath);
+        File.WriteAllText(Info.FullName, content);
     }
+
+    public void Dispose() => Info.Delete();
 }

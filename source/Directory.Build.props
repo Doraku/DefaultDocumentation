@@ -1,59 +1,24 @@
 <Project>
-  
-	<PropertyGroup>
-		<LangVersion>latest</LangVersion>
-		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-		<EnableNETAnalyzers>true</EnableNETAnalyzers>
-		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
-		<AnalysisLevel>latest</AnalysisLevel>
-		<RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
-		<RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
-	</PropertyGroup>
 
 	<PropertyGroup>
+    
 		<Authors>Paillat Laszlo</Authors>
-		<PackageIcon>logo.png</PackageIcon>
-		<PackageProjectUrl>https://github.com/Doraku/DefaultDocumentation</PackageProjectUrl>
+		
 		<PackageLicenseExpression>MIT-0</PackageLicenseExpression>
-		<RepositoryUrl>https://github.com/Doraku/DefaultDocumentation.git</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
+		<PackageProjectUrl>https://github.com/Doraku/DefaultDocumentation</PackageProjectUrl>
 		<PackageTags>markdown documentation</PackageTags>
+		
+    <DefaultCSharpPackageIconFile>$(MSBuildThisFileDirectory)..\image\logo.png</DefaultCSharpPackageIconFile>
+    <DefaultCSharpPackageReadmeFile>$(MSBuildThisFileDirectory)..\README.md</DefaultCSharpPackageReadmeFile>
+    <DefaultCSharpPackageReleaseNotesFile>$(MSBuildThisFileDirectory)../documentation/NEXT_RELEASENOTES.txt</DefaultCSharpPackageReleaseNotesFile>
+
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\..\ds.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile Condition="'$(GITHUB_ACTIONS)' == 'true'">$(MSBuildThisFileDirectory)..\ds.snk</AssemblyOriginatorKeyFile>
+    
 	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(LOCAL_VERSION)' == 'true'">
-		<SignAssembly>True</SignAssembly>
-		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\..\ds.snk</AssemblyOriginatorKeyFile>
-		<Version>0-local$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</Version>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' AND '$(TEST)' != 'true'">
-		<SignAssembly>True</SignAssembly>
-		<IncludeSymbols Condition="'$(CI_VERSION)' != 'true'">true</IncludeSymbols>
-		<SymbolPackageFormat Condition="'$(CI_VERSION)' != 'true'">snupkg</SymbolPackageFormat>
-		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\ds.snk</AssemblyOriginatorKeyFile>
-		<Version Condition="'$(CI_VERSION)' == 'true'">0-ci$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</Version>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<None Include="$(MSBuildThisFileDirectory)..\image\logo.png" Pack="true" PackagePath="\" Visible="false" />
-    <None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" Visible="false" />
-	</ItemGroup>
-
-	<Target Name="PreparePackageReleaseNotesFromFile" BeforeTargets="GenerateNuspec">
-		<ReadLinesFromFile File="$(MSBuildThisFileDirectory)../documentation/NEXT_RELEASENOTES.txt">
-			<Output TaskParameter="Lines" ItemName="ReleaseNotesLines" />
-		</ReadLinesFromFile>
-		<PropertyGroup>
-			<PackageReleaseNotes>@(ReleaseNotesLines, '%0a')</PackageReleaseNotes>
-		</PropertyGroup>
-	</Target>
-
-	<ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0" PrivateAssets="all" />
-    <PackageReference Include="Roslynator.Analyzers" Version="4.10.0" PrivateAssets="all" />
-    <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="4.10.0" PrivateAssets="all" />
-    <PackageReference Include="Roslynator.Formatting.Analyzers" Version="4.10.0" PrivateAssets="all" />
-	</ItemGroup>
   
+  <ItemGroup>
+    <PackageReference Include="DefaultCSharp" Version="1.0.0-test06" PrivateAssets="all" />
+  </ItemGroup>
+
 </Project>

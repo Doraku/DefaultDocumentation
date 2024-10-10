@@ -1,36 +1,36 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Xml.Linq;
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Parameters;
 
-namespace DefaultDocumentation.Markdown.Elements
+namespace DefaultDocumentation.Markdown.Elements;
+
+/// <summary>
+/// Handles <c>typeparamref</c> xml element.
+/// </summary>
+public sealed class TypeParamRefElement : IElement
 {
     /// <summary>
-    /// Handles <c>typeparamref</c> xml element.
+    /// The name of this implementation used at the configuration level.
     /// </summary>
-    public sealed class TypeParamRefElement : IElement
+    public const string ConfigName = "typeparamref";
+
+    /// <inheritdoc/>
+    public string Name => ConfigName;
+
+    /// <inheritdoc/>
+    public void Write(IWriter writer, XElement element)
     {
-        /// <summary>
-        /// The name of this implementation used at the configuration level.
-        /// </summary>
-        public const string ConfigName = "typeparamref";
+        writer.ThrowIfNull();
+        element.ThrowIfNull();
 
-        /// <inheritdoc/>
-        public string Name => ConfigName;
+        string? name = element.GetNameAttribute();
 
-        /// <inheritdoc/>
-        public void Write(IWriter writer, XElement element)
+        if (name != null)
         {
-            ArgumentNullException.ThrowIfNull(writer);
-            ArgumentNullException.ThrowIfNull(element);
-
-            string? name = element.GetNameAttribute();
-
-            if (name != null)
-            {
-                _ = writer.GetCurrentItem().TryGetTypeParameterDocItem(name, out TypeParameterDocItem? typeParameter) ? writer.AppendLink(typeParameter) : writer.Append(name);
-            }
+            _ = writer.GetCurrentItem().TryGetTypeParameterDocItem(name, out TypeParameterDocItem? typeParameter) ? writer.AppendLink(typeParameter) : writer.Append(name);
         }
     }
 }

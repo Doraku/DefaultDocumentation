@@ -1,31 +1,31 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Xml.Linq;
 using DefaultDocumentation.Api;
 
-namespace DefaultDocumentation.Markdown.Elements
+namespace DefaultDocumentation.Markdown.Elements;
+
+/// <summary>
+/// Handles <c>c</c> xml element.
+/// </summary>
+public sealed class CElement : IElement
 {
     /// <summary>
-    /// Handles <c>c</c> xml element.
+    /// The name of this implementation used at the configuration level.
     /// </summary>
-    public sealed class CElement : IElement
+    public const string ConfigName = "c";
+
+    /// <inheritdoc/>
+    public string Name => ConfigName;
+
+    /// <inheritdoc/>
+    public void Write(IWriter writer, XElement element)
     {
-        /// <summary>
-        /// The name of this implementation used at the configuration level.
-        /// </summary>
-        public const string ConfigName = "c";
+        writer.ThrowIfNull();
+        element.ThrowIfNull();
 
-        /// <inheritdoc/>
-        public string Name => ConfigName;
-
-        /// <inheritdoc/>
-        public void Write(IWriter writer, XElement element)
-        {
-            ArgumentNullException.ThrowIfNull(writer);
-            ArgumentNullException.ThrowIfNull(element);
-
-            writer
-                .Append("`")
-                .Append(element.Value)
-                .Append("`");
-        }
+        writer
+            .Append("`")
+            .Append(element.Value)
+            .Append("`");
     }
 }

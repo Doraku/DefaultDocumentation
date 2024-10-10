@@ -2,27 +2,26 @@
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
 
-namespace DefaultDocumentation.Markdown.Elements
+namespace DefaultDocumentation.Markdown.Elements;
+
+/// <summary>
+/// Handles <c>para</c> xml element.
+/// </summary>
+public sealed class ParaElement : IElement
 {
     /// <summary>
-    /// Handles <c>para</c> xml element.
+    /// The name of this implementation used at the configuration level.
     /// </summary>
-    public sealed class ParaElement : IElement
+    public const string ConfigName = "para";
+
+    /// <inheritdoc/>
+    public string Name => ConfigName;
+
+    /// <inheritdoc/>
+    public void Write(IWriter writer, XElement element)
     {
-        /// <summary>
-        /// The name of this implementation used at the configuration level.
-        /// </summary>
-        public const string ConfigName = "para";
-
-        /// <inheritdoc/>
-        public string Name => ConfigName;
-
-        /// <inheritdoc/>
-        public void Write(IWriter writer, XElement element)
-        {
-            writer
-                .EnsureLineStartAndAppendLine()
-                .AppendAsMarkdown(element);
-        }
+        writer
+            .EnsureLineStartAndAppendLine()
+            .AppendAsMarkdown(element);
     }
 }

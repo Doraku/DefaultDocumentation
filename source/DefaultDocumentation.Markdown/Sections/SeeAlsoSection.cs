@@ -1,60 +1,58 @@
 ﻿using System;
-using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
 
-namespace DefaultDocumentation.Markdown.Sections
+namespace DefaultDocumentation.Markdown.Sections;
+
+/// <summary>
+/// <see cref="ISection"/> implementation to write the <c>seealso</c> top level elements.
+/// </summary>
+public sealed class SeeAlsoSection : ISection
 {
     /// <summary>
-    /// <see cref="ISection"/> implementation to write the <c>seealso</c> top level elements.
+    /// The name of this implementation used at the configuration level.
     /// </summary>
-    public sealed class SeeAlsoSection : ISection
+    public const string ConfigName = "seealso";
+
+    /// <inheritdoc/>
+    public string Name => ConfigName;
+
+    /// <inheritdoc/>
+    public void Write(IWriter writer)
     {
-        /// <summary>
-        /// The name of this implementation used at the configuration level.
-        /// </summary>
-        public const string ConfigName = "seealso";
+        writer.ThrowIfNull();
 
-        /// <inheritdoc/>
-        public string Name => ConfigName;
+        bool titleWritten = false;
 
-        /// <inheritdoc/>
-        public void Write(IWriter writer)
+        foreach (XElement seeAlso in writer.GetCurrentItem().Documentation?.Elements(Name) ?? [])
         {
-            ArgumentNullException.ThrowIfNull(writer);
-
-            bool titleWritten = false;
-
-            foreach (XElement seeAlso in writer.GetCurrentItem().Documentation?.Elements(Name) ?? Enumerable.Empty<XElement>())
+            if (!titleWritten)
             {
-                if (!titleWritten)
-                {
-                    titleWritten = true;
-                    writer
-                        .EnsureLineStartAndAppendLine()
-                        .Append("### See Also");
-                }
+                titleWritten = true;
+                writer
+                    .EnsureLineStartAndAppendLine()
+                    .Append("### See Also");
+            }
 
-                string? @ref = seeAlso.GetCRefAttribute();
-                if (@ref is not null)
-                {
-                    writer
-                        .AppendLine()
-                        .Append("- ")
-                        .AppendLink(@ref, seeAlso.Value.NullIfEmpty());
+            string? @ref = seeAlso.GetCRefAttribute();
+            if (@ref is not null)
+            {
+                writer
+                    .AppendLine()
+                    .Append("- ")
+                    .AppendLink(@ref, seeAlso.Value.NullIfEmpty());
 
-                    continue;
-                }
+                continue;
+            }
 
-                @ref = seeAlso.GetHRefAttribute();
-                if (@ref is not null)
-                {
-                    writer
-                        .AppendLine()
-                        .Append("- ")
-                        .AppendUrl(@ref, seeAlso.Value.NullIfEmpty());
-                }
+            @ref = seeAlso.GetHRefAttribute();
+            if (@ref is not null)
+            {
+                writer
+                    .AppendLine()
+                    .Append("- ")
+                    .AppendUrl(@ref, seeAlso.Value.NullIfEmpty());
             }
         }
     }

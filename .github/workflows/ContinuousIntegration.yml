@@ -16,11 +16,9 @@ jobs:
   continuous_integration:
     runs-on: windows-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
-    - name: Set up dotnet
-      uses: actions/setup-dotnet@v1
+    - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
         source-url: https://nuget.pkg.github.com/Doraku/index.json
@@ -28,10 +26,10 @@ jobs:
         NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Build
-      run: dotnet build source\DefaultDocumentation.sln -c Release -p:TreatWarningsAsErrors=true /p:TEST=true
+      run: dotnet build source -c Release -p:TreatWarningsAsErrors=true
 
     - name: Run tests
-      run: dotnet test source\DefaultDocumentation.sln -c Release --no-build
+      run: dotnet test source -c Release --no-build
       
     - name: Decrypte snk file
       env:
@@ -40,7 +38,7 @@ jobs:
 
     - name: Create package
       run: |
-        dotnet pack source\DefaultDocumentation.sln -c Release -o build /p:CI_VERSION=true
+        dotnet pack source -c Release -o build /p:Version=0-ci$(date +'%Y%m%d%H%M%S') /p:SignAssembly=true
 
     - name: Publish packages
-      run: nuget push build\*.nupkg
+      run: dotnet nuget push build\*.nupkg

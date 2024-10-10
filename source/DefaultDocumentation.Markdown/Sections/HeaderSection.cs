@@ -1,59 +1,59 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models;
 
-namespace DefaultDocumentation.Markdown.Sections
+namespace DefaultDocumentation.Markdown.Sections;
+
+/// <summary>
+/// <see cref="ISection"/> implementation to write a link to the top level documentation page.
+/// </summary>
+public sealed class HeaderSection : ISection
 {
     /// <summary>
-    /// <see cref="ISection"/> implementation to write a link to the top level documentation page.
+    /// The name of this implementation used at the configuration level.
     /// </summary>
-    public sealed class HeaderSection : ISection
+    public const string ConfigName = "Header";
+
+    /// <inheritdoc/>
+    public string Name => ConfigName;
+
+    /// <inheritdoc/>
+    public void Write(IWriter writer)
     {
-        /// <summary>
-        /// The name of this implementation used at the configuration level.
-        /// </summary>
-        public const string ConfigName = "Header";
+        writer.ThrowIfNull();
 
-        /// <inheritdoc/>
-        public string Name => ConfigName;
-
-        /// <inheritdoc/>
-        public void Write(IWriter writer)
+        if (writer.GetCurrentItem() != writer.Context.DocItem)
         {
-            ArgumentNullException.ThrowIfNull(writer);
+            return;
+        }
 
-            if (writer.GetCurrentItem() != writer.Context.DocItem)
-            {
-                return;
-            }
+        AssemblyDocItem assembly = writer.Context.Items.Values.OfType<AssemblyDocItem>().Single();
+        if (assembly.HasOwnPage(writer.Context))
+        {
+            writer
+                .EnsureLineStart()
+                .Append("#### ")
+                .AppendLink(assembly);
+        }
 
-            AssemblyDocItem assembly = writer.Context.Items.Values.OfType<AssemblyDocItem>().Single();
-            if (assembly.HasOwnPage(writer.Context))
+        bool firstWritten = false;
+        foreach (DocItem parent in writer.Context.DocItem.GetParents().Skip(1))
+        {
+            if (!firstWritten)
             {
+                firstWritten = true;
                 writer
                     .EnsureLineStart()
-                    .Append("#### ")
-                    .AppendLink(assembly);
+                    .Append("### ");
             }
-
-            bool firstWritten = false;
-            foreach (DocItem parent in writer.Context.DocItem.GetParents().Skip(1))
+            else
             {
-                if (!firstWritten)
-                {
-                    firstWritten = true;
-                    writer
-                        .EnsureLineStart()
-                        .Append("### ");
-                }
-                else
-                {
-                    writer.Append(".");
-                }
-
-                writer.AppendLink(parent);
+                writer.Append(".");
             }
+
+            writer.AppendLink(parent);
         }
     }
 }

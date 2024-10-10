@@ -6,25 +6,30 @@ on:
       - master
     paths:
       - '.github/workflows/CodeCoverage.yml'
-      - 'source/**'
+      - 'source/DefaultDocumentation.Api/**'
+      - 'source/DefaultDocumentation.Markdown/**'
+      - 'source/DefaultDocumentation.Test/**'
 
 jobs:
   code_coverage:
     runs-on: windows-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
-    - name: Set up dotnet
-      uses: actions/setup-dotnet@v1
+    - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
     - name: Collect coverage
-      run: dotnet test source\DefaultDocumentation.sln -c Release -p:CollectCoverage=true -p:CoverletOutputFormat=lcov -p:CoverletOutput=..\..\build\lcov.info -p:Exclude="[*]System.Diagnostics.CodeAnalysis.*" /p:TEST=true
+      run: dotnet test source -c Release
+      env:
+        CollectCoverage: true
+        CoverletOutputFormat: lcov
+        CoverletOutput: ..\..\build\lcov.info
+        TEST: true
 
     - name: Upload to coverall
-      uses: coverallsapp/github-action@master
+      uses: coverallsapp/github-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: 'build\lcov.info'

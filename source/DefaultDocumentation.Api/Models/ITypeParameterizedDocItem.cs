@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using DefaultDocumentation.Models.Parameters;
 
-namespace DefaultDocumentation.Models
+namespace DefaultDocumentation.Models;
+
+/// <summary>
+/// Exposes <see cref="TypeParameterDocItem"/> instances.
+/// </summary>
+public interface ITypeParameterizedDocItem
 {
     /// <summary>
-    /// Exposes <see cref="TypeParameterDocItem"/> instances.
+    /// Gets the <see cref="TypeParameterDocItem"/> of this instance.
     /// </summary>
-    public interface ITypeParameterizedDocItem
-    {
-        /// <summary>
-        /// Gets the <see cref="TypeParameterDocItem"/> of this instance.
-        /// </summary>
-        IEnumerable<TypeParameterDocItem> TypeParameters { get; }
-    }
+    IEnumerable<TypeParameterDocItem> TypeParameters { get; }
 }

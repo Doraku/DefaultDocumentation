@@ -1,14 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup Label="Compilation">
-    <Description>Create a simple markdown documentation from the Visual Studio xml one.</Description>
+  <PropertyGroup>
+
     <TargetFramework>netstandard2.0</TargetFramework>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <ContentTargetFolders>build</ContentTargetFolders>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
+    
+    <Description>Create a simple markdown documentation from the Visual Studio xml one.</Description>
+    
     <DevelopmentDependency>true</DevelopmentDependency>
     <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <ContentTargetFolders>build</ContentTargetFolders>
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);PackBuildOutputs</TargetsForTfmSpecificContentInPackage>
+    
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.8.3" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.11.4" />
   </ItemGroup>
 
   <ItemGroup>

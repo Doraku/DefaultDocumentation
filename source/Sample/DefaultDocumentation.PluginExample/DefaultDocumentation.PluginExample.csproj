@@ -1,12 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    
     <TargetFramework>netstandard2.0</TargetFramework>
-    <DevelopmentDependency>true</DevelopmentDependency>
-    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
-    <IsPackable>false</IsPackable>
     <Nullable>enable</Nullable>
     <SignAssembly>false</SignAssembly>
+
+    
+    <IsPackable>false</IsPackable>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,11 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\DefaultDocumentation.Api\Internal\MissingAPIs\*.cs" Visible="false" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <PackageReference Include="DefaultDocumentation.Api" Version="0.8.2" />
   </ItemGroup>
 
+  <Import Project="..\..\DefaultDocumentation.Internal\DefaultDocumentation.Internal.projitems" Label="Shared" />
+  
 </Project>

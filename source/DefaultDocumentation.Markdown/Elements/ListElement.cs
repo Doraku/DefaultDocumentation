@@ -1,146 +1,145 @@
-﻿using System.Globalization;
-using System.Linq;
+﻿using System;
+using System.Globalization;
 using System.Xml.Linq;
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
 
-namespace DefaultDocumentation.Markdown.Elements
+namespace DefaultDocumentation.Markdown.Elements;
+
+/// <summary>
+/// Handles <c>list</c> xml element.
+/// </summary>
+public sealed class ListElement : IElement
 {
     /// <summary>
-    /// Handles <c>list</c> xml element.
+    /// The name of this implementation used at the configuration level.
     /// </summary>
-    public sealed class ListElement : IElement
+    public const string ConfigName = "list";
+
+    private static void WriteItem(IWriter writer, XElement element)
     {
-        /// <summary>
-        /// The name of this implementation used at the configuration level.
-        /// </summary>
-        public const string ConfigName = "list";
+        XElement? term = element.GetTerm();
+        XElement? description = element.GetDescription();
 
-        private static void WriteItem(IWriter writer, XElement element)
+        if (term is not null && description is not null)
         {
-            XElement? term = element.GetTerm();
-            XElement? description = element.GetDescription();
+            writer
+                .AppendAsMarkdown(term)
+                .Append(" — ")
+                .AppendAsMarkdown(description);
+        }
+        else
+        {
+            writer.AppendAsMarkdown(description ?? term ?? element);
+        }
+    }
 
-            if (term is not null && description is not null)
-            {
+    private static void WriteBullet(IWriter writer, XElement element)
+    {
+        foreach (XElement item in element.GetItems())
+        {
+            WriteItem(
                 writer
-                    .AppendAsMarkdown(term)
-                    .Append(" — ")
-                    .AppendAsMarkdown(description);
-            }
-            else
-            {
-                writer.AppendAsMarkdown(description ?? term ?? element);
-            }
+                    .EnsureLineStart()
+                    .Append("- ")
+                    .ToPrefixedWriter("  "),
+                item);
         }
+    }
 
-        private static void WriteBullet(IWriter writer, XElement element)
+    private static void WriteNumber(IWriter writer, XElement element)
+    {
+        int count = 1;
+
+        foreach (XElement item in element.GetItems())
         {
-            foreach (XElement item in element.GetItems())
-            {
-                WriteItem(
-                    writer
-                        .EnsureLineStart()
-                        .Append("- ")
-                        .ToPrefixedWriter("  "),
-                    item);
-            }
+            WriteItem(
+                writer
+                    .EnsureLineStart()
+                    .Append(count++.ToString(CultureInfo.InvariantCulture))
+                    .Append(". ")
+                    .ToPrefixedWriter("  "),
+                item);
         }
+    }
 
-        private static void WriteNumber(IWriter writer, XElement element)
+    private static void WriteTable(IWriter writer, XElement element)
+    {
+        int columnCount = 0;
+
+        writer
+            .EnsureLineStartAndAppendLine()
+            .Append("|");
+
+        foreach (XElement description in element.GetListHeader()?.GetTerms() ?? [])
         {
-            int count = 1;
-
-            foreach (XElement item in element.GetItems())
-            {
-                WriteItem(
-                    writer
-                        .EnsureLineStart()
-                        .Append(count++.ToString(CultureInfo.InvariantCulture))
-                        .Append(". ")
-                        .ToPrefixedWriter("  "),
-                    item);
-            }
-        }
-
-        private static void WriteTable(IWriter writer, XElement element)
-        {
-            int columnCount = 0;
+            ++columnCount;
 
             writer
-                .EnsureLineStartAndAppendLine()
+                .SetDisplayAsSingleLine(true)
+                .AppendAsMarkdown(description)
+                .SetDisplayAsSingleLine(false)
+                .Append("|");
+        }
+
+        if (columnCount > 0)
+        {
+            writer
+                .EnsureLineStart()
                 .Append("|");
 
-            foreach (XElement description in element.GetListHeader()?.GetTerms() ?? Enumerable.Empty<XElement>())
+            while (columnCount-- > 0)
             {
-                ++columnCount;
-
-                writer
-                    .SetDisplayAsSingleLine(true)
-                    .AppendAsMarkdown(description)
-                    .SetDisplayAsSingleLine(false)
-                    .Append("|");
+                writer.Append("-|");
             }
 
-            if (columnCount > 0)
+            foreach (XElement item in element.GetItems())
             {
                 writer
                     .EnsureLineStart()
                     .Append("|");
 
-                while (columnCount-- > 0)
-                {
-                    writer.Append("-|");
-                }
-
-                foreach (XElement item in element.GetItems())
+                foreach (XElement description in item.GetDescriptions())
                 {
                     writer
-                        .EnsureLineStart()
+                        .SetDisplayAsSingleLine(true)
+                        .AppendAsMarkdown(description)
+                        .SetDisplayAsSingleLine(false)
                         .Append("|");
-
-                    foreach (XElement description in item.GetDescriptions())
-                    {
-                        writer
-                            .SetDisplayAsSingleLine(true)
-                            .AppendAsMarkdown(description)
-                            .SetDisplayAsSingleLine(false)
-                            .Append("|");
-                    }
                 }
-
-                writer.EnsureLineStartAndAppendLine();
             }
+
+            writer.EnsureLineStartAndAppendLine();
+        }
+    }
+
+    /// <inheritdoc/>
+    public string Name => ConfigName;
+
+    /// <inheritdoc/>
+    public void Write(IWriter writer, XElement element)
+    {
+        writer.ThrowIfNull();
+        element.ThrowIfNull();
+
+        if (writer.GetDisplayAsSingleLine())
+        {
+            return;
         }
 
-        /// <inheritdoc/>
-        public string Name => ConfigName;
-
-        /// <inheritdoc/>
-        public void Write(IWriter writer, XElement element)
+        switch (element.GetTypeAttribute())
         {
-            ArgumentNullException.ThrowIfNull(writer);
-            ArgumentNullException.ThrowIfNull(element);
+            case "bullet":
+                WriteBullet(writer, element);
+                break;
 
-            if (writer.GetDisplayAsSingleLine())
-            {
-                return;
-            }
+            case "number":
+                WriteNumber(writer, element);
+                break;
 
-            switch (element.GetTypeAttribute())
-            {
-                case "bullet":
-                    WriteBullet(writer, element);
-                    break;
-
-                case "number":
-                    WriteNumber(writer, element);
-                    break;
-
-                case "table":
-                    WriteTable(writer, element);
-                    break;
-            }
+            case "table":
+                WriteTable(writer, element);
+                break;
         }
     }
 }

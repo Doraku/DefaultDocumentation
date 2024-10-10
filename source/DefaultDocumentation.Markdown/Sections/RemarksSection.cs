@@ -2,33 +2,32 @@
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Extensions;
 
-namespace DefaultDocumentation.Markdown.Sections
+namespace DefaultDocumentation.Markdown.Sections;
+
+/// <summary>
+/// <see cref="ISection"/> implementation to write the <c>remarks</c> top level element.
+/// </summary>
+public sealed class RemarksSection : ISection
 {
     /// <summary>
-    /// <see cref="ISection"/> implementation to write the <c>remarks</c> top level element.
+    /// The name of this implementation used at the configuration level.
     /// </summary>
-    public sealed class RemarksSection : ISection
+    public const string ConfigName = "remarks";
+
+    /// <inheritdoc/>
+    public string Name => ConfigName;
+
+    /// <inheritdoc/>
+    public void Write(IWriter writer)
     {
-        /// <summary>
-        /// The name of this implementation used at the configuration level.
-        /// </summary>
-        public const string ConfigName = "remarks";
+        XElement? remarks = writer.GetCurrentItem().Documentation?.Element(Name);
 
-        /// <inheritdoc/>
-        public string Name => ConfigName;
-
-        /// <inheritdoc/>
-        public void Write(IWriter writer)
+        if (remarks != null)
         {
-            XElement? remarks = writer.GetCurrentItem().Documentation?.Element(Name);
-
-            if (remarks != null)
-            {
-                writer
-                    .EnsureLineStartAndAppendLine()
-                    .AppendLine("### Remarks")
-                    .AppendAsMarkdown(remarks);
-            }
+            writer
+                .EnsureLineStartAndAppendLine()
+                .AppendLine("### Remarks")
+                .AppendAsMarkdown(remarks);
         }
     }
 }

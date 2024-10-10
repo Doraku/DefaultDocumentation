@@ -1,16 +1,16 @@
-﻿using DefaultDocumentation.Api;
+﻿using System;
+using DefaultDocumentation.Api;
 
-namespace DefaultDocumentation.PluginExample
+namespace DefaultDocumentation.PluginExample;
+
+public sealed class NewSection : ISection
 {
-    public sealed class NewSection : ISection
+    public string Name => "New";
+
+    public void Write(IWriter writer)
     {
-        public string Name => "New";
-
-        public void Write(IWriter writer)
-        {
-            ArgumentNullException.ThrowIfNull(writer);
-
-            writer.Append("helloworld");
-        }
+        writer
+            .ThrowIfNull()
+            .Append("helloworld");
     }
 }
