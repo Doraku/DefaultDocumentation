@@ -18,7 +18,7 @@ public sealed class WriteShould : BaseSectionTester<TypeParametersSection>
         => AssemblyInfo.MethodWithGenericConstrainsDocItem.TypeParameters
             .AsEnumerable<DocItem>()
             .Concat(AssemblyInfo.ClassWithTypeParameterDocItem.TypeParameters)
-            .ToDictionary(i => i.Id);
+            .ToDictionary(item => item.Id);
 
     protected override ISection[] GetSections()
     => [

@@ -23,8 +23,8 @@ public sealed class FolderFileNameFactory : IFileNameFactory
 
     private static class PathCleaner
     {
-        private static readonly string[] _toTrimChars = new[] { '=', ' ' }.Select(c => $"{c}").ToArray();
-        private static readonly string[] _invalidChars = new[] { '\"', '<', '>', ':', '*', '?' }.Concat(Path.GetInvalidPathChars()).Select(c => $"{c}").ToArray();
+        private static readonly string[] _toTrimChars = new[] { '=', ' ' }.Select(@char => $"{@char}").ToArray();
+        private static readonly string[] _invalidChars = new[] { '\"', '<', '>', ':', '*', '?' }.Concat(Path.GetInvalidPathChars()).Select(@char => $"{@char}").ToArray();
 
         public static string Clean(string value, string? invalidCharReplacement)
         {
@@ -57,7 +57,7 @@ public sealed class FolderFileNameFactory : IFileNameFactory
 
         if (context.Settings.OutputDirectory.Exists)
         {
-            IEnumerable<FileInfo> files = context.Settings.OutputDirectory.EnumerateFiles("*.md", SearchOption.AllDirectories).Where(f => !string.Equals(f.Name, "readme.md", StringComparison.OrdinalIgnoreCase));
+            IEnumerable<FileInfo> files = context.Settings.OutputDirectory.EnumerateFiles("*.md", SearchOption.AllDirectories).Where(file => !string.Equals(file.Name, "readme.md", StringComparison.OrdinalIgnoreCase));
 
             int i;
 
@@ -94,6 +94,6 @@ start:
         context.ThrowIfNull();
         item.ThrowIfNull();
 
-        return PathCleaner.Clean(item is AssemblyDocItem ? item.FullName : string.Join("/", item.GetParents().Skip(1).Select(p => p.Name).Concat(Enumerable.Repeat(item.Name, 1))), GetInvalidCharReplacement(context)) + ".md";
+        return PathCleaner.Clean(item is AssemblyDocItem ? item.FullName : string.Join("/", item.GetParents().Skip(1).Select(parent => parent.Name).Concat(Enumerable.Repeat(item.Name, 1))), GetInvalidCharReplacement(context)) + ".md";
     }
 }

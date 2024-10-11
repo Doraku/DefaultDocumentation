@@ -14,7 +14,7 @@ public sealed class WriteShould : BaseSectionTester<HeaderSection>
         | GeneratedPages.Types
         | GeneratedPages.Members;
 
-    protected override IReadOnlyDictionary<string, DocItem> GetItems() => new DocItem[] { AssemblyInfo.AssemblyDocItem }.ToDictionary(i => i.Id);
+    protected override IReadOnlyDictionary<string, DocItem> GetItems() => new DocItem[] { AssemblyInfo.AssemblyDocItem }.ToDictionary(item => item.Id);
 
     [Fact]
     public void NotWriteWhenNotPageItem() => Test(

@@ -28,7 +28,7 @@ public static class IGeneralContextExtensions
         context.ThrowIfNull();
         type.ThrowIfNull();
 
-        NestedTypeVisibilities value = context.GetSetting(type, c => c.GetSetting<NestedTypeVisibilities?>(_nestedTypeVisibilitiesKey)) ?? NestedTypeVisibilities.Default;
+        NestedTypeVisibilities value = context.GetSetting(type, context => context.GetSetting<NestedTypeVisibilities?>(_nestedTypeVisibilitiesKey)) ?? NestedTypeVisibilities.Default;
 
         if (value is NestedTypeVisibilities.Default)
         {
@@ -89,7 +89,7 @@ public static class IGeneralContextExtensions
 
         IEnumerable<DocItem> GetAllChildren(DocItem item)
         {
-            foreach (DocItem child in context.Items.Values.Where(i => i.Parent == item))
+            foreach (DocItem child in context.Items.Values.Where(child => child.Parent == item))
             {
                 yield return child;
                 foreach (DocItem indirectChild in GetAllChildren(child))
@@ -103,7 +103,7 @@ public static class IGeneralContextExtensions
         {
             NamespaceDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (context.GetNestedTypeVisibilities(typeof(T)) & NestedTypeVisibilities.Namespace) != 0 => GetAllChildren(item),
             TypeDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (context.GetNestedTypeVisibilities(typeof(T)) & NestedTypeVisibilities.DeclaringType) == 0 => Enumerable.Empty<T>(),
-            _ => context.Items.Values.Where(i => i.Parent == item)
-        }).OfType<T>().OrderBy(c => c.FullName);
+            _ => context.Items.Values.Where(child => child.Parent == item)
+        }).OfType<T>().OrderBy(child => child.FullName);
     }
 }

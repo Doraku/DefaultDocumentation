@@ -27,6 +27,6 @@ public abstract class TypeDocItem : EntityDocItem, ITypeParameterizedDocItem
               documentation)
     {
         Type = type;
-        TypeParameters = Type.TypeParameters.Select(p => new TypeParameterDocItem(this, p)).ToArray();
+        TypeParameters = Type.TypeParameters.Select(typeParameter => new TypeParameterDocItem(this, typeParameter)).ToArray();
     }
 }

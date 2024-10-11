@@ -11,7 +11,7 @@ public sealed class WriteShould : BaseSectionTester<DerivedSection>
     {
         AssemblyInfo.ClassDocItem,
         AssemblyInfo.StructDocItem
-    }.ToDictionary(i => i.Id);
+    }.ToDictionary(item => item.Id);
 
     [Fact]
     public void NotWriteWhenNotTypeDocItem() => Test(string.Empty);

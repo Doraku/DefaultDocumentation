@@ -101,7 +101,7 @@ public sealed class HashOwnPageShould
         ISettings settings = Substitute.For<ISettings>();
 
         context.Settings.Returns(settings);
-        context.Items.Returns(new DocItem[] { new NamespaceDocItem(AssemblyInfo.AssemblyDocItem, "namespace1", null), new NamespaceDocItem(AssemblyInfo.AssemblyDocItem, "namespace2", null) }.ToDictionary(i => i.Id));
+        context.Items.Returns(new DocItem[] { new NamespaceDocItem(AssemblyInfo.AssemblyDocItem, "namespace1", null), new NamespaceDocItem(AssemblyInfo.AssemblyDocItem, "namespace2", null) }.ToDictionary(item => item.Id));
         settings.GeneratedPages.Returns(GeneratedPages.Default);
 
         Check.That(AssemblyInfo.AssemblyDocItem.HasOwnPage(context)).IsTrue();

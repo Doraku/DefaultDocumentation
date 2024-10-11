@@ -5,8 +5,8 @@ namespace DefaultDocumentation.Markdown.Internal;
 
 internal static class PathCleaner
 {
-    private static readonly string[] _toTrimChars = new[] { '=', ' ' }.Select(c => $"{c}").ToArray();
-    private static readonly string[] _invalidChars = new[] { '\"', '<', '>', ':', '*', '?' }.Concat(Path.GetInvalidPathChars()).Select(c => $"{c}").ToArray();
+    private static readonly string[] _toTrimChars = new[] { '=', ' ' }.Select(@char => $"{@char}").ToArray();
+    private static readonly string[] _invalidChars = new[] { '\"', '<', '>', ':', '*', '?' }.Concat(Path.GetInvalidPathChars()).Select(@char => $"{@char}").ToArray();
 
     public static string Clean(string value, string? invalidCharReplacement)
     {

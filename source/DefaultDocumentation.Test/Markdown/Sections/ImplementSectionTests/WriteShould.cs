@@ -14,7 +14,7 @@ public sealed class WriteShould : BaseSectionTester<ImplementSection>
         AssemblyInfo.InterfaceDocItem,
         AssemblyInfo.InterfaceMethodDocItem,
         AssemblyInfo.InterfaceEventDocItem
-    }.ToDictionary(i => i.Id);
+    }.ToDictionary(item => item.Id);
 
     [Fact]
     public void NotWriteWhenNoImplementation() => Test(string.Empty);

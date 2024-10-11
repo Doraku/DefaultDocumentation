@@ -12,7 +12,7 @@ public sealed class WriteShould : BaseSectionTester<StructsSection>
     protected override IReadOnlyDictionary<string, DocItem> GetItems()
         => AssemblyInfo.ClassDocItem.IntoEnumerable<DocItem>()
         .Concat(AssemblyInfo.StructDocItem)
-        .ToDictionary(i => i.Id);
+        .ToDictionary(item => item.Id);
 
     protected override IUrlFactory[] GetUrlFactories()
     => [

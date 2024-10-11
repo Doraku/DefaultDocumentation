@@ -8,7 +8,7 @@ namespace DefaultDocumentation.Markdown.Elements.SeeElementTests;
 
 public sealed class WriteShould : BaseElementTester<SeeElement>
 {
-    protected override IReadOnlyDictionary<string, DocItem> GetItems() => new DocItem[] { AssemblyInfo.NamespaceDocItem }.ToDictionary(i => i.Id);
+    protected override IReadOnlyDictionary<string, DocItem> GetItems() => new DocItem[] { AssemblyInfo.NamespaceDocItem }.ToDictionary(item => item.Id);
 
     [Fact]
     public void WriteWhenCref() => Test(

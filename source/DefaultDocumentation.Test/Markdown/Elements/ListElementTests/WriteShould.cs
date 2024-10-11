@@ -12,7 +12,7 @@ public sealed class WriteShould : BaseElementTester<ListElement>
     protected override IReadOnlyDictionary<string, IElement> GetElements() => new IElement[]
     {
         new ListElement()
-    }.ToDictionary(e => e.Name);
+    }.ToDictionary(element => element.Name);
 
     [Fact]
     public void WriteWhenTypeIsBulletAndDisplayAsSingleLine() => Test(

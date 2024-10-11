@@ -46,24 +46,24 @@ public sealed class Generator
             Environment.CurrentDirectory = Path.GetDirectoryName(settings.ConfigurationFilePath);
         }
 
-        AddSetting(s => s.LogLevel, string.IsNullOrEmpty);
-        AddSetting(s => s.AssemblyFilePath, string.IsNullOrEmpty);
-        AddSetting(s => s.DocumentationFilePath, string.IsNullOrEmpty);
-        AddSetting(s => s.ProjectDirectoryPath, string.IsNullOrEmpty);
-        AddSetting(s => s.OutputDirectoryPath, string.IsNullOrEmpty);
-        AddSetting(s => s.AssemblyPageName, string.IsNullOrEmpty);
-        AddSetting(s => s.GeneratedAccessModifiers, v => v == GeneratedAccessModifiers.Default);
-        AddSetting(s => s.IncludeUndocumentedItems, v => !v);
-        AddSetting(s => s.GeneratedPages, v => v == GeneratedPages.Default);
-        AddSetting(s => s.LinksOutputFilePath, string.IsNullOrEmpty);
-        AddSetting(s => s.LinksBaseUrl, string.IsNullOrEmpty);
-        AddSetting(s => s.ExternLinksFilePaths, v => !(v ?? []).Any(), v => v.ToArray());
+        AddSetting(settings => settings.LogLevel, string.IsNullOrEmpty);
+        AddSetting(settings => settings.AssemblyFilePath, string.IsNullOrEmpty);
+        AddSetting(settings => settings.DocumentationFilePath, string.IsNullOrEmpty);
+        AddSetting(settings => settings.ProjectDirectoryPath, string.IsNullOrEmpty);
+        AddSetting(settings => settings.OutputDirectoryPath, string.IsNullOrEmpty);
+        AddSetting(settings => settings.AssemblyPageName, string.IsNullOrEmpty);
+        AddSetting(settings => settings.GeneratedAccessModifiers, value => value == GeneratedAccessModifiers.Default);
+        AddSetting(settings => settings.IncludeUndocumentedItems, value => !value);
+        AddSetting(settings => settings.GeneratedPages, value => value == GeneratedPages.Default);
+        AddSetting(settings => settings.LinksOutputFilePath, string.IsNullOrEmpty);
+        AddSetting(settings => settings.LinksBaseUrl, string.IsNullOrEmpty);
+        AddSetting(settings => settings.ExternLinksFilePaths, value => !(value ?? []).Any(), value => value.ToArray());
         // context settings
-        AddSetting(s => s.Plugins, v => !(v ?? []).Any(), v => v.ToArray());
-        AddSetting(s => s.FileNameFactory, string.IsNullOrEmpty, "FullName");
-        AddSetting(s => s.UrlFactories, v => !(v ?? []).Any(), v => v.ToArray(), ["DocItem", "DotnetApi"]);
-        AddSetting(s => s.Sections, v => !(v ?? []).Any(), v => v.ToArray(), ["Header", "Default"]);
-        AddSetting(s => s.Elements, v => !(v ?? []).Any(), v => v.ToArray());
+        AddSetting(settings => settings.Plugins, value => !(value ?? []).Any(), value => value.ToArray());
+        AddSetting(settings => settings.FileNameFactory, string.IsNullOrEmpty, "FullName");
+        AddSetting(settings => settings.UrlFactories, value => !(value ?? []).Any(), value => value.ToArray(), ["DocItem", "DotnetApi"]);
+        AddSetting(settings => settings.Sections, value => !(value ?? []).Any(), value => value.ToArray(), ["Header", "Default"]);
+        AddSetting(settings => settings.Elements, value => !(value ?? []).Any(), value => value.ToArray());
 
         string? logLevel = GetSetting<string>(nameof(logLevel));
         LoggingConfiguration logConfiguration = new();
@@ -92,7 +92,7 @@ public sealed class Generator
             _configuration,
             new[] { typeof(Markdown.Writers.MarkdownWriter).Assembly }
                 .Concat((GetSetting<string[]>(nameof(settings.Plugins)) ?? Enumerable.Empty<string>()).Select(Assembly.LoadFrom))
-                .SelectMany(a => a.GetTypes())
+                .SelectMany(assembly => assembly.GetTypes())
                 .ToArray(),
             resolvedSettings,
             DocItemReader.GetItems(resolvedSettings));
@@ -125,7 +125,7 @@ public sealed class Generator
         Expression<Func<IRawSettings, TSetting>> property,
         Predicate<TSetting> noValuePredicate,
         TSetting? defaultValue = default)
-        => AddSetting(property, noValuePredicate, v => v, defaultValue);
+        => AddSetting(property, noValuePredicate, value => value, defaultValue);
 
     private void WritePage(DocItem item, StringBuilder builder)
     {
@@ -134,7 +134,7 @@ public sealed class Generator
 
         PageWriter writer = new(builder, new PageContext(_context, item));
 
-        foreach (ISection sectionWriter in writer.Context.GetSetting(item, c => c.Sections) ?? [])
+        foreach (ISection sectionWriter in writer.Context.GetSetting(item, context => context.Sections) ?? [])
         {
             sectionWriter.Write(writer);
         }
@@ -159,7 +159,7 @@ public sealed class Generator
             PageContext context = new(_context, new ExternDocItem("T:", "", ""));
 
             writer.WriteLine(_context.Settings.LinksBaseUrl);
-            foreach (DocItem item in _context.Items.Values.Where(i => i is not ExternDocItem and not AssemblyDocItem and not TypeParameterDocItem and not ParameterDocItem))
+            foreach (DocItem item in _context.Items.Values.Where(item => item is not ExternDocItem and not AssemblyDocItem and not TypeParameterDocItem and not ParameterDocItem))
             {
                 writer.Write(item.Id);
                 writer.Write('|');
@@ -179,7 +179,7 @@ public sealed class Generator
 
         StringBuilder builder = new();
 
-        foreach (DocItem item in _context.Items.Values.Where(i => i.HasOwnPage(_context)))
+        foreach (DocItem item in _context.Items.Values.Where(item => item.HasOwnPage(_context)))
         {
             try
             {

@@ -17,7 +17,7 @@ public sealed class GetSettingShould
         context.GetSetting<string>("test").Returns("specific");
         generalContext.GetContext(null).Returns(context);
 
-        Check.That(generalContext.GetSetting(default(Type), c => c.GetSetting<string>("test"))).IsEqualTo("specific");
+        Check.That(generalContext.GetSetting(default(Type), context => context.GetSetting<string>("test"))).IsEqualTo("specific");
     }
 
     [Fact]
@@ -30,6 +30,6 @@ public sealed class GetSettingShould
         context.GetSetting<string>("test").Returns(default(string));
         generalContext.GetContext(null).Returns(context);
 
-        Check.That(generalContext.GetSetting(default(Type), c => c.GetSetting<string>("test"))).IsEqualTo("general");
+        Check.That(generalContext.GetSetting(default(Type), context => context.GetSetting<string>("test"))).IsEqualTo("general");
     }
 }

@@ -81,7 +81,7 @@ public abstract class ChildrenSection<T> : ISection
             {
                 childWriter
                     .Append("| ")
-                    .AppendLink(item, item is TypeDocItem ? string.Join(".", item.GetParents().OfType<TypeDocItem>().Concat(Enumerable.Repeat(item, 1)).Select(i => i.Name)) : null)
+                    .AppendLink(item, item is TypeDocItem ? string.Join(".", item.GetParents().OfType<TypeDocItem>().Concat(Enumerable.Repeat(item, 1)).Select(parent => parent.Name)) : null)
                     .Append(" | ")
                     .SetDisplayAsSingleLine(true)
                     .AppendAsMarkdown(item.Documentation?.GetSummary())
@@ -90,7 +90,7 @@ public abstract class ChildrenSection<T> : ISection
             }
             else
             {
-                foreach (ISection sectionWriter in writer.Context.GetSetting(item, c => c.Sections)!)
+                foreach (ISection sectionWriter in writer.Context.GetSetting(item, context => context.Sections)!)
                 {
                     sectionWriter.Write(childWriter);
                 }

@@ -134,7 +134,7 @@ public sealed class TableOfContentsSection : ISection
     {
         writer.ThrowIfNull();
 
-        Modes modes = writer.Context.GetSetting(writer.GetCurrentItem(), c => c.GetSetting<Modes?>("Markdown.TableOfContentsModes")).GetValueOrDefault();
+        Modes modes = writer.Context.GetSetting(writer.GetCurrentItem(), context => context.GetSetting<Modes?>("Markdown.TableOfContentsModes")).GetValueOrDefault();
 
         Write(writer, modes, writer.GetCurrentItem());
     }

@@ -31,7 +31,7 @@ public sealed class InheritanceSection : ISection
                 .EnsureLineStartAndAppendLine()
                 .Append("Inheritance ");
 
-            foreach (IType t in typeItem.Type.GetNonInterfaceBaseTypes().Where(t => t != typeItem.Type))
+            foreach (IType t in typeItem.Type.GetNonInterfaceBaseTypes().Where(type => type != typeItem.Type))
             {
                 writer
                     .AppendLink(typeItem, t)

@@ -29,6 +29,6 @@ public sealed class DelegateDocItem : TypeDocItem, IParameterizedDocItem
         : base(parent, type, documentation)
     {
         InvokeMethod = type.GetDelegateInvokeMethod();
-        Parameters = InvokeMethod.Parameters.Select(p => new ParameterDocItem(this, p)).ToArray();
+        Parameters = InvokeMethod.Parameters.Select(parameter => new ParameterDocItem(this, parameter)).ToArray();
     }
 }

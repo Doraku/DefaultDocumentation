@@ -12,7 +12,7 @@ public sealed class WriteShould : BaseSectionTester<NamespacesSection>
     protected override IReadOnlyDictionary<string, DocItem> GetItems()
         => AssemblyInfo.AssemblyDocItem.IntoEnumerable<DocItem>()
         .Concat(AssemblyInfo.NamespaceDocItem)
-        .ToDictionary(i => i.Id);
+        .ToDictionary(item => item.Id);
 
     protected override IUrlFactory[] GetUrlFactories()
     => [

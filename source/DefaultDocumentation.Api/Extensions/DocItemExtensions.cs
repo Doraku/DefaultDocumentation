@@ -69,7 +69,7 @@ public static class DocItemExtensions
         {
             if (currentItem is ITypeParameterizedDocItem typeParameters)
             {
-                typeParameterDocItem = typeParameters.TypeParameters.FirstOrDefault(i => i.TypeParameter.Name == name);
+                typeParameterDocItem = typeParameters.TypeParameters.FirstOrDefault(typeParameter => typeParameter.TypeParameter.Name == name);
             }
 
             currentItem = currentItem.Parent;
@@ -97,7 +97,7 @@ public static class DocItemExtensions
         {
             if (currentItem is IParameterizedDocItem typeParameters)
             {
-                parameterDocItem = typeParameters.Parameters.FirstOrDefault(i => i.Parameter.Name == name);
+                parameterDocItem = typeParameters.Parameters.FirstOrDefault(parameter => parameter.Parameter.Name == name);
             }
 
             currentItem = currentItem.Parent;

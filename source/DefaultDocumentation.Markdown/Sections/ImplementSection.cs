@@ -37,14 +37,14 @@ public sealed class ImplementSection : ISection
                 .GetAllBaseTypeDefinitions()
                 .Reverse()
                 .Skip(1)
-                .Where(t => t.Kind == TypeKind.Interface && t.GetDefinition()?.Accessibility == Accessibility.Public)
-                .SelectMany(t => t.Members)
-                .Where(e => e.GetIdString()[e.DeclaringTypeDefinition.GetIdString().Length..] == id);
+                .Where(type => type.Kind == TypeKind.Interface && type.GetDefinition()?.Accessibility == Accessibility.Public)
+                .SelectMany(type => type.Members)
+                .Where(member => member.GetIdString()[member.DeclaringTypeDefinition.GetIdString().Length..] == id);
         }
 
         List<INamedElement> implementations = (writer.GetCurrentItem() switch
         {
-            TypeDocItem typeItem => typeItem.Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface && t.GetDefinition()?.Accessibility == Accessibility.Public).OfType<INamedElement>(),
+            TypeDocItem typeItem => typeItem.Type.DirectBaseTypes.Where(type => type.Kind == TypeKind.Interface && type.GetDefinition()?.Accessibility == Accessibility.Public).OfType<INamedElement>(),
             PropertyDocItem propertyItem => GetImplementation(propertyItem.Property),
             MethodDocItem methodItem => GetImplementation(methodItem.Method),
             EventDocItem eventItem => GetImplementation(eventItem.Event),

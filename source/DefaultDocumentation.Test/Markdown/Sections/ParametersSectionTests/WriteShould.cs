@@ -13,7 +13,7 @@ public sealed class WriteShould : BaseSectionTester<ParametersSection>
         => AssemblyInfo.MethodWithParameterDocItem.Parameters.AsEnumerable<DocItem>()
         .Concat(AssemblyInfo.OperatorDocItem.Parameters)
         .Concat(Enumerable.Repeat(AssemblyInfo.ClassDocItem, 1))
-        .ToDictionary(i => i.Id);
+        .ToDictionary(item => item.Id);
 
     protected override IUrlFactory[] GetUrlFactories() => [new DocItemFactory()];
 

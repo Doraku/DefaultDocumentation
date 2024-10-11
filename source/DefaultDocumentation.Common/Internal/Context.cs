@@ -17,29 +17,34 @@ internal class Context : IContext
         _configuration = configuration;
 
         string? fileNameFactory = GetSetting<string>(nameof(IRawSettings.FileNameFactory));
-        FileNameFactory = string.IsNullOrEmpty(fileNameFactory) ? null : availableTypes
-            .Where(t => typeof(IFileNameFactory).IsAssignableFrom(t) && !t.IsAbstract)
-            .Select(t => (IFileNameFactory)Activator.CreateInstance(t))
-            .LastOrDefault(f => f.Name == fileNameFactory || $"{f.GetType().FullName} {f.GetType().Assembly.GetName().Name}" == fileNameFactory)
-            ?? throw new Exception($"FileNameFactory '{fileNameFactory}' not found");
+        FileNameFactory =
+            string.IsNullOrEmpty(fileNameFactory)
+            ? null
+            : availableTypes
+                .Where(type => typeof(IFileNameFactory).IsAssignableFrom(type) && !type.IsAbstract)
+                .Select(type => (IFileNameFactory)Activator.CreateInstance(type))
+                .LastOrDefault(fineNameFactory =>
+                    fileNameFactory!.Equals(fineNameFactory.Name, StringComparison.OrdinalIgnoreCase)
+                    || $"{fineNameFactory.GetType().FullName} {fineNameFactory.GetType().Assembly.GetName().Name}" == fileNameFactory)
+                ?? throw new Exception($"FileNameFactory '{fileNameFactory}' not found");
 
         string[]? sections = GetSetting<string[]>(nameof(IRawSettings.Sections));
 
         if (sections != null)
         {
             Dictionary<string, ISection> availableSections = availableTypes
-                .Where(t => typeof(ISection).IsAssignableFrom(t) && !t.IsAbstract)
-                .Select(t => (ISection)Activator.CreateInstance(t))
-                .GroupBy(w => w.Name)
-                .ToDictionary(w => w.Key, w => w.Last());
+                .Where(type => typeof(ISection).IsAssignableFrom(type) && !type.IsAbstract)
+                .Select(type => (ISection)Activator.CreateInstance(type))
+                .GroupBy(section => section.Name, StringComparer.OrdinalIgnoreCase)
+                .ToDictionary(group => group.Key, group => group.Last(), StringComparer.OrdinalIgnoreCase);
 
             Sections = sections
                 .Select(id =>
                     availableSections.TryGetValue(id, out ISection section)
                     ? section
                     : availableTypes
-                        .Where(t => typeof(ISection).IsAssignableFrom(t) && !t.IsAbstract && $"{t.FullName} {t.Assembly.GetName().Name}" == id)
-                        .Select(t => (ISection)Activator.CreateInstance(t))
+                        .Where(type => typeof(ISection).IsAssignableFrom(type) && !type.IsAbstract && $"{type.FullName} {type.Assembly.GetName().Name}" == id)
+                        .Select(type => (ISection)Activator.CreateInstance(type))
                         .FirstOrDefault()
                     ?? throw new Exception($"Section '{id}' not found"))
                 .ToArray();

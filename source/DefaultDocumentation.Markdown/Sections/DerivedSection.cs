@@ -27,7 +27,7 @@ public sealed class DerivedSection : ISection
 
         if (writer.GetCurrentItem() is TypeDocItem typeItem)
         {
-            List<TypeDocItem> derived = [.. writer.Context.Items.Values.OfType<TypeDocItem>().Where(i => i.Type.DirectBaseTypes.Select(t => t.GetDefinition() ?? t).Contains(typeItem.Type)).OrderBy(i => i.FullName)];
+            List<TypeDocItem> derived = [.. writer.Context.Items.Values.OfType<TypeDocItem>().Where(item => item.Type.DirectBaseTypes.Select(type => type.GetDefinition() ?? type).Contains(typeItem.Type)).OrderBy(item => item.FullName)];
             if (derived.Count > 0)
             {
                 writer

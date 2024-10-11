@@ -36,7 +36,7 @@ public abstract class BaseMarkdownFileNameFactory : IFileNameFactory
 
         if (context.Settings.OutputDirectory.Exists)
         {
-            IEnumerable<FileInfo> files = context.Settings.OutputDirectory.EnumerateFiles("*.md").Where(f => !string.Equals(f.Name, "readme.md", StringComparison.OrdinalIgnoreCase));
+            IEnumerable<FileInfo> files = context.Settings.OutputDirectory.EnumerateFiles("*.md").Where(file => !string.Equals(file.Name, "readme.md", StringComparison.OrdinalIgnoreCase));
 
             int i;
 

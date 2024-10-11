@@ -20,7 +20,7 @@ public sealed class TypeParameterDocItem : DocItem
               $"{parent.Id}.{typeParameter.Name}",
               $"{parent.FullName}.{typeParameter.Name}",
               typeParameter.Name,
-              parent.Documentation.GetTypeParameters()?.FirstOrDefault(d => d.GetNameAttribute() == typeParameter.Name))
+              parent.Documentation.GetTypeParameters()?.FirstOrDefault(node => node.GetNameAttribute() == typeParameter.Name))
     {
         TypeParameter = typeParameter;
     }

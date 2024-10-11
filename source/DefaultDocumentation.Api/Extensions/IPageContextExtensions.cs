@@ -34,6 +34,6 @@ public static class IPageContextExtensions
         context.ThrowIfNull();
         id.ThrowIfNull();
 
-        return context.UrlFactories.Select(f => f.GetUrl(context, id)).FirstOrDefault(url => url is not null);
+        return context.UrlFactories.Select(urlFactory => urlFactory.GetUrl(context, id)).FirstOrDefault(url => url is not null);
     }
 }

@@ -20,7 +20,7 @@ public sealed class ParameterDocItem : DocItem
               $"{parent.Id}.{parameter.Name}",
               $"{parent.FullName}.{parameter.Name}",
               parameter.Name,
-              parent.Documentation.GetParameters()?.FirstOrDefault(d => d.GetNameAttribute() == parameter.Name))
+              parent.Documentation.GetParameters()?.FirstOrDefault(node => node.GetNameAttribute() == parameter.Name))
     {
         Parameter = parameter;
     }

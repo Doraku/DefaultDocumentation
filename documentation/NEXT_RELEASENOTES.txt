@@ -5,6 +5,7 @@
 
 - added DefaultDocumentation.GeneratedAccessModifiers.Api which regroup Public, Protected and InternalProtected access modifiers (closes #116)
 - added support for record
+- elements, url factories, file name factory and sections are now case insensitive in configuration (closes #157)
 
 ## Bug fixes
 

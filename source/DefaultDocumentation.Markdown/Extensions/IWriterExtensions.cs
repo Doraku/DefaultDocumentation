@@ -99,7 +99,7 @@ public static class IWriterExtensions
         writer.ThrowIfNull();
 
         return writer.Context[_handleLineBreakKey] as bool?
-            ?? writer.Context.GetSetting(writer.GetCurrentItem(), c => c.GetSetting<bool?>(_handleLineBreakKey)).GetValueOrDefault();
+            ?? writer.Context.GetSetting(writer.GetCurrentItem(), context => context.GetSetting<bool?>(_handleLineBreakKey)).GetValueOrDefault();
     }
 
     /// <summary>

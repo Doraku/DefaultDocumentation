@@ -34,7 +34,7 @@ internal static class CodeRegion
     {
         (int start, int end)[] comments = GetComments(fileContent).ToArray();
 
-        bool IsInComments(int i) => comments.Any(c => i > c.start && i < c.end);
+        bool IsInComments(int i) => comments.Any((comment) => i > comment.start && i < comment.end);
 
         Match regionStart = Match.Empty;
         Regex regionRegex = new($"\r*^ *#region *{region.Trim()} *\r*$", RegexOptions.Multiline);
@@ -52,13 +52,13 @@ internal static class CodeRegion
 
         int regionStartIndex = regionStart.Index + regionStart.Value.Length + 1;
 
-        IEnumerable<Match> allRegionStarts = _regionStartRegex.Matches(fileContent, regionStartIndex).OfType<Match>().Where(m => m.Success && !IsInComments(m.Index)).ToArray();
+        IEnumerable<Match> allRegionStarts = _regionStartRegex.Matches(fileContent, regionStartIndex).OfType<Match>().Where(match => match.Success && !IsInComments(match.Index)).ToArray();
 
         int innerRegionCount = 0;
 
-        foreach (Match regionEnd in _regionEndRegex.Matches(fileContent, regionStartIndex).OfType<Match>().Where(m => m.Success && !IsInComments(m.Index)))
+        foreach (Match regionEnd in _regionEndRegex.Matches(fileContent, regionStartIndex).OfType<Match>().Where(match => match.Success && !IsInComments(match.Index)))
         {
-            if (innerRegionCount == allRegionStarts.Count(m => m.Index < regionEnd.Index))
+            if (innerRegionCount == allRegionStarts.Count(match => match.Index < regionEnd.Index))
             {
                 return fileContent[regionStartIndex..regionEnd.Index];
             }

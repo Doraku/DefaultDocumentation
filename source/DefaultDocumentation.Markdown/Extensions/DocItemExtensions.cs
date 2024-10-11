@@ -18,6 +18,6 @@ public static class DocItemExtensions
     {
         item.ThrowIfNull();
 
-        return string.Join(".", item.GetParents().Skip(2).Select(p => p.Name).Concat(Enumerable.Repeat(item.Name, 1)));
+        return string.Join(".", item.GetParents().Skip(2).Select(parent => parent.Name).Concat(Enumerable.Repeat(item.Name, 1)));
     }
 }

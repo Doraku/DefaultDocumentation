@@ -34,6 +34,6 @@ public sealed class OperatorDocItem : EntityDocItem, IParameterizedDocItem
               documentation)
     {
         Method = method;
-        Parameters = method.Parameters.Select(p => new ParameterDocItem(this, p)).ToArray();
+        Parameters = method.Parameters.Select(parameter => new ParameterDocItem(this, parameter)).ToArray();
     }
 }

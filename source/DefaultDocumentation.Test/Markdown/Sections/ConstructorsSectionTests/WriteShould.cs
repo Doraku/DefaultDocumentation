@@ -13,7 +13,7 @@ public sealed class WriteShould : BaseSectionTester<ConstructorsSection>
         => AssemblyInfo.ClassDocItem.IntoEnumerable<DocItem>()
         .Concat(AssemblyInfo.ConstructorDocItem)
         .Concat(AssemblyInfo.EnumFieldWithConstantDocItem)
-        .ToDictionary(i => i.Id);
+        .ToDictionary(item => item.Id);
 
     protected override IUrlFactory[] GetUrlFactories()
     => [

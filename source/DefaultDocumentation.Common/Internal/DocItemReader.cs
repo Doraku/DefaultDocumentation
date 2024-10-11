@@ -43,7 +43,7 @@ internal sealed class DocItemReader
             GetDocumentation($"T:{_decompiler.TypeSystem.MainModule.AssemblyName}.AssemblyDoc"));
         Add(assemblyDocItem);
 
-        foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(t => t.Name is not "NamespaceDoc" and not "AssemblyDoc"))
+        foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(type => type.Name is not "NamespaceDoc" and not "AssemblyDoc"))
         {
             _logger.Debug($"handling type \"{type.FullName}\"");
 
@@ -273,7 +273,7 @@ internal sealed class DocItemReader
                         .GetAllBaseTypeDefinitions()
                         .Reverse()
                         .Skip(1)
-                        .FirstOrDefault(t => TryGetDocumentation(t, out baseDocumentation, referencedIds));
+                        .FirstOrDefault(baseType => TryGetDocumentation(baseType, out baseDocumentation, referencedIds));
                 }
                 else if (entity is IMember member && member.IsExplicitInterfaceImplementation)
                 {
@@ -287,8 +287,8 @@ internal sealed class DocItemReader
                         .GetAllBaseTypeDefinitions()
                         .Reverse()
                         .Skip(1)
-                        .SelectMany(t => t.Members)
-                        .FirstOrDefault(e => e.GetIdString()[e.DeclaringTypeDefinition.GetIdString().Length..] == id && TryGetDocumentation(e, out baseDocumentation, referencedIds));
+                        .SelectMany(baseType => baseType.Members)
+                        .FirstOrDefault(member => member.GetIdString()[member.DeclaringTypeDefinition.GetIdString().Length..] == id && TryGetDocumentation(member, out baseDocumentation, referencedIds));
                 }
 
                 documentation = baseDocumentation;

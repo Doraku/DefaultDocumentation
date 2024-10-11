@@ -37,7 +37,7 @@ public sealed class MethodDocItem : EntityDocItem, ITypeParameterizedDocItem, IP
               documentation)
     {
         Method = method;
-        TypeParameters = method.TypeParameters.Select(p => new TypeParameterDocItem(this, p)).ToArray();
-        Parameters = method.Parameters.Select(p => new ParameterDocItem(this, p)).ToArray();
+        TypeParameters = method.TypeParameters.Select(typeParameter => new TypeParameterDocItem(this, typeParameter)).ToArray();
+        Parameters = method.Parameters.Select(parameter => new ParameterDocItem(this, parameter)).ToArray();
     }
 }

@@ -8,7 +8,7 @@ namespace DefaultDocumentation.Markdown.Elements.TypeParamRefElementTests;
 
 public sealed class WriteShould : BaseElementTester<TypeParamRefElement>
 {
-    protected override IReadOnlyDictionary<string, DocItem> GetItems() => AssemblyInfo.ClassWithTypeParameterDocItem.TypeParameters.AsEnumerable<DocItem>().ToDictionary(i => i.Id);
+    protected override IReadOnlyDictionary<string, DocItem> GetItems() => AssemblyInfo.ClassWithTypeParameterDocItem.TypeParameters.AsEnumerable<DocItem>().ToDictionary(item => item.Id);
 
     [Fact]
     public void Write() => Test(

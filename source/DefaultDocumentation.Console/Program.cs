@@ -8,20 +8,20 @@ internal static class Program
 {
     private static void Main(string[] args)
     {
-        using Parser parser = new(s =>
+        using Parser parser = new(settings =>
         {
-            s.CaseSensitive = false;
-            s.CaseInsensitiveEnumValues = true;
-            s.HelpWriter = Console.Out;
+            settings.CaseSensitive = false;
+            settings.CaseInsensitiveEnumValues = true;
+            settings.HelpWriter = Console.Out;
         });
 
         parser
             .ParseArguments<SettingsArgs>(args)
-            .WithParsed(a =>
+            .WithParsed(parsedArgs =>
             {
                 using ConsoleTarget target = new("Console");
 
-                Generator.Execute(target, a);
+                Generator.Execute(target, parsedArgs);
             });
     }
 }

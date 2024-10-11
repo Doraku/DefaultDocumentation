@@ -148,7 +148,7 @@ public sealed class DefinitionSection : ISection
                 WriteWhere(writer, typeParameter, ref whereWritten, "notnull");
             }
 
-            foreach (TypeConstraint typeConstraint in typeParameter.TypeConstraints.Where(c => c.Type.GetDefinition()?.KnownTypeCode is not KnownTypeCode.Object or KnownTypeCode.ValueType))
+            foreach (TypeConstraint typeConstraint in typeParameter.TypeConstraints.Where(typeConstraint => typeConstraint.Type.GetDefinition()?.KnownTypeCode is not KnownTypeCode.Object or KnownTypeCode.ValueType))
             {
                 WriteWhere(writer, typeParameter, ref whereWritten, _baseTypeAmbience.ConvertType(typeConstraint.Type));
             }
@@ -280,7 +280,7 @@ public sealed class DefinitionSection : ISection
             {
                 w.Append(item.Type.ToString(_typeAmbience));
 
-                IType baseType = item.Type.DirectBaseTypes.FirstOrDefault(t => t.Kind == TypeKind.Class && !t.IsKnownType(KnownTypeCode.Object) && !t.IsKnownType(KnownTypeCode.ValueType));
+                IType baseType = item.Type.DirectBaseTypes.FirstOrDefault(baseType => baseType.Kind == TypeKind.Class && !baseType.IsKnownType(KnownTypeCode.Object) && !baseType.IsKnownType(KnownTypeCode.ValueType));
                 if (baseType != null)
                 {
                     w
@@ -288,7 +288,7 @@ public sealed class DefinitionSection : ISection
                         .Append(_baseTypeAmbience.ConvertType(baseType));
                 }
 
-                foreach (IType @interface in item.Type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface && t.GetDefinition()?.Accessibility == Accessibility.Public))
+                foreach (IType @interface in item.Type.DirectBaseTypes.Where(baseType => baseType.Kind == TypeKind.Interface && baseType.GetDefinition()?.Accessibility == Accessibility.Public))
                 {
                     w
                         .Append(baseType is null ? " : " : ", ")

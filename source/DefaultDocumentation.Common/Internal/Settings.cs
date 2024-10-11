@@ -42,20 +42,20 @@ public sealed class Settings : ISettings
         IncludeUndocumentedItems = includeUndocumentedItems;
         LinksOutputFile = string.IsNullOrEmpty(linksOutputFile) ? null : new FileInfo(linksOutputFile);
         LinksBaseUrl = linksBaseUrl ?? string.Empty;
-        ExternLinksFiles = (externlinksFilePaths ?? []).SelectMany(GetFilePaths).Distinct().Select(f => new FileInfo(f)).Where(f => f.Exists && f.FullName != LinksOutputFile?.FullName).ToArray();
+        ExternLinksFiles = (externlinksFilePaths ?? []).SelectMany(GetFilePaths).Distinct().Select(filePath => new FileInfo(filePath)).Where(file => file.Exists && file.FullName != LinksOutputFile?.FullName).ToArray();
 
         Logger.Info(@$"Starting DefaultDocumentation with those settings:
-  {nameof(AssemblyFile)}: {AssemblyFile.FullName}
-  {nameof(DocumentationFile)}: {DocumentationFile.FullName}
-  {nameof(ProjectDirectory)}: {ProjectDirectory?.FullName}
-  {nameof(OutputDirectory)}: {OutputDirectory.FullName}
-  {nameof(AssemblyPageName)}: {AssemblyPageName}
-  {nameof(GeneratedAccessModifiers)}: {GeneratedAccessModifiers}
-  {nameof(GeneratedPages)}: {GeneratedPages}
-  {nameof(IncludeUndocumentedItems)}: {IncludeUndocumentedItems}
-  {nameof(LinksOutputFile)}: {LinksOutputFile?.FullName}
-  {nameof(LinksBaseUrl)}: {LinksBaseUrl}
-  {nameof(ExternLinksFiles)}:{string.Concat(ExternLinksFiles.Select(f => $"{Environment.NewLine}\t{f.FullName}"))}");
+  - {nameof(AssemblyFile)}: {AssemblyFile.FullName}
+  - {nameof(DocumentationFile)}: {DocumentationFile.FullName}
+  - {nameof(ProjectDirectory)}: {ProjectDirectory?.FullName}
+  - {nameof(OutputDirectory)}: {OutputDirectory.FullName}
+  - {nameof(AssemblyPageName)}: {AssemblyPageName}
+  - {nameof(GeneratedAccessModifiers)}: {GeneratedAccessModifiers}
+  - {nameof(GeneratedPages)}: {GeneratedPages}
+  - {nameof(IncludeUndocumentedItems)}: {IncludeUndocumentedItems}
+  - {nameof(LinksOutputFile)}: {LinksOutputFile?.FullName}
+  - {nameof(LinksBaseUrl)}: {LinksBaseUrl}
+  - {nameof(ExternLinksFiles)}:{string.Concat(ExternLinksFiles.Select(file => $"{Environment.NewLine}    - {file.FullName}"))}");
     }
 
     private static IEnumerable<string> GetFilePaths(string filePath)
