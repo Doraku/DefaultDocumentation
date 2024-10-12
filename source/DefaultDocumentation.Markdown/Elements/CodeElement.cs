@@ -2,7 +2,6 @@
 using System.IO;
 using System.Xml.Linq;
 using DefaultDocumentation.Api;
-using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Markdown.Internal;
 
 namespace DefaultDocumentation.Markdown.Elements;
@@ -59,13 +58,16 @@ public sealed class CodeElement : IElement
 
         string? source = element.GetSourceAttribute();
 
-        writer
-            .EnsureLineStartAndAppendLine()
-            .Append("```")
-            .AppendLine(element.GetLanguageAttribute() ?? "csharp")
-            .Append(source is null ? element : new XElement("code", GetCode(writer.Context.Settings, source, element.GetRegionAttribute())))
-            .TrimEnd(Environment.NewLine, " ")
-            .AppendLine()
-            .Append("```");
+        using (writer.AppendAsRaw())
+        {
+            writer
+                .EnsureLineStartAndAppendLine()
+                .Append("```")
+                .AppendLine(element.GetLanguageAttribute() ?? "csharp")
+                .Append(source is null ? element : new XElement("code", GetCode(writer.Context.Settings, source, element.GetRegionAttribute())))
+                .TrimEnd(Environment.NewLine, " ")
+                .AppendLine()
+                .Append("```");
+        }
     }
 }

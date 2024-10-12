@@ -13,7 +13,7 @@ public sealed class WriteShould : BaseSectionTester<FieldValueSection>
     public void Write() => Test(
         AssemblyInfo.FieldDocItem,
 @"#### Field Value
-[System.Int32](T:System.Int32 'System.Int32')");
+[System\.Int32](T:System.Int32 'System\.Int32')");
 
     [Fact]
     public void WriteNewlineWhenNeeded() => Test(
@@ -22,5 +22,5 @@ public sealed class WriteShould : BaseSectionTester<FieldValueSection>
 @"pouet
 
 #### Field Value
-[System.Int32](T:System.Int32 'System.Int32')");
+[System\.Int32](T:System.Int32 'System\.Int32')");
 }

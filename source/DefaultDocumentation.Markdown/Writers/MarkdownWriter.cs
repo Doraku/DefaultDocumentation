@@ -1,6 +1,5 @@
 ﻿using System;
 using DefaultDocumentation.Api;
-using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Writers;
 
@@ -36,6 +35,11 @@ public sealed class MarkdownWriter : IWriter
     /// <inheritdoc/>
     public IWriter Append(string value)
     {
+        if (!this.GetRenderAsRaw())
+        {
+            value = value.SanitizeForMarkdown();
+        }
+
         _writer.Append(value);
 
         return this;

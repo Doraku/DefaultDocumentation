@@ -1,5 +1,4 @@
 ﻿using DefaultDocumentation.Api;
-using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models.Members;
 using DefaultDocumentation.Models.Types;
 using ICSharpCode.Decompiler.TypeSystem;

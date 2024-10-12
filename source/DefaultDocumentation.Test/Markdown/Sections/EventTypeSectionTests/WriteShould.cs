@@ -13,7 +13,7 @@ public sealed class WriteShould : BaseSectionTester<EventTypeSection>
     public void Write() => Test(
         AssemblyInfo.EventDocItem,
 @"#### Event Type
-[System.Action](T:System.Action 'System.Action')");
+[System\.Action](T:System.Action 'System\.Action')");
 
     [Fact]
     public void WriteNewlineWhenNeeded() => Test(
@@ -22,5 +22,5 @@ public sealed class WriteShould : BaseSectionTester<EventTypeSection>
 @"pouet
 
 #### Event Type
-[System.Action](T:System.Action 'System.Action')");
+[System\.Action](T:System.Action 'System\.Action')");
 }

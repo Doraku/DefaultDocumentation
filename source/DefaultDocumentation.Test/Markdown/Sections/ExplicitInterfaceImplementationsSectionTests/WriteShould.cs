@@ -29,6 +29,6 @@ public sealed class WriteShould : BaseSectionTester<ExplicitInterfaceImplementat
         AssemblyInfo.ClassDocItem,
 @"| Explicit Interface Implementations | |
 | :--- | :--- |
-| [DefaultDocumentation.AssemblyInfo.IInterface.Property](DefaultDocumentation.AssemblyInfo.IInterface.Property 'DefaultDocumentation.AssemblyInfo.DefaultDocumentation.AssemblyInfo.IInterface.Property') | |
+| [DefaultDocumentation\.AssemblyInfo\.IInterface\.Property](DefaultDocumentation.AssemblyInfo.IInterface.Property 'DefaultDocumentation\.AssemblyInfo\.DefaultDocumentation\.AssemblyInfo\.IInterface\.Property') | |
 ");
 }

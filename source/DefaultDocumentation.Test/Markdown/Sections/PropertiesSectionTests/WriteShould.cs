@@ -29,6 +29,6 @@ public sealed class WriteShould : BaseSectionTester<PropertiesSection>
         AssemblyInfo.ClassDocItem,
 @"| Properties | |
 | :--- | :--- |
-| [Property](Property 'DefaultDocumentation.AssemblyInfo.Property') | |
+| [Property](Property 'DefaultDocumentation\.AssemblyInfo\.Property') | |
 ");
 }

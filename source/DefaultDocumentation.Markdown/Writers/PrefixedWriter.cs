@@ -42,7 +42,10 @@ public sealed class PrefixedWriter : IWriter
     {
         if (!string.IsNullOrEmpty(value) && (Length is 0 || EndsWith(Environment.NewLine)))
         {
-            _writer.Append(_prefix);
+            using (_writer.AppendAsRaw())
+            {
+                _writer.Append(_prefix);
+            }
         }
 
         _writer.Append(value);

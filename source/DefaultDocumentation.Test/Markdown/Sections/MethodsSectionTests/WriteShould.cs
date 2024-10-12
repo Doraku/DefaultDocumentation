@@ -29,6 +29,6 @@ public sealed class WriteShould : BaseSectionTester<MethodsSection>
         AssemblyInfo.ClassDocItem,
 @"| Methods | |
 | :--- | :--- |
-| [MoveNext()](MoveNext() 'DefaultDocumentation.AssemblyInfo.MoveNext()') | |
+| [MoveNext\(\)](MoveNext() 'DefaultDocumentation\.AssemblyInfo\.MoveNext\(\)') | |
 ");
 }

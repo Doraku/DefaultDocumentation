@@ -29,6 +29,6 @@ public sealed class WriteShould : BaseSectionTester<DelegatesSection>
         AssemblyInfo.ClassDocItem,
 @"| Delegates | |
 | :--- | :--- |
-| [AssemblyInfo.DelegateWithReturn()](DelegateWithReturn() 'DefaultDocumentation.AssemblyInfo.DelegateWithReturn()') | |
+| [AssemblyInfo\.DelegateWithReturn\(\)](DelegateWithReturn() 'DefaultDocumentation\.AssemblyInfo\.DelegateWithReturn\(\)') | |
 ");
 }

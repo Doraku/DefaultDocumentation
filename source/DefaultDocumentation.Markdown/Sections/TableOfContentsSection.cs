@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using DefaultDocumentation.Api;
-using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Members;
 using DefaultDocumentation.Models.Parameters;

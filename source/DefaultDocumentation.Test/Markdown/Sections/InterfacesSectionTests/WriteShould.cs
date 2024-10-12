@@ -29,6 +29,6 @@ public sealed class WriteShould : BaseSectionTester<InterfacesSection>
         AssemblyInfo.ClassDocItem,
 @"| Interfaces | |
 | :--- | :--- |
-| [AssemblyInfo.IInterface](IInterface 'DefaultDocumentation.AssemblyInfo.IInterface') | |
+| [AssemblyInfo\.IInterface](IInterface 'DefaultDocumentation\.AssemblyInfo\.IInterface') | |
 ");
 }

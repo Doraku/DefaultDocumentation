@@ -29,6 +29,6 @@ public sealed class WriteShould : BaseSectionTester<EnumsSection>
         AssemblyInfo.ClassDocItem,
 @"| Enums | |
 | :--- | :--- |
-| [AssemblyInfo.Enum](Enum 'DefaultDocumentation.AssemblyInfo.Enum') | |
+| [AssemblyInfo\.Enum](Enum 'DefaultDocumentation\.AssemblyInfo\.Enum') | |
 ");
 }

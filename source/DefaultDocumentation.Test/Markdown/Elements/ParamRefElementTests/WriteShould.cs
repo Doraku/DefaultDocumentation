@@ -14,7 +14,7 @@ public sealed class WriteShould : BaseElementTester<ParamRefElement>
     public void Write() => Test(
         AssemblyInfo.MethodWithParameterDocItem,
         new XElement("paramref", new XAttribute("name", "parameter")),
-        "[parameter](M:DefaultDocumentation.AssemblyInfo.MethodWithParameter(System.Int32).parameter 'DefaultDocumentation.AssemblyInfo.MethodWithParameter(int).parameter')");
+        @"[parameter](M:DefaultDocumentation.AssemblyInfo.MethodWithParameter(System.Int32).parameter 'DefaultDocumentation\.AssemblyInfo\.MethodWithParameter\(int\)\.parameter')");
 
     [Fact]
     public void WriteNameWhenNotFound() => Test(

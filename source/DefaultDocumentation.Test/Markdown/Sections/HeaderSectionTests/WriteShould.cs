@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DefaultDocumentation.Markdown.Extensions;
+using DefaultDocumentation.Api;
 using DefaultDocumentation.Models;
 using Xunit;
 
@@ -25,7 +25,7 @@ public sealed class WriteShould : BaseSectionTester<HeaderSection>
     public void Write() => Test(
         AssemblyInfo.MethodWithReturnDocItem,
 @"#### [Test](Test 'Test')
-### [DefaultDocumentation](N:DefaultDocumentation 'DefaultDocumentation').[AssemblyInfo](T:DefaultDocumentation.AssemblyInfo 'DefaultDocumentation.AssemblyInfo')");
+### [DefaultDocumentation](N:DefaultDocumentation 'DefaultDocumentation').[AssemblyInfo](T:DefaultDocumentation.AssemblyInfo 'DefaultDocumentation\.AssemblyInfo')");
 
     [Fact]
     public void WriteNewlineWhenNeeded() => Test(
@@ -33,5 +33,5 @@ public sealed class WriteShould : BaseSectionTester<HeaderSection>
         w => w.Append("pouet"),
 @"pouet
 #### [Test](Test 'Test')
-### [DefaultDocumentation](N:DefaultDocumentation 'DefaultDocumentation').[AssemblyInfo](T:DefaultDocumentation.AssemblyInfo 'DefaultDocumentation.AssemblyInfo')");
+### [DefaultDocumentation](N:DefaultDocumentation 'DefaultDocumentation').[AssemblyInfo](T:DefaultDocumentation.AssemblyInfo 'DefaultDocumentation\.AssemblyInfo')");
 }

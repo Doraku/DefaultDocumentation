@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml.Linq;
-using DefaultDocumentation.Markdown.Extensions;
+using DefaultDocumentation.Api;
 using Xunit;
 
 namespace DefaultDocumentation.Markdown.Elements.NoteElementTests;
@@ -99,7 +99,7 @@ public sealed class WriteShould : BaseElementTester<NoteElement>
     [InlineData("visual c# note")]
     public void WriteCSNoteHeader(string type) => Test(
         new XElement("note", new XAttribute("type", type), "test"),
-@"> **C# Note:**  
+@"> **C\# Note:**  
 > test");
 
     [Theory]
@@ -111,7 +111,7 @@ public sealed class WriteShould : BaseElementTester<NoteElement>
     [InlineData("visual basic note")]
     public void WriteVBNetNoteHeader(string type) => Test(
         new XElement("note", new XAttribute("type", type), "test"),
-@"> **VB.NET Note:**  
+@"> **VB\.NET Note:**  
 > test");
 
     [Theory]
@@ -120,7 +120,7 @@ public sealed class WriteShould : BaseElementTester<NoteElement>
     [InlineData("f#")]
     public void WriteFSNoteHeader(string type) => Test(
         new XElement("note", new XAttribute("type", type), "test"),
-@"> **F# Note:**  
+@"> **F\# Note:**  
 > test");
 
     [Theory]
@@ -130,7 +130,7 @@ public sealed class WriteShould : BaseElementTester<NoteElement>
     [InlineData("visual c++ note")]
     public void WriteCppNoteHeader(string type) => Test(
         new XElement("note", new XAttribute("type", type), "test"),
-@"> **C++ Note:**  
+@"> **C\+\+ Note:**  
 > test");
 
     [Theory]
@@ -140,6 +140,6 @@ public sealed class WriteShould : BaseElementTester<NoteElement>
     [InlineData("visual j# note")]
     public void WriteJSNoteHeader(string type) => Test(
         new XElement("note", new XAttribute("type", type), "test"),
-@"> **J# Note:**  
+@"> **J\# Note:**  
 > test");
 }

@@ -29,6 +29,6 @@ public sealed class WriteShould : BaseSectionTester<ClassesSection>
         AssemblyInfo.NamespaceDocItem,
 @"| Classes | |
 | :--- | :--- |
-| [AssemblyInfo](AssemblyInfo 'DefaultDocumentation.AssemblyInfo') | |
+| [AssemblyInfo](AssemblyInfo 'DefaultDocumentation\.AssemblyInfo') | |
 ");
 }

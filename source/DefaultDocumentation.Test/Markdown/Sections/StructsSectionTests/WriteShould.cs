@@ -29,6 +29,6 @@ public sealed class WriteShould : BaseSectionTester<StructsSection>
         AssemblyInfo.ClassDocItem,
 @"| Structs | |
 | :--- | :--- |
-| [AssemblyInfo.Struct](Struct 'DefaultDocumentation.AssemblyInfo.Struct') | |
+| [AssemblyInfo\.Struct](Struct 'DefaultDocumentation\.AssemblyInfo\.Struct') | |
 ");
 }

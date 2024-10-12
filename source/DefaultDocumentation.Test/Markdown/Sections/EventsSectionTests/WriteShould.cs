@@ -29,6 +29,6 @@ public sealed class WriteShould : BaseSectionTester<EventsSection>
         AssemblyInfo.ClassDocItem,
 @"| Events | |
 | :--- | :--- |
-| [Event](Event 'DefaultDocumentation.AssemblyInfo.Event') | |
+| [Event](Event 'DefaultDocumentation\.AssemblyInfo\.Event') | |
 ");
 }

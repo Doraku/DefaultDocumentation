@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Xml.Linq;
 using DefaultDocumentation.Api;
-using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Parameters;
 

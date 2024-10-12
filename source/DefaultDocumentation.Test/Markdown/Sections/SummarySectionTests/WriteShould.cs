@@ -22,7 +22,7 @@ public sealed class WriteShould : BaseSectionTester<SummarySection>
     [Fact]
     public void WriteUnhandledElement() => Test(
         new NamespaceDocItem(AssemblyInfo.AssemblyDocItem, "Test", new XElement("doc", new XElement("summary", new XElement("test", "test")))),
-        "<test>test</test>");
+        @"\<test\>test\</test\>");
 
     [Fact]
     public void WriteAndIgnoreLeadingEmptyLines() => Test(

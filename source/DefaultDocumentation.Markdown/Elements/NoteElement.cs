@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Xml.Linq;
 using DefaultDocumentation.Api;
-using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Elements;
 
@@ -50,17 +49,20 @@ public sealed class NoteElement : IElement
             _ => string.Empty
         };
 
-        writer.EnsureLineStart();
-
-        IWriter prefixedWriter = writer.ToPrefixedWriter("> ");
-        if (!string.IsNullOrEmpty(notePrefix))
+        using (writer.AppendAsRaw())
         {
-            prefixedWriter
-                .Append("**")
-                .Append(notePrefix)
-                .AppendLine(":**  ");
-        }
+            writer.EnsureLineStart();
 
-        prefixedWriter.AppendAsMarkdown(element);
+            IWriter prefixedWriter = writer.ToPrefixedWriter("> ");
+            if (!string.IsNullOrEmpty(notePrefix))
+            {
+                prefixedWriter
+                    .Append("**")
+                    .Append(notePrefix.SanitizeForMarkdown())
+                    .AppendLine(":**  ");
+            }
+
+            prefixedWriter.AppendAsMarkdown(element);
+        }
     }
 }

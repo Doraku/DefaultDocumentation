@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml.Linq;
-using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.Internal;
 using DefaultDocumentation.Markdown.Writers;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Parameters;
@@ -10,7 +10,7 @@ using ICSharpCode.Decompiler.Output;
 using ICSharpCode.Decompiler.TypeSystem;
 using ICSharpCode.Decompiler.TypeSystem.Implementation;
 
-namespace DefaultDocumentation.Markdown.Extensions;
+namespace DefaultDocumentation.Api;
 
 /// <summary>
 /// Provides extension methods on the <see cref="IWriter"/> type.
@@ -27,6 +27,7 @@ public static class IWriterExtensions
     private const string _currentItemKey = "Markdown.CurrentItem";
     private const string _displayAsSingleLineKey = "Markdown.DisplayAsSingleLine";
     private const string _handleLineBreakKey = "Markdown.HandleLineBreak";
+    private const string _renderAsRaw = "Markdown.RenderAsRaw";
 
     /// <summary>
     /// Gets the current item that is being processed by this <see cref="IWriter"/>.
@@ -120,6 +121,51 @@ public static class IWriterExtensions
     }
 
     /// <summary>
+    /// Gets whether the writer should append the next strings as is without sanitizing it.
+    /// This setting is used by the <see cref="MarkdownWriter"/> type.
+    /// </summary>
+    /// <param name="writer">The <see cref="IWriter"/> for which to get this setting.</param>
+    /// <returns>Whether strings should be sanitized.</returns>
+    public static bool GetRenderAsRaw(this IWriter writer)
+    {
+        writer.ThrowIfNull();
+
+        return writer.Context[_renderAsRaw] as bool? ?? false;
+    }
+
+    /// <summary>
+    /// Sets whether the writer should append the next strings as is without sanitizing it.
+    /// This setting is used by the <see cref="MarkdownWriter"/> type.
+    /// </summary>
+    /// <param name="writer">The <see cref="IWriter"/> for which to set this setting.</param>
+    /// <param name="value">Whether strings should be sanitized.</param>
+    /// <returns>The given <see cref="IWriter"/>.</returns>
+    public static IWriter SetRenderAsRaw(this IWriter writer, bool? value)
+    {
+        writer.ThrowIfNull();
+
+        writer.Context[_renderAsRaw] = value;
+
+        return writer;
+    }
+
+    /// <summary>
+    /// Append a string without sanitizing it for markdown regardless of the current <see cref="GetRenderAsRaw(IWriter)"/> value.
+    /// </summary>
+    /// <param name="writer">The <see cref="IWriter"/> to use.</param>
+    /// <returns>The given <see cref="IWriter"/>.</returns>
+    public static IDisposable AppendAsRaw(this IWriter writer)
+    {
+        writer.ThrowIfNull();
+
+        bool? previousRenderAsRaw = writer.GetRenderAsRaw();
+
+        writer.SetRenderAsRaw(true);
+
+        return new DisposableAction(() => writer.SetRenderAsRaw(previousRenderAsRaw));
+    }
+
+    /// <summary>
     /// Append an url in the markdown format.
     /// </summary>
     /// <param name="writer">The <see cref="IWriter"/> to use.</param>
@@ -131,20 +177,23 @@ public static class IWriterExtensions
     {
         writer.ThrowIfNull();
 
-        if (string.IsNullOrEmpty(url))
+        using (writer.AppendAsRaw())
         {
-            writer.Append((displayedName ?? "").Prettify());
-        }
-        else
-        {
-            writer
-                .Append("[")
-                .Append((displayedName ?? url!).Prettify())
-                .Append("](")
-                .Append(url!)
-                .Append(" '")
-                .Append(tooltip ?? url!)
-                .Append("')");
+            if (string.IsNullOrEmpty(url))
+            {
+                writer.Append((displayedName ?? "").Prettify().SanitizeForMarkdown());
+            }
+            else
+            {
+                writer
+                    .Append("[")
+                    .Append((displayedName ?? url!).Prettify().SanitizeForMarkdown())
+                    .Append("](")
+                    .Append(url!)
+                    .Append(" '")
+                    .Append((tooltip ?? url!).SanitizeForMarkdown())
+                    .Append("')");
+            }
         }
 
         return writer;

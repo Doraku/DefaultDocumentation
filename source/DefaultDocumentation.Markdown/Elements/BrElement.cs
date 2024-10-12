@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Xml.Linq;
 using DefaultDocumentation.Api;
-using DefaultDocumentation.Models;
-using DefaultDocumentation.Models.Parameters;
 
 namespace DefaultDocumentation.Markdown.Elements;
 
 /// <summary>
-/// Handles <c>paramref</c> xml element.
+/// Handles <c>br</c> xml element.
 /// </summary>
-public sealed class ParamRefElement : IElement
+public sealed class BrElement : IElement
 {
     /// <summary>
     /// The name of this implementation used at the configuration level.
     /// </summary>
-    public const string ConfigName = "paramref";
+    public const string ConfigName = "br";
 
     /// <inheritdoc/>
     public string Name => ConfigName;
@@ -25,11 +23,9 @@ public sealed class ParamRefElement : IElement
         writer.ThrowIfNull();
         element.ThrowIfNull();
 
-        string? name = element.GetNameAttribute();
-
-        if (name != null)
+        using (writer.AppendAsRaw())
         {
-            _ = writer.GetCurrentItem().TryGetParameterDocItem(name, out ParameterDocItem? parameter) ? writer.AppendLink(parameter) : writer.Append(name);
+            writer.Append("<br/>");
         }
     }
 }

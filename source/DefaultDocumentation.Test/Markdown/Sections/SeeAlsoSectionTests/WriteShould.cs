@@ -22,9 +22,9 @@ public sealed class WriteShould : BaseSectionTester<SeeAlsoSection>
                 new XElement("seealso", new XAttribute("cref", "T:System.Int32"), "test"),
                 new XElement("seealso", new XAttribute("href", "dummyurl"), "test"))),
 @"### See Also
-- [System.Int32](T:System.Int32 'System.Int32')
+- [System\.Int32](T:System.Int32 'System\.Int32')
 - [dummyurl](dummyurl 'dummyurl')
-- [test](T:System.Int32 'System.Int32')
+- [test](T:System.Int32 'System\.Int32')
 - [test](dummyurl 'dummyurl')");
 
     [Fact]
@@ -37,5 +37,5 @@ public sealed class WriteShould : BaseSectionTester<SeeAlsoSection>
 @"pouet
 
 ### See Also
-- [System.Int32](T:System.Int32 'System.Int32')");
+- [System\.Int32](T:System.Int32 'System\.Int32')");
 }

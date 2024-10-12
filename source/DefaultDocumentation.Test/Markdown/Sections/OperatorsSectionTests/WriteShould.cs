@@ -29,6 +29,6 @@ public sealed class WriteShould : BaseSectionTester<OperatorsSection>
         AssemblyInfo.ClassDocItem,
 @"| Operators | |
 | :--- | :--- |
-| [operator +(AssemblyInfo, int)](operator +(AssemblyInfo, int) 'DefaultDocumentation.AssemblyInfo.op_Addition(DefaultDocumentation.AssemblyInfo, int)') | |
+| [operator \+\(AssemblyInfo, int\)](operator +(AssemblyInfo, int) 'DefaultDocumentation\.AssemblyInfo\.op\_Addition\(DefaultDocumentation\.AssemblyInfo, int\)') | |
 ");
 }

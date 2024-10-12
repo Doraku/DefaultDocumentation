@@ -1,7 +1,13 @@
-﻿namespace System;
+﻿using System.Text.RegularExpressions;
+
+namespace System;
 
 internal static class StringExtensions
 {
+    private static readonly Regex _markdownSanitization = new(@"[\\\`\*_\{\}\[\]\<\>\(\)\#\+\-\.\!\|]", RegexOptions.Compiled);
+
+    public static string SanitizeForMarkdown(this string value) => _markdownSanitization.Replace(value, @"\$&");
+
     public static string Prettify(this string value)
     {
         int genericIndex = value.IndexOf('`');

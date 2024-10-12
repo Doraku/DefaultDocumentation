@@ -23,9 +23,12 @@ public sealed class CElement : IElement
         writer.ThrowIfNull();
         element.ThrowIfNull();
 
-        writer
-            .Append("`")
-            .Append(element.Value)
-            .Append("`");
+        using (writer.AppendAsRaw())
+        {
+            writer
+                .Append("`")
+                .Append(element.Value)
+                .Append("`");
+        }
     }
 }

@@ -15,7 +15,7 @@ public sealed class WriteShould : BaseSectionTester<InheritanceSection>
     [Fact]
     public void Write() => Test(
         AssemblyInfo.ClassDocItem,
-        "Inheritance [System.Object](T:System.Object 'System.Object') &#129106; AssemblyInfo");
+        @"Inheritance [System\.Object](T:System.Object 'System\.Object') &#129106; AssemblyInfo");
 
     [Fact]
     public void WriteNewlineWhenNeeded() => Test(
@@ -23,5 +23,5 @@ public sealed class WriteShould : BaseSectionTester<InheritanceSection>
         w => w.Append("pouet"),
 @"pouet
 
-Inheritance [System.Object](T:System.Object 'System.Object') &#129106; AssemblyInfo");
+Inheritance [System\.Object](T:System.Object 'System\.Object') &#129106; AssemblyInfo");
 }

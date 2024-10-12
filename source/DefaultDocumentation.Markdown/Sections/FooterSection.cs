@@ -1,6 +1,5 @@
 ﻿using System;
 using DefaultDocumentation.Api;
-using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Sections;
 

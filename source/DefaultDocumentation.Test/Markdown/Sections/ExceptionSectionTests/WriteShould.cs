@@ -21,10 +21,10 @@ public sealed class WriteShould : BaseSectionTester<ExceptionSection>
                 new XElement("exception", new XAttribute("cref", "T:System.Exception"), "test"))),
 @"#### Exceptions
 
-[System.Exception](T:System.Exception 'System.Exception')  
+[System\.Exception](T:System.Exception 'System\.Exception')  
 test
 
-[System.Exception](T:System.Exception 'System.Exception')  
+[System\.Exception](T:System.Exception 'System\.Exception')  
 test");
 
     [Fact]
@@ -38,6 +38,6 @@ test");
 
 #### Exceptions
 
-[System.Exception](T:System.Exception 'System.Exception')  
+[System\.Exception](T:System.Exception 'System\.Exception')  
 test");
 }

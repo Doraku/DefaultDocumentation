@@ -1,6 +1,5 @@
 ﻿using System;
 using DefaultDocumentation.Api;
-using DefaultDocumentation.Markdown.Extensions;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Members;
 using DefaultDocumentation.Models.Parameters;
@@ -31,18 +30,18 @@ public sealed class TitleSection : ISection
 
         Action<IWriter>? action = currentItem switch
         {
-            AssemblyDocItem => w => w.Append($"## {currentItem.Name} Assembly"),
-            NamespaceDocItem => w => w.Append($"## {currentItem.Name} Namespace"),
-            TypeDocItem typeItem => w => w.Append($"## {currentItem.GetLongName()} {typeItem.Type.Kind}"),
-            ConstructorDocItem => w => w.Append($"## {currentItem.Name} Constructor"),
-            EventDocItem => w => w.Append($"## {currentItem.GetLongName()} Event"),
-            FieldDocItem => w => w.Append($"## {currentItem.GetLongName()} Field"),
-            MethodDocItem => w => w.Append($"## {currentItem.GetLongName()} Method"),
-            OperatorDocItem => w => w.Append($"## {currentItem.GetLongName()} Operator"),
-            PropertyDocItem => w => w.Append($"## {currentItem.GetLongName()} Property"),
-            ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IEvent => w => w.Append($"## {currentItem.GetLongName()} Event"),
-            ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IMethod => w => w.Append($"## {currentItem.GetLongName()} Method"),
-            ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IProperty => w => w.Append($"## {currentItem.GetLongName()} Property"),
+            AssemblyDocItem => w => w.Append($"## {currentItem.Name.SanitizeForMarkdown()} Assembly"),
+            NamespaceDocItem => w => w.Append($"## {currentItem.Name.SanitizeForMarkdown()} Namespace"),
+            TypeDocItem typeItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} {typeItem.Type.Kind}"),
+            ConstructorDocItem => w => w.Append($"## {currentItem.Name.SanitizeForMarkdown()} Constructor"),
+            EventDocItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Event"),
+            FieldDocItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Field"),
+            MethodDocItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Method"),
+            OperatorDocItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Operator"),
+            PropertyDocItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Property"),
+            ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IEvent => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Event"),
+            ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IMethod => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Method"),
+            ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IProperty => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Property"),
             EnumFieldDocItem enumFiedItem => w => w
                 .Append($"`{currentItem.Name}`")
                 .Append(enumFiedItem.Field.IsConst ? $" {enumFiedItem.Field.GetConstantValue()}" : string.Empty),

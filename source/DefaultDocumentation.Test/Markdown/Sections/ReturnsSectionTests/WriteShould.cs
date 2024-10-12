@@ -20,25 +20,25 @@ public sealed class WriteShould : BaseSectionTester<ReturnsSection>
     public void WriteWhenDelegateDocItem() => Test(
         AssemblyInfo.DelegateDocItem,
 @"#### Returns
-[System.Int32](T:System.Int32 'System.Int32')");
+[System\.Int32](T:System.Int32 'System\.Int32')");
 
     [Fact]
     public void WriteWhenMethodDocItem() => Test(
         AssemblyInfo.MethodWithReturnDocItem,
 @"#### Returns
-[System.Boolean](T:System.Boolean 'System.Boolean')");
+[System\.Boolean](T:System.Boolean 'System\.Boolean')");
 
     [Fact]
     public void WriteWhenOperatorDocItem() => Test(
         AssemblyInfo.OperatorDocItem,
 @"#### Returns
-[System.Int32](T:System.Int32 'System.Int32')");
+[System\.Int32](T:System.Int32 'System\.Int32')");
 
     [Fact]
     public void WriteWhenPresent() => Test(
         new MethodDocItem(AssemblyInfo.ClassDocItem, AssemblyInfo.MethodWithReturnDocItem.Method, new XElement("doc", new XElement("returns", "test"))),
 @"#### Returns
-[System.Boolean](T:System.Boolean 'System.Boolean')  
+[System\.Boolean](T:System.Boolean 'System\.Boolean')  
 test");
 
     [Fact]
@@ -48,5 +48,5 @@ test");
 @"pouet
 
 #### Returns
-[System.Boolean](T:System.Boolean 'System.Boolean')");
+[System\.Boolean](T:System.Boolean 'System\.Boolean')");
 }

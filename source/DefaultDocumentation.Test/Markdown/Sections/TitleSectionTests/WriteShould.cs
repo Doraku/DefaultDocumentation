@@ -47,47 +47,47 @@ public sealed class WriteShould : BaseSectionTester<TitleSection>
     [Fact]
     public void WriteWhenConstructorDocItem() => Test(
         AssemblyInfo.ConstructorDocItem,
-        "## AssemblyInfo() Constructor");
+        @"## AssemblyInfo\(\) Constructor");
 
     [Fact]
     public void WriteWhenEventDocItem() => Test(
         AssemblyInfo.EventDocItem,
-        "## AssemblyInfo.Event Event");
+        @"## AssemblyInfo\.Event Event");
 
     [Fact]
     public void WriteWhenFieldDocItem() => Test(
         AssemblyInfo.FieldDocItem,
-        "## AssemblyInfo._field Field");
+        @"## AssemblyInfo\.\_field Field");
 
     [Fact]
     public void WriteWhenMethodDocItem() => Test(
         AssemblyInfo.MethodWithParameterDocItem,
-        "## AssemblyInfo.MethodWithParameter(int) Method");
+        @"## AssemblyInfo\.MethodWithParameter\(int\) Method");
 
     [Fact]
     public void WriteWhenOperatorDocItem() => Test(
         AssemblyInfo.OperatorDocItem,
-        "## AssemblyInfo.operator +(AssemblyInfo, int) Operator");
+        @"## AssemblyInfo\.operator \+\(AssemblyInfo, int\) Operator");
 
     [Fact]
     public void WriteWhenPropertyDocItem() => Test(
         AssemblyInfo.PropertyDocItem,
-        "## AssemblyInfo.Property Property");
+        @"## AssemblyInfo\.Property Property");
 
     [Fact]
     public void WriteWhenExplicitInterfaceImplementationDocItemAndEvent() => Test(
         AssemblyInfo.ExplicitEventDocItem,
-        "## AssemblyInfo.DefaultDocumentation.AssemblyInfo.IInterface.Event Event");
+        @"## AssemblyInfo\.DefaultDocumentation\.AssemblyInfo\.IInterface\.Event Event");
 
     [Fact]
     public void WriteWhenExplicitInterfaceImplementationDocItemAndProperty() => Test(
         AssemblyInfo.ExplicitPropertyDocItem,
-        "## AssemblyInfo.DefaultDocumentation.AssemblyInfo.IInterface.Property Property");
+        @"## AssemblyInfo\.DefaultDocumentation\.AssemblyInfo\.IInterface\.Property Property");
 
     [Fact]
     public void WriteWhenExplicitInterfaceImplementationDocItemAndMethod() => Test(
         AssemblyInfo.ExplicitMethodDocItem,
-        "## AssemblyInfo.DefaultDocumentation.AssemblyInfo.IInterface.Method() Method");
+        @"## AssemblyInfo\.DefaultDocumentation\.AssemblyInfo\.IInterface\.Method\(\) Method");
 
     [Fact]
     public void WriteWhenEnumFieldDocItem() => Test(
@@ -108,7 +108,7 @@ public sealed class WriteShould : BaseSectionTester<TitleSection>
         AssemblyInfo.MethodWithParameterDocItem.Parameters.Single(),
 @"<a name='DefaultDocumentation.AssemblyInfo.MethodWithParameter(int).parameter'></a>
 
-`parameter` System.Int32");
+`parameter` System\.Int32");
 
     [Fact]
     public void WriteWhenTypeParameterDocItem() => Test(

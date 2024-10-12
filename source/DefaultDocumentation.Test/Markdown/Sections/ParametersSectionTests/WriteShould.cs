@@ -29,7 +29,7 @@ public sealed class WriteShould : BaseSectionTester<ParametersSection>
 
 <a name='DefaultDocumentation.AssemblyInfo.MethodWithParameter(int).parameter'></a>
 
-`parameter` System.Int32");
+`parameter` System\.Int32");
 
     [Fact]
     public void WriteWhenConstructorDocItem() => Test(
@@ -48,11 +48,11 @@ public sealed class WriteShould : BaseSectionTester<ParametersSection>
 
 <a name='DefaultDocumentation.AssemblyInfo.op_Addition(DefaultDocumentation.AssemblyInfo,int)._'></a>
 
-`_` [AssemblyInfo](AssemblyInfo 'DefaultDocumentation.AssemblyInfo')
+`_` [AssemblyInfo](AssemblyInfo 'DefaultDocumentation\.AssemblyInfo')
 
 <a name='DefaultDocumentation.AssemblyInfo.op_Addition(DefaultDocumentation.AssemblyInfo,int).__'></a>
 
-`__` System.Int32");
+`__` System\.Int32");
 
     [Fact]
     public void WriteWhenPropertyDocItem() => Test(

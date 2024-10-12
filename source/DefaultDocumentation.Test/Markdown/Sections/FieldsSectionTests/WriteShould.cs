@@ -29,6 +29,6 @@ public sealed class WriteShould : BaseSectionTester<FieldsSection>
         AssemblyInfo.ClassDocItem,
 @"| Fields | |
 | :--- | :--- |
-| [_field](_field 'DefaultDocumentation.AssemblyInfo._field') | |
+| [\_field](_field 'DefaultDocumentation\.AssemblyInfo\.\_field') | |
 ");
 }

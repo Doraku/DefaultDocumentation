@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Xml.Linq;
 using DefaultDocumentation.Api;
-using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Elements;
 
@@ -127,19 +126,22 @@ public sealed class ListElement : IElement
             return;
         }
 
-        switch (element.GetTypeAttribute())
+        using (writer.AppendAsRaw())
         {
-            case "bullet":
-                WriteBullet(writer, element);
-                break;
+            switch (element.GetTypeAttribute())
+            {
+                case "bullet":
+                    WriteBullet(writer, element);
+                    break;
 
-            case "number":
-                WriteNumber(writer, element);
-                break;
+                case "number":
+                    WriteNumber(writer, element);
+                    break;
 
-            case "table":
-                WriteTable(writer, element);
-                break;
+                case "table":
+                    WriteTable(writer, element);
+                    break;
+            }
         }
     }
 }

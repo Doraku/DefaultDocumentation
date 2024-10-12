@@ -1,6 +1,5 @@
 ﻿using System.Xml.Linq;
 using DefaultDocumentation.Api;
-using DefaultDocumentation.Markdown.Extensions;
 
 namespace DefaultDocumentation.Markdown.Elements;
 
@@ -20,8 +19,11 @@ public sealed class ParaElement : IElement
     /// <inheritdoc/>
     public void Write(IWriter writer, XElement element)
     {
-        writer
-            .EnsureLineStartAndAppendLine()
-            .AppendAsMarkdown(element);
+        using (writer.AppendAsRaw())
+        {
+            writer
+                .EnsureLineStartAndAppendLine()
+                .AppendAsMarkdown(element);
+        }
     }
 }

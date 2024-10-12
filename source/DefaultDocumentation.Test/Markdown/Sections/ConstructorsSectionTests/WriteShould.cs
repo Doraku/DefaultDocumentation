@@ -30,6 +30,6 @@ public sealed class WriteShould : BaseSectionTester<ConstructorsSection>
         AssemblyInfo.ClassDocItem,
 @"| Constructors | |
 | :--- | :--- |
-| [AssemblyInfo()](AssemblyInfo() 'DefaultDocumentation.AssemblyInfo.AssemblyInfo()') | |
+| [AssemblyInfo\(\)](AssemblyInfo() 'DefaultDocumentation\.AssemblyInfo\.AssemblyInfo\(\)') | |
 ");
 }

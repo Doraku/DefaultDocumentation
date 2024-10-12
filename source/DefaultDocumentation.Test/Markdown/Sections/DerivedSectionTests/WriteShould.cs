@@ -20,8 +20,8 @@ public sealed class WriteShould : BaseSectionTester<DerivedSection>
     public void Write() => Test(
         AssemblyInfo.InterfaceDocItem,
 @"Derived  
-&#8627; [AssemblyInfo](T:DefaultDocumentation.AssemblyInfo 'DefaultDocumentation.AssemblyInfo')  
-&#8627; [Struct](T:DefaultDocumentation.AssemblyInfo.Struct 'DefaultDocumentation.AssemblyInfo.Struct')");
+&#8627; [AssemblyInfo](T:DefaultDocumentation.AssemblyInfo 'DefaultDocumentation\.AssemblyInfo')  
+&#8627; [Struct](T:DefaultDocumentation.AssemblyInfo.Struct 'DefaultDocumentation\.AssemblyInfo\.Struct')");
 
     [Fact]
     public void WriteNewlineWhenNeeded() => Test(
@@ -30,6 +30,6 @@ public sealed class WriteShould : BaseSectionTester<DerivedSection>
 @"pouet
 
 Derived  
-&#8627; [AssemblyInfo](T:DefaultDocumentation.AssemblyInfo 'DefaultDocumentation.AssemblyInfo')  
-&#8627; [Struct](T:DefaultDocumentation.AssemblyInfo.Struct 'DefaultDocumentation.AssemblyInfo.Struct')");
+&#8627; [AssemblyInfo](T:DefaultDocumentation.AssemblyInfo 'DefaultDocumentation\.AssemblyInfo')  
+&#8627; [Struct](T:DefaultDocumentation.AssemblyInfo.Struct 'DefaultDocumentation\.AssemblyInfo\.Struct')");
 }

@@ -14,7 +14,7 @@ public sealed class WriteShould : BaseElementTester<TypeParamRefElement>
     public void Write() => Test(
         AssemblyInfo.ClassWithTypeParameterDocItem,
         new XElement("typeparamref", new XAttribute("name", "T")),
-        "[T](T:DefaultDocumentation.AssemblyInfo.ClassWithTypeParameter`1.T 'DefaultDocumentation.AssemblyInfo.ClassWithTypeParameter<T>.T')");
+        @"[T](T:DefaultDocumentation.AssemblyInfo.ClassWithTypeParameter`1.T 'DefaultDocumentation\.AssemblyInfo\.ClassWithTypeParameter\<T\>\.T')");
 
     [Fact]
     public void WriteNameWhenNotFound() => Test(
