@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Xml.Linq;
 
 namespace DefaultDocumentation.Api;
@@ -85,6 +86,21 @@ public static class IWriterExtensions
         }
 
         return writer;
+    }
+
+    /// <summary>
+    /// Appends a formatted string to a <see cref="IWriter"/>.
+    /// </summary>
+    /// <param name="writer">The <see cref="IWriter"/> to append to.</param>
+    /// <param name="format">The format to use.</param>
+    /// <param name="args">The arguments to use in the format.</param>
+    /// <returns>The given <see cref="IWriter"/>.</returns>
+    public static IWriter AppendFormat(this IWriter writer, string format, params object?[] args)
+    {
+        writer.ThrowIfNull();
+        format.ThrowIfNull();
+
+        return writer.Append(string.Format(CultureInfo.InvariantCulture, format, args));
     }
 
     /// <summary>

@@ -59,6 +59,7 @@ dotnet tool
   - [InvalidCharReplacement](#MarkdownConfiguration_InvalidCharReplacement)
   - [HandleLineBreak](#MarkdownConfiguration_HandleLineBreak)
   - [TableOfContentsModes](#MarkdownConfiguration_TableOfContentsModes)
+  - [Url format](#MarkdownConfiguration_UrlFormat)
 - [Samples](#Samples)
 - [Dependencies](#Dependencies)
 
@@ -536,6 +537,19 @@ States how the table of contents should be rendered. Available values are:
 - `IncludeSummaryWithNewLine`: same as `IncludeSummary,IncludeNewLine`
 
 This setting can be overriden by specific `DocItem` types.
+
+<a name='MarkdownConfiguration_UrlFormat'></a>
+## Url format
+- configuration file: `"Markdown.UrlFormat": ""`
+
+State the format that will be used to display urls.
+
+Three arguments will be passed to the format:
+- the displayed text
+- the url
+- the tooltip to display when overing the link. If null the url will be used
+
+The default value is `[{0}]({1} '{2}')`.
 
 <a name='Samples'></a>
 # Samples

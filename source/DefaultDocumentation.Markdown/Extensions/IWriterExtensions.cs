@@ -27,7 +27,8 @@ public static class IWriterExtensions
     private const string _currentItemKey = "Markdown.CurrentItem";
     private const string _displayAsSingleLineKey = "Markdown.DisplayAsSingleLine";
     private const string _handleLineBreakKey = "Markdown.HandleLineBreak";
-    private const string _renderAsRaw = "Markdown.RenderAsRaw";
+    private const string _renderAsRawKey = "Markdown.RenderAsRaw";
+    private const string _urlFormatKey = "Markdown.UrlFormat";
 
     /// <summary>
     /// Gets the current item that is being processed by this <see cref="IWriter"/>.
@@ -130,7 +131,7 @@ public static class IWriterExtensions
     {
         writer.ThrowIfNull();
 
-        return writer.Context[_renderAsRaw] as bool? ?? false;
+        return writer.Context[_renderAsRawKey] as bool? ?? false;
     }
 
     /// <summary>
@@ -144,7 +145,45 @@ public static class IWriterExtensions
     {
         writer.ThrowIfNull();
 
-        writer.Context[_renderAsRaw] = value;
+        writer.Context[_renderAsRawKey] = value;
+
+        return writer;
+    }
+
+    /// <summary>
+    /// Gets the format that will be used to display urls.<br/>
+    /// </summary>
+    /// <remarks>
+    /// Three arguments will be passed to the format:
+    /// <list type="number">
+    ///     <item>the displayed text</item>
+    ///     <item>the url</item>
+    ///     <item>the tooltip to display when overing the link. If null the url will be used</item>
+    /// </list>
+    /// The default value is <c>[{0}]({1} '{2}')</c>.
+    /// </remarks>
+    /// <param name="writer">The <see cref="IWriter"/> for which to get this setting.</param>
+    /// <returns>Whether line break in the xml documentation should be handled in the generated markdown.</returns>
+    /// <seealso href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_UrlFormat">Markdown.UrlFormat</seealso>
+    public static string GetUrlFormat(this IWriter writer)
+    {
+        writer.ThrowIfNull();
+
+        return writer.Context[_urlFormatKey] as string ?? "[{0}]({1} '{2}')";
+    }
+
+    /// <summary>
+    /// Sets the format that will be used to display url.
+    /// </summary>
+    /// <param name="writer">The <see cref="IWriter"/> for which to set this setting.</param>
+    /// <param name="value">The format to use to display urls.</param>
+    /// <returns>The given <see cref="IWriter"/>.</returns>
+    /// <seealso href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_UrlFormat">Markdown.UrlFormat</seealso>
+    public static IWriter SetUrlFormat(this IWriter writer, string? value)
+    {
+        writer.ThrowIfNull();
+
+        writer.Context[_urlFormatKey] = value;
 
         return writer;
     }
@@ -185,14 +224,11 @@ public static class IWriterExtensions
             }
             else
             {
-                writer
-                    .Append("[")
-                    .Append((displayedName ?? url!).Prettify().SanitizeForMarkdown())
-                    .Append("](")
-                    .Append(url!)
-                    .Append(" '")
-                    .Append((tooltip ?? url!).SanitizeForMarkdown())
-                    .Append("')");
+                writer.AppendFormat(
+                    writer.GetUrlFormat(),
+                    (displayedName ?? url!).Prettify().SanitizeForMarkdown(),
+                    url!,
+                    (tooltip ?? url!).SanitizeForMarkdown());
             }
         }
 
