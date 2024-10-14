@@ -26,7 +26,6 @@ jobs:
         CollectCoverage: true
         CoverletOutputFormat: lcov
         CoverletOutput: ..\..\build\lcov.info
-        TEST: true
 
     - name: Upload to coverall
       uses: coverallsapp/github-action@v2
