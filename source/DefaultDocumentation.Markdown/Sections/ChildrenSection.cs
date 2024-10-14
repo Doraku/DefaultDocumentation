@@ -156,6 +156,12 @@ public sealed class EnumFieldsSection : ChildrenSection<EnumFieldDocItem>
     public EnumFieldsSection()
         : base(ConfigName, "### Fields")
     { }
+
+    /// <inheritdoc/>
+    protected override IEnumerable<EnumFieldDocItem>? GetChildren(IGeneralContext context, DocItem item)
+        => item is EnumDocItem enumType
+        ? base.GetChildren(context, item).OrderBy(child => enumType.Type.Fields.TakeWhile(field => field != child.Field).Count())
+        : [];
 }
 
 /// <summary>

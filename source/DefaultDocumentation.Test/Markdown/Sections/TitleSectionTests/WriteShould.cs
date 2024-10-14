@@ -15,8 +15,8 @@ public sealed class WriteShould : BaseSectionTester<TitleSection>
         => AssemblyInfo.MethodWithParameterDocItem.Parameters
             .AsEnumerable<DocItem>()
             .Concat(AssemblyInfo.ClassWithTypeParameterDocItem.TypeParameters)
-            .Concat(Enumerable.Repeat(AssemblyInfo.EnumFieldDocItem, 1))
-            .Concat(Enumerable.Repeat(AssemblyInfo.EnumFieldWithConstantDocItem, 1))
+            .Concat(AssemblyInfo.EnumFieldDocItem)
+            .Concat(AssemblyInfo.EnumFieldWithConstantDocItem)
             .ToDictionary(item => item.Id);
 
     protected override GeneratedPages GetGeneratedPages()

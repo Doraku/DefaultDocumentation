@@ -26,7 +26,8 @@ public sealed class AssemblyInfo : AssemblyInfo.IInterface, IEnumerator
     private enum Enum
     {
         Value,
-        ValueWithConstant = 42
+        ValueWithConstant = 42,
+        AnotherValue
     }
 
     private enum ShortEnum : short
@@ -143,6 +144,7 @@ public sealed class AssemblyInfo : AssemblyInfo.IInterface, IEnumerator
     public static readonly EnumDocItem EnumDocItem = new(ClassDocItem, Get<ITypeDefinition>($"T:{typeof(Enum).FullName}"), null);
     public static readonly EnumFieldDocItem EnumFieldDocItem = new(EnumDocItem, Get<IField>($"F:{typeof(Enum).FullName}.{nameof(Enum.Value)}"), null);
     public static readonly EnumFieldDocItem EnumFieldWithConstantDocItem = new(EnumDocItem, Get<IField>($"F:{typeof(Enum).FullName}.{nameof(Enum.ValueWithConstant)}"), null);
+    public static readonly EnumFieldDocItem AnotherEnumFieldDocItem = new(EnumDocItem, Get<IField>($"F:{typeof(Enum).FullName}.{nameof(Enum.AnotherValue)}"), null);
 
     public static readonly EnumDocItem ShortEnumDocItem = new(ClassDocItem, Get<ITypeDefinition>($"T:{typeof(ShortEnum).FullName}"), null);
 

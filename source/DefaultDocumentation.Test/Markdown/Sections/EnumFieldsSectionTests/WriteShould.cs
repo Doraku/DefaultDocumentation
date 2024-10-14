@@ -13,6 +13,7 @@ public sealed class WriteShould : BaseSectionTester<EnumFieldsSection>
         => AssemblyInfo.EnumDocItem.IntoEnumerable<DocItem>()
         .Concat(AssemblyInfo.EnumFieldDocItem)
         .Concat(AssemblyInfo.EnumFieldWithConstantDocItem)
+        .Concat(AssemblyInfo.AnotherEnumFieldDocItem)
         .ToDictionary(item => item.Id);
 
     protected override IUrlFactory[] GetUrlFactories()
@@ -36,5 +37,9 @@ public sealed class WriteShould : BaseSectionTester<EnumFieldsSection>
 
 <a name='DefaultDocumentation.AssemblyInfo.Enum.ValueWithConstant'></a>
 
-`ValueWithConstant` 42");
+`ValueWithConstant` 42
+
+<a name='DefaultDocumentation.AssemblyInfo.Enum.AnotherValue'></a>
+
+`AnotherValue` 43");
 }
