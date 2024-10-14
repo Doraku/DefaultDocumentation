@@ -107,8 +107,6 @@ public sealed class ListElement : IElement
                         .Append("|");
                 }
             }
-
-            writer.EnsureLineStartAndAppendLine();
         }
     }
 
@@ -142,6 +140,8 @@ public sealed class ListElement : IElement
                     WriteTable(writer, element);
                     break;
             }
+
+            writer.EnsureLineStart();
         }
     }
 }

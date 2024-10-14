@@ -40,7 +40,8 @@ public sealed class WriteShould : BaseElementTester<ListElement>
     public void WriteWhenTypeIsBullet() => Test(
         new XElement("list", new XAttribute("type", "bullet"), new XElement("item", "item1"), new XElement("item", "item2")),
 @"- item1
-- item2");
+- item2
+");
 
     [Fact]
     public void WriteWhenNested() => Test(
@@ -56,13 +57,14 @@ public sealed class WriteShould : BaseElementTester<ListElement>
 - item2
   1. item3
   2. item4
-- item5");
+- item5
+");
 
     [Fact]
     public void SeparateTermAndDescription() => Test(
         new XElement("list", new XAttribute("type", "bullet"), new XElement("item", new XElement("term", "Term"), new XElement("description", "Description"))),
-        "- Term — Description"
-    );
+@"- Term — Description
+");
 
     [Fact]
     public void NotSeparateLonelyDescriptionAndTerm() => Test(
@@ -71,15 +73,16 @@ public sealed class WriteShould : BaseElementTester<ListElement>
             new XElement("item", new XElement("description", "Description"))
         ),
 @"- Term
-- Description"
-    );
+- Description
+");
 
     [Fact]
     public void WritePrefixWhenTypeIsBulletAndItemIsMultiline() => Test(
         new XElement("list", new XAttribute("type", "bullet"), new XElement("item", "item1\nect..."), new XElement("item", "item2")),
 @"- item1
   ect...
-- item2");
+- item2
+");
 
     [Fact]
     public void WriteNewlineWhenNeededAndTypeIsBullet() => Test(
@@ -87,20 +90,23 @@ public sealed class WriteShould : BaseElementTester<ListElement>
         new XElement("list", new XAttribute("type", "bullet"), new XElement("item", "item1"), new XElement("item", "item2")),
 @"pouet
 - item1
-- item2");
+- item2
+");
 
     [Fact]
     public void WriteWhenTypeIsNumber() => Test(
         new XElement("list", new XAttribute("type", "number"), new XElement("item", "item1"), new XElement("item", "item2")),
 @"1. item1
-2. item2");
+2. item2
+");
 
     [Fact]
     public void WritePrefixWhenTypeIsNumberAndItemIsMultiline() => Test(
         new XElement("list", new XAttribute("type", "number"), new XElement("item", "item1\nect..."), new XElement("item", "item2")),
 @"1. item1
   ect...
-2. item2");
+2. item2
+");
 
     [Fact]
     public void WriteNewlineWhenNeededAndTypeIsNumber() => Test(
@@ -108,7 +114,8 @@ public sealed class WriteShould : BaseElementTester<ListElement>
         new XElement("list", new XAttribute("type", "number"), new XElement("item", "item1"), new XElement("item", "item2")),
 @"pouet
 1. item1
-2. item2");
+2. item2
+");
 
     [Fact]
     public void WriteWhenTypeIsTable() => Test(
@@ -120,7 +127,6 @@ public sealed class WriteShould : BaseElementTester<ListElement>
 |-|-|
 |item11|item12|
 |item21|item22|
-
 ");
 
     [Fact]
@@ -134,7 +140,6 @@ public sealed class WriteShould : BaseElementTester<ListElement>
 |-|-|
 |item11<br/>ect...|item12|
 |item21|item22|
-
 ");
 
     [Fact]
@@ -150,6 +155,5 @@ public sealed class WriteShould : BaseElementTester<ListElement>
 |-|-|
 |item11|item12|
 |item21|item22|
-
 ");
 }
