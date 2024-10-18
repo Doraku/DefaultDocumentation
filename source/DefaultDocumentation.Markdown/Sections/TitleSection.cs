@@ -47,12 +47,12 @@ public sealed class TitleSection : ISection
             ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IMethod => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Method"),
             ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IProperty => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Property"),
             EnumFieldDocItem enumFiedItem => w => w
-                .Append($"`{currentItem.Name.SanitizeForMarkdown()}`")
+                .Append($"`{currentItem.Name}`")
                 .Append(enumFiedItem.Field.IsConst ? $" {enumFiedItem.Field.GetConstantValue()}" : string.Empty),
             ParameterDocItem parameterItem => w => w
-                .Append($"`{currentItem.Name.SanitizeForMarkdown()}` ")
+                .Append($"`{currentItem.Name}` ")
                 .AppendLink(currentItem, parameterItem.Parameter.Type),
-            TypeParameterDocItem typeParameterItem => w => w.Append($"`{typeParameterItem.TypeParameter.Name.SanitizeForMarkdown()}`"),
+            TypeParameterDocItem typeParameterItem => w => w.Append($"`{typeParameterItem.TypeParameter.Name}`"),
             _ => null
         };
 
