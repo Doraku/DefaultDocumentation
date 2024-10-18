@@ -27,7 +27,7 @@ public sealed class CElement : IElement
         {
             writer
                 .Append("`")
-                .Append(element.Value)
+                .Append(element.Value.TrimLinebreakChars()!)
                 .Append("`");
         }
     }

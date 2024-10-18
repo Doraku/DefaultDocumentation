@@ -4,6 +4,8 @@ namespace System;
 
 internal static class StringExtensions
 {
+    private static readonly char[] _linebreakChars = ['\r', '\n'];
+
     private static readonly Regex _markdownSanitization = new(@"[\\\`\*_\{\}\[\]\<\>\(\)\#\+\-\.\!\|]", RegexOptions.Compiled);
 
     public static string SanitizeForMarkdown(this string value) => _markdownSanitization.Replace(value, @"\$&");
@@ -33,4 +35,6 @@ internal static class StringExtensions
     }
 
     public static string? NullIfEmpty(this string? value) => string.IsNullOrEmpty(value) ? null : value;
+
+    public static string? TrimLinebreakChars(this string? value) => value?.Trim(_linebreakChars);
 }

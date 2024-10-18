@@ -23,17 +23,19 @@ public sealed class SeeElement : IElement
         writer.ThrowIfNull();
         element.ThrowIfNull();
 
+        string? displayName = element.Value.TrimLinebreakChars().NullIfEmpty();
+
         string? @ref = element.GetCRefAttribute();
         if (@ref is not null)
         {
-            writer.AppendLink(@ref, element.Value.NullIfEmpty());
+            writer.AppendLink(@ref, displayName);
             return;
         }
 
         @ref = element.GetHRefAttribute();
         if (@ref is not null)
         {
-            writer.AppendUrl(@ref, element.Value.NullIfEmpty());
+            writer.AppendUrl(@ref, displayName);
             return;
         }
 
@@ -48,7 +50,7 @@ public sealed class SeeElement : IElement
                     "true" => "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool",
                     _ => $"https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/{@ref}"
                 },
-                element.Value.NullIfEmpty() ?? @ref);
+                displayName ?? @ref);
         }
     }
 }

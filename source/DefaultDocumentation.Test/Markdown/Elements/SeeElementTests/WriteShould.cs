@@ -16,6 +16,16 @@ public sealed class WriteShould : BaseElementTester<SeeElement>
         "[DefaultDocumentation](N:DefaultDocumentation 'DefaultDocumentation')");
 
     [Fact]
+    public void TrimLinebreaks() => Test(
+        new XElement(
+            "see",
+            new XAttribute("cref", AssemblyInfo.NamespaceDocItem.Id),
+            @"
+kikoo
+"),
+        "[kikoo](N:DefaultDocumentation 'DefaultDocumentation')");
+
+    [Fact]
     public void WriteWhenCrefWithValue() => Test(
         new XElement("see", new XAttribute("cref", AssemblyInfo.NamespaceDocItem.Id), "dummy"),
         "[dummy](N:DefaultDocumentation 'DefaultDocumentation')");

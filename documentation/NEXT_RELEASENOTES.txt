@@ -20,3 +20,4 @@
 - fixed unhandled xml elements not rendering as is in markdown (fixes #126)
 - fixed issue with list rendering
 - fixed enum fields to respect code order (fixes #131)
+- fixed c and see elements with leading and trailing linebreak chars (fixes #113)
