@@ -3,15 +3,18 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Internal.DocItemGenerators;
 using DefaultDocumentation.Models;
 using Newtonsoft.Json.Linq;
 
 namespace DefaultDocumentation.Internal;
 
-internal sealed class GeneralContext : Context, IGeneralContext
+internal sealed class GeneralContext : Context, IGeneralContext, IDocItemsContext
 {
     private readonly Dictionary<Type, Context> _contexts;
     private readonly ConcurrentDictionary<DocItem, string> _fileNames;
+    private readonly Dictionary<string, DocItem> _items;
+    private readonly HashSet<DocItem> _itemsWithOwnPage;
 
     public IEnumerable<IFileNameFactory> AllFileNameFactory => _contexts
         .Values
@@ -23,61 +26,33 @@ internal sealed class GeneralContext : Context, IGeneralContext
     public GeneralContext(
         JObject config,
         Type[] availableTypes,
-        Settings settings,
-        IReadOnlyDictionary<string, DocItem> items)
+        Settings settings)
         : base(config, availableTypes)
     {
         FileNameFactory.ThrowIfNull();
 
-        Dictionary<string, IElement> availableElements = availableTypes
-            .Where(type => typeof(IElement).IsAssignableFrom(type) && !type.IsAbstract)
-            .Select(type => (IElement)Activator.CreateInstance(type))
-            .GroupBy(element => element.Name, StringComparer.OrdinalIgnoreCase)
-            .ToDictionary(group => group.Key, group => group.Last(), StringComparer.OrdinalIgnoreCase);
-
-        foreach (string id in GetSetting<string[]>(nameof(IRawSettings.Elements)) ?? Enumerable.Empty<string>())
-        {
-            IElement writer = availableTypes
-                .Where(type => typeof(IElement).IsAssignableFrom(type) && !type.IsAbstract && $"{type.FullName} {type.Assembly.GetName().Name}" == id)
-                .Select(type => (IElement)Activator.CreateInstance(type))
-                .FirstOrDefault()
-                ?? throw new Exception($"Element '{id}' not found");
-
-            availableElements[writer.Name] = writer;
-        }
-
         Settings = settings;
-        Items = items;
-        Elements = availableElements;
+        _items = [];
+        _itemsWithOwnPage = [];
 
-        _contexts = typeof(DocItem).Assembly
-            .GetTypes()
+        _contexts = availableTypes
             .Where(type => typeof(DocItem).IsAssignableFrom(type) && !type.IsAbstract)
-            .Select(type => (type, GetSetting<JObject>(type.Name)))
-            .Where(tuple => tuple.Item2 != null)
-            .ToDictionary(tuple => tuple.type, tuple => new Context(tuple.Item2!, availableTypes));
+            .Select(type => (Type: type, Setting: GetSetting<JObject>(type.Name)))
+            .Where(tuple => tuple.Setting != null)
+            .ToDictionary(tuple => tuple.Type, tuple => new Context(tuple.Setting!, availableTypes));
         _fileNames = new ConcurrentDictionary<DocItem, string>();
 
-        string[] urlFactories = GetSetting<string[]>(nameof(IRawSettings.UrlFactories)) ?? [];
-        Dictionary<string, IUrlFactory> availableUrlFactories = availableTypes
-            .Where(type => typeof(IUrlFactory).IsAssignableFrom(type) && !type.IsAbstract)
-            .Select(type => (IUrlFactory)Activator.CreateInstance(type))
-            .GroupBy(urlFactory => urlFactory.Name)
-            .ToDictionary(urlFactory => urlFactory.Key, urlFactory => urlFactory.Last(), StringComparer.OrdinalIgnoreCase);
-        UrlFactories = urlFactories
-            .Select(id =>
-                availableUrlFactories.TryGetValue(id, out IUrlFactory urlFactory)
-                ? urlFactory
-                : availableTypes
-                    .Where(type => typeof(IUrlFactory).IsAssignableFrom(type) && !type.IsAbstract && $"{type.FullName} {type.Assembly.GetName().Name}" == id)
-                    .Select(type => (IUrlFactory)Activator.CreateInstance(type))
-                    .FirstOrDefault()
-                ?? throw new Exception($"UrlFactory '{id}' not found"))
-            .ToArray();
+        Elements = GetAllAvailableImplementations<IElement>(availableTypes, element => element.Name)
+            .Values
+            .Concat(GetImplementations<IElement>(availableTypes, element => element.Name, GetSetting<string[]>(nameof(IRawSettings.Elements))) ?? [])
+            .GroupBy(element => element.Name)
+            .Select(group => group.Last())
+            .ToDictionary(element => element.Name);
+        UrlFactories = GetImplementations<IUrlFactory>(availableTypes, urlFactory => urlFactory.Name, GetSetting<string[]>(nameof(IRawSettings.UrlFactories))) ?? [];
 
         Settings.Logger.Info($"Elements that will be used:{string.Concat(Elements.Select(element => $"{Environment.NewLine}  - {element.Key}: {element.Value.GetType().AssemblyQualifiedName}"))}");
-        Settings.Logger.Info($"FileNameFactory that will be used: {FileNameFactory!.GetType().AssemblyQualifiedName}");
         Settings.Logger.Info($"UrlFactories that will be used:{string.Concat(UrlFactories.Select(urlFactory => $"{Environment.NewLine}  - {urlFactory.GetType().AssemblyQualifiedName}"))}");
+        Settings.Logger.Info($"FileNameFactory that will be used: {FileNameFactory!.GetType().AssemblyQualifiedName}");
         Settings.Logger.Info($"Sections that will be used:{string.Concat(Sections?.Select(section => $"{Environment.NewLine}  - {section.GetType().AssemblyQualifiedName}") ?? [])}");
 
         foreach ((Type docItemType, Context context) in _contexts)
@@ -92,13 +67,29 @@ internal sealed class GeneralContext : Context, IGeneralContext
                 Settings.Logger.Info($"Sections that will be used for {docItemType.Name}:{string.Concat(context.Sections.Select(section => $"{Environment.NewLine}  - {section.GetType().AssemblyQualifiedName}"))}");
             }
         }
+
+        IDocItemGenerator[] docItemGenerators =
+        [
+            new DocItemReader(),
+            new ExternDocItemReader(),
+            new OwnPageSetter(),
+            .. GetImplementations<IDocItemGenerator>(availableTypes, docItemGenerator => docItemGenerator.Name, GetSetting<string[]>(nameof(IRawSettings.DocItemGenerators))) ?? []
+        ];
+
+        foreach (IDocItemGenerator docItemGenerator in docItemGenerators)
+        {
+            Settings.Logger.Info($"using DocItemGenerator:{docItemGenerator.GetType().AssemblyQualifiedName}");
+            docItemGenerator.Generate(this);
+        }
     }
 
     #region IGeneralContext
 
     public ISettings Settings { get; }
 
-    public IReadOnlyDictionary<string, DocItem> Items { get; }
+    public IReadOnlyDictionary<string, DocItem> Items => _items;
+
+    public IReadOnlyCollection<DocItem> ItemsWithOwnPage => _itemsWithOwnPage;
 
     public IReadOnlyDictionary<string, IElement> Elements { get; }
 
@@ -107,6 +98,20 @@ internal sealed class GeneralContext : Context, IGeneralContext
     public IContext GetContext(Type? type) => type != null && _contexts.TryGetValue(type, out Context context) ? context : this;
 
     public string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, newItem => (this.GetContext(newItem).FileNameFactory ?? FileNameFactory!).GetFileName(this, newItem));
+
+    #endregion
+
+    #region IDocItemsContext
+
+    ISettings IDocItemsContext.Settings => Settings;
+
+    IDictionary<string, DocItem> IDocItemsContext.Items => _items;
+
+    ICollection<DocItem> IDocItemsContext.ItemsWithOwnPage => _itemsWithOwnPage;
+
+    T? IDocItemsContext.GetSetting<T>(string name) where T : default => GetSetting<T>(name);
+
+    T? IDocItemsContext.GetSetting<T>(Type? type, string name) where T : default => GetContext(type).GetSetting<T>(name);
 
     #endregion
 }

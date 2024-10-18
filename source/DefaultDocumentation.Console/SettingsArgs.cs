@@ -61,6 +61,9 @@ internal sealed class SettingsArgs : IRawSettings
     [Option(nameof(Plugins), Separator = '|', HelpText = "plugin files to use to create the documentation")]
     public IEnumerable<string> Plugins { get; set; }
 
+    [Option(nameof(DocItemGenerators), Separator = '|', HelpText = "Name or [Type Assembly] of the IDocItemGenerator to use")]
+    public IEnumerable<string> DocItemGenerators { get; set; }
+
     [Option(nameof(UrlFactories), Separator = '|', HelpText = "Name or [Type Assembly] of the IUrlFactory to use to create documentation url")]
     public IEnumerable<string> UrlFactories { get; set; }
 

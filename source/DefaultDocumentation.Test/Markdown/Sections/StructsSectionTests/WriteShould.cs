@@ -14,6 +14,8 @@ public sealed class WriteShould : BaseSectionTester<StructsSection>
         .Concat(AssemblyInfo.StructDocItem)
         .ToDictionary(item => item.Id);
 
+    protected override IReadOnlyCollection<DocItem> GetItemsWithOwnPage() => [AssemblyInfo.StructDocItem];
+
     protected override IUrlFactory[] GetUrlFactories()
     => [
         new DocItemFactory()

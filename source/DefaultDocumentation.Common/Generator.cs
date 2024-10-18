@@ -60,6 +60,7 @@ public sealed class Generator
         AddSetting(settings => settings.ExternLinksFilePaths, value => !(value ?? []).Any(), value => value.ToArray());
         // context settings
         AddSetting(settings => settings.Plugins, value => !(value ?? []).Any(), value => value.ToArray());
+        AddSetting(settings => settings.DocItemGenerators, value => !(value ?? []).Any(), ["Overloads"]);
         AddSetting(settings => settings.FileNameFactory, string.IsNullOrEmpty, "FullName");
         AddSetting(settings => settings.UrlFactories, value => !(value ?? []).Any(), value => value.ToArray(), ["DocItem", "DotnetApi"]);
         AddSetting(settings => settings.Sections, value => !(value ?? []).Any(), value => value.ToArray(), ["Header", "Default"]);
@@ -90,12 +91,14 @@ public sealed class Generator
 
         _context = new GeneralContext(
             _configuration,
-            new[] { typeof(Markdown.Writers.MarkdownWriter).Assembly }
+                ((Assembly[])[
+                    typeof(DocItem).Assembly,
+                    typeof(Markdown.Writers.MarkdownWriter).Assembly
+                ])
                 .Concat((GetSetting<string[]>(nameof(settings.Plugins)) ?? Enumerable.Empty<string>()).Select(Assembly.LoadFrom))
                 .SelectMany(assembly => assembly.GetTypes())
                 .ToArray(),
-            resolvedSettings,
-            DocItemReader.GetItems(resolvedSettings));
+            resolvedSettings);
     }
 
     private void AddSetting<TSetting, TConfig>(
@@ -179,7 +182,7 @@ public sealed class Generator
 
         StringBuilder builder = new();
 
-        foreach (DocItem item in _context.Items.Values.Where(item => item.HasOwnPage(_context)))
+        foreach (DocItem item in _context.ItemsWithOwnPage)
         {
             try
             {

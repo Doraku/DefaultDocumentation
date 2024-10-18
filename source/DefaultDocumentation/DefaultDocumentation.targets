@@ -58,6 +58,7 @@
 			ExternLinksFilePaths="$(_DefaultDocumentationExternLinksFiles)"
 			Plugins="$(_DefaultDocumentationPlugins)"
 			UrlFactories="$(DefaultDocumentationUrlFactories)"
+			DocItemGenerators="$(DefaultDocumentationDocItemGenerators)"
 			Elements="$(DefaultDocumentationElements)"
 			FileNameFactory="$(DefaultDocumentationFileNameFactory)"
 			Sections="$(DefaultDocumentationSections)"/>

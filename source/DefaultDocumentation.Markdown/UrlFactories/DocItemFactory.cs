@@ -1,8 +1,11 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Internal;
+using DefaultDocumentation.Markdown.Models;
 using DefaultDocumentation.Models;
+using DefaultDocumentation.Models.Members;
 
 namespace DefaultDocumentation.Markdown.UrlFactories;
 
@@ -30,15 +33,34 @@ public sealed class DocItemFactory : IUrlFactory
             return null;
         }
 
-        if (item is ExternDocItem externItem)
+        DocItem pagedItem;
+
+        switch (item)
         {
-            return externItem.Url;
+            case ExternDocItem externItem:
+                return externItem.Url;
+
+            case ConstructorDocItem constructorItem:
+                pagedItem = context.GetChildren<ConstructorOverloadsDocItem>(constructorItem.Parent!).SingleOrDefault() ?? item;
+                break;
+
+            case MethodDocItem methodItem:
+                pagedItem = context.GetChildren<MethodOverloadsDocItem>(methodItem.Parent!).SingleOrDefault(overloadItem => overloadItem.Name == methodItem.Method.Name) ?? item;
+                break;
+
+            default:
+                pagedItem = item;
+                break;
         }
 
-        DocItem pagedItem = item;
-        while (!pagedItem.HasOwnPage(context))
+        while (!context.ItemsWithOwnPage.Contains(pagedItem))
         {
-            pagedItem = pagedItem.Parent!;
+            if (pagedItem.Parent is null)
+            {
+                return null;
+            }
+
+            pagedItem = pagedItem.Parent;
         }
 
         string url = context.GetFileName(pagedItem);

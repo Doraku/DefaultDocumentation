@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using DefaultDocumentation.Models.Members;
 using DefaultDocumentation.Models.Parameters;
-using DefaultDocumentation.Models.Types;
 
 namespace DefaultDocumentation.Models;
 
@@ -13,43 +11,6 @@ namespace DefaultDocumentation.Models;
 /// </summary>
 public static class DocItemExtensions
 {
-    private static GeneratedPages GetPage(DocItem item) => item switch
-    {
-        AssemblyDocItem => GeneratedPages.Assembly,
-        NamespaceDocItem => GeneratedPages.Namespaces,
-        ClassDocItem => GeneratedPages.Classes,
-        DelegateDocItem => GeneratedPages.Delegates,
-        EnumDocItem => GeneratedPages.Enums,
-        StructDocItem => GeneratedPages.Structs,
-        InterfaceDocItem => GeneratedPages.Interfaces,
-        ConstructorDocItem => GeneratedPages.Constructors,
-        EventDocItem => GeneratedPages.Events,
-        FieldDocItem => GeneratedPages.Fields,
-        MethodDocItem => GeneratedPages.Methods,
-        OperatorDocItem => GeneratedPages.Operators,
-        PropertyDocItem => GeneratedPages.Properties,
-        ExplicitInterfaceImplementationDocItem => GeneratedPages.ExplicitInterfaceImplementations,
-        _ => GeneratedPages.Default
-    };
-
-    /// <summary>
-    /// Gets wether the given <see cref="DocItem"/> has its own page generated based on a <see cref="IGeneralContext"/>.
-    /// </summary>
-    /// <param name="item">The <see cref="DocItem"/> for which to get if it has its own page.</param>
-    /// <param name="context">The <see cref="IGeneralContext"/> used to generation the documentation.</param>
-    /// <returns><see langword="true"/> if the <see cref="DocItem"/> has its own page, otherwise <see langword="false"/>.</returns>
-    public static bool HasOwnPage(this DocItem item, IGeneralContext context)
-    {
-        item.ThrowIfNull();
-        context.ThrowIfNull();
-
-        return item switch
-        {
-            AssemblyDocItem when !string.IsNullOrEmpty(context.Settings.AssemblyPageName) || item.Documentation != null || context.Items.Values.OfType<NamespaceDocItem>().Skip(1).Any() => true,
-            _ => (context.Settings.GeneratedPages & GetPage(item)) != 0
-        };
-    }
-
     /// <summary>
     /// Searchs recursively on the given <see cref="DocItem"/> parent a <see cref="TypeParameterDocItem"/> with the provided name.
     /// </summary>

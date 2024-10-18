@@ -72,7 +72,7 @@ public sealed class TableOfContentsSection : ISection
 
     private static void WriteChildren(IWriter writer, Modes modes, IEnumerable<DocItem> children, string group, string kind)
     {
-        bool groupWritten = (modes & Modes.Grouped) == 0;
+        bool groupWritten = !modes.HasFlag(Modes.Grouped);
         foreach (DocItem child in children)
         {
             if (!groupWritten)
@@ -92,7 +92,7 @@ public sealed class TableOfContentsSection : ISection
                 .AppendLink(child, child is TypeDocItem ? child.GetLongName() : null)
                 .Append("**");
 
-            if ((modes & Modes.IncludeKind) != 0)
+            if (modes.HasFlag(Modes.IncludeKind))
             {
                 writer
                     .Append(" `")
@@ -100,9 +100,9 @@ public sealed class TableOfContentsSection : ISection
                     .Append("`");
             }
 
-            if ((modes & Modes.IncludeSummary) != 0)
+            if (modes.HasFlag(Modes.IncludeSummary))
             {
-                if ((modes & Modes.IncludeNewLine) != 0)
+                if (modes.HasFlag(Modes.IncludeNewLine))
                 {
                     writer.AppendLine();
                 }
@@ -113,12 +113,14 @@ public sealed class TableOfContentsSection : ISection
 
                 writer
                     .ToPrefixedWriter("  ")
+                    .SetDisplayAsSingleLine(true)
                     .AppendAsMarkdown(child switch
                     {
                         TypeParameterDocItem item => item.Documentation,
                         ParameterDocItem item => item.Documentation,
                         DocItem item => item.Documentation?.Element("summary")
-                    });
+                    })
+                    .SetDisplayAsSingleLine(false);
             }
 
             Write(writer.ToPrefixedWriter("  "), modes, child);

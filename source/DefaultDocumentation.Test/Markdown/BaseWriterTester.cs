@@ -36,11 +36,13 @@ public abstract class BaseWriterTester
             IFileNameFactory fileNameFactory,
             IEnumerable<IUrlFactory> urlFactories,
             IReadOnlyDictionary<string, DocItem> items,
+            IReadOnlyCollection<DocItem> itemsWithOwnPage,
             IReadOnlyDictionary<string, IElement> elements,
             IEnumerable<ISection> sections)
         {
             Settings = settings;
             Items = items;
+            ItemsWithOwnPage = itemsWithOwnPage;
             Elements = elements;
             FileNameFactory = fileNameFactory;
             UrlFactories = urlFactories;
@@ -50,6 +52,8 @@ public abstract class BaseWriterTester
         public ISettings Settings { get; }
 
         public IReadOnlyDictionary<string, DocItem> Items { get; }
+
+        public IReadOnlyCollection<DocItem> ItemsWithOwnPage { get; }
 
         public IReadOnlyDictionary<string, IElement> Elements { get; }
 
@@ -97,6 +101,7 @@ public abstract class BaseWriterTester
                 GetFileNameFactory(),
                 GetUrlFactories(),
                 GetItems(),
+                GetItemsWithOwnPage(),
                 GetElements(),
                 GetSections()),
             _docItem));
@@ -118,4 +123,6 @@ public abstract class BaseWriterTester
     protected virtual IReadOnlyDictionary<string, IElement> GetElements() => new Dictionary<string, IElement>();
 
     protected virtual IReadOnlyDictionary<string, DocItem> GetItems() => new Dictionary<string, DocItem>();
+
+    protected virtual IReadOnlyCollection<DocItem> GetItemsWithOwnPage() => [AssemblyInfo.AssemblyDocItem];
 }

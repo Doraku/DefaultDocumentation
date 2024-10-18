@@ -101,8 +101,8 @@ public static class IGeneralContextExtensions
 
         return (item switch
         {
-            NamespaceDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (context.GetNestedTypeVisibilities(typeof(T)) & NestedTypeVisibilities.Namespace) != 0 => GetAllChildren(item),
-            TypeDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && (context.GetNestedTypeVisibilities(typeof(T)) & NestedTypeVisibilities.DeclaringType) == 0 => Enumerable.Empty<T>(),
+            NamespaceDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && context.GetNestedTypeVisibilities(typeof(T)).HasFlag(NestedTypeVisibilities.Namespace) => GetAllChildren(item),
+            TypeDocItem when typeof(T).IsSubclassOf(typeof(TypeDocItem)) && !context.GetNestedTypeVisibilities(typeof(T)).HasFlag(NestedTypeVisibilities.DeclaringType) => Enumerable.Empty<T>(),
             _ => context.Items.Values.Where(child => child.Parent == item)
         }).OfType<T>().OrderBy(child => child.FullName);
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Models;
 
@@ -21,7 +22,12 @@ public interface IGeneralContext : IContext
     IReadOnlyDictionary<string, DocItem> Items { get; }
 
     /// <summary>
-    /// Gets the <see cref="IElement"/> used to render specific <see cref="System.Xml.Linq.XElement"/> from the documentation.
+    /// Gets all the <see cref="DocItem"/> that should generate their own documentation page.
+    /// </summary>
+    IReadOnlyCollection<DocItem> ItemsWithOwnPage { get; }
+
+    /// <summary>
+    /// Gets the <see cref="IElement"/> used to render specific <see cref="XElement"/> from the documentation.
     /// </summary>
     IReadOnlyDictionary<string, IElement> Elements { get; }
 
@@ -31,10 +37,10 @@ public interface IGeneralContext : IContext
     IEnumerable<IUrlFactory> UrlFactories { get; }
 
     /// <summary>
-    /// Gets the specific <see cref="IContext"/> for the given <see cref="Type"/>.
+    /// Gets the specific <see cref="IContext"/> for the given <see cref="DocItem"/> <see cref="Type"/>.
     /// </summary>
-    /// <param name="type">The <see cref="Type"/> for which to get the specific <see cref="IContext"/>.</param>
-    /// <returns>The <see cref="IContext"/> specific to the provided <see cref="Type"/>.</returns>
+    /// <param name="type">The <see cref="DocItem"/> <see cref="Type"/> for which to get the specific <see cref="IContext"/>.</param>
+    /// <returns>The <see cref="IContext"/> specific to the provided <see cref="DocItem"/> <see cref="Type"/>.</returns>
     IContext GetContext(Type? type);
 
     /// <summary>

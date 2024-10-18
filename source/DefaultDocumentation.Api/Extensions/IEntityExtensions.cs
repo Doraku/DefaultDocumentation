@@ -21,17 +21,17 @@ public static class IEntityExtensions
 
         return entity?.EffectiveAccessibility() switch
         {
-            Accessibility.Public => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Public) != 0,
+            Accessibility.Public => settings.GeneratedAccessModifiers.HasFlag(GeneratedAccessModifiers.Public),
             Accessibility.Private => entity switch
             {
                 IProperty property when property.IsExplicitInterfaceImplementation => property.ExplicitlyImplementedInterfaceMembers.First().DeclaringTypeDefinition.IsVisibleInDocumentation(settings),
                 IMethod method when method.IsExplicitInterfaceImplementation => method.ExplicitlyImplementedInterfaceMembers.First().DeclaringTypeDefinition.IsVisibleInDocumentation(settings),
-                _ => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Private) != 0
+                _ => settings.GeneratedAccessModifiers.HasFlag(GeneratedAccessModifiers.Private)
             },
-            Accessibility.Protected => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Protected) != 0,
-            Accessibility.Internal => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.Internal) != 0,
-            Accessibility.ProtectedOrInternal => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.ProtectedInternal) != 0,
-            Accessibility.ProtectedAndInternal => (settings.GeneratedAccessModifiers & GeneratedAccessModifiers.PrivateProtected) != 0,
+            Accessibility.Protected => settings.GeneratedAccessModifiers.HasFlag(GeneratedAccessModifiers.Protected),
+            Accessibility.Internal => settings.GeneratedAccessModifiers.HasFlag(GeneratedAccessModifiers.Internal),
+            Accessibility.ProtectedOrInternal => settings.GeneratedAccessModifiers.HasFlag(GeneratedAccessModifiers.ProtectedInternal),
+            Accessibility.ProtectedAndInternal => settings.GeneratedAccessModifiers.HasFlag(GeneratedAccessModifiers.PrivateProtected),
             _ => false
         };
     }

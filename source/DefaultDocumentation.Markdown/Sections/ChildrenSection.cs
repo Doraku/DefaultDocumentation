@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.Models;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Members;
 using DefaultDocumentation.Models.Parameters;
@@ -31,6 +32,20 @@ public abstract class ChildrenSection<T> : ISection
     }
 
     /// <summary>
+    /// Gets if the children should be inlined or not.
+    /// </summary>
+    /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation generation process.</param>
+    /// <param name="item">The <see cref="DocItem"/> for which to write its children.</param>
+    protected abstract bool ShouldInlineChildren(IGeneralContext context, DocItem item);
+
+    /// <summary>
+    /// Gets if the title should be writen or not.
+    /// </summary>
+    /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation generation process.</param>
+    /// <param name="item">The <see cref="DocItem"/> for which to write its children.</param>
+    protected virtual bool ShouldWriteTitle(IGeneralContext context, DocItem item) => true;
+
+    /// <summary>
     /// Gets the children of a <see cref="DocItem"/> to write.
     /// </summary>
     /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation generation process.</param>
@@ -46,15 +61,21 @@ public abstract class ChildrenSection<T> : ISection
     {
         writer.ThrowIfNull();
 
-        bool titleWritten = false;
+        bool inlineChildren = ShouldInlineChildren(writer.Context, writer.GetCurrentItem());
+        bool titleWritten = !(ShouldWriteTitle(writer.Context, writer.GetCurrentItem()) || !inlineChildren);
 
-        foreach (DocItem item in GetChildren(writer.Context, writer.GetCurrentItem()) ?? [])
+        foreach (DocItem child in GetChildren(writer.Context, writer.GetCurrentItem()) ?? [])
         {
             if (!titleWritten)
             {
                 writer.EnsureLineStart();
 
-                if (item.HasOwnPage(writer.Context))
+                if (inlineChildren)
+                {
+                    writer
+                        .AppendLine(_title);
+                }
+                else
                 {
                     writer
                         .AppendLine()
@@ -63,36 +84,31 @@ public abstract class ChildrenSection<T> : ISection
                         .AppendLine(" | |")
                         .AppendLine("| :--- | :--- |");
                 }
-                else
-                {
-                    writer
-                        .AppendLine(_title);
-                }
 
                 titleWritten = true;
             }
 
             IWriter childWriter = writer
                 .ToOverrideWriter()
-                .SetCurrentItem(item);
+                .SetCurrentItem(child);
 
-            if (item.HasOwnPage(writer.Context))
+            if (inlineChildren)
             {
-                childWriter
-                    .Append("| ")
-                    .AppendLink(item, item is TypeDocItem ? string.Join(".", item.GetParents().OfType<TypeDocItem>().Concat(Enumerable.Repeat(item, 1)).Select(parent => parent.Name)) : null)
-                    .Append(" | ")
-                    .SetDisplayAsSingleLine(true)
-                    .AppendAsMarkdown(item.Documentation?.GetSummary())
-                    .SetDisplayAsSingleLine(false)
-                    .AppendLine(" |");
-            }
-            else
-            {
-                foreach (ISection sectionWriter in writer.Context.GetSetting(item, context => context.Sections)!)
+                foreach (ISection sectionWriter in writer.Context.GetSetting(child, context => context.Sections)!)
                 {
                     sectionWriter.Write(childWriter);
                 }
+            }
+            else
+            {
+                childWriter
+                    .Append("| ")
+                    .AppendLink(child, child is TypeDocItem ? string.Join(".", child.GetParents().OfType<TypeDocItem>().Concat(Enumerable.Repeat(child, 1)).Select(parent => parent.Name)) : null)
+                    .Append(" | ")
+                    .SetDisplayAsSingleLine(true)
+                    .AppendAsMarkdown(child.Documentation?.GetSummary())
+                    .SetDisplayAsSingleLine(false)
+                    .AppendLine(" |");
             }
         }
     }
@@ -116,6 +132,9 @@ public sealed class TypeParametersSection : ChildrenSection<TypeParameterDocItem
     { }
 
     /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item) => true;
+
+    /// <inheritdoc/>
     protected override IEnumerable<TypeParameterDocItem>? GetChildren(IGeneralContext context, DocItem item) => (item as ITypeParameterizedDocItem)?.TypeParameters;
 }
 
@@ -137,6 +156,9 @@ public sealed class ParametersSection : ChildrenSection<ParameterDocItem>
     { }
 
     /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item) => true;
+
+    /// <inheritdoc/>
     protected override IEnumerable<ParameterDocItem>? GetChildren(IGeneralContext context, DocItem item) => (item as IParameterizedDocItem)?.Parameters;
 }
 
@@ -156,6 +178,9 @@ public sealed class EnumFieldsSection : ChildrenSection<EnumFieldDocItem>
     public EnumFieldsSection()
         : base(ConfigName, "### Fields")
     { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item) => true;
 
     /// <inheritdoc/>
     protected override IEnumerable<EnumFieldDocItem>? GetChildren(IGeneralContext context, DocItem item)
@@ -180,6 +205,46 @@ public sealed class ConstructorsSection : ChildrenSection<ConstructorDocItem>
     public ConstructorsSection()
         : base(ConfigName, "### Constructors")
     { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item)
+        => item is ConstructorOverloadsDocItem || !context.Settings.GeneratedPages.HasFlag(GeneratedPages.Constructors);
+
+    /// <inheritdoc/>
+    protected override bool ShouldWriteTitle(IGeneralContext context, DocItem item) => item is not ConstructorOverloadsDocItem;
+
+    /// <inheritdoc/>
+    protected override IEnumerable<ConstructorDocItem>? GetChildren(IGeneralContext context, DocItem item) =>
+        item is ConstructorOverloadsDocItem overloadsItem
+        ? context.GetChildren<ConstructorDocItem>(overloadsItem.Parent!)
+        : base.GetChildren(context, item);
+}
+
+/// <summary>
+/// <see cref="ISection"/> implementation to write <see cref="ConstructorOverloadsSection"/> children of a <see cref="DocItem"/>.
+/// </summary>
+public sealed class ConstructorOverloadsSection : ChildrenSection<ConstructorDocItem>
+{
+    /// <summary>
+    /// The name of this implementation used at the configuration level.
+    /// </summary>
+    public const string ConfigName = "ConstructorOverloads";
+
+    /// <summary>
+    /// Initialize a new instance of the <see cref="ConstructorsSection"/> type.
+    /// </summary>
+    public ConstructorOverloadsSection()
+        : base(ConfigName, "Overloads")
+    { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item) => false;
+
+    /// <inheritdoc/>
+    protected override IEnumerable<ConstructorDocItem>? GetChildren(IGeneralContext context, DocItem item) =>
+        item is ConstructorOverloadsDocItem overloadsItem
+        ? context.GetChildren<ConstructorDocItem>(overloadsItem.Parent!)
+        : [];
 }
 
 /// <summary>
@@ -198,6 +263,10 @@ public sealed class FieldsSection : ChildrenSection<FieldDocItem>
     public FieldsSection()
         : base(ConfigName, "### Fields")
     { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item)
+        => !context.Settings.GeneratedPages.HasFlag(GeneratedPages.Fields);
 }
 
 /// <summary>
@@ -216,6 +285,10 @@ public sealed class PropertiesSection : ChildrenSection<PropertyDocItem>
     public PropertiesSection()
         : base(ConfigName, "### Properties")
     { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item)
+        => !context.Settings.GeneratedPages.HasFlag(GeneratedPages.Properties);
 }
 
 /// <summary>
@@ -234,6 +307,46 @@ public sealed class MethodsSection : ChildrenSection<MethodDocItem>
     public MethodsSection()
         : base(ConfigName, "### Methods")
     { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item)
+        => item is MethodOverloadsDocItem || !context.Settings.GeneratedPages.HasFlag(GeneratedPages.Methods);
+
+    /// <inheritdoc/>
+    protected override bool ShouldWriteTitle(IGeneralContext context, DocItem item) => item is not MethodOverloadsDocItem;
+
+    /// <inheritdoc/>
+    protected override IEnumerable<MethodDocItem>? GetChildren(IGeneralContext context, DocItem item) =>
+        item is MethodOverloadsDocItem overloadsItem
+        ? context.GetChildren<MethodDocItem>(overloadsItem.Parent!).Where(item => item.Method.Name == overloadsItem.Name)
+        : base.GetChildren(context, item);
+}
+
+/// <summary>
+/// <see cref="ISection"/> implementation to write <see cref="MethodOverloadsSection"/> children of a <see cref="DocItem"/>.
+/// </summary>
+public sealed class MethodOverloadsSection : ChildrenSection<MethodDocItem>
+{
+    /// <summary>
+    /// The name of this implementation used at the configuration level.
+    /// </summary>
+    public const string ConfigName = "MethodOverloads";
+
+    /// <summary>
+    /// Initialize a new instance of the <see cref="ConstructorsSection"/> type.
+    /// </summary>
+    public MethodOverloadsSection()
+        : base(ConfigName, "Overloads")
+    { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item) => false;
+
+    /// <inheritdoc/>
+    protected override IEnumerable<MethodDocItem>? GetChildren(IGeneralContext context, DocItem item) =>
+        item is MethodOverloadsDocItem overloadsItem
+        ? context.GetChildren<MethodDocItem>(overloadsItem.Parent!).Where(item => item.Method.Name == overloadsItem.Name)
+        : [];
 }
 
 /// <summary>
@@ -252,6 +365,10 @@ public sealed class EventsSection : ChildrenSection<EventDocItem>
     public EventsSection()
         : base(ConfigName, "### Events")
     { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item)
+        => !context.Settings.GeneratedPages.HasFlag(GeneratedPages.Events);
 }
 
 /// <summary>
@@ -270,6 +387,10 @@ public sealed class OperatorsSection : ChildrenSection<OperatorDocItem>
     public OperatorsSection()
         : base(ConfigName, "### Operators")
     { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item)
+        => !context.Settings.GeneratedPages.HasFlag(GeneratedPages.Operators);
 }
 
 /// <summary>
@@ -288,6 +409,10 @@ public sealed class ExplicitInterfaceImplementationsSection : ChildrenSection<Ex
     public ExplicitInterfaceImplementationsSection()
         : base(ConfigName, "### Explicit Interface Implementations")
     { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item)
+        => !context.Settings.GeneratedPages.HasFlag(GeneratedPages.ExplicitInterfaceImplementations);
 }
 
 /// <summary>
@@ -306,6 +431,10 @@ public sealed class ClassesSection : ChildrenSection<ClassDocItem>
     public ClassesSection()
         : base(ConfigName, "### Classes")
     { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item)
+        => !context.Settings.GeneratedPages.HasFlag(GeneratedPages.Classes);
 }
 
 /// <summary>
@@ -324,6 +453,10 @@ public sealed class StructsSection : ChildrenSection<StructDocItem>
     public StructsSection()
         : base(ConfigName, "### Structs")
     { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item)
+        => !context.Settings.GeneratedPages.HasFlag(GeneratedPages.Structs);
 }
 
 /// <summary>
@@ -342,6 +475,10 @@ public sealed class InterfacesSection : ChildrenSection<InterfaceDocItem>
     public InterfacesSection()
         : base(ConfigName, "### Interfaces")
     { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item)
+        => !context.Settings.GeneratedPages.HasFlag(GeneratedPages.Interfaces);
 }
 
 /// <summary>
@@ -360,6 +497,10 @@ public sealed class EnumsSection : ChildrenSection<EnumDocItem>
     public EnumsSection()
         : base(ConfigName, "### Enums")
     { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item)
+        => !context.Settings.GeneratedPages.HasFlag(GeneratedPages.Enums);
 }
 
 /// <summary>
@@ -378,6 +519,10 @@ public sealed class DelegatesSection : ChildrenSection<DelegateDocItem>
     public DelegatesSection()
         : base(ConfigName, "### Delegates")
     { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item)
+        => !context.Settings.GeneratedPages.HasFlag(GeneratedPages.Delegates);
 }
 
 /// <summary>
@@ -396,4 +541,8 @@ public sealed class NamespacesSection : ChildrenSection<NamespaceDocItem>
     public NamespacesSection()
         : base(ConfigName, "### Namespaces")
     { }
+
+    /// <inheritdoc/>
+    protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item)
+        => !context.Settings.GeneratedPages.HasFlag(GeneratedPages.Namespaces);
 }

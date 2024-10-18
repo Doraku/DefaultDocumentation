@@ -14,6 +14,8 @@ public sealed class WriteShould : BaseSectionTester<HeaderSection>
         | GeneratedPages.Types
         | GeneratedPages.Members;
 
+    protected override IReadOnlyCollection<DocItem> GetItemsWithOwnPage() => [AssemblyInfo.AssemblyDocItem, AssemblyInfo.NamespaceDocItem];
+
     protected override IReadOnlyDictionary<string, DocItem> GetItems() => new DocItem[] { AssemblyInfo.AssemblyDocItem }.ToDictionary(item => item.Id);
 
     [Fact]

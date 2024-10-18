@@ -37,6 +37,8 @@ public sealed class DefaultDocumentationTask : Microsoft.Build.Utilities.Task, I
 
     public string Plugins { get; set; }
 
+    public string DocItemGenerators { get; set; }
+
     public string FileNameFactory { get; set; }
 
     public string UrlFactories { get; set; }
@@ -63,13 +65,15 @@ public sealed class DefaultDocumentationTask : Microsoft.Build.Utilities.Task, I
 
     GeneratedPages IRawSettings.GeneratedPages => GetEnum<GeneratedPages>(nameof(GeneratedPages), GeneratedPages);
 
-    IEnumerable<string> IRawSettings.ExternLinksFilePaths => (ExternLinksFilePaths ?? string.Empty).Split(_separators, StringSplitOptions.RemoveEmptyEntries);
+    IEnumerable<string> IRawSettings.ExternLinksFilePaths => ExternLinksFilePaths?.Split(_separators, StringSplitOptions.RemoveEmptyEntries) ?? [];
 
-    IEnumerable<string> IRawSettings.Plugins => (Plugins ?? string.Empty).Split(_separators, StringSplitOptions.RemoveEmptyEntries);
+    IEnumerable<string> IRawSettings.Plugins => Plugins?.Split(_separators, StringSplitOptions.RemoveEmptyEntries) ?? [];
 
-    IEnumerable<string> IRawSettings.UrlFactories => (UrlFactories ?? string.Empty).Split(_separators, StringSplitOptions.RemoveEmptyEntries);
+    IEnumerable<string> IRawSettings.DocItemGenerators => DocItemGenerators?.Split(_separators, StringSplitOptions.RemoveEmptyEntries) ?? [];
 
-    IEnumerable<string> IRawSettings.Sections => (Sections ?? string.Empty).Split(_separators, StringSplitOptions.RemoveEmptyEntries);
+    IEnumerable<string> IRawSettings.UrlFactories => UrlFactories?.Split(_separators, StringSplitOptions.RemoveEmptyEntries) ?? [];
 
-    IEnumerable<string> IRawSettings.Elements => (Elements ?? string.Empty).Split(_separators, StringSplitOptions.RemoveEmptyEntries);
+    IEnumerable<string> IRawSettings.Sections => Sections?.Split(_separators, StringSplitOptions.RemoveEmptyEntries) ?? [];
+
+    IEnumerable<string> IRawSettings.Elements => Elements?.Split(_separators, StringSplitOptions.RemoveEmptyEntries) ?? [];
 }

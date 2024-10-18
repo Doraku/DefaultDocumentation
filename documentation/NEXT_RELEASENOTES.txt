@@ -7,6 +7,8 @@
 - added support for record
 - elements, url factories, file name factory and sections are now case insensitive in configuration (closes #157)
 - it is now possible to change the format of url link procuded in the markdown via Markdown.UrlFormat configuration (closes #107)
+- added IDocItemGenerator to customize pages generated
+- added OverloadsGenerator to put constructor and method overloads in the same page (closes #139)
 
 ## Bug fixes
 

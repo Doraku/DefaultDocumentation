@@ -8,6 +8,8 @@ namespace DefaultDocumentation.Markdown.Sections;
 ///     <item><see cref="TitleSection"/></item>
 ///     <item><see cref="SummarySection"/></item>
 ///     <item><see cref="DefinitionSection"/></item>
+///     <item><see cref="ConstructorOverloadsSection"/></item>
+///     <item><see cref="MethodOverloadsSection"/></item>
 ///     <item><see cref="TypeParametersSection"/></item>
 ///     <item><see cref="ParametersSection"/></item>
 ///     <item><see cref="EnumFieldsSection"/></item>
@@ -56,6 +58,9 @@ public sealed class DefaultSection : ISection
             new TitleSection(),
             new SummarySection(),
             new DefinitionSection(),
+
+            new ConstructorOverloadsSection(),
+            new MethodOverloadsSection(),
 
             new TypeParametersSection(),
             new ParametersSection(),

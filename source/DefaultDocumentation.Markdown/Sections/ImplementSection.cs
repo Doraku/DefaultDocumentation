@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Members;
 using DefaultDocumentation.Models.Types;
 using ICSharpCode.Decompiler.Documentation;
@@ -10,7 +11,7 @@ using ICSharpCode.Decompiler.TypeSystem;
 namespace DefaultDocumentation.Markdown.Sections;
 
 /// <summary>
-/// <see cref="ISection"/> implementation to write the types/members implemented by the <see cref="Models.DocItem"/>.
+/// <see cref="ISection"/> implementation to write the types/members implemented by the <see cref="DocItem"/>.
 /// </summary>
 public sealed class ImplementSection : ISection
 {

@@ -10,6 +10,13 @@
 	],
 	"LinksOutputFilePath": "..\\..\\documentation\\DefaultDocumentation.Markdown.txt",
 	"LinksBaseUrl": "https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/markdown/",
+	"AssemblyDocItem": {
+		"Sections": [
+			"Header",
+			"Default",
+			"Footer"
+		]
+	},
 	"NamespaceDocItem": {
 		"Sections": [
 			"Title",

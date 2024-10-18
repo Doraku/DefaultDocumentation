@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using DefaultDocumentation.Api;
+using DefaultDocumentation.Markdown.Models;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Members;
 using DefaultDocumentation.Models.Parameters;
@@ -33,9 +35,11 @@ public sealed class TitleSection : ISection
             AssemblyDocItem => w => w.Append($"## {currentItem.Name.SanitizeForMarkdown()} Assembly"),
             NamespaceDocItem => w => w.Append($"## {currentItem.Name.SanitizeForMarkdown()} Namespace"),
             TypeDocItem typeItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} {typeItem.Type.Kind}"),
+            ConstructorOverloadsDocItem => w => w.Append($"## {currentItem.Parent!.Name.SanitizeForMarkdown()} Constructors"),
             ConstructorDocItem => w => w.Append($"## {currentItem.Name.SanitizeForMarkdown()} Constructor"),
             EventDocItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Event"),
             FieldDocItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Field"),
+            MethodOverloadsDocItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Method"),
             MethodDocItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Method"),
             OperatorDocItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Operator"),
             PropertyDocItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Property"),
@@ -43,18 +47,18 @@ public sealed class TitleSection : ISection
             ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IMethod => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Method"),
             ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IProperty => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Property"),
             EnumFieldDocItem enumFiedItem => w => w
-                .Append($"`{currentItem.Name}`")
+                .Append($"`{currentItem.Name.SanitizeForMarkdown()}`")
                 .Append(enumFiedItem.Field.IsConst ? $" {enumFiedItem.Field.GetConstantValue()}" : string.Empty),
             ParameterDocItem parameterItem => w => w
-                .Append($"`{currentItem.Name}` ")
+                .Append($"`{currentItem.Name.SanitizeForMarkdown()}` ")
                 .AppendLink(currentItem, parameterItem.Parameter.Type),
-            TypeParameterDocItem typeParameterItem => w => w.Append($"`{typeParameterItem.TypeParameter.Name}`"),
+            TypeParameterDocItem typeParameterItem => w => w.Append($"`{typeParameterItem.TypeParameter.Name.SanitizeForMarkdown()}`"),
             _ => null
         };
 
         if (action != null)
         {
-            if (!currentItem.HasOwnPage(writer.Context))
+            if (!writer.Context.ItemsWithOwnPage.Contains(currentItem))
             {
                 string? url = writer.Context.GetUrl(currentItem);
 

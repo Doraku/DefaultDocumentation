@@ -43,6 +43,8 @@ internal sealed class PageContext : IPageContext
 
     public IReadOnlyDictionary<string, DocItem> Items => _context.Items;
 
+    public IReadOnlyCollection<DocItem> ItemsWithOwnPage => _context.ItemsWithOwnPage;
+
     public IReadOnlyDictionary<string, IElement> Elements => _context.Elements;
 
     public IFileNameFactory? FileNameFactory => _context.FileNameFactory;

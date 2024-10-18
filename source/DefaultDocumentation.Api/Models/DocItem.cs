@@ -33,7 +33,15 @@ public abstract class DocItem
     /// </summary>
     public XElement? Documentation { get; }
 
-    private protected DocItem(DocItem? parent, string id, string fullName, string name, XElement? documentation)
+    /// <summary>
+    /// Initialize a new instance of the <see cref="DocItem"/> type.
+    /// </summary>
+    /// <param name="parent">The parent.</param>
+    /// <param name="id">The id.</param>
+    /// <param name="fullName">The full name.</param>
+    /// <param name="name">The name.</param>
+    /// <param name="documentation">The documentation.</param>
+    protected DocItem(DocItem? parent, string id, string fullName, string name, XElement? documentation)
     {
         id.ThrowIfNull();
         fullName.ThrowIfNull();

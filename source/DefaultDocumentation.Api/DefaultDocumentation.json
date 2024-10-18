@@ -9,6 +9,13 @@
 	],
 	"LinksOutputFilePath": "..\\..\\documentation\\DefaultDocumentation.Api.txt",
 	"LinksBaseUrl": "https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/",
+	"AssemblyDocItem": {
+		"Sections": [
+			"Header",
+			"Default",
+			"Footer"
+		]
+	},
 	"NamespaceDocItem": {
 		"Sections": [
 			"Title",

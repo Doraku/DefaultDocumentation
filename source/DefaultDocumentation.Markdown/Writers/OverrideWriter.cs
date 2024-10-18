@@ -42,6 +42,8 @@ public sealed class OverrideWriter : IWriter
 
         public IReadOnlyDictionary<string, DocItem> Items => _context.Items;
 
+        public IReadOnlyCollection<DocItem> ItemsWithOwnPage => _context.ItemsWithOwnPage;
+
         public IReadOnlyDictionary<string, IElement> Elements => _context.Elements;
 
         public IEnumerable<IUrlFactory> UrlFactories => _context.UrlFactories;

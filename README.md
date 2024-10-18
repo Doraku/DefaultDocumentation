@@ -48,6 +48,7 @@ dotnet tool
   - [LinksBaseUrl](#Configuration_LinksBaseUrl)
   - [ExternLinksFilePaths](#Configuration_ExternLinksFilePaths)
   - [Plugins](#Configuration_Plugins)
+  - [DocItemGenerators](#Configuration_DocItemGenerators)
   - [UrlFactories](#Configuration_UrlFactories)
   - [Elements](#Configuration_Elements)
 - [DocItem Configuration](#DocItemConfiguration)
@@ -319,6 +320,17 @@ You can use pattern, ex: `.\myfolder\*.txt`.
 - configuration file: `"Plugins": [ "...", "..." ]`
 
 The list of plugin files to load to create the documentation. See [Plugins](#Overview_Plugins) for more information.
+
+<a name='Configuration_DocItemGenerators'></a>
+## DocItemGenerators
+- csproj property: `<DefaultDocumentationDocItemGenerators>...|...</DefaultDocumentationDocItemGenerators>`
+- tool argument: `--DocItemGenerators ...|...`
+- configuration file: `"DocItemGenerators": [ "...", "..." ]`
+
+`Name` or `Type Assembly` of the `IDocItemGenerator` implementations to use to generate the `DocItem` of the documentation.
+The default implementations provided are:
+- `Overloads` or `DefaultDocumentation.Markdown.DocItemGenerators.OverloadsGenerator DefaultDocumentation.Markdown` adds pages to group constructor and method overloads the same way microsoft documentation do it.
+The default value is `Overloads`.
 
 <a name='Configuration_UrlFactories'></a>
 ## UrlFactories

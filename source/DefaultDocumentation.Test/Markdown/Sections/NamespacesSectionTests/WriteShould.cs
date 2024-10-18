@@ -14,6 +14,8 @@ public sealed class WriteShould : BaseSectionTester<NamespacesSection>
         .Concat(AssemblyInfo.NamespaceDocItem)
         .ToDictionary(item => item.Id);
 
+    protected override IReadOnlyCollection<DocItem> GetItemsWithOwnPage() => [AssemblyInfo.NamespaceDocItem];
+
     protected override IUrlFactory[] GetUrlFactories()
     => [
         new DocItemFactory()

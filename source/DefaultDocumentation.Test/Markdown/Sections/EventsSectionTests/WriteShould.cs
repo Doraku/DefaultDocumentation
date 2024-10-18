@@ -14,6 +14,8 @@ public sealed class WriteShould : BaseSectionTester<EventsSection>
         .Concat(AssemblyInfo.EventDocItem)
         .ToDictionary(item => item.Id);
 
+    protected override IReadOnlyCollection<DocItem> GetItemsWithOwnPage() => [AssemblyInfo.EventDocItem];
+
     protected override IUrlFactory[] GetUrlFactories()
     => [
         new DocItemFactory()

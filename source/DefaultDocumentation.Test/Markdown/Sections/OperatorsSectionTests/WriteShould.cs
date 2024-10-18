@@ -14,6 +14,8 @@ public sealed class WriteShould : BaseSectionTester<OperatorsSection>
         .Concat(AssemblyInfo.OperatorDocItem)
         .ToDictionary(item => item.Id);
 
+    protected override IReadOnlyCollection<DocItem> GetItemsWithOwnPage() => [AssemblyInfo.OperatorDocItem];
+
     protected override IUrlFactory[] GetUrlFactories()
     => [
         new DocItemFactory()

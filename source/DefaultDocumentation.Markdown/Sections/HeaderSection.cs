@@ -29,7 +29,7 @@ public sealed class HeaderSection : ISection
         }
 
         AssemblyDocItem assembly = writer.Context.Items.Values.OfType<AssemblyDocItem>().Single();
-        if (assembly.HasOwnPage(writer.Context))
+        if (writer.Context.ItemsWithOwnPage.Contains(assembly))
         {
             writer
                 .EnsureLineStart()

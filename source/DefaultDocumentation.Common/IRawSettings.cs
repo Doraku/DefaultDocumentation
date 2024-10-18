@@ -32,6 +32,8 @@ public interface IRawSettings
 
     public IEnumerable<string> Plugins { get; }
 
+    public IEnumerable<string> DocItemGenerators { get; }
+
     public string FileNameFactory { get; }
 
     public IEnumerable<string> UrlFactories { get; }
