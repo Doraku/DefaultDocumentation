@@ -61,6 +61,7 @@ dotnet tool
   - [HandleLineBreak](#MarkdownConfiguration_HandleLineBreak)
   - [TableOfContentsModes](#MarkdownConfiguration_TableOfContentsModes)
   - [Url format](#MarkdownConfiguration_UrlFormat)
+  - [Exclude](#MarkdownConfiguration_Exclude)
 - [Samples](#Samples)
 - [Dependencies](#Dependencies)
 
@@ -329,8 +330,9 @@ The list of plugin files to load to create the documentation. See [Plugins](#Ove
 
 `Name` or `Type Assembly` of the `IDocItemGenerator` implementations to use to generate the `DocItem` of the documentation.
 The default implementations provided are:
+- `Exclude` or `DefaultDocumentation.Markdown.DocItemGenerators.ExcludeGenerator DefaultDocumentation.Markdown` remove `DocItem` from the documentation generation based on [MarkdownConfiguration.Exclude](#MarkdownConfiguration_Exclude).
 - `Overloads` or `DefaultDocumentation.Markdown.DocItemGenerators.OverloadsGenerator DefaultDocumentation.Markdown` adds pages to group constructor and method overloads the same way microsoft documentation do it.
-The default value is `Overloads`.
+The default value is `Exclude|Overloads`.
 
 <a name='Configuration_UrlFactories'></a>
 ## UrlFactories
@@ -562,6 +564,15 @@ Three arguments will be passed to the format:
 - the tooltip to display when overing the link. If null the url will be used
 
 The default value is `[{0}]({1} '{2}')`.
+
+<a name='MarkdownConfiguration_Exclude'></a>
+## Exclude
+- configuration file: `"Markdown.Exclude": [ "", ... ]`
+
+Contains a collection of regex used by the `DefaultDocumentation.Markdown.DocItemGenerators.ExcludeGenerator DefaultDocumentation.Markdown` [DocItemGenerator](#Configuration_DocItemGenerators),
+any `DocItem` whose id will match one of them will be excluded from the documentation generation.
+
+The default value is `null`.
 
 <a name='Samples'></a>
 # Samples

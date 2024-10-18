@@ -103,13 +103,9 @@ internal sealed class GeneralContext : Context, IGeneralContext, IDocItemsContex
 
     #region IDocItemsContext
 
-    ISettings IDocItemsContext.Settings => Settings;
-
     IDictionary<string, DocItem> IDocItemsContext.Items => _items;
 
     ICollection<DocItem> IDocItemsContext.ItemsWithOwnPage => _itemsWithOwnPage;
-
-    T? IDocItemsContext.GetSetting<T>(string name) where T : default => GetSetting<T>(name);
 
     T? IDocItemsContext.GetSetting<T>(Type? type, string name) where T : default => GetContext(type).GetSetting<T>(name);
 

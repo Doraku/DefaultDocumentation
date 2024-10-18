@@ -60,7 +60,7 @@ public sealed class Generator
         AddSetting(settings => settings.ExternLinksFilePaths, value => !(value ?? []).Any(), value => value.ToArray());
         // context settings
         AddSetting(settings => settings.Plugins, value => !(value ?? []).Any(), value => value.ToArray());
-        AddSetting(settings => settings.DocItemGenerators, value => !(value ?? []).Any(), ["Overloads"]);
+        AddSetting(settings => settings.DocItemGenerators, value => !(value ?? []).Any(), ["Exclude", "Overloads"]);
         AddSetting(settings => settings.FileNameFactory, string.IsNullOrEmpty, "FullName");
         AddSetting(settings => settings.UrlFactories, value => !(value ?? []).Any(), value => value.ToArray(), ["DocItem", "DotnetApi"]);
         AddSetting(settings => settings.Sections, value => !(value ?? []).Any(), value => value.ToArray(), ["Header", "Default"]);
