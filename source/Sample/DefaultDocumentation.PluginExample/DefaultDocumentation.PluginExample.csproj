@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DefaultDocumentation.Api" Version="0.9.0-beta01" />
+    <PackageReference Include="DefaultDocumentation.Api" Version="0.9.0-beta02" />
   </ItemGroup>
 
   <Import Project="..\..\DefaultDocumentation.Internal\DefaultDocumentation.Internal.projitems" Label="Shared" />
