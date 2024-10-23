@@ -89,6 +89,31 @@ public sealed class Generator
             GetSetting<string>(nameof(settings.LinksBaseUrl)),
             GetSetting<string[]>(nameof(settings.ExternLinksFilePaths)));
 
+        AppDomain.CurrentDomain.AssemblyResolve += (object sender, ResolveEventArgs args) =>
+        {
+            AssemblyName assemblyName = new(args.Name);
+
+            Assembly? loadedAssembly = Array.Find(((AppDomain)sender).GetAssemblies(), assemby => assemby.GetName().Name.Equals(assemblyName.Name, StringComparison.OrdinalIgnoreCase));
+
+            if (loadedAssembly?.GetName() is AssemblyName loadedAssemblyName
+                && loadedAssemblyName.Version != assemblyName.Version)
+            {
+                string message = $"using {assemblyName.Name} version {loadedAssemblyName.Version} instead of version {assemblyName.Version}, may cause issue";
+
+                if (loadedAssemblyName.Version.Major == assemblyName.Version.Major)
+                {
+                    // there shouldn't be any breaking changes
+                    _logger.Info(message);
+                }
+                else
+                {
+                    _logger.Warn(message);
+                }
+            }
+
+            return loadedAssembly;
+        };
+
         _context = new GeneralContext(
             _configuration,
                 ((Assembly[])[

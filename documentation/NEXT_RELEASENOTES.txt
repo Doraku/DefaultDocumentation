@@ -23,3 +23,4 @@
 - fixed issue with list rendering
 - fixed enum fields to respect code order (fixes #131)
 - fixed c and see elements with leading and trailing linebreak chars (fixes #113)
+- fixed plugins loading in certain context (fixes #145 thanks to @a10r)
