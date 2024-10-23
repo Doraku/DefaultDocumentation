@@ -121,6 +121,8 @@ public sealed class ListElement : IElement
 
         if (writer.GetDisplayAsSingleLine())
         {
+            writer.Append("...");
+
             return;
         }
 

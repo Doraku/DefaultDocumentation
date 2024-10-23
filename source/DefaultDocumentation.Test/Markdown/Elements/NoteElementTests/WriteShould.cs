@@ -8,10 +8,10 @@ namespace DefaultDocumentation.Markdown.Elements.NoteElementTests;
 public sealed class WriteShould : BaseElementTester<NoteElement>
 {
     [Fact]
-    public void NotWriteWhenDisplayAsSingleLineIsTrue() => Test(
+    public void WriteExceteraWhenDisplayAsSingleLineIsTrue() => Test(
         w => w.SetDisplayAsSingleLine(true),
         new XElement("note", "test"),
-        string.Empty);
+        "...");
 
     [Fact]
     public void Write() => Test(

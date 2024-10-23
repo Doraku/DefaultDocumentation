@@ -53,6 +53,8 @@ public sealed class CodeElement : IElement
 
         if (writer.GetDisplayAsSingleLine())
         {
+            writer.Append("`...`");
+
             return;
         }
 

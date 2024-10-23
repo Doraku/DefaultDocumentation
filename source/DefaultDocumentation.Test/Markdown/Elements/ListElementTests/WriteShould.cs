@@ -14,10 +14,10 @@ public sealed class WriteShould : BaseElementTester<ListElement>
     }.ToDictionary(element => element.Name);
 
     [Fact]
-    public void WriteWhenTypeIsBulletAndDisplayAsSingleLine() => Test(
+    public void WriteExceteraWhenTypeIsBulletAndDisplayAsSingleLine() => Test(
         w => w.SetDisplayAsSingleLine(true),
         new XElement("list", new XAttribute("type", "bullet")),
-        string.Empty);
+        "...");
 
     [Fact]
     public void NotWriteWhenTypeIsUnknown() => Test(
@@ -25,16 +25,16 @@ public sealed class WriteShould : BaseElementTester<ListElement>
         string.Empty);
 
     [Fact]
-    public void NotWriteWhenTypeIsNumberAndDisplayAsSingleLine() => Test(
+    public void WriteExceteraWhenTypeIsNumberAndDisplayAsSingleLine() => Test(
         w => w.SetDisplayAsSingleLine(true),
         new XElement("list", new XAttribute("type", "number")),
-        string.Empty);
+        "...");
 
     [Fact]
-    public void NotWriteWhenTypeIsTableAndDisplayAsSingleLine() => Test(
+    public void WriteExceteraWhenTypeIsTableAndDisplayAsSingleLine() => Test(
         w => w.SetDisplayAsSingleLine(true),
         new XElement("list", new XAttribute("type", "table")),
-        string.Empty);
+        "...");
 
     [Fact]
     public void WriteWhenTypeIsBullet() => Test(

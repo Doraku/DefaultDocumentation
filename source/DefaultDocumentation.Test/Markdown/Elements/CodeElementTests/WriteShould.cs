@@ -102,10 +102,10 @@ namespace Code
 }";
 
     [Fact]
-    public void NotWriteWhenDisplayAsSingleLineIsTrue() => Test(
+    public void WriteEcteraWhenDisplayAsSingleLineIsTrue() => Test(
         w => w.SetDisplayAsSingleLine(true),
         new XElement("code", "test"),
-        string.Empty);
+        "`...`");
 
     [Fact]
     public void Write() => Test(

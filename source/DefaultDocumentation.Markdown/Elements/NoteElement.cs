@@ -27,6 +27,8 @@ public sealed class NoteElement : IElement
 
         if (writer.GetDisplayAsSingleLine())
         {
+            writer.Append("...");
+
             return;
         }
 
