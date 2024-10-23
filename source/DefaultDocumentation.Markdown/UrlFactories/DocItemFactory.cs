@@ -69,6 +69,22 @@ public sealed class DocItemFactory : IUrlFactory
         {
             url = context.Settings.LinksBaseUrl!.Trim('/') + '/' + url;
         }
+        else if (pagedItem != context.DocItem)
+        {
+            string[] currentPageParts = context.GetFileName(context.DocItem).Split('/');
+            if (currentPageParts.Length > 1)
+            {
+                string[] urlParts = url.Split('/');
+
+                int startPart = urlParts.Zip(currentPageParts, (first, second) => first.Equals(second, StringComparison.Ordinal)).TakeWhile(equal => equal).Count();
+
+                url = string.Join(
+                    "/",
+                    Enumerable
+                        .Repeat("..", currentPageParts.Length - startPart - 1)
+                        .Concat(urlParts.Skip(startPart)));
+            }
+        }
 
         if (context.GetRemoveFileExtensionFromUrl() && Path.HasExtension(url))
         {

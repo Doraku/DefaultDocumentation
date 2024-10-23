@@ -133,9 +133,10 @@ internal sealed class DocItemReader : IDocItemGenerator
         public void Execute()
         {
             AssemblyDocItem assemblyDocItem = new(
-            _context.Settings.AssemblyPageName ?? "index",
-            _decompiler.TypeSystem.MainModule.AssemblyName,
-            GetDocumentation($"T:{_decompiler.TypeSystem.MainModule.AssemblyName}.AssemblyDoc"));
+                _context.Settings.AssemblyPageName ?? "index",
+                _decompiler.TypeSystem.MainModule.AssemblyName,
+                GetDocumentation($"T:{_decompiler.TypeSystem.MainModule.AssemblyName}.AssemblyDoc"));
+
             _context.Add(assemblyDocItem);
 
             foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(type => type.Name is not "NamespaceDoc" and not "AssemblyDoc"))

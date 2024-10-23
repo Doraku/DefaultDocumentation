@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.FileNameFactories;
@@ -19,6 +20,9 @@ public sealed class NameAndMd5MixFactory : BaseMarkdownFileNameFactory
     /// <inheritdoc/>
     protected override string GetMarkdownFileName(IGeneralContext context, DocItem item)
     {
+        context.ThrowIfNull();
+        item.ThrowIfNull();
+
         return item is EntityDocItem entity && item is IParameterizedDocItem parameterized && parameterized.Parameters.Any()
             ? $"{item.Parent!.GetLongName()}.{entity.Entity.Name}.{Md5Factory.GetMd5HashBase36(item.FullName)}"
             : item.GetLongName();

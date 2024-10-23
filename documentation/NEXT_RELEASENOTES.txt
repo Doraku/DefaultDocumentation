@@ -11,6 +11,7 @@
 - added OverloadsGenerator to put constructor and method overloads in the same page (closes #139)
 - added ExcludeGenerator to exclude DocItem from the documentation generation based on regex (closes #160)
 - list code and note elements now display a placeholder value `...` when displayed as a single line
+- added DirectoryName IFileNameFactory implementation (closes #104)
 
 ## Bug fixes
 
