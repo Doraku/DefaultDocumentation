@@ -21,7 +21,12 @@ public sealed class Md5Factory : BaseMarkdownFileNameFactory
 
     /// <inheritdoc/>
     protected override string GetMarkdownFileName(IGeneralContext context, DocItem item)
-        => GetMd5HashBase36(item.FullName);
+    {
+        context.ThrowIfNull();
+        item.ThrowIfNull();
+
+        return GetMd5HashBase36(item.FullName);
+    }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "CA5351:Do Not Use Broken Cryptographic Algorithms", Justification = "not used for security")]
     internal static string GetMd5HashBase36(string text)

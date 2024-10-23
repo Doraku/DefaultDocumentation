@@ -69,5 +69,11 @@ start:
     }
 
     /// <inheritdoc/>
-    public string GetFileName(IGeneralContext context, DocItem item) => PathCleaner.Clean(item is AssemblyDocItem ? item.FullName : GetMarkdownFileName(context, item), context.GetInvalidCharReplacement()) + ".md";
+    public string GetFileName(IGeneralContext context, DocItem item)
+    {
+        context.ThrowIfNull();
+        item.ThrowIfNull();
+
+        return PathCleaner.Clean(item is AssemblyDocItem ? item.FullName : GetMarkdownFileName(context, item), context.GetInvalidCharReplacement()) + ".md";
+    }
 }

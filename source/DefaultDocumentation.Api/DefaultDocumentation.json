@@ -3,7 +3,7 @@
 	"OutputDirectoryPath": "..\\..\\documentation\\api",
 	"GeneratedAccessModifiers": "Public,Protected,ProtectedInternal",
 	"GeneratedPages": "Assembly,Types,Members",
-	"FileNameFactory": "Name",
+	"FileNameFactory": "DirectoryName",
 	"ExternLinksFilePaths": [
 		"..\\..\\documentation\\ICSharpCode.Decompiler.txt"
 	],

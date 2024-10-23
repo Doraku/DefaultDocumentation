@@ -1,4 +1,5 @@
-﻿using DefaultDocumentation.Models;
+﻿using System;
+using DefaultDocumentation.Models;
 
 namespace DefaultDocumentation.Markdown.FileNameFactories;
 
@@ -16,5 +17,11 @@ public sealed class NameFactory : BaseMarkdownFileNameFactory
     public override string Name => ConfigName;
 
     /// <inheritdoc/>
-    protected override string GetMarkdownFileName(IGeneralContext context, DocItem item) => item.GetLongName();
+    protected override string GetMarkdownFileName(IGeneralContext context, DocItem item)
+    {
+        context.ThrowIfNull();
+        item.ThrowIfNull();
+
+        return item.GetLongName();
+    }
 }
