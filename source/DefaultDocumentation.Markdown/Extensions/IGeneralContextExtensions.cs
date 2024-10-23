@@ -18,7 +18,7 @@ public static class IGeneralContextExtensions
     private const string _useFullUrlKey = "Markdown.UseFullUrl";
 
     /// <summary>
-    /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#nestedtypevisibilities">Markdown.NestedTypeVisibilities</see> setting.
+    /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_NestedTypeVisibilities">Markdown.NestedTypeVisibilities</see> setting.
     /// </summary>
     /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
     /// <param name="type">The <see cref="Type"/> for which to get the setting.</param>
@@ -39,7 +39,7 @@ public static class IGeneralContextExtensions
     }
 
     /// <summary>
-    /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#removefileextensionfromurl">Markdown.RemoveFileExtensionFromUrl</see> setting.
+    /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_RemoveFileExtensionFromUrl">Markdown.RemoveFileExtensionFromUrl</see> setting.
     /// </summary>
     /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
     /// <returns>Whether to include the file extension in urls.</returns>
@@ -51,7 +51,7 @@ public static class IGeneralContextExtensions
     }
 
     /// <summary>
-    /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#invalidcharreplacement">Markdown.InvalidCharReplacement</see> setting.
+    /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_InvalidCharReplacement">Markdown.InvalidCharReplacement</see> setting.
     /// </summary>
     /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
     /// <returns>The <see cref="string"/> to use to replace invalid chars in generated file name.</returns>
@@ -63,10 +63,9 @@ public static class IGeneralContextExtensions
     }
 
     /// <summary>
-    /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#usefullurl">Markdown.UseFullUrl</see> setting.
+    /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_UseFullUrl">Markdown.UseFullUrl</see> setting.
     /// </summary>
     /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
-    /// <returns>The <see cref="string"/> to use to replace invalid chars in generated file name.</returns>
     public static bool GetUseFullUrl(this IGeneralContext context)
     {
         context.ThrowIfNull();

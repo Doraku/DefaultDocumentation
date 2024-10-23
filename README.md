@@ -62,6 +62,7 @@ dotnet tool
   - [TableOfContentsModes](#MarkdownConfiguration_TableOfContentsModes)
   - [Url format](#MarkdownConfiguration_UrlFormat)
   - [Exclude](#MarkdownConfiguration_Exclude)
+  - [UseFullUrl](#MarkdownConfiguration_UseFullUrl)
 - [Samples](#Samples)
 - [Dependencies](#Dependencies)
 
@@ -573,6 +574,14 @@ Contains a collection of regex used by the `DefaultDocumentation.Markdown.DocIte
 any `DocItem` whose id will match one of them will be excluded from the documentation generation.
 
 The default value is `null`.
+
+<a name='MarkdownConfiguration_UseFullUrl'></a>
+## UseFullUrl
+- configuration file: `"Markdown.UseFullUrl": bool`
+
+States if the url written should be absolute if a [LinksBaseUrl](#Configuration_LinksBaseUrl) is provided.
+
+The default value is `false`.
 
 <a name='Samples'></a>
 # Samples
