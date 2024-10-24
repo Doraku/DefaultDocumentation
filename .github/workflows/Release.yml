@@ -62,4 +62,4 @@ jobs:
         git config --local user.name "$(git log --format='%an' HEAD^!)"
         git add .
         git commit -m "Updated RELEASENOTES and documentation api"
-        git push
+        git push origin HEAD:master
