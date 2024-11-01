@@ -89,6 +89,8 @@ public sealed class Generator
             GetSetting<string>(nameof(settings.LinksBaseUrl)),
             GetSetting<string[]>(nameof(settings.ExternLinksFilePaths)));
 
+        resolvedSettings.Validate();
+
         AppDomain.CurrentDomain.AssemblyResolve += (object sender, ResolveEventArgs args) =>
         {
             AssemblyName assemblyName = new(args.Name);

@@ -79,6 +79,19 @@ public sealed class Settings : ISettings
         }
     }
 
+    public void Validate()
+    {
+        if (!AssemblyFile.Exists)
+        {
+            throw new FileNotFoundException("The assembly file does not exist", AssemblyFile.FullName);
+        }
+
+        if (!DocumentationFile.Exists)
+        {
+            throw new FileNotFoundException("The xml documentation file does not exist, ensure you activated the \"GenerateDocumentationFile\" property of the project", DocumentationFile.FullName);
+        }
+    }
+
     #region ISettings
 
     public ILogger Logger { get; }
