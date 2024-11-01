@@ -85,6 +85,10 @@ public sealed class DocItemFactory : IUrlFactory
                         .Concat(urlParts.Skip(startPart)));
             }
         }
+        else
+        {
+            url = url.Split('/').Last();
+        }
 
         if (context.GetRemoveFileExtensionFromUrl() && Path.HasExtension(url))
         {
