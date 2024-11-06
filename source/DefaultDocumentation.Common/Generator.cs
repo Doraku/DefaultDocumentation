@@ -73,7 +73,7 @@ public sealed class Generator
         LogManager.Configuration = logConfiguration;
 
         _logger = LogManager.GetLogger("DefaultDocumentation");
-        _logger.Info($"Starting DefaultDocumentation with this configuration:{Environment.NewLine}{_configuration.ToString(Formatting.Indented)}");
+        _logger.Info($"Starting DefaultDocumentation {GetType().Assembly.GetName().Version} with this configuration:{Environment.NewLine}{_configuration.ToString(Formatting.Indented)}");
 
         Settings resolvedSettings = new(
             _logger,
