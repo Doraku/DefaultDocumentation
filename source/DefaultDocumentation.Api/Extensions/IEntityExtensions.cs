@@ -24,8 +24,8 @@ public static class IEntityExtensions
             Accessibility.Public => settings.GeneratedAccessModifiers.HasFlag(GeneratedAccessModifiers.Public),
             Accessibility.Private => entity switch
             {
-                IProperty property when property.IsExplicitInterfaceImplementation => property.ExplicitlyImplementedInterfaceMembers.First().DeclaringTypeDefinition.IsVisibleInDocumentation(settings),
-                IMethod method when method.IsExplicitInterfaceImplementation => method.ExplicitlyImplementedInterfaceMembers.First().DeclaringTypeDefinition.IsVisibleInDocumentation(settings),
+                IProperty property when property.IsExplicitInterfaceImplementation => property.ExplicitlyImplementedInterfaceMembers.FirstOrDefault()?.DeclaringTypeDefinition.IsVisibleInDocumentation(settings) ?? false,
+                IMethod method when method.IsExplicitInterfaceImplementation => method.ExplicitlyImplementedInterfaceMembers.FirstOrDefault()?.DeclaringTypeDefinition.IsVisibleInDocumentation(settings) ?? false,
                 _ => settings.GeneratedAccessModifiers.HasFlag(GeneratedAccessModifiers.Private)
             },
             Accessibility.Protected => settings.GeneratedAccessModifiers.HasFlag(GeneratedAccessModifiers.Protected),

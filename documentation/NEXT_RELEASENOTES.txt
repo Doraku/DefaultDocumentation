@@ -1,28 +1,29 @@
 ## Breaking changes
-- renamed Markdown.IgnoreLineBreak setting to Markdown.HandleLineBreak to change default behavior (closes #122)
+- renamed Markdown.IgnoreLineBreak setting to Markdown.HandleLineBreak to change default behavior (#122)
 
 ## New features
 
-- added DefaultDocumentation.GeneratedAccessModifiers.Api which regroup Public, Protected and InternalProtected access modifiers (closes #116)
+- added DefaultDocumentation.GeneratedAccessModifiers.Api which regroup Public, Protected and InternalProtected access modifiers (#116)
 - added support for record
-- elements, url factories, file name factory and sections are now case insensitive in configuration (closes #157)
-- it is now possible to change the format of url link procuded in the markdown via Markdown.UrlFormat configuration (closes #107)
+- elements, url factories, file name factory and sections are now case insensitive in configuration (#157)
+- it is now possible to change the format of url link procuded in the markdown via Markdown.UrlFormat configuration (#107)
 - added IDocItemGenerator to customize pages generated
-- added OverloadsGenerator to put constructor and method overloads in the same page (closes #139)
-- added ExcludeGenerator to exclude DocItem from the documentation generation based on regex (closes #160)
+- added OverloadsGenerator to put constructor and method overloads in the same page (#139)
+- added ExcludeGenerator to exclude DocItem from the documentation generation based on regex (#160)
 - list code and note elements now display a placeholder value `...` when displayed as a single line
-- added DirectoryName IFileNameFactory implementation (closes #104)
-- added some settings validation for better error message (closes #154)
+- added DirectoryName IFileNameFactory implementation (#104)
+- added some settings validation for better error message (#154)
 
 ## Bug fixes
 
 - fixed string and char const field definition
-- fixed ExplicitInterfaceImplementationsSection config name (fixes #141)
-- fixed StackOverflowException when using cyclic inheritdoc (fixes #142)
-- fixed property getter/setter access modifier not taken into account (fixes #151)
-- fixed markdown special characters not escaped (fixes #117)
-- fixed unhandled xml elements not rendering as is in markdown (fixes #126)
+- fixed ExplicitInterfaceImplementationsSection config name (#141)
+- fixed StackOverflowException when using cyclic inheritdoc (#142)
+- fixed property getter/setter access modifier not taken into account (#151)
+- fixed markdown special characters not escaped (#117)
+- fixed unhandled xml elements not rendering as is in markdown (#126)
 - fixed issue with list rendering
-- fixed enum fields to respect code order (fixes #131)
-- fixed c and see elements with leading and trailing linebreak chars (fixes #113)
-- fixed plugins loading in certain context (fixes #145 thanks to @a10r)
+- fixed enum fields to respect code order (#131)
+- fixed c and see elements with leading and trailing linebreak chars (#113)
+- fixed plugins loading in certain context (#145 thanks to @a10r)
+- fixed edge case for missing types for explicit interface implementation (#167)
