@@ -13,7 +13,7 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [EnumFieldDocItem\(EnumDocItem, IField, XElement\)](EnumFieldDocItem(EnumDocItem,IField,XElement).md 'DefaultDocumentation\.Models\.Members\.EnumFieldDocItem\.EnumFieldDocItem\(DefaultDocumentation\.Models\.Types\.EnumDocItem, IField, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [EnumFieldDocItem](DefaultDocumentation/Models/Members/EnumFieldDocItem/index.md 'DefaultDocumentation\.Models\.Members\.EnumFieldDocItem') type\. |
+| [EnumFieldDocItem\(EnumDocItem, IField, XElement\)](EnumFieldDocItem(EnumDocItem,IField,XElement).md 'DefaultDocumentation\.Models\.Members\.EnumFieldDocItem\.EnumFieldDocItem\(DefaultDocumentation\.Models\.Types\.EnumDocItem, IField, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [EnumFieldDocItem](index.md 'DefaultDocumentation\.Models\.Members\.EnumFieldDocItem') type\. |
 
 | Properties | |
 | :--- | :--- |

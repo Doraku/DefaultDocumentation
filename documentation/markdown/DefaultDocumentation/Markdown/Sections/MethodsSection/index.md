@@ -13,7 +13,7 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [MethodsSection\(\)](MethodsSection().md 'DefaultDocumentation\.Markdown\.Sections\.MethodsSection\.MethodsSection\(\)') | Initialize a new instance of the [MethodsSection](DefaultDocumentation/Markdown/Sections/MethodsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.MethodsSection') type\. |
+| [MethodsSection\(\)](MethodsSection().md 'DefaultDocumentation\.Markdown\.Sections\.MethodsSection\.MethodsSection\(\)') | Initialize a new instance of the [MethodsSection](index.md 'DefaultDocumentation\.Markdown\.Sections\.MethodsSection') type\. |
 
 | Fields | |
 | :--- | :--- |

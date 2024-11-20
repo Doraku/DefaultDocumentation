@@ -48,7 +48,7 @@ Implements [ISection](https://github.com/Doraku/DefaultDocumentation/blob/master
 
 | Constructors | |
 | :--- | :--- |
-| [DefaultSection\(\)](DefaultSection().md 'DefaultDocumentation\.Markdown\.Sections\.DefaultSection\.DefaultSection\(\)') | Initialize a new instance of the [DefaultSection](DefaultDocumentation/Markdown/Sections/DefaultSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.DefaultSection') type\. |
+| [DefaultSection\(\)](DefaultSection().md 'DefaultDocumentation\.Markdown\.Sections\.DefaultSection\.DefaultSection\(\)') | Initialize a new instance of the [DefaultSection](index.md 'DefaultDocumentation\.Markdown\.Sections\.DefaultSection') type\. |
 
 | Fields | |
 | :--- | :--- |

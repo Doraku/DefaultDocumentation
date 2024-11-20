@@ -15,7 +15,7 @@ Implements [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/
 
 | Constructors | |
 | :--- | :--- |
-| [PrefixedWriter\(IWriter, string\)](PrefixedWriter(IWriter,string).md 'DefaultDocumentation\.Markdown\.Writers\.PrefixedWriter\.PrefixedWriter\(DefaultDocumentation\.Api\.IWriter, string\)') | Initializes a new instance of the [PrefixedWriter](DefaultDocumentation/Markdown/Writers/PrefixedWriter/index.md 'DefaultDocumentation\.Markdown\.Writers\.PrefixedWriter') type\. |
+| [PrefixedWriter\(IWriter, string\)](PrefixedWriter(IWriter,string).md 'DefaultDocumentation\.Markdown\.Writers\.PrefixedWriter\.PrefixedWriter\(DefaultDocumentation\.Api\.IWriter, string\)') | Initializes a new instance of the [PrefixedWriter](index.md 'DefaultDocumentation\.Markdown\.Writers\.PrefixedWriter') type\. |
 
 | Properties | |
 | :--- | :--- |

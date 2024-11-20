@@ -44,4 +44,4 @@ There should be a new line when displaying the summary of the [DocItem](https://
 
 `IncludeSummaryWithNewLine` 12
 
-Same as [IncludeSummary](DefaultDocumentation/Markdown/Sections/TableOfContentsSection/Modes/index.md#DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.IncludeSummary 'DefaultDocumentation\.Markdown\.Sections\.TableOfContentsSection\.Modes\.IncludeSummary') and [IncludeNewLine](DefaultDocumentation/Markdown/Sections/TableOfContentsSection/Modes/index.md#DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.IncludeNewLine 'DefaultDocumentation\.Markdown\.Sections\.TableOfContentsSection\.Modes\.IncludeNewLine')
+Same as [IncludeSummary](index.md#DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.IncludeSummary 'DefaultDocumentation\.Markdown\.Sections\.TableOfContentsSection\.Modes\.IncludeSummary') and [IncludeNewLine](index.md#DefaultDocumentation.Markdown.Sections.TableOfContentsSection.Modes.IncludeNewLine 'DefaultDocumentation\.Markdown\.Sections\.TableOfContentsSection\.Modes\.IncludeNewLine')

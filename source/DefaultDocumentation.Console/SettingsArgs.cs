@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CommandLine;
+using Microsoft.Extensions.Logging;
 
 namespace DefaultDocumentation;
 
@@ -20,7 +21,7 @@ internal sealed class SettingsArgs : IRawSettings
     }
 
     [Option('h', nameof(LogLevel), HelpText = "Minimum level of the logs to display")]
-    public string LogLevel { get; set; }
+    public LogLevel? LogLevel { get; set; }
 
     [Option('j', nameof(ConfigurationFilePath), HelpText = "Path to the json configuration file to use")]
     public string ConfigurationFilePath { get; set; }

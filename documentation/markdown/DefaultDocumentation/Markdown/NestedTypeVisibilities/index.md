@@ -14,7 +14,7 @@ public enum NestedTypeVisibilities
 
 `Default` 0
 
-Same as [Namespace](DefaultDocumentation/Markdown/NestedTypeVisibilities/index.md#DefaultDocumentation.Markdown.NestedTypeVisibilities.Namespace 'DefaultDocumentation\.Markdown\.NestedTypeVisibilities\.Namespace')\.
+Same as [Namespace](index.md#DefaultDocumentation.Markdown.NestedTypeVisibilities.Namespace 'DefaultDocumentation\.Markdown\.NestedTypeVisibilities\.Namespace')\.
 
 <a name='DefaultDocumentation.Markdown.NestedTypeVisibilities.Namespace'></a>
 

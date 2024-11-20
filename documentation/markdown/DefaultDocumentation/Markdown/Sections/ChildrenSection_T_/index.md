@@ -43,7 +43,7 @@ Implements [ISection](https://github.com/Doraku/DefaultDocumentation/blob/master
 
 | Constructors | |
 | :--- | :--- |
-| [ChildrenSection\(string, string\)](ChildrenSection(string,string).md 'DefaultDocumentation\.Markdown\.Sections\.ChildrenSection\<T\>\.ChildrenSection\(string, string\)') | Base constructor of the [ChildrenSection&lt;T&gt;](DefaultDocumentation/Markdown/Sections/ChildrenSection_T_/index.md 'DefaultDocumentation\.Markdown\.Sections\.ChildrenSection\<T\>') type\. |
+| [ChildrenSection\(string, string\)](ChildrenSection(string,string).md 'DefaultDocumentation\.Markdown\.Sections\.ChildrenSection\<T\>\.ChildrenSection\(string, string\)') | Base constructor of the [ChildrenSection&lt;T&gt;](index.md 'DefaultDocumentation\.Markdown\.Sections\.ChildrenSection\<T\>') type\. |
 
 | Properties | |
 | :--- | :--- |

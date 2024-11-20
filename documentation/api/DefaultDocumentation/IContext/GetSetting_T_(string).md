@@ -3,7 +3,7 @@
 
 ## IContext\.GetSetting\<T\>\(string\) Method
 
-Gets a [T](DefaultDocumentation/IContext/GetSetting_T_(string).md#DefaultDocumentation.IContext.GetSetting_T_(string).T 'DefaultDocumentation\.IContext\.GetSetting\<T\>\(string\)\.T') setting with the given name\.
+Gets a [T](GetSetting_T_(string).md#DefaultDocumentation.IContext.GetSetting_T_(string).T 'DefaultDocumentation\.IContext\.GetSetting\<T\>\(string\)\.T') setting with the given name\.
 
 ```csharp
 T? GetSetting<T>(string name);
@@ -24,5 +24,5 @@ The type of the setting to get\.
 The name of the setting to get\.
 
 #### Returns
-[T](DefaultDocumentation/IContext/GetSetting_T_(string).md#DefaultDocumentation.IContext.GetSetting_T_(string).T 'DefaultDocumentation\.IContext\.GetSetting\<T\>\(string\)\.T')  
-The setting if present, otherwise the default value of the type [T](DefaultDocumentation/IContext/GetSetting_T_(string).md#DefaultDocumentation.IContext.GetSetting_T_(string).T 'DefaultDocumentation\.IContext\.GetSetting\<T\>\(string\)\.T')\.
+[T](GetSetting_T_(string).md#DefaultDocumentation.IContext.GetSetting_T_(string).T 'DefaultDocumentation\.IContext\.GetSetting\<T\>\(string\)\.T')  
+The setting if present, otherwise the default value of the type [T](GetSetting_T_(string).md#DefaultDocumentation.IContext.GetSetting_T_(string).T 'DefaultDocumentation\.IContext\.GetSetting\<T\>\(string\)\.T')\.

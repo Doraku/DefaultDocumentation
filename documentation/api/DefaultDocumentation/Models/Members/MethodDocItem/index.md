@@ -15,7 +15,7 @@ Implements [ITypeParameterizedDocItem](../../ITypeParameterizedDocItem/index.md 
 
 | Constructors | |
 | :--- | :--- |
-| [MethodDocItem\(TypeDocItem, IMethod, XElement\)](MethodDocItem(TypeDocItem,IMethod,XElement).md 'DefaultDocumentation\.Models\.Members\.MethodDocItem\.MethodDocItem\(DefaultDocumentation\.Models\.Types\.TypeDocItem, IMethod, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [MethodDocItem](DefaultDocumentation/Models/Members/MethodDocItem/index.md 'DefaultDocumentation\.Models\.Members\.MethodDocItem') type\. |
+| [MethodDocItem\(TypeDocItem, IMethod, XElement\)](MethodDocItem(TypeDocItem,IMethod,XElement).md 'DefaultDocumentation\.Models\.Members\.MethodDocItem\.MethodDocItem\(DefaultDocumentation\.Models\.Types\.TypeDocItem, IMethod, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [MethodDocItem](index.md 'DefaultDocumentation\.Models\.Members\.MethodDocItem') type\. |
 
 | Properties | |
 | :--- | :--- |

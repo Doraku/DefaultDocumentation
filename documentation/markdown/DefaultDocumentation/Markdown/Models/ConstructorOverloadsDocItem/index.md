@@ -13,4 +13,4 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [ConstructorOverloadsDocItem\(TypeDocItem\)](ConstructorOverloadsDocItem(TypeDocItem).md 'DefaultDocumentation\.Markdown\.Models\.ConstructorOverloadsDocItem\.ConstructorOverloadsDocItem\(DefaultDocumentation\.Models\.Types\.TypeDocItem\)') | Initialize a new instance of the [ConstructorOverloadsDocItem](DefaultDocumentation/Markdown/Models/ConstructorOverloadsDocItem/index.md 'DefaultDocumentation\.Markdown\.Models\.ConstructorOverloadsDocItem') type\. |
+| [ConstructorOverloadsDocItem\(TypeDocItem\)](ConstructorOverloadsDocItem(TypeDocItem).md 'DefaultDocumentation\.Markdown\.Models\.ConstructorOverloadsDocItem\.ConstructorOverloadsDocItem\(DefaultDocumentation\.Models\.Types\.TypeDocItem\)') | Initialize a new instance of the [ConstructorOverloadsDocItem](index.md 'DefaultDocumentation\.Markdown\.Models\.ConstructorOverloadsDocItem') type\. |

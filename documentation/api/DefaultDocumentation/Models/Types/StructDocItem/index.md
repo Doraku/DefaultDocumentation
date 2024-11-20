@@ -13,4 +13,4 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [StructDocItem\(DocItem, ITypeDefinition, XElement\)](StructDocItem(DocItem,ITypeDefinition,XElement).md 'DefaultDocumentation\.Models\.Types\.StructDocItem\.StructDocItem\(DefaultDocumentation\.Models\.DocItem, ITypeDefinition, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [StructDocItem](DefaultDocumentation/Models/Types/StructDocItem/index.md 'DefaultDocumentation\.Models\.Types\.StructDocItem') type\. |
+| [StructDocItem\(DocItem, ITypeDefinition, XElement\)](StructDocItem(DocItem,ITypeDefinition,XElement).md 'DefaultDocumentation\.Models\.Types\.StructDocItem\.StructDocItem\(DefaultDocumentation\.Models\.DocItem, ITypeDefinition, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [StructDocItem](index.md 'DefaultDocumentation\.Models\.Types\.StructDocItem') type\. |

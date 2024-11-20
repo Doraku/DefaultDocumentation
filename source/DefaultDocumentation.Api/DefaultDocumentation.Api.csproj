@@ -14,8 +14,8 @@
 
   <ItemGroup>
     <PackageReference Include="ICSharpCode.Decompiler" Version="8.2.0.7535" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="NLog" Version="5.3.4" />
   </ItemGroup>
 
   <Import Project="..\DefaultDocumentation.Internal\DefaultDocumentation.Internal.projitems" Label="Shared" />

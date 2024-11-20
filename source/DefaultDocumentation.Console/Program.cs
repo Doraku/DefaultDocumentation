@@ -1,6 +1,5 @@
 ﻿using System;
 using CommandLine;
-using NLog.Targets;
 
 namespace DefaultDocumentation;
 
@@ -17,11 +16,6 @@ internal static class Program
 
         parser
             .ParseArguments<SettingsArgs>(args)
-            .WithParsed(parsedArgs =>
-            {
-                using ConsoleTarget target = new("Console");
-
-                Generator.Execute(target, parsedArgs);
-            });
+            .WithParsed(parsedArgs => Generator.Execute(logLevel => new ConsoleLogger(logLevel), parsedArgs));
     }
 }

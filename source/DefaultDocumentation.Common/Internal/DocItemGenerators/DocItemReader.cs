@@ -13,6 +13,8 @@ using ICSharpCode.Decompiler.CSharp.Resolver;
 using ICSharpCode.Decompiler.Documentation;
 using ICSharpCode.Decompiler.TypeSystem;
 
+using static DefaultDocumentation.Internal.LoggerHelper;
+
 namespace DefaultDocumentation.Internal.DocItemGenerators;
 
 internal sealed class DocItemReader : IDocItemGenerator
@@ -56,7 +58,8 @@ internal sealed class DocItemReader : IDocItemGenerator
 
             referencedIds ??= [];
 
-            _context.Settings.Logger.Trace($"looking for documentation of \"{entity?.FullName}\"");
+            LogSearchingDocumentation(_context.Settings.Logger, entity);
+
             if (entity?.ParentModule?.PEFile is null)
             {
                 documentation = null;
@@ -65,7 +68,7 @@ internal sealed class DocItemReader : IDocItemGenerator
 
             if (!_documentationProviders.TryGetValue(entity.ParentModule, out IDocumentationProvider documentationProvider))
             {
-                _context.Settings.Logger.Trace($"loading documentation provider for \"{entity.ParentModule.PEFile.FileName}\"");
+                LogLoadingDocumentationProvider(_context.Settings.Logger, entity.ParentModule.PEFile);
                 documentationProvider = XmlDocLoader.LoadDocumentation(entity.ParentModule.PEFile) ?? XmlDocLoader.MscorlibDocumentation;
                 _documentationProviders.Add(entity.ParentModule, documentationProvider);
             }
@@ -78,7 +81,7 @@ internal sealed class DocItemReader : IDocItemGenerator
 
                 if (referenceName is null)
                 {
-                    _context.Settings.Logger.Trace($"looking for inherited documentation of \"{entity.FullName}\"");
+                    LogSearchingInheritedDocumentation(_context.Settings.Logger, entity);
                     XElement? baseDocumentation = null;
                     if (entity is ITypeDefinition type)
                     {
@@ -108,13 +111,13 @@ internal sealed class DocItemReader : IDocItemGenerator
                 }
                 else if (referencedIds.Add(referenceName))
                 {
-                    _context.Settings.Logger.Trace($"looking for inherited documentation of \"{entity.FullName}\" cref \"{referenceName}\"");
+                    LogSearchingInheritedDocumentation(_context.Settings.Logger, entity, referenceName);
 
                     return TryGetDocumentation(IdStringProvider.FindEntity(referenceName, _resolver), out documentation, referencedIds);
                 }
                 else
                 {
-                    _context.Settings.Logger.Trace($"cyclic inherited documentation detected for cref \"{referenceName}\", handled as no documentation available");
+                    LogCyclicInheritedDocumentation(_context.Settings.Logger, referenceName);
 
                     documentation = null;
                     return false;
@@ -126,7 +129,7 @@ internal sealed class DocItemReader : IDocItemGenerator
 
         private XElement? GetDocumentation(string id)
         {
-            _context.Settings.Logger.Trace($"looking for documentation of \"{id}\"");
+            LogSearchingDocumentation(_context.Settings.Logger, id);
             return TryGetDocumentation(IdStringProvider.FindEntity(id, _resolver), out XElement? documentation) ? documentation : null;
         }
 
@@ -141,23 +144,23 @@ internal sealed class DocItemReader : IDocItemGenerator
 
             foreach (ITypeDefinition type in _decompiler.TypeSystem.MainModule.TypeDefinitions.Where(type => type.Name is not "NamespaceDoc" and not "AssemblyDoc"))
             {
-                _context.Settings.Logger.Debug($"handling type \"{type.FullName}\"");
+                LogHandlingEntity(_context.Settings.Logger, type);
 
                 if (type.IsCompilerGenerated())
                 {
-                    _context.Settings.Logger.Debug($"Skipping documentation for type \"{type.FullName}\": compiler generated");
+                    LogSkippingEntity(_context.Settings.Logger, type, "compiler generated");
                     continue;
                 }
 
                 if (string.IsNullOrWhiteSpace(type.Namespace))
                 {
-                    _context.Settings.Logger.Debug($"Skipping documentation for type \"{type.FullName}\": empty namespace");
+                    LogSkippingEntity(_context.Settings.Logger, type, "empty namespace");
                     continue;
                 }
 
                 if (!type.IsVisibleInDocumentation(_context.Settings))
                 {
-                    _context.Settings.Logger.Debug($"Skipping documentation for type \"{type.FullName}\": accessibility \"{type.EffectiveAccessibility()}\" not generated");
+                    LogSkippingEntity(_context.Settings.Logger, type, $"accessibility \"{type.EffectiveAccessibility()}\" not generated");
                     continue;
                 }
 
@@ -173,7 +176,7 @@ internal sealed class DocItemReader : IDocItemGenerator
 
                     if (parentDocItem.Documentation?.HasExclude() is true)
                     {
-                        _context.Settings.Logger.Debug($"Skipping documentation for type \"{type.FullName}\": exclude tag found in namespace \"{parentDocItem.FullName}\" documentation");
+                        LogSkippingEntity(_context.Settings.Logger, type, $"exclude tag found in namespace \"{parentDocItem.FullName}\" documentation");
                         continue;
                     }
 
@@ -188,14 +191,14 @@ internal sealed class DocItemReader : IDocItemGenerator
 
                         if (currentType.IsCompilerGenerated())
                         {
-                            _context.Settings.Logger.Debug($"Skipping documentation for type \"{type.FullName}\": declaring type \"{declaringTypeDocItem.FullName}\" is compiler generated");
+                            LogSkippingEntity(_context.Settings.Logger, type, $"declaring type \"{declaringTypeDocItem.FullName}\" is compiler generated");
                             parentDocItem = null;
                             break;
                         }
 
                         if (declaringTypeDocItem.Documentation?.HasExclude() is true)
                         {
-                            _context.Settings.Logger.Debug($"Skipping documentation for type \"{type.FullName}\": exclude tag found in declaring type \"{declaringTypeDocItem.FullName}\" documentation");
+                            LogSkippingEntity(_context.Settings.Logger, type, $"exclude tag found in declaring type \"{declaringTypeDocItem.FullName}\" documentation");
                             parentDocItem = null;
                             break;
                         }
@@ -216,7 +219,7 @@ internal sealed class DocItemReader : IDocItemGenerator
 
                 if (typeDocItem.Documentation.HasExclude())
                 {
-                    _context.Settings.Logger.Debug($"Skipping documentation for type \"{type.FullName}\": exclude tag found in documentation");
+                    LogSkippingEntity(_context.Settings.Logger, type, "exclude tag found in documentation");
                     continue;
                 }
 
@@ -226,36 +229,36 @@ internal sealed class DocItemReader : IDocItemGenerator
                 {
                     foreach (IEntity entity in Enumerable.Empty<IEntity>().Concat(type.Fields).Concat(type.Properties).Concat(type.Methods).Concat(type.Events))
                     {
-                        _context.Settings.Logger.Debug($"handling member \"{entity.FullName}\"");
+                        LogHandlingEntity(_context.Settings.Logger, entity);
 
                         if (entity.IsCompilerGenerated()
                             || (entity is IField && typeDocItem is EnumDocItem && entity.Name == "value__"))
                         {
-                            _context.Settings.Logger.Debug($"Skipping documentation for member \"{entity.FullName}\": compiler generated");
+                            LogSkippingEntity(_context.Settings.Logger, entity, "compiler generated");
                             continue;
                         }
 
                         if (!entity.IsVisibleInDocumentation(_context.Settings))
                         {
-                            _context.Settings.Logger.Debug($"Skipping documentation for member \"{entity.FullName}\": accessibility \"{entity.EffectiveAccessibility()}\" not generated");
+                            LogSkippingEntity(_context.Settings.Logger, entity, $"accessibility \"{entity.EffectiveAccessibility()}\" not generated");
                             continue;
                         }
 
                         if (!TryGetDocumentation(entity, out XElement? documentation) && !_context.Settings.IncludeUndocumentedItems)
                         {
-                            _context.Settings.Logger.Debug($"Skipping documentation for member \"{entity.FullName}\": no documentation");
+                            LogSkippingEntity(_context.Settings.Logger, entity, "no documentation");
                             continue;
                         }
 
                         if (documentation.HasExclude())
                         {
-                            _context.Settings.Logger.Debug($"Skipping documentation for member \"{entity.FullName}\": exclude tag found in documentation");
+                            LogSkippingEntity(_context.Settings.Logger, entity, "exclude tag found in documentation");
                             continue;
                         }
 
                         if (entity.IsDefaultConstructor() && documentation is null)
                         {
-                            _context.Settings.Logger.Debug($"Skipping documentation for member \"{entity.FullName}\": default constructor");
+                            LogSkippingEntity(_context.Settings.Logger, entity, "default constructor");
                             continue;
                         }
 
@@ -287,7 +290,7 @@ internal sealed class DocItemReader : IDocItemGenerator
                 }
                 else
                 {
-                    _context.Settings.Logger.Debug($"Skipping documentation for type \"{type.FullName}\": no documentation and no documented members");
+                    LogSkippingEntity(_context.Settings.Logger, type, "no documentation and no documented members");
                 }
             }
         }

@@ -9,12 +9,12 @@ using DefaultDocumentation.Api;
 using DefaultDocumentation.Internal;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Parameters;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using NLog;
-using NLog.Config;
-using NLog.Targets;
+
+using static DefaultDocumentation.Internal.LoggerHelper;
 
 namespace DefaultDocumentation;
 
@@ -24,7 +24,7 @@ public sealed class Generator
 
     private readonly IRawSettings _settings;
     private readonly JObject _configuration;
-    private readonly Logger _logger;
+    private readonly ILogger _logger;
     private readonly GeneralContext _context;
 
     static Generator()
@@ -33,7 +33,7 @@ public sealed class Generator
         _serializer.Converters.Add(new StringEnumConverter());
     }
 
-    private Generator(Target loggerTarget, IRawSettings settings)
+    private Generator(Func<LogLevel, ILogger> loggerFactory, IRawSettings settings)
     {
         T? GetSetting<T>(string name) => _configuration.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out JToken? value) ? value.ToObject<T>() : default;
 
@@ -46,7 +46,7 @@ public sealed class Generator
             Environment.CurrentDirectory = Path.GetDirectoryName(settings.ConfigurationFilePath);
         }
 
-        AddSetting(settings => settings.LogLevel, string.IsNullOrEmpty);
+        AddSetting(settings => settings.LogLevel, value => !value.HasValue);
         AddSetting(settings => settings.AssemblyFilePath, string.IsNullOrEmpty);
         AddSetting(settings => settings.DocumentationFilePath, string.IsNullOrEmpty);
         AddSetting(settings => settings.ProjectDirectoryPath, string.IsNullOrEmpty);
@@ -66,14 +66,8 @@ public sealed class Generator
         AddSetting(settings => settings.Sections, value => !(value ?? []).Any(), value => value.ToArray(), ["Header", "Default"]);
         AddSetting(settings => settings.Elements, value => !(value ?? []).Any(), value => value.ToArray());
 
-        string? logLevel = GetSetting<string>(nameof(logLevel));
-        LoggingConfiguration logConfiguration = new();
-        logConfiguration.AddTarget(loggerTarget);
-        logConfiguration.AddRule(LogLevel.FromString(string.IsNullOrEmpty(logLevel) ? nameof(LogLevel.Info) : logLevel), LogLevel.Fatal, loggerTarget);
-        LogManager.Configuration = logConfiguration;
-
-        _logger = LogManager.GetLogger("DefaultDocumentation");
-        _logger.Info($"Starting DefaultDocumentation {GetType().Assembly.GetName().Version} with this configuration:{Environment.NewLine}{_configuration.ToString(Formatting.Indented)}");
+        _logger = loggerFactory(GetSetting<LogLevel?>(nameof(LogLevel)) ?? LogLevel.Information);
+        LogStarting(_logger, _configuration);
 
         Settings resolvedSettings = new(
             _logger,
@@ -89,6 +83,8 @@ public sealed class Generator
             GetSetting<string>(nameof(settings.LinksBaseUrl)),
             GetSetting<string[]>(nameof(settings.ExternLinksFilePaths)));
 
+        LogStarting(_logger, resolvedSettings);
+
         resolvedSettings.Validate();
 
         AppDomain.CurrentDomain.AssemblyResolve += (object sender, ResolveEventArgs args) =>
@@ -100,16 +96,14 @@ public sealed class Generator
             if (loadedAssembly?.GetName() is AssemblyName loadedAssemblyName
                 && loadedAssemblyName.Version != assemblyName.Version)
             {
-                string message = $"using {assemblyName.Name} version {loadedAssemblyName.Version} instead of version {assemblyName.Version}, may cause issue";
-
                 if (loadedAssemblyName.Version.Major == assemblyName.Version.Major)
                 {
                     // there shouldn't be any breaking changes
-                    _logger.Info(message);
+                    LogAssemblyDifferentVersionAsInformation(_logger, loadedAssemblyName, assemblyName);
                 }
                 else
                 {
-                    _logger.Warn(message);
+                    LogAssemblyDifferentVersionAsWarning(_logger, loadedAssemblyName, assemblyName);
                 }
             }
 
@@ -159,7 +153,7 @@ public sealed class Generator
 
     private void WritePage(DocItem item, StringBuilder builder)
     {
-        _context.Settings.Logger.Debug($"Writing DocItem \"{item}\" with id \"{item.Id}\"");
+        LogWritingDocItem(_logger, item);
         builder.Clear();
 
         PageWriter writer = new(builder, new PageContext(_context, item));
@@ -181,7 +175,7 @@ public sealed class Generator
     {
         if (_context.Settings.LinksOutputFile != null)
         {
-            _context.Settings.Logger.Debug($"Writing links to file \"{_context.Settings.LinksOutputFile.FullName}\"");
+            LogWritingLinksFile(_logger, _context.Settings.LinksOutputFile);
             _context.Settings.LinksOutputFile.Directory.Create();
 
             using StreamWriter writer = _context.Settings.LinksOutputFile.CreateText();
@@ -223,20 +217,20 @@ public sealed class Generator
 
         WriteLinks();
 
-        _context.Settings.Logger.Info($"Documentation generated to output folder \"{_context.Settings.OutputDirectory}\"");
+        LogDocumentationGenerated(_logger, _context.Settings.OutputDirectory);
     }
 
-    public static void Execute(Target loggerTarget, IRawSettings settings)
+    public static void Execute(Func<LogLevel, ILogger> loggerFactory, IRawSettings settings)
     {
-        loggerTarget.ThrowIfNull();
+        loggerFactory.ThrowIfNull();
         settings.ThrowIfNull();
 
-        Generator generator = new(loggerTarget, settings);
+        Generator generator = new(loggerFactory, settings);
 
         using Mutex mutex = new(false, "DefaultDocumenation:" + generator._context.Settings.OutputDirectory.FullName.Replace('\\', '|').Replace('/', '|').TrimEnd('|'));
         if (!mutex.WaitOne(0))
         {
-            generator._context.Settings.Logger.Warn($"An other instance of DefaultDocumentation is trying to generate a documentation to the same output directory \"{generator._context.Settings.OutputDirectory.FullName}\", the current one will stop");
+            LogDocumentationAlreadyGenerating(generator._logger, generator._context.Settings.OutputDirectory);
             return;
         }
 

@@ -7,6 +7,8 @@ using DefaultDocumentation.Internal.DocItemGenerators;
 using DefaultDocumentation.Models;
 using Newtonsoft.Json.Linq;
 
+using static DefaultDocumentation.Internal.LoggerHelper;
+
 namespace DefaultDocumentation.Internal;
 
 internal sealed class GeneralContext : Context, IGeneralContext, IDocItemsContext
@@ -50,21 +52,21 @@ internal sealed class GeneralContext : Context, IGeneralContext, IDocItemsContex
             .ToDictionary(element => element.Name);
         UrlFactories = GetImplementations<IUrlFactory>(availableTypes, urlFactory => urlFactory.Name, GetSetting<string[]>(nameof(IRawSettings.UrlFactories))) ?? [];
 
-        Settings.Logger.Info($"Elements that will be used:{string.Concat(Elements.Select(element => $"{Environment.NewLine}  - {element.Key}: {element.Value.GetType().AssemblyQualifiedName}"))}");
-        Settings.Logger.Info($"UrlFactories that will be used:{string.Concat(UrlFactories.Select(urlFactory => $"{Environment.NewLine}  - {urlFactory.GetType().AssemblyQualifiedName}"))}");
-        Settings.Logger.Info($"FileNameFactory that will be used: {FileNameFactory!.GetType().AssemblyQualifiedName}");
-        Settings.Logger.Info($"Sections that will be used:{string.Concat(Sections?.Select(section => $"{Environment.NewLine}  - {section.GetType().AssemblyQualifiedName}") ?? [])}");
+        LogUsedItems(Settings.Logger, "Elements", Elements.Select(element => $"{element.Key}: {element.Value.GetType().AssemblyQualifiedName}"));
+        LogUsedItems(Settings.Logger, "UrlFactories", UrlFactories.Select(urlFactory => urlFactory.GetType().AssemblyQualifiedName));
+        LogUsedItems(Settings.Logger, "FileNameFactory", [FileNameFactory!.GetType().AssemblyQualifiedName]);
+        LogUsedItems(Settings.Logger, "Sections", Sections?.Select(section => section.GetType().AssemblyQualifiedName));
 
         foreach ((Type docItemType, Context context) in _contexts)
         {
             if (context.FileNameFactory != null)
             {
-                Settings.Logger.Info($"FileNameFactory that will be used for {docItemType.Name}: {context.FileNameFactory?.GetType().AssemblyQualifiedName}");
+                LogUsedItems(Settings.Logger, $"FileNameFactory[{docItemType.Name}]", [context.FileNameFactory.GetType().AssemblyQualifiedName]);
             }
 
             if (context.Sections?.Any() ?? false)
             {
-                Settings.Logger.Info($"Sections that will be used for {docItemType.Name}:{string.Concat(context.Sections.Select(section => $"{Environment.NewLine}  - {section.GetType().AssemblyQualifiedName}"))}");
+                LogUsedItems(Settings.Logger, $"Sections[{docItemType.Name}]", context.Sections.Select(section => section.GetType().AssemblyQualifiedName));
             }
         }
 
@@ -76,9 +78,10 @@ internal sealed class GeneralContext : Context, IGeneralContext, IDocItemsContex
             .. GetImplementations<IDocItemGenerator>(availableTypes, docItemGenerator => docItemGenerator.Name, GetSetting<string[]>(nameof(IRawSettings.DocItemGenerators))) ?? []
         ];
 
+        LogUsedItems(Settings.Logger, "DocItemGenerator", docItemGenerators.Select(generator => generator.GetType().AssemblyQualifiedName));
+
         foreach (IDocItemGenerator docItemGenerator in docItemGenerators)
         {
-            Settings.Logger.Info($"using DocItemGenerator:{docItemGenerator.GetType().AssemblyQualifiedName}");
             docItemGenerator.Generate(this);
         }
     }

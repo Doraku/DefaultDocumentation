@@ -3,7 +3,7 @@
 
 ## ConstructorOverloadsSection Class
 
-[ISection](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/ISection/index.md 'DefaultDocumentation\.Api\.ISection') implementation to write [ConstructorOverloadsSection](DefaultDocumentation/Markdown/Sections/ConstructorOverloadsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.ConstructorOverloadsSection') children of a [DocItem](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')\.
+[ISection](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/ISection/index.md 'DefaultDocumentation\.Api\.ISection') implementation to write [ConstructorOverloadsSection](index.md 'DefaultDocumentation\.Markdown\.Sections\.ConstructorOverloadsSection') children of a [DocItem](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')\.
 
 ```csharp
 public sealed class ConstructorOverloadsSection : DefaultDocumentation.Markdown.Sections.ChildrenSection<DefaultDocumentation.Models.Members.ConstructorDocItem>

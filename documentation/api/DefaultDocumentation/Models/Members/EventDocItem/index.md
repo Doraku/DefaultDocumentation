@@ -13,7 +13,7 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [EventDocItem\(TypeDocItem, IEvent, XElement\)](EventDocItem(TypeDocItem,IEvent,XElement).md 'DefaultDocumentation\.Models\.Members\.EventDocItem\.EventDocItem\(DefaultDocumentation\.Models\.Types\.TypeDocItem, IEvent, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [EventDocItem](DefaultDocumentation/Models/Members/EventDocItem/index.md 'DefaultDocumentation\.Models\.Members\.EventDocItem') type\. |
+| [EventDocItem\(TypeDocItem, IEvent, XElement\)](EventDocItem(TypeDocItem,IEvent,XElement).md 'DefaultDocumentation\.Models\.Members\.EventDocItem\.EventDocItem\(DefaultDocumentation\.Models\.Types\.TypeDocItem, IEvent, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [EventDocItem](index.md 'DefaultDocumentation\.Models\.Members\.EventDocItem') type\. |
 
 | Properties | |
 | :--- | :--- |

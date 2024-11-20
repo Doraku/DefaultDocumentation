@@ -13,7 +13,7 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [NamespacesSection\(\)](NamespacesSection().md 'DefaultDocumentation\.Markdown\.Sections\.NamespacesSection\.NamespacesSection\(\)') | Initialize a new instance of the [NamespacesSection](DefaultDocumentation/Markdown/Sections/NamespacesSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.NamespacesSection') type\. |
+| [NamespacesSection\(\)](NamespacesSection().md 'DefaultDocumentation\.Markdown\.Sections\.NamespacesSection\.NamespacesSection\(\)') | Initialize a new instance of the [NamespacesSection](index.md 'DefaultDocumentation\.Markdown\.Sections\.NamespacesSection') type\. |
 
 | Fields | |
 | :--- | :--- |

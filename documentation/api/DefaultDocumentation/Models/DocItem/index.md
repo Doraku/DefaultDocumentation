@@ -21,7 +21,7 @@ Derived
 
 | Constructors | |
 | :--- | :--- |
-| [DocItem\(DocItem, string, string, string, XElement\)](DocItem(DocItem,string,string,string,XElement).md 'DefaultDocumentation\.Models\.DocItem\.DocItem\(DefaultDocumentation\.Models\.DocItem, string, string, string, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [DocItem](DefaultDocumentation/Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') type\. |
+| [DocItem\(DocItem, string, string, string, XElement\)](DocItem(DocItem,string,string,string,XElement).md 'DefaultDocumentation\.Models\.DocItem\.DocItem\(DefaultDocumentation\.Models\.DocItem, string, string, string, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [DocItem](index.md 'DefaultDocumentation\.Models\.DocItem') type\. |
 
 | Properties | |
 | :--- | :--- |
@@ -29,4 +29,4 @@ Derived
 | [FullName](FullName.md 'DefaultDocumentation\.Models\.DocItem\.FullName') | Gets the full name of the current instance\. |
 | [Id](Id.md 'DefaultDocumentation\.Models\.DocItem\.Id') | Gets the id of the current instance\. |
 | [Name](Name.md 'DefaultDocumentation\.Models\.DocItem\.Name') | Gets the name of the current instance\. |
-| [Parent](Parent.md 'DefaultDocumentation\.Models\.DocItem\.Parent') | Gets the [DocItem](DefaultDocumentation/Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') parent of the current instance \(for members it is their declaring type, for types it is their namespace, \.\.\.\)\. |
+| [Parent](Parent.md 'DefaultDocumentation\.Models\.DocItem\.Parent') | Gets the [DocItem](index.md 'DefaultDocumentation\.Models\.DocItem') parent of the current instance \(for members it is their declaring type, for types it is their namespace, \.\.\.\)\. |

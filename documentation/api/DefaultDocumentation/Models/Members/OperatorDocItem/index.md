@@ -15,7 +15,7 @@ Implements [IParameterizedDocItem](../../IParameterizedDocItem/index.md 'Default
 
 | Constructors | |
 | :--- | :--- |
-| [OperatorDocItem\(TypeDocItem, IMethod, XElement\)](OperatorDocItem(TypeDocItem,IMethod,XElement).md 'DefaultDocumentation\.Models\.Members\.OperatorDocItem\.OperatorDocItem\(DefaultDocumentation\.Models\.Types\.TypeDocItem, IMethod, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [OperatorDocItem](DefaultDocumentation/Models/Members/OperatorDocItem/index.md 'DefaultDocumentation\.Models\.Members\.OperatorDocItem') type\. |
+| [OperatorDocItem\(TypeDocItem, IMethod, XElement\)](OperatorDocItem(TypeDocItem,IMethod,XElement).md 'DefaultDocumentation\.Models\.Members\.OperatorDocItem\.OperatorDocItem\(DefaultDocumentation\.Models\.Types\.TypeDocItem, IMethod, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [OperatorDocItem](index.md 'DefaultDocumentation\.Models\.Members\.OperatorDocItem') type\. |
 
 | Properties | |
 | :--- | :--- |

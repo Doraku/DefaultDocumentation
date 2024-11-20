@@ -13,7 +13,7 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [FieldDocItem\(TypeDocItem, IField, XElement\)](FieldDocItem(TypeDocItem,IField,XElement).md 'DefaultDocumentation\.Models\.Members\.FieldDocItem\.FieldDocItem\(DefaultDocumentation\.Models\.Types\.TypeDocItem, IField, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [FieldDocItem](DefaultDocumentation/Models/Members/FieldDocItem/index.md 'DefaultDocumentation\.Models\.Members\.FieldDocItem') type\. |
+| [FieldDocItem\(TypeDocItem, IField, XElement\)](FieldDocItem(TypeDocItem,IField,XElement).md 'DefaultDocumentation\.Models\.Members\.FieldDocItem\.FieldDocItem\(DefaultDocumentation\.Models\.Types\.TypeDocItem, IField, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [FieldDocItem](index.md 'DefaultDocumentation\.Models\.Members\.FieldDocItem') type\. |
 
 | Properties | |
 | :--- | :--- |

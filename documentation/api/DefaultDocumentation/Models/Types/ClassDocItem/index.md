@@ -13,4 +13,4 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [ClassDocItem\(DocItem, ITypeDefinition, XElement\)](ClassDocItem(DocItem,ITypeDefinition,XElement).md 'DefaultDocumentation\.Models\.Types\.ClassDocItem\.ClassDocItem\(DefaultDocumentation\.Models\.DocItem, ITypeDefinition, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [ClassDocItem](DefaultDocumentation/Models/Types/ClassDocItem/index.md 'DefaultDocumentation\.Models\.Types\.ClassDocItem') type\. |
+| [ClassDocItem\(DocItem, ITypeDefinition, XElement\)](ClassDocItem(DocItem,ITypeDefinition,XElement).md 'DefaultDocumentation\.Models\.Types\.ClassDocItem\.ClassDocItem\(DefaultDocumentation\.Models\.DocItem, ITypeDefinition, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [ClassDocItem](index.md 'DefaultDocumentation\.Models\.Types\.ClassDocItem') type\. |

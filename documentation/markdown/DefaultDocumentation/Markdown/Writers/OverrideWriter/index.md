@@ -15,7 +15,7 @@ Implements [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/
 
 | Constructors | |
 | :--- | :--- |
-| [OverrideWriter\(IWriter\)](OverrideWriter(IWriter).md 'DefaultDocumentation\.Markdown\.Writers\.OverrideWriter\.OverrideWriter\(DefaultDocumentation\.Api\.IWriter\)') | Initializes a new instance of the [OverrideWriter](DefaultDocumentation/Markdown/Writers/OverrideWriter/index.md 'DefaultDocumentation\.Markdown\.Writers\.OverrideWriter') type\. |
+| [OverrideWriter\(IWriter\)](OverrideWriter(IWriter).md 'DefaultDocumentation\.Markdown\.Writers\.OverrideWriter\.OverrideWriter\(DefaultDocumentation\.Api\.IWriter\)') | Initializes a new instance of the [OverrideWriter](index.md 'DefaultDocumentation\.Markdown\.Writers\.OverrideWriter') type\. |
 
 | Properties | |
 | :--- | :--- |

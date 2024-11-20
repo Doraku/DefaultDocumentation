@@ -15,7 +15,7 @@ Implements [IParameterizedDocItem](../../IParameterizedDocItem/index.md 'Default
 
 | Constructors | |
 | :--- | :--- |
-| [PropertyDocItem\(TypeDocItem, IProperty, XElement\)](PropertyDocItem(TypeDocItem,IProperty,XElement).md 'DefaultDocumentation\.Models\.Members\.PropertyDocItem\.PropertyDocItem\(DefaultDocumentation\.Models\.Types\.TypeDocItem, IProperty, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [PropertyDocItem](DefaultDocumentation/Models/Members/PropertyDocItem/index.md 'DefaultDocumentation\.Models\.Members\.PropertyDocItem') type\. |
+| [PropertyDocItem\(TypeDocItem, IProperty, XElement\)](PropertyDocItem(TypeDocItem,IProperty,XElement).md 'DefaultDocumentation\.Models\.Members\.PropertyDocItem\.PropertyDocItem\(DefaultDocumentation\.Models\.Types\.TypeDocItem, IProperty, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [PropertyDocItem](index.md 'DefaultDocumentation\.Models\.Members\.PropertyDocItem') type\. |
 
 | Properties | |
 | :--- | :--- |

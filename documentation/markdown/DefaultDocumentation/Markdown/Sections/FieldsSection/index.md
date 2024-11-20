@@ -13,7 +13,7 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [FieldsSection\(\)](FieldsSection().md 'DefaultDocumentation\.Markdown\.Sections\.FieldsSection\.FieldsSection\(\)') | Initialize a new instance of the [FieldsSection](DefaultDocumentation/Markdown/Sections/FieldsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.FieldsSection') type\. |
+| [FieldsSection\(\)](FieldsSection().md 'DefaultDocumentation\.Markdown\.Sections\.FieldsSection\.FieldsSection\(\)') | Initialize a new instance of the [FieldsSection](index.md 'DefaultDocumentation\.Markdown\.Sections\.FieldsSection') type\. |
 
 | Fields | |
 | :--- | :--- |

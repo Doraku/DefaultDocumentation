@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace DefaultDocumentation;
 
 public interface IRawSettings
 {
-    public string LogLevel { get; }
+    public LogLevel? LogLevel { get; }
 
     public string ConfigurationFilePath { get; }
 

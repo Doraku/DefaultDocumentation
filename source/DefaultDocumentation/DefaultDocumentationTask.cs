@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Build.Framework;
+using Microsoft.Extensions.Logging;
 
 namespace DefaultDocumentation;
 
@@ -8,7 +9,7 @@ public sealed class DefaultDocumentationTask : Microsoft.Build.Utilities.Task, I
 {
     private static readonly char[] _separators = ['|'];
 
-    public string LogLevel { get; set; }
+    public LogLevel? LogLevel { get; set; }
 
     public string ConfigurationFilePath { get; set; }
 
@@ -54,9 +55,7 @@ public sealed class DefaultDocumentationTask : Microsoft.Build.Utilities.Task, I
 
     public override bool Execute()
     {
-        using TaskTarget target = new("Task", Log);
-
-        Generator.Execute(target, this);
+        Generator.Execute(logLevel => new TaskLogger(Log, logLevel), this);
 
         return true;
     }

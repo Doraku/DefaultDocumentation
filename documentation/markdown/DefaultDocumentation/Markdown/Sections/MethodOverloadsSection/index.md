@@ -3,7 +3,7 @@
 
 ## MethodOverloadsSection Class
 
-[ISection](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/ISection/index.md 'DefaultDocumentation\.Api\.ISection') implementation to write [MethodOverloadsSection](DefaultDocumentation/Markdown/Sections/MethodOverloadsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.MethodOverloadsSection') children of a [DocItem](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')\.
+[ISection](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/ISection/index.md 'DefaultDocumentation\.Api\.ISection') implementation to write [MethodOverloadsSection](index.md 'DefaultDocumentation\.Markdown\.Sections\.MethodOverloadsSection') children of a [DocItem](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')\.
 
 ```csharp
 public sealed class MethodOverloadsSection : DefaultDocumentation.Markdown.Sections.ChildrenSection<DefaultDocumentation.Models.Members.MethodDocItem>

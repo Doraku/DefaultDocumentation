@@ -16,7 +16,7 @@ Implements [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/
 
 | Constructors | |
 | :--- | :--- |
-| [MarkdownWriter\(IWriter\)](MarkdownWriter(IWriter).md 'DefaultDocumentation\.Markdown\.Writers\.MarkdownWriter\.MarkdownWriter\(DefaultDocumentation\.Api\.IWriter\)') | Initializes a new instance of the [MarkdownWriter](DefaultDocumentation/Markdown/Writers/MarkdownWriter/index.md 'DefaultDocumentation\.Markdown\.Writers\.MarkdownWriter') type\. |
+| [MarkdownWriter\(IWriter\)](MarkdownWriter(IWriter).md 'DefaultDocumentation\.Markdown\.Writers\.MarkdownWriter\.MarkdownWriter\(DefaultDocumentation\.Api\.IWriter\)') | Initializes a new instance of the [MarkdownWriter](index.md 'DefaultDocumentation\.Markdown\.Writers\.MarkdownWriter') type\. |
 
 | Properties | |
 | :--- | :--- |

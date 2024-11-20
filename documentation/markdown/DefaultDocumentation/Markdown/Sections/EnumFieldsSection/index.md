@@ -13,7 +13,7 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [EnumFieldsSection\(\)](EnumFieldsSection().md 'DefaultDocumentation\.Markdown\.Sections\.EnumFieldsSection\.EnumFieldsSection\(\)') | Initialize a new instance of the [EnumFieldsSection](DefaultDocumentation/Markdown/Sections/EnumFieldsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.EnumFieldsSection') type\. |
+| [EnumFieldsSection\(\)](EnumFieldsSection().md 'DefaultDocumentation\.Markdown\.Sections\.EnumFieldsSection\.EnumFieldsSection\(\)') | Initialize a new instance of the [EnumFieldsSection](index.md 'DefaultDocumentation\.Markdown\.Sections\.EnumFieldsSection') type\. |
 
 | Fields | |
 | :--- | :--- |

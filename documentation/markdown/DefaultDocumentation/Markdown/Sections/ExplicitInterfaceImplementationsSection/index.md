@@ -13,7 +13,7 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [ExplicitInterfaceImplementationsSection\(\)](ExplicitInterfaceImplementationsSection().md 'DefaultDocumentation\.Markdown\.Sections\.ExplicitInterfaceImplementationsSection\.ExplicitInterfaceImplementationsSection\(\)') | Initialize a new instance of the [ExplicitInterfaceImplementationsSection](DefaultDocumentation/Markdown/Sections/ExplicitInterfaceImplementationsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.ExplicitInterfaceImplementationsSection') type\. |
+| [ExplicitInterfaceImplementationsSection\(\)](ExplicitInterfaceImplementationsSection().md 'DefaultDocumentation\.Markdown\.Sections\.ExplicitInterfaceImplementationsSection\.ExplicitInterfaceImplementationsSection\(\)') | Initialize a new instance of the [ExplicitInterfaceImplementationsSection](index.md 'DefaultDocumentation\.Markdown\.Sections\.ExplicitInterfaceImplementationsSection') type\. |
 
 | Fields | |
 | :--- | :--- |

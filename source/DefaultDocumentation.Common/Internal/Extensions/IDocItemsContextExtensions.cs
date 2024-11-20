@@ -2,6 +2,8 @@
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Parameters;
 
+using static DefaultDocumentation.Internal.LoggerHelper;
+
 namespace ICSharpCode.Decompiler.TypeSystem;
 
 internal static class IDocItemsContextExtensions
@@ -10,7 +12,7 @@ internal static class IDocItemsContextExtensions
     {
         if (!context.Items.ContainsKey(item.Id))
         {
-            context.Settings.Logger.Debug($"adding DocItem \"{item}\" with id \"{item.Id}\"");
+            LogAddingDocItem(context.Settings.Logger, item);
             context.Items.Add(item.Id, item);
 
             if (item is ITypeParameterizedDocItem typeParameterized)
@@ -31,7 +33,7 @@ internal static class IDocItemsContextExtensions
         }
         else
         {
-            context.Settings.Logger.Warn($"duplicate DocItem \"{item}\" with id \"{item.Id}\" ignored");
+            LogDuplicateDocItem(context.Settings.Logger, item);
         }
     }
 }

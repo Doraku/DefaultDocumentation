@@ -13,7 +13,7 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [EventsSection\(\)](EventsSection().md 'DefaultDocumentation\.Markdown\.Sections\.EventsSection\.EventsSection\(\)') | Initialize a new instance of the [EventsSection](DefaultDocumentation/Markdown/Sections/EventsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.EventsSection') type\. |
+| [EventsSection\(\)](EventsSection().md 'DefaultDocumentation\.Markdown\.Sections\.EventsSection\.EventsSection\(\)') | Initialize a new instance of the [EventsSection](index.md 'DefaultDocumentation\.Markdown\.Sections\.EventsSection') type\. |
 
 | Fields | |
 | :--- | :--- |

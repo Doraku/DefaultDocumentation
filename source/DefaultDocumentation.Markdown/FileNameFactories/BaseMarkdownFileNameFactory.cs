@@ -7,6 +7,8 @@ using DefaultDocumentation.Api;
 using DefaultDocumentation.Markdown.Internal;
 using DefaultDocumentation.Models;
 
+using static DefaultDocumentation.Markdown.Internal.LoggerHelper;
+
 namespace DefaultDocumentation.Markdown.FileNameFactories;
 
 /// <summary>
@@ -32,7 +34,7 @@ public abstract class BaseMarkdownFileNameFactory : IFileNameFactory
     {
         context.ThrowIfNull();
 
-        context.Settings.Logger.Debug($"Cleaning output folder \"{context.Settings.OutputDirectory}\"");
+        LogCleaning(context.Settings.Logger, context.Settings.OutputDirectory);
 
         if (context.Settings.OutputDirectory.Exists)
         {

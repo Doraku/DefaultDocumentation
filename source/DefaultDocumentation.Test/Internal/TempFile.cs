@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 
-namespace DefaultDocumentation;
+namespace DefaultDocumentation.Internal;
 
-public sealed class TempFile : IDisposable
+internal sealed class TempFile : IDisposable
 {
     public FileInfo Info { get; }
 

@@ -13,7 +13,7 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [TypeParametersSection\(\)](TypeParametersSection().md 'DefaultDocumentation\.Markdown\.Sections\.TypeParametersSection\.TypeParametersSection\(\)') | Initialize a new instance of the [TypeParametersSection](DefaultDocumentation/Markdown/Sections/TypeParametersSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.TypeParametersSection') type\. |
+| [TypeParametersSection\(\)](TypeParametersSection().md 'DefaultDocumentation\.Markdown\.Sections\.TypeParametersSection\.TypeParametersSection\(\)') | Initialize a new instance of the [TypeParametersSection](index.md 'DefaultDocumentation\.Markdown\.Sections\.TypeParametersSection') type\. |
 
 | Fields | |
 | :--- | :--- |

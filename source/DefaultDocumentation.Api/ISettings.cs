@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using NLog;
+using Microsoft.Extensions.Logging;
 
 namespace DefaultDocumentation;
 

@@ -5,7 +5,7 @@ using System.Text;
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Internal;
 using DefaultDocumentation.Models;
-using NLog;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 
 namespace DefaultDocumentation.Markdown;

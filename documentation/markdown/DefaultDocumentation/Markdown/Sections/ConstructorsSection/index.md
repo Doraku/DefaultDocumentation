@@ -13,7 +13,7 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [ConstructorsSection\(\)](ConstructorsSection().md 'DefaultDocumentation\.Markdown\.Sections\.ConstructorsSection\.ConstructorsSection\(\)') | Initialize a new instance of the [ConstructorsSection](DefaultDocumentation/Markdown/Sections/ConstructorsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.ConstructorsSection') type\. |
+| [ConstructorsSection\(\)](ConstructorsSection().md 'DefaultDocumentation\.Markdown\.Sections\.ConstructorsSection\.ConstructorsSection\(\)') | Initialize a new instance of the [ConstructorsSection](index.md 'DefaultDocumentation\.Markdown\.Sections\.ConstructorsSection') type\. |
 
 | Fields | |
 | :--- | :--- |

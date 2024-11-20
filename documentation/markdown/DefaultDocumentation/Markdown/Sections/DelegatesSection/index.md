@@ -13,7 +13,7 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [DelegatesSection\(\)](DelegatesSection().md 'DefaultDocumentation\.Markdown\.Sections\.DelegatesSection\.DelegatesSection\(\)') | Initialize a new instance of the [DelegatesSection](DefaultDocumentation/Markdown/Sections/DelegatesSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.DelegatesSection') type\. |
+| [DelegatesSection\(\)](DelegatesSection().md 'DefaultDocumentation\.Markdown\.Sections\.DelegatesSection\.DelegatesSection\(\)') | Initialize a new instance of the [DelegatesSection](index.md 'DefaultDocumentation\.Markdown\.Sections\.DelegatesSection') type\. |
 
 | Fields | |
 | :--- | :--- |

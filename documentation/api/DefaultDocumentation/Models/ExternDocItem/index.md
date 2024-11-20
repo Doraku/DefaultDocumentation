@@ -13,7 +13,7 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [ExternDocItem\(string, string, string\)](ExternDocItem(string,string,string).md 'DefaultDocumentation\.Models\.ExternDocItem\.ExternDocItem\(string, string, string\)') | Initialize a new instance of the [ExternDocItem](DefaultDocumentation/Models/ExternDocItem/index.md 'DefaultDocumentation\.Models\.ExternDocItem') type\. |
+| [ExternDocItem\(string, string, string\)](ExternDocItem(string,string,string).md 'DefaultDocumentation\.Models\.ExternDocItem\.ExternDocItem\(string, string, string\)') | Initialize a new instance of the [ExternDocItem](index.md 'DefaultDocumentation\.Models\.ExternDocItem') type\. |
 
 | Properties | |
 | :--- | :--- |

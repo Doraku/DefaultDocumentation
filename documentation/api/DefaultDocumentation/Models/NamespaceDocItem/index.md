@@ -13,4 +13,4 @@ Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.
 
 | Constructors | |
 | :--- | :--- |
-| [NamespaceDocItem\(AssemblyDocItem, string, XElement\)](NamespaceDocItem(AssemblyDocItem,string,XElement).md 'DefaultDocumentation\.Models\.NamespaceDocItem\.NamespaceDocItem\(DefaultDocumentation\.Models\.AssemblyDocItem, string, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [NamespaceDocItem](DefaultDocumentation/Models/NamespaceDocItem/index.md 'DefaultDocumentation\.Models\.NamespaceDocItem') type\. |
+| [NamespaceDocItem\(AssemblyDocItem, string, XElement\)](NamespaceDocItem(AssemblyDocItem,string,XElement).md 'DefaultDocumentation\.Models\.NamespaceDocItem\.NamespaceDocItem\(DefaultDocumentation\.Models\.AssemblyDocItem, string, System\.Xml\.Linq\.XElement\)') | Initialize a new instance of the [NamespaceDocItem](index.md 'DefaultDocumentation\.Models\.NamespaceDocItem') type\. |
