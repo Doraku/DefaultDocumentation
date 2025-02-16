@@ -35,6 +35,6 @@ public sealed class ConstructorDocItem : EntityDocItem, IParameterizedDocItem
               documentation)
     {
         Method = method;
-        Parameters = method.Parameters.Select(parameter => new ParameterDocItem(this, parameter)).ToArray();
+        Parameters = [.. method.Parameters.Select(parameter => new ParameterDocItem(this, parameter))];
     }
 }

@@ -46,13 +46,12 @@ internal class Context : IContext
 
         IReadOnlyDictionary<string, T> availableImplementations = GetAllAvailableImplementations(availableTypes, keySelector);
 
-        return values
+        return [.. values
             .Where(value => !string.IsNullOrEmpty(value))
             .Select(value =>
                 availableImplementations.TryGetValue(value!, out T implementation)
                 ? implementation
-                : GetImplementation<T>(availableTypes, value!))
-            .ToArray();
+                : GetImplementation<T>(availableTypes, value!))];
     }
 
     #region IContext

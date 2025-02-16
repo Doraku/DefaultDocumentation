@@ -60,7 +60,7 @@ internal sealed class DocItemReader : IDocItemGenerator
 
             LogSearchingDocumentation(_context.Settings.Logger, entity);
 
-            if (entity?.ParentModule?.PEFile is null)
+            if (entity?.ParentModule?.MetadataFile is null)
             {
                 documentation = null;
                 return false;
@@ -68,8 +68,8 @@ internal sealed class DocItemReader : IDocItemGenerator
 
             if (!_documentationProviders.TryGetValue(entity.ParentModule, out IDocumentationProvider documentationProvider))
             {
-                LogLoadingDocumentationProvider(_context.Settings.Logger, entity.ParentModule.PEFile);
-                documentationProvider = XmlDocLoader.LoadDocumentation(entity.ParentModule.PEFile) ?? XmlDocLoader.MscorlibDocumentation;
+                LogLoadingDocumentationProvider(_context.Settings.Logger, entity.ParentModule.MetadataFile);
+                documentationProvider = XmlDocLoader.LoadDocumentation(entity.ParentModule.MetadataFile) ?? XmlDocLoader.MscorlibDocumentation;
                 _documentationProviders.Add(entity.ParentModule, documentationProvider);
             }
 
@@ -164,7 +164,7 @@ internal sealed class DocItemReader : IDocItemGenerator
                     continue;
                 }
 
-                List<ITypeDefinition> declaringTypes = new(type.GetDeclaringTypeDefinitions().Skip(1).Reverse());
+                List<ITypeDefinition> declaringTypes = [.. type.GetDeclaringTypeDefinitions().Skip(1).Reverse()];
                 List<DocItem> docItemsToAdd = [];
 
                 if (!_context.Items.TryGetValue($"N:{(declaringTypes.FirstOrDefault() ?? type).Namespace}", out DocItem? parentDocItem))
