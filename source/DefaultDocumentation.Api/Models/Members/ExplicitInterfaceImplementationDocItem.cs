@@ -56,7 +56,7 @@ public sealed class ExplicitInterfaceImplementationDocItem : EntityDocItem, ITyp
     {
         Member = property;
         TypeParameters = [];
-        Parameters = property.Parameters.Select(parameter => new ParameterDocItem(this, parameter)).ToArray();
+        Parameters = [.. property.Parameters.Select(parameter => new ParameterDocItem(this, parameter))];
     }
 
     /// <summary>
@@ -72,7 +72,7 @@ public sealed class ExplicitInterfaceImplementationDocItem : EntityDocItem, ITyp
               documentation)
     {
         Member = method;
-        TypeParameters = method.TypeParameters.Select(typeParameter => new TypeParameterDocItem(this, typeParameter)).ToArray();
-        Parameters = method.Parameters.Select(parameter => new ParameterDocItem(this, parameter)).ToArray();
+        TypeParameters = [.. method.TypeParameters.Select(typeParameter => new TypeParameterDocItem(this, typeParameter))];
+        Parameters = [.. method.Parameters.Select(parameter => new ParameterDocItem(this, parameter))];
     }
 }

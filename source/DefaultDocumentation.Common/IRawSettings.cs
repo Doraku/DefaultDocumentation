@@ -5,41 +5,41 @@ namespace DefaultDocumentation;
 
 public interface IRawSettings
 {
-    public LogLevel? LogLevel { get; }
+    LogLevel? LogLevel { get; }
 
-    public string ConfigurationFilePath { get; }
+    string ConfigurationFilePath { get; }
 
-    public string AssemblyFilePath { get; }
+    string AssemblyFilePath { get; }
 
-    public string DocumentationFilePath { get; }
+    string DocumentationFilePath { get; }
 
-    public string ProjectDirectoryPath { get; }
+    string ProjectDirectoryPath { get; }
 
-    public string OutputDirectoryPath { get; }
+    string OutputDirectoryPath { get; }
 
-    public string AssemblyPageName { get; }
+    string AssemblyPageName { get; }
 
-    public GeneratedAccessModifiers GeneratedAccessModifiers { get; }
+    GeneratedAccessModifiers GeneratedAccessModifiers { get; }
 
-    public bool IncludeUndocumentedItems { get; }
+    bool IncludeUndocumentedItems { get; }
 
-    public GeneratedPages GeneratedPages { get; }
+    GeneratedPages GeneratedPages { get; }
 
-    public string LinksOutputFilePath { get; }
+    string LinksOutputFilePath { get; }
 
-    public string LinksBaseUrl { get; }
+    string LinksBaseUrl { get; }
 
-    public IEnumerable<string> ExternLinksFilePaths { get; }
+    IEnumerable<string> ExternLinksFilePaths { get; }
 
-    public IEnumerable<string> Plugins { get; }
+    IEnumerable<string> Plugins { get; }
 
-    public IEnumerable<string> DocItemGenerators { get; }
+    IEnumerable<string> DocItemGenerators { get; }
 
-    public string FileNameFactory { get; }
+    string FileNameFactory { get; }
 
-    public IEnumerable<string> UrlFactories { get; }
+    IEnumerable<string> UrlFactories { get; }
 
-    public IEnumerable<string> Sections { get; }
+    IEnumerable<string> Sections { get; }
 
-    public IEnumerable<string> Elements { get; }
+    IEnumerable<string> Elements { get; }
 }

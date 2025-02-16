@@ -112,13 +112,12 @@ public sealed class Generator
 
         _context = new GeneralContext(
             _configuration,
-                ((Assembly[])[
+                [.. ((Assembly[])[
                     typeof(DocItem).Assembly,
                     typeof(Markdown.Writers.MarkdownWriter).Assembly
                 ])
                 .Concat((GetSetting<string[]>(nameof(settings.Plugins)) ?? Enumerable.Empty<string>()).Select(Assembly.LoadFrom))
-                .SelectMany(assembly => assembly.GetTypes())
-                .ToArray(),
+                .SelectMany(assembly => assembly.GetTypes())],
             resolvedSettings);
     }
 

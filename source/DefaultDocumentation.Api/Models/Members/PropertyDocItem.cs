@@ -34,6 +34,6 @@ public sealed class PropertyDocItem : EntityDocItem, IParameterizedDocItem
               documentation)
     {
         Property = property;
-        Parameters = Property.Parameters.Select(parameter => new ParameterDocItem(this, parameter)).ToArray();
+        Parameters = [.. Property.Parameters.Select(parameter => new ParameterDocItem(this, parameter))];
     }
 }

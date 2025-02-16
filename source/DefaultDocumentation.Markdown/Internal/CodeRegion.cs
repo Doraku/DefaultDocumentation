@@ -32,7 +32,7 @@ internal static class CodeRegion
 
     public static string? Extract(string fileContent, string region)
     {
-        (int start, int end)[] comments = GetComments(fileContent).ToArray();
+        (int start, int end)[] comments = [.. GetComments(fileContent)];
 
         bool IsInComments(int i) => comments.Any((comment) => i > comment.start && i < comment.end);
 
@@ -52,7 +52,7 @@ internal static class CodeRegion
 
         int regionStartIndex = regionStart.Index + regionStart.Value.Length + 1;
 
-        IEnumerable<Match> allRegionStarts = _regionStartRegex.Matches(fileContent, regionStartIndex).OfType<Match>().Where(match => match.Success && !IsInComments(match.Index)).ToArray();
+        IEnumerable<Match> allRegionStarts = [.. _regionStartRegex.Matches(fileContent, regionStartIndex).OfType<Match>().Where(match => match.Success && !IsInComments(match.Index))];
 
         int innerRegionCount = 0;
 

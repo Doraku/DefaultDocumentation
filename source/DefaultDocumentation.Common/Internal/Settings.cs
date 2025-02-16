@@ -42,7 +42,7 @@ public sealed class Settings : ISettings
         IncludeUndocumentedItems = includeUndocumentedItems;
         LinksOutputFile = string.IsNullOrEmpty(linksOutputFile) ? null : new FileInfo(linksOutputFile);
         LinksBaseUrl = linksBaseUrl ?? string.Empty;
-        ExternLinksFiles = (externlinksFilePaths ?? []).SelectMany(GetFilePaths).Distinct().Select(filePath => new FileInfo(filePath)).Where(file => file.Exists && file.FullName != LinksOutputFile?.FullName).ToArray();
+        ExternLinksFiles = [.. (externlinksFilePaths ?? []).SelectMany(GetFilePaths).Distinct().Select(filePath => new FileInfo(filePath)).Where(file => file.Exists && file.FullName != LinksOutputFile?.FullName)];
     }
 
     private static IEnumerable<string> GetFilePaths(string filePath)
