@@ -81,7 +81,7 @@ internal static partial class LoggerHelper
     [LoggerMessage(LogLevel.Trace, "loading documentation provider for \"{AssemblyFile}\"")]
     private static partial void LogLoadingDocumentationProvider(ILogger logger, string assemblyFile);
 
-    public static void LogLoadingDocumentationProvider(ILogger logger, PEFile file)
+    public static void LogLoadingDocumentationProvider(ILogger logger, MetadataFile file)
         => LogLoadingDocumentationProvider(logger, file.FullName);
 
     [LoggerMessage(LogLevel.Trace, "looking for inherited documentation of \"{Entity}\"")]
