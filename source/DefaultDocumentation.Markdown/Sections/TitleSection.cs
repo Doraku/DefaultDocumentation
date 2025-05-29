@@ -43,9 +43,9 @@ public sealed class TitleSection : ISection
             MethodDocItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Method"),
             OperatorDocItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Operator"),
             PropertyDocItem => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Property"),
-            ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IEvent => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Event"),
-            ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IMethod => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Method"),
-            ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IProperty => w => w.Append($"## {currentItem.GetLongName().SanitizeForMarkdown()} Property"),
+            ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IEvent => w => w.Append($"## {currentItem.Name.SanitizeForMarkdown()} Event"),
+            ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IMethod => w => w.Append($"## {currentItem.Name.SanitizeForMarkdown()} Method"),
+            ExplicitInterfaceImplementationDocItem explicitItem when explicitItem.Member is IProperty => w => w.Append($"## {currentItem.Name.SanitizeForMarkdown()} Property"),
             EnumFieldDocItem enumFiedItem => w => w
                 .Append($"`{currentItem.Name}`")
                 .Append(enumFiedItem.Field.IsConst ? $" {enumFiedItem.Field.GetConstantValue()}" : string.Empty),

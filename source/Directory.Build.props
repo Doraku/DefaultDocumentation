@@ -18,7 +18,7 @@
 	</PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="DefaultCSharp" Version="1.0.3" PrivateAssets="all" />
+    <PackageReference Include="DefaultCSharp" Version="1.0.4" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>

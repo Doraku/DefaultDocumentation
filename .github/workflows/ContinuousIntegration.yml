@@ -11,6 +11,7 @@ on:
       - 'source/DefaultDocumentation.Common/**'
       - 'source/DefaultDocumentation.Console/**'
       - 'source/DefaultDocumentation.Markdown/**'
+      - 'source/Directory.Build.props'
 
 jobs:
   continuous_integration:

@@ -77,17 +77,17 @@ public sealed class WriteShould : BaseSectionTester<TitleSection>
     [Fact]
     public void WriteWhenExplicitInterfaceImplementationDocItemAndEvent() => Test(
         AssemblyInfo.ExplicitEventDocItem,
-        @"## AssemblyInfo\.DefaultDocumentation\.AssemblyInfo\.IInterface\.Event Event");
+        @"## DefaultDocumentation\.AssemblyInfo\.IInterface\.Event Event");
 
     [Fact]
     public void WriteWhenExplicitInterfaceImplementationDocItemAndProperty() => Test(
         AssemblyInfo.ExplicitPropertyDocItem,
-        @"## AssemblyInfo\.DefaultDocumentation\.AssemblyInfo\.IInterface\.Property Property");
+        @"## DefaultDocumentation\.AssemblyInfo\.IInterface\.Property Property");
 
     [Fact]
     public void WriteWhenExplicitInterfaceImplementationDocItemAndMethod() => Test(
         AssemblyInfo.ExplicitMethodDocItem,
-        @"## AssemblyInfo\.DefaultDocumentation\.AssemblyInfo\.IInterface\.Method\(\) Method");
+        @"## DefaultDocumentation\.AssemblyInfo\.IInterface\.Method\(\) Method");
 
     [Fact]
     public void WriteWhenEnumFieldDocItem() => Test(

@@ -29,13 +29,25 @@ public abstract class EntityDocItem : DocItem
             | ConversionFlags.ShowTypeParameterList
     };
 
+    private static readonly CSharpAmbience _explicitNameAmbience = new()
+    {
+        ConversionFlags =
+            ConversionFlags.ShowParameterList
+            | ConversionFlags.ShowTypeParameterList
+            | ConversionFlags.UseFullyQualifiedEntityNames
+    };
+
     /// <summary>
     /// Gets the <see cref="IEntity"/> of the current instance.
     /// </summary>
     public IEntity Entity { get; }
 
     private protected EntityDocItem(DocItem parent, IEntity entity, XElement? documentation)
-        : base(parent, entity.GetIdString(), GetFullName(entity).Replace("?", string.Empty), entity.ToString(_nameAmbience).Replace("?", string.Empty), documentation)
+        : base(
+            parent, entity.GetIdString(),
+            GetFullName(entity).Replace("?", string.Empty),
+            entity.ToString((entity as IMember)?.IsExplicitInterfaceImplementation ?? false ? _explicitNameAmbience : _nameAmbience).Replace("?", string.Empty),
+            documentation)
     {
         Entity = entity;
     }

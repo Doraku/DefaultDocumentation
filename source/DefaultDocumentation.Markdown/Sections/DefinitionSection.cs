@@ -64,6 +64,7 @@ public sealed class DefinitionSection : ISection
     {
         ConversionFlags =
             ConversionFlags.ShowAccessibility
+            | ConversionFlags.UseFullyQualifiedEntityNames
             | ConversionFlags.ShowModifiers
             | ConversionFlags.ShowParameterDefaultValues
             | ConversionFlags.ShowParameterList
@@ -88,6 +89,7 @@ public sealed class DefinitionSection : ISection
     {
         ConversionFlags =
             ConversionFlags.ShowAccessibility
+            | ConversionFlags.UseFullyQualifiedEntityNames
             | ConversionFlags.ShowModifiers
             | ConversionFlags.ShowParameterDefaultValues
             | ConversionFlags.ShowParameterList
@@ -102,6 +104,7 @@ public sealed class DefinitionSection : ISection
     {
         ConversionFlags =
             ConversionFlags.ShowAccessibility
+            | ConversionFlags.UseFullyQualifiedEntityNames
             | ConversionFlags.ShowBody
             | ConversionFlags.ShowDefinitionKeyword
             | ConversionFlags.ShowModifiers

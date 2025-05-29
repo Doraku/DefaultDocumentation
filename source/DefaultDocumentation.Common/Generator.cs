@@ -87,7 +87,7 @@ public sealed class Generator
 
         resolvedSettings.Validate();
 
-        AppDomain.CurrentDomain.AssemblyResolve += (object sender, ResolveEventArgs args) =>
+        AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
         {
             AssemblyName assemblyName = new(args.Name);
 

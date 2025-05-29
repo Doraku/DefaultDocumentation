@@ -6,9 +6,7 @@ on:
       - master
     paths:
       - '.github/workflows/CodeCoverage.yml'
-      - 'source/DefaultDocumentation.Api/**'
-      - 'source/DefaultDocumentation.Markdown/**'
-      - 'source/DefaultDocumentation.Test/**'
+      - 'source/**'
 
 jobs:
   code_coverage:
