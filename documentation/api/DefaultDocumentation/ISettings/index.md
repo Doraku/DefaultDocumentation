@@ -20,6 +20,6 @@ public interface ISettings
 | [IncludeUndocumentedItems](IncludeUndocumentedItems.md 'DefaultDocumentation\.ISettings\.IncludeUndocumentedItems') | Gets wether item with no xml documentation should have their documentation generated or not\. |
 | [LinksBaseUrl](LinksBaseUrl.md 'DefaultDocumentation\.ISettings\.LinksBaseUrl') | Gets the base url to prefix item url with when generating the links output file\. |
 | [LinksOutputFile](LinksOutputFile.md 'DefaultDocumentation\.ISettings\.LinksOutputFile') | Gets the file name where all the url of the generated documentation should be writen to, to be used for referencing documentation generation\. |
-| [Logger](Logger.md 'DefaultDocumentation\.ISettings\.Logger') | Gets the [NLog\.ILogger](https://docs.microsoft.com/en-us/dotnet/api/NLog.ILogger 'NLog\.ILogger') of the process\. |
+| [Logger](Logger.md 'DefaultDocumentation\.ISettings\.Logger') | Gets the [Microsoft\.Extensions\.Logging\.ILogger](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.Logging.ILogger 'Microsoft\.Extensions\.Logging\.ILogger') of the process\. |
 | [OutputDirectory](OutputDirectory.md 'DefaultDocumentation\.ISettings\.OutputDirectory') | Gets the output directory where the documentation is being generated\. |
 | [ProjectDirectory](ProjectDirectory.md 'DefaultDocumentation\.ISettings\.ProjectDirectory') | Gets the root project directory where the sources of the [AssemblyFile](AssemblyFile.md 'DefaultDocumentation\.ISettings\.AssemblyFile') are\. |

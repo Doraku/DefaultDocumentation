@@ -3,11 +3,11 @@
 
 ## ISettings\.Logger Property
 
-Gets the [NLog\.ILogger](https://docs.microsoft.com/en-us/dotnet/api/NLog.ILogger 'NLog\.ILogger') of the process\.
+Gets the [Microsoft\.Extensions\.Logging\.ILogger](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.Logging.ILogger 'Microsoft\.Extensions\.Logging\.ILogger') of the process\.
 
 ```csharp
-ILogger Logger { get; }
+Microsoft.Extensions.Logging.ILogger Logger { get; }
 ```
 
 #### Property Value
-[NLog\.ILogger](https://docs.microsoft.com/en-us/dotnet/api/NLog.ILogger 'NLog\.ILogger')
+[Microsoft\.Extensions\.Logging\.ILogger](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.Logging.ILogger 'Microsoft\.Extensions\.Logging\.ILogger')
