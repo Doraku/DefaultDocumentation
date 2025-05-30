@@ -15,6 +15,6 @@ public sealed class MethodOverloadsDocItem : DocItem
     /// <param name="parent">The <see cref="TypeDocItem"/> parent.</param>
     /// <param name="methodName">The method name of the overloads.</param>
     public MethodOverloadsDocItem(TypeDocItem parent, string methodName)
-        : base(parent.ThrowIfNull(), $"M{parent.Id[1..]}.{methodName}", $"{parent.FullName}.{methodName}", methodName, null)
+        : base(parent.ThrowIfNull(), $"?{parent.Id[1..]}.{methodName}", $"{parent.FullName}.{methodName}", methodName, null)
     { }
 }

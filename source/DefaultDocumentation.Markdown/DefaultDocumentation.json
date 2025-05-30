@@ -1,7 +1,7 @@
 ﻿{
 	"AssemblyFilePath": "bin\\Release\\netstandard2.0\\DefaultDocumentation.Markdown.dll",
 	"OutputDirectoryPath": "..\\..\\documentation\\markdown",
-	"GeneratedAccessModifiers": "Public,Protected,ProtectedInternal",
+	"GeneratedAccessModifiers": "Api",
 	"GeneratedPages": "Assembly,Types,Members",
 	"FileNameFactory": "DirectoryName",
 	"ExternLinksFilePaths": [

@@ -1,0 +1,2 @@
+## Bug fixes
+- fixed overload generator for parameter less constructors and methods (#191)

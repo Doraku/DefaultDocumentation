@@ -1,7 +1,7 @@
 ﻿{
 	"AssemblyFilePath": "bin\\Release\\netstandard2.0\\DefaultDocumentation.Api.dll",
 	"OutputDirectoryPath": "..\\..\\documentation\\api",
-	"GeneratedAccessModifiers": "Public,Protected,ProtectedInternal",
+	"GeneratedAccessModifiers": "Api",
 	"GeneratedPages": "Assembly,Types,Members",
 	"FileNameFactory": "DirectoryName",
 	"ExternLinksFilePaths": [
