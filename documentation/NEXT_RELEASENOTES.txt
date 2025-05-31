@@ -1,0 +1,2 @@
+## Bug fixes
+- fixed LogLevel not being able to be set when using the msbuild task (#192)

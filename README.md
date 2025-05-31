@@ -192,14 +192,14 @@ All relative path specified in the configuration file are relative to the actual
 - tool argument: `-h ...` `--LogLevel ...`
 - configuration file: `"LogLevel": "..."`
 
-The minimum level of the log you wish to be displayed to help resolve errors, `Info` by default. Available values are:
+The minimum level of the log you wish to be displayed to help resolve errors, `Information` by default. Available values are:
 - `Trace`: Trace log level
 - `Debug`: Debug log level
-- `Info`: Info log level
-- `Warn`: Warn log level
+- `Information`: Info log level
+- `Warning`: Warn log level
 - `Error`: Error log level
-- `Fatal`: Fatal log level
-- `Off`: no log
+- `Critical`: Critical log level
+- `None`: no log
 
 <a name='Configuration_AssemblyFilePath'></a>
 ## AssemblyFilePath

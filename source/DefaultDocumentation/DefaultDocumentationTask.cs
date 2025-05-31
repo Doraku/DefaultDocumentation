@@ -9,6 +9,15 @@ public sealed class DefaultDocumentationTask : Microsoft.Build.Utilities.Task, I
 {
     private static readonly char[] _separators = ['|'];
 
+    /// <summary>
+    /// Workaround for MSBuild task not supporting nullable properties.
+    /// </summary>
+    public string LogLevelString
+    {
+        get => LogLevel?.ToString();
+        set => LogLevel = Enum.TryParse(value, out LogLevel logLevel) ? logLevel : throw new Exception($"Unknown log level {value}");
+    }
+
     public LogLevel? LogLevel { get; set; }
 
     public string ConfigurationFilePath { get; set; }
