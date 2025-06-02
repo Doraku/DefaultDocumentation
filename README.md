@@ -591,7 +591,7 @@ The default value is `false`.
 - configuration file: `"Markdown.MarkdownSanitizationRegex": ""`
 
 DefaultDocumentation is conservative in the handling of the base xml documentation and expect everything to be xml. To protected the generated markdown from unintended interpretation, every [markdown special characters](https://www.markdownguide.org/basic-syntax/#characters-you-can-escape) are escaped.
-If you feel this protection overzelous, you can change this behaviour by providing your own regex that will be used to espace every captured groups.
+If you feel this protection overzelous, you can change this behaviour by providing your own regex that will be used to escape every captured groups.
 
 The default value is 
 ```
