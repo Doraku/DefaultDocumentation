@@ -1,0 +1,2 @@
+## New features
+- added Markdown.MarkdownSanitizationRegex configuration to change which characters are escaped when writing markdown (#193)

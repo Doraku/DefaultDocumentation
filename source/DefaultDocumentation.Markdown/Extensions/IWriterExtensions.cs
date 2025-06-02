@@ -220,15 +220,15 @@ public static class IWriterExtensions
         {
             if (string.IsNullOrEmpty(url))
             {
-                writer.Append((displayedName ?? "").Prettify().SanitizeForMarkdown());
+                writer.Append((displayedName ?? "").Prettify().SanitizeForMarkdown(writer.Context.GetMarkdownSanitizationRegex()));
             }
             else
             {
                 writer.AppendFormat(
                     writer.GetUrlFormat(),
-                    (displayedName ?? url!).Prettify().SanitizeForMarkdown(),
+                    (displayedName ?? url!).Prettify().SanitizeForMarkdown(writer.Context.GetMarkdownSanitizationRegex()),
                     url!,
-                    (tooltip ?? url!).SanitizeForMarkdown());
+                    (tooltip ?? url!).SanitizeForMarkdown(writer.Context.GetMarkdownSanitizationRegex()));
             }
         }
 

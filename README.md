@@ -64,6 +64,7 @@ dotnet tool
   - [Url format](#MarkdownConfiguration_UrlFormat)
   - [Exclude](#MarkdownConfiguration_Exclude)
   - [UseFullUrl](#MarkdownConfiguration_UseFullUrl)
+  - [MarkdownSanitizationRegex](#Markdown_MarkdownSanitizationRegex)
 - [Samples](#Samples)
 - [Dependencies](#Dependencies)
 
@@ -584,6 +585,18 @@ The default value is `null`.
 States if the url written should be absolute if a [LinksBaseUrl](#Configuration_LinksBaseUrl) is provided.
 
 The default value is `false`.
+
+<a name='Markdown_MarkdownSanitizationRegex'></a>
+## MarkdownSanitizationRegex
+- configuration file: `"Markdown.MarkdownSanitizationRegex": ""`
+
+DefaultDocumentation is conservative in the handling of the base xml documentation and expect everything to be xml. To protected the generated markdown from unintended interpretation, every [markdown special characters](https://www.markdownguide.org/basic-syntax/#characters-you-can-escape) are escaped.
+If you feel this protection overzelous, you can change this behaviour by providing your own regex that will be used to espace every captured groups.
+
+The default value is 
+```
+[\\\`\*_\{\}\[\]\<\>\(\)\#\+\-\.\!\|]
+```
 
 <a name='Samples'></a>
 # Samples

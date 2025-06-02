@@ -16,6 +16,7 @@ public static class IGeneralContextExtensions
     private const string _removeFileExtensionFromUrlKey = "Markdown.RemoveFileExtensionFromUrl";
     private const string _invalidCharReplacementKey = "Markdown.InvalidCharReplacement";
     private const string _useFullUrlKey = "Markdown.UseFullUrl";
+    private const string _markdownSanitizationRegex = "Markdown.MarkdownSanitizationRegex";
 
     /// <summary>
     /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_NestedTypeVisibilities">Markdown.NestedTypeVisibilities</see> setting.
@@ -71,6 +72,17 @@ public static class IGeneralContextExtensions
         context.ThrowIfNull();
 
         return context.GetSetting<bool>(_useFullUrlKey);
+    }
+
+    /// <summary>
+    /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#Markdown_MarkdownSanitizationRegex">Markdown.MarkdownSanitizationRegex</see> setting.
+    /// </summary>
+    /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
+    public static string? GetMarkdownSanitizationRegex(this IGeneralContext context)
+    {
+        context.ThrowIfNull();
+
+        return context.GetSetting<string>(_markdownSanitizationRegex);
     }
 
     /// <summary>

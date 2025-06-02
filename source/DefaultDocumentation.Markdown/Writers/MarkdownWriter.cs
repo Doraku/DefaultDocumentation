@@ -37,7 +37,7 @@ public sealed class MarkdownWriter : IWriter
     {
         if (!this.GetRenderAsRaw())
         {
-            value = value.SanitizeForMarkdown();
+            value = value.SanitizeForMarkdown(Context.GetMarkdownSanitizationRegex());
         }
 
         _writer.Append(value);

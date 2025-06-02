@@ -60,7 +60,7 @@ public sealed class NoteElement : IElement
             {
                 prefixedWriter
                     .Append("**")
-                    .Append(notePrefix.SanitizeForMarkdown())
+                    .Append(notePrefix.SanitizeForMarkdown(writer.Context.GetMarkdownSanitizationRegex()))
                     .AppendLine(":**  ");
             }
 
