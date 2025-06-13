@@ -17,7 +17,7 @@ public abstract class ChildrenSection<T> : DefaultDocumentation.Api.ISection
 
 The of [DocItem](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') to write\.
 
-Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System\.Object') &#129106; ChildrenSection<T>
+Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System\.Object') &#129106; ChildrenSection\<T\>
 
 Derived  
 &#8627; [ClassesSection](../ClassesSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.ClassesSection')  
