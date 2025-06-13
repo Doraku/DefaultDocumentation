@@ -363,7 +363,7 @@ public static class IWriterExtensions
             },
             IMember member => writer.AppendLink(member.MemberDefinition.GetIdString(), member.ToString(_nameAmbience).Replace("?", string.Empty)),
             IEntity entity => writer.AppendLink(entity.GetIdString(), entity.ToString(_nameAmbience).Replace("?", string.Empty)),
-            _ => writer.Append(element.FullName)
+            _ => writer.Append(element.FullName.SanitizeForMarkdown(writer.Context.GetMarkdownSanitizationRegex()))
         };
     }
 

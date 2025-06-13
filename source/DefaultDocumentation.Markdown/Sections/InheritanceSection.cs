@@ -37,7 +37,7 @@ public sealed class InheritanceSection : ISection
                     .Append(" &#129106; ");
             }
 
-            writer.Append(typeItem.Name);
+            writer.Append(typeItem.Name.SanitizeForMarkdown(writer.Context.GetMarkdownSanitizationRegex()));
         }
     }
 }

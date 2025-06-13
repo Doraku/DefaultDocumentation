@@ -1,0 +1,3 @@
+## Bug fixes
+- fixed type name not being properly sanitized for markdown in InheritenceSection (#195)
+- fixed element name not being properly sanitized when unable to generate a link
