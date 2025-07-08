@@ -76,6 +76,6 @@ start:
         context.ThrowIfNull();
         item.ThrowIfNull();
 
-        return PathCleaner.Clean(item is AssemblyDocItem ? item.FullName : GetMarkdownFileName(context, item), context.GetInvalidCharReplacement()) + ".md";
+        return PathCleaner.Clean(item is AssemblyDocItem ? item.FullName : GetMarkdownFileName(context, item), context) + ".md";
     }
 }

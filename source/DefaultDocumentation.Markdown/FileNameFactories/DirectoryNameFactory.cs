@@ -117,10 +117,6 @@ start:
             }
         }
 
-        return PathCleaner.Clean(
-            string.Join(
-                "/",
-                GetParentsNames(item).Concat(GetNames(item))),
-            context.GetInvalidCharReplacement()) + ".md";
+        return PathCleaner.Clean(string.Join("/", GetParentsNames(item).Concat(GetNames(item))), context) + ".md";
     }
 }

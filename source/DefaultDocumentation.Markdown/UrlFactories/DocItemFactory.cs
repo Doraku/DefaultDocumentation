@@ -97,7 +97,7 @@ public sealed class DocItemFactory : IUrlFactory
 
         if (item != pagedItem)
         {
-            url += "#" + PathCleaner.Clean(item.FullName, context.GetInvalidCharReplacement());
+            url += "#" + PathCleaner.Clean(item.FullName, context);
         }
 
         return url;

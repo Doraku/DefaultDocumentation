@@ -58,6 +58,8 @@ dotnet tool
 - [Markdown Configuration](#MarkdownConfiguration)
   - [NestedTypeVisibilities](#MarkdownConfiguration_NestedTypeVisibilities)
   - [RemoveFileExtensionFromUrl](#MarkdownConfiguration_RemoveFileExtensionFromUrl)
+  - [InvalidCharToTrimRegex](#MarkdownConfiguration_InvalidCharToTrimRegex)
+  - [InvalidCharToReplaceRegex](#MarkdownConfiguration_InvalidCharToReplaceRegex)
   - [InvalidCharReplacement](#MarkdownConfiguration_InvalidCharReplacement)
   - [HandleLineBreak](#MarkdownConfiguration_HandleLineBreak)
   - [TableOfContentsModes](#MarkdownConfiguration_TableOfContentsModes)
@@ -529,6 +531,18 @@ This setting can be overriden by specific `DocItem` types.
 - configuration file: `"Markdown.RemoveFileExtensionFromUrl": "..."`
 
 `true` to remove the extension `.md` from links in the generated documentation, some wikies don't like those. `false` by default.  
+
+<a name='MarkdownConfiguration_InvalidCharToTrimRegex'></a>
+## InvalidCharReplacement
+- configuration file: `"Markdown.InvalidCharToTrimRegex": "..."`
+
+Provides the regex used to trim chars for file names, `[\=\ ]` by default.
+
+<a name='MarkdownConfiguration_InvalidCharToReplaceRegex'></a>
+## InvalidCharReplacement
+- configuration file: `"Markdown.InvalidCharToReplaceRegex": "..."`
+
+Provides the used to replace invalid char for file names, `[\\\<\>:\*\?]` by default.
 
 <a name='MarkdownConfiguration_InvalidCharReplacement'></a>
 ## InvalidCharReplacement

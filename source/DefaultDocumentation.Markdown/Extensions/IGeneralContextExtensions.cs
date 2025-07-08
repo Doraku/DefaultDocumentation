@@ -14,6 +14,8 @@ public static class IGeneralContextExtensions
 {
     private const string _nestedTypeVisibilitiesKey = "Markdown.NestedTypeVisibilities";
     private const string _removeFileExtensionFromUrlKey = "Markdown.RemoveFileExtensionFromUrl";
+    private const string _invalidCharToTrimRegex = "Markdown.InvalidCharToTrimRegex";
+    private const string _invalidCharToReplaceRegex = "Markdown.InvalidCharToReplaceRegex";
     private const string _invalidCharReplacementKey = "Markdown.InvalidCharReplacement";
     private const string _useFullUrlKey = "Markdown.UseFullUrl";
     private const string _markdownSanitizationRegex = "Markdown.MarkdownSanitizationRegex";
@@ -49,6 +51,28 @@ public static class IGeneralContextExtensions
         context.ThrowIfNull();
 
         return context.GetSetting<bool>(_removeFileExtensionFromUrlKey);
+    }
+
+    /// <summary>
+    /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_InvalidCharToTrimRegex">Markdown.InvalidCharToTrimRegex</see> setting.
+    /// </summary>
+    /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
+    public static string? GetInvalidCharToTrimRegex(this IGeneralContext context)
+    {
+        context.ThrowIfNull();
+
+        return context.GetSetting<string>(_invalidCharToTrimRegex);
+    }
+
+    /// <summary>
+    /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_InvalidCharToReplaceRegex">Markdown.InvalidCharToReplaceRegex</see> setting.
+    /// </summary>
+    /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
+    public static string? GetInvalidCharToReplaceRegex(this IGeneralContext context)
+    {
+        context.ThrowIfNull();
+
+        return context.GetSetting<string>(_invalidCharToReplaceRegex);
     }
 
     /// <summary>

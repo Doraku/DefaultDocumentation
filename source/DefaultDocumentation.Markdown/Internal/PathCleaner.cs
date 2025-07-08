@@ -1,27 +1,14 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Text.RegularExpressions;
 
 namespace DefaultDocumentation.Markdown.Internal;
 
 internal static class PathCleaner
 {
-    private static readonly string[] _toTrimChars = [.. new[] { '=', ' ' }.Select(@char => $"{@char}")];
-    private static readonly string[] _invalidChars = [.. new[] { '\"', '<', '>', ':', '*', '?' }.Concat(Path.GetInvalidPathChars()).Select(@char => $"{@char}")];
-
-    public static string Clean(string value, string? invalidCharReplacement)
+    public static string Clean(string value, IGeneralContext context)
     {
-        foreach (string toTrimChar in _toTrimChars)
-        {
-            value = value.Replace(toTrimChar, string.Empty);
-        }
+        value = Regex.Replace(value, context.GetInvalidCharToTrimRegex() ?? @"[\=\ ]", string.Empty);
+        value = Regex.Replace(value, context.GetInvalidCharToReplaceRegex() ?? @"[\\\<\>\:\*\?]", context.GetInvalidCharReplacement() ?? "_");
 
-        invalidCharReplacement = string.IsNullOrEmpty(invalidCharReplacement) ? "_" : invalidCharReplacement;
-
-        foreach (string invalidChar in _invalidChars)
-        {
-            value = value.Replace(invalidChar, invalidCharReplacement);
-        }
-
-        return value.Trim('/');
+        return value;
     }
 }
