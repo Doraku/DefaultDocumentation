@@ -38,6 +38,4 @@ jobs:
       run: dotnet pack source -c Release -o build /p:Version=0-ci$(date +'%Y%m%d%H%M%S') /p:SignAssembly=true
 
     - name: Publish packages
-      run: dotnet nuget push build\*.nupkg -k NUGET_AUTH_TOKEN -s https://nuget.pkg.github.com/Doraku/index.json
-      env:
-        NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: dotnet nuget push build\*.nupkg --api-key ${{ github.token }} --source https://nuget.pkg.github.com/Doraku/index.json
