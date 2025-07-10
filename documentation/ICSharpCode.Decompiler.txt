@@ -1,4 +1,5 @@
 T:ICSharpCode.Decompiler.TypeSystem.IEntity|https://github.com/icsharpcode/ILSpy|IEntity
+T:ICSharpCode.Decompiler.TypeSystem.INamedElement|https://github.com/icsharpcode/ILSpy|INamedElement
 T:ICSharpCode.Decompiler.TypeSystem.IMember|https://github.com/icsharpcode/ILSpy|IMember
 T:ICSharpCode.Decompiler.TypeSystem.ITypeDefinition|https://github.com/icsharpcode/ILSpy|ITypeDefinition
 T:ICSharpCode.Decompiler.TypeSystem.IField|https://github.com/icsharpcode/ILSpy|IField

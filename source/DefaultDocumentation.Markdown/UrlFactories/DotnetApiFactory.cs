@@ -17,6 +17,7 @@ public sealed class DotnetApiFactory : IUrlFactory
     public string Name => ConfigName;
 
     /// <inheritdoc/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1308:Normalize strings to uppercase", Justification = "we want lowercase")]
     public string GetUrl(IPageContext context, string id)
     {
         context.ThrowIfNull();
@@ -26,11 +27,11 @@ public sealed class DotnetApiFactory : IUrlFactory
         int parametersIndex = id.IndexOf("(", StringComparison.Ordinal);
         if (parametersIndex > 0)
         {
-            string methodName = id[..parametersIndex];
+            string methodName = id[..parametersIndex].Replace('#', '-');
 
-            id = $"{methodName}#{id.Replace('.', '_').Replace('`', '_').Replace('(', '_').Replace(')', '_')}";
+            id = $"{methodName}#{id.Replace('.', '-').Replace(',', '-').Replace("#", string.Empty)}";
         }
 
-        return "https://docs.microsoft.com/en-us/dotnet/api/" + id.Replace('`', '-');
+        return $"https://learn.microsoft.com/en-us/dotnet/api/{id.Replace('`', '-').Replace(" ", string.Empty).ToLowerInvariant()}";
     }
 }

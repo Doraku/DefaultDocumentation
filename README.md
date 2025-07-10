@@ -542,7 +542,7 @@ Provides the regex used to trim chars for file names, `[\=\ ]` by default.
 ## InvalidCharReplacement
 - configuration file: `"Markdown.InvalidCharToReplaceRegex": "..."`
 
-Provides the used to replace invalid char for file names, `[\\\<\>:\*\?]` by default.
+Provides the  regex used to replace invalid char for file names, `[\\\<\>:\*\?]` by default.
 
 <a name='MarkdownConfiguration_InvalidCharReplacement'></a>
 ## InvalidCharReplacement
