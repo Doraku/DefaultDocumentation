@@ -9,7 +9,7 @@ Provides extension methods on the [IEntity](https://github.com/icsharpcode/ILSpy
 public static class IEntityExtensions
 ```
 
-Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System\.Object') &#129106; IEntityExtensions
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; IEntityExtensions
 
 | Methods | |
 | :--- | :--- |

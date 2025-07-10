@@ -23,5 +23,5 @@ The [IGeneralContext](../../IGeneralContext/index.md 'DefaultDocumentation\.IGen
 The [DocItem](../../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') for which to get the documentation file name\.
 
 #### Returns
-[System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')  
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')  
 The documentation file name of the given [DocItem](../../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')\.

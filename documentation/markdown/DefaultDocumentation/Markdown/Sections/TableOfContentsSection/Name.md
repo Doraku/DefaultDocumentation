@@ -12,4 +12,4 @@ public string Name { get; }
 Implements [Name](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/ISection/Name.md 'DefaultDocumentation\.Api\.ISection\.Name')
 
 #### Property Value
-[System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')

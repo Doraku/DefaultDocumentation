@@ -9,7 +9,7 @@ Provides extension methods on the [IPageContext](../IPageContext/index.md 'Defau
 public static class IPageContextExtensions
 ```
 
-Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System\.Object') &#129106; IPageContextExtensions
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; IPageContextExtensions
 
 | Methods | |
 | :--- | :--- |

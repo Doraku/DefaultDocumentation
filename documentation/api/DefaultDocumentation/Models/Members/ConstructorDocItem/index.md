@@ -9,7 +9,7 @@ Represents a constructor [IMethod](https://github.com/icsharpcode/ILSpy 'ICSharp
 public sealed class ConstructorDocItem : DefaultDocumentation.Models.EntityDocItem, DefaultDocumentation.Models.IParameterizedDocItem
 ```
 
-Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System\.Object') &#129106; [DocItem](../../DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') &#129106; [EntityDocItem](../../EntityDocItem/index.md 'DefaultDocumentation\.Models\.EntityDocItem') &#129106; ConstructorDocItem
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; [DocItem](../../DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') &#129106; [EntityDocItem](../../EntityDocItem/index.md 'DefaultDocumentation\.Models\.EntityDocItem') &#129106; ConstructorDocItem
 
 Implements [IParameterizedDocItem](../../IParameterizedDocItem/index.md 'DefaultDocumentation\.Models\.IParameterizedDocItem')
 

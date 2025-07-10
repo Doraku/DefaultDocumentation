@@ -10,4 +10,4 @@ System.Collections.Generic.IEnumerable<DefaultDocumentation.Api.IUrlFactory> Url
 ```
 
 #### Property Value
-[System\.Collections\.Generic\.IEnumerable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[IUrlFactory](../Api/IUrlFactory/index.md 'DefaultDocumentation\.Api\.IUrlFactory')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+[System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[IUrlFactory](../Api/IUrlFactory/index.md 'DefaultDocumentation\.Api\.IUrlFactory')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')

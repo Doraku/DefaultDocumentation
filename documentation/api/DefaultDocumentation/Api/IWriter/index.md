@@ -17,5 +17,5 @@ public interface IWriter
 | Methods | |
 | :--- | :--- |
 | [Append\(string\)](Append(string).md 'DefaultDocumentation\.Api\.IWriter\.Append\(string\)') | Appends a string at the end of the documentation text\. |
-| [AppendLine\(\)](AppendLine().md 'DefaultDocumentation\.Api\.IWriter\.AppendLine\(\)') | Appends a [System\.Environment\.NewLine](https://docs.microsoft.com/en-us/dotnet/api/System.Environment.NewLine 'System\.Environment\.NewLine') at the end of the documentation text\. |
+| [AppendLine\(\)](AppendLine().md 'DefaultDocumentation\.Api\.IWriter\.AppendLine\(\)') | Appends a [System\.Environment\.NewLine](https://learn.microsoft.com/en-us/dotnet/api/system.environment.newline 'System\.Environment\.NewLine') at the end of the documentation text\. |
 | [EndsWith\(string\)](EndsWith(string).md 'DefaultDocumentation\.Api\.IWriter\.EndsWith\(string\)') | Returns whether the documentation text ends with the given string\. |

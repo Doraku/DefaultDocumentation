@@ -10,7 +10,7 @@ It also uses a [OverrideWriter](../OverrideWriter/index.md 'DefaultDocumentation
 public sealed class MarkdownWriter : DefaultDocumentation.Api.IWriter
 ```
 
-Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System\.Object') &#129106; MarkdownWriter
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; MarkdownWriter
 
 Implements [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IWriter/index.md 'DefaultDocumentation\.Api\.IWriter')
 
@@ -26,5 +26,5 @@ Implements [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/
 | Methods | |
 | :--- | :--- |
 | [Append\(string\)](Append(string).md 'DefaultDocumentation\.Markdown\.Writers\.MarkdownWriter\.Append\(string\)') | Appends a string at the end of the documentation text\. |
-| [AppendLine\(\)](AppendLine().md 'DefaultDocumentation\.Markdown\.Writers\.MarkdownWriter\.AppendLine\(\)') | Appends a [System\.Environment\.NewLine](https://docs.microsoft.com/en-us/dotnet/api/System.Environment.NewLine 'System\.Environment\.NewLine') or a `` at the end of the documentation text depending of the current setting\. |
+| [AppendLine\(\)](AppendLine().md 'DefaultDocumentation\.Markdown\.Writers\.MarkdownWriter\.AppendLine\(\)') | Appends a [System\.Environment\.NewLine](https://learn.microsoft.com/en-us/dotnet/api/system.environment.newline 'System\.Environment\.NewLine') or a `` at the end of the documentation text depending of the current setting\. |
 | [EndsWith\(string\)](EndsWith(string).md 'DefaultDocumentation\.Markdown\.Writers\.MarkdownWriter\.EndsWith\(string\)') | Returns whether the documentation text ends with the given string\. |

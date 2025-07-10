@@ -24,6 +24,6 @@ The [IProperty](https://github.com/icsharpcode/ILSpy 'ICSharpCode\.Decompiler\.T
 
 <a name='DefaultDocumentation.Models.Members.PropertyDocItem.PropertyDocItem(DefaultDocumentation.Models.Types.TypeDocItem,IProperty,System.Xml.Linq.XElement).documentation'></a>
 
-`documentation` [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement')
+`documentation` [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement')
 
-The [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement') documentation element of the property\.
+The [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement') documentation element of the property\.

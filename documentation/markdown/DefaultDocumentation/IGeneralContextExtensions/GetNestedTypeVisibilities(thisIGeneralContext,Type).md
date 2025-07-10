@@ -18,9 +18,9 @@ The [IGeneralContext](https://github.com/Doraku/DefaultDocumentation/blob/master
 
 <a name='DefaultDocumentation.IGeneralContextExtensions.GetNestedTypeVisibilities(thisDefaultDocumentation.IGeneralContext,System.Type).type'></a>
 
-`type` [System\.Type](https://docs.microsoft.com/en-us/dotnet/api/System.Type 'System\.Type')
+`type` [System\.Type](https://learn.microsoft.com/en-us/dotnet/api/system.type 'System\.Type')
 
-The [System\.Type](https://docs.microsoft.com/en-us/dotnet/api/System.Type 'System\.Type') for which to get the setting\.
+The [System\.Type](https://learn.microsoft.com/en-us/dotnet/api/system.type 'System\.Type') for which to get the setting\.
 
 #### Returns
 [NestedTypeVisibilities](../Markdown/NestedTypeVisibilities/index.md 'DefaultDocumentation\.Markdown\.NestedTypeVisibilities')  

@@ -9,7 +9,7 @@ Transforms any id as a dotnet api url\.
 public sealed class DotnetApiFactory : DefaultDocumentation.Api.IUrlFactory
 ```
 
-Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System\.Object') &#129106; DotnetApiFactory
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; DotnetApiFactory
 
 Implements [IUrlFactory](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IUrlFactory/index.md 'DefaultDocumentation\.Api\.IUrlFactory')
 

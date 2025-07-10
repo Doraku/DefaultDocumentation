@@ -10,4 +10,4 @@ System.Collections.Generic.ICollection<DefaultDocumentation.Models.DocItem> Item
 ```
 
 #### Property Value
-[System\.Collections\.Generic\.ICollection&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.ICollection-1 'System\.Collections\.Generic\.ICollection\`1')[DocItem](../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.ICollection-1 'System\.Collections\.Generic\.ICollection\`1')
+[System\.Collections\.Generic\.ICollection&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1 'System\.Collections\.Generic\.ICollection\`1')[DocItem](../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1 'System\.Collections\.Generic\.ICollection\`1')

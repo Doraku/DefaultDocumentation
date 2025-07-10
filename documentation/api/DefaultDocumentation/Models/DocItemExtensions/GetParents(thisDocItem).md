@@ -17,5 +17,5 @@ public static System.Collections.Generic.IEnumerable<DefaultDocumentation.Models
 The [DocItem](../DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') for which parents should be returned\.
 
 #### Returns
-[System\.Collections\.Generic\.IEnumerable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DocItem](../DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')  
+[System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DocItem](../DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')  
 The parents of the given [DocItem](../DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') from the top parent\.

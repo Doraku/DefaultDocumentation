@@ -9,7 +9,7 @@ Represents the different overload of the constructors of a given [TypeDocItem](h
 public sealed class ConstructorOverloadsDocItem : DefaultDocumentation.Models.DocItem
 ```
 
-Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System\.Object') &#129106; [DocItem](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') &#129106; ConstructorOverloadsDocItem
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; [DocItem](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') &#129106; ConstructorOverloadsDocItem
 
 | Constructors | |
 | :--- | :--- |

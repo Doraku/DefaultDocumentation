@@ -9,7 +9,7 @@ Implementation of the [IDocItemGenerator](https://github.com/Doraku/DefaultDocum
 public sealed class OverloadsGenerator : DefaultDocumentation.Api.IDocItemGenerator
 ```
 
-Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System\.Object') &#129106; OverloadsGenerator
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; OverloadsGenerator
 
 Implements [IDocItemGenerator](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IDocItemGenerator/index.md 'DefaultDocumentation\.Api\.IDocItemGenerator')
 

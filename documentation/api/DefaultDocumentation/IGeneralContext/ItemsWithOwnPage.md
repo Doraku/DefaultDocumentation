@@ -10,4 +10,4 @@ System.Collections.Generic.IReadOnlyCollection<DefaultDocumentation.Models.DocIt
 ```
 
 #### Property Value
-[System\.Collections\.Generic\.IReadOnlyCollection&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IReadOnlyCollection-1 'System\.Collections\.Generic\.IReadOnlyCollection\`1')[DocItem](../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IReadOnlyCollection-1 'System\.Collections\.Generic\.IReadOnlyCollection\`1')
+[System\.Collections\.Generic\.IReadOnlyCollection&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ireadonlycollection-1 'System\.Collections\.Generic\.IReadOnlyCollection\`1')[DocItem](../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ireadonlycollection-1 'System\.Collections\.Generic\.IReadOnlyCollection\`1')

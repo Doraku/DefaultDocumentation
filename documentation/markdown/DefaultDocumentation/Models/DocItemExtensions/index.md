@@ -9,7 +9,7 @@ Provides extension methods on the [DocItem](https://github.com/Doraku/DefaultDoc
 public static class DocItemExtensions
 ```
 
-Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System\.Object') &#129106; DocItemExtensions
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; DocItemExtensions
 
 | Methods | |
 | :--- | :--- |

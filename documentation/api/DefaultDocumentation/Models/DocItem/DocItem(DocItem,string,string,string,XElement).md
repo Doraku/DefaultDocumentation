@@ -18,24 +18,24 @@ The parent\.
 
 <a name='DefaultDocumentation.Models.DocItem.DocItem(DefaultDocumentation.Models.DocItem,string,string,string,System.Xml.Linq.XElement).id'></a>
 
-`id` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`id` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The id\.
 
 <a name='DefaultDocumentation.Models.DocItem.DocItem(DefaultDocumentation.Models.DocItem,string,string,string,System.Xml.Linq.XElement).fullName'></a>
 
-`fullName` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`fullName` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The full name\.
 
 <a name='DefaultDocumentation.Models.DocItem.DocItem(DefaultDocumentation.Models.DocItem,string,string,string,System.Xml.Linq.XElement).name'></a>
 
-`name` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`name` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The name\.
 
 <a name='DefaultDocumentation.Models.DocItem.DocItem(DefaultDocumentation.Models.DocItem,string,string,string,System.Xml.Linq.XElement).documentation'></a>
 
-`documentation` [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement')
+`documentation` [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement')
 
 The documentation\.

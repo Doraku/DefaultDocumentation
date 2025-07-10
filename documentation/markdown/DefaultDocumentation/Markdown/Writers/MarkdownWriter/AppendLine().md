@@ -3,7 +3,7 @@
 
 ## MarkdownWriter\.AppendLine\(\) Method
 
-Appends a [System\.Environment\.NewLine](https://docs.microsoft.com/en-us/dotnet/api/System.Environment.NewLine 'System\.Environment\.NewLine') or a `` at the end of the documentation text depending of the current setting\.
+Appends a [System\.Environment\.NewLine](https://learn.microsoft.com/en-us/dotnet/api/system.environment.newline 'System\.Environment\.NewLine') or a `` at the end of the documentation text depending of the current setting\.
 
 ```csharp
 public DefaultDocumentation.Api.IWriter AppendLine();

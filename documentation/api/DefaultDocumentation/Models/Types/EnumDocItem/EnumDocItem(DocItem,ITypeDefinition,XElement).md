@@ -24,6 +24,6 @@ The [ITypeDefinition](https://github.com/icsharpcode/ILSpy 'ICSharpCode\.Decompi
 
 <a name='DefaultDocumentation.Models.Types.EnumDocItem.EnumDocItem(DefaultDocumentation.Models.DocItem,ITypeDefinition,System.Xml.Linq.XElement).documentation'></a>
 
-`documentation` [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement')
+`documentation` [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement')
 
-The [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement') documentation element of the enum\.
+The [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement') documentation element of the enum\.

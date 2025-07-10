@@ -17,5 +17,5 @@ string GetFileName(DefaultDocumentation.Models.DocItem item);
 The [DocItem](../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') for which to get the page name\.
 
 #### Returns
-[System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')  
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')  
 The file name of the documentation page of the given [DocItem](../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')\.

@@ -3,7 +3,7 @@
 
 ## IElement\.Write\(IWriter, XElement\) Method
 
-Writes to a [IWriter](../IWriter/index.md 'DefaultDocumentation\.Api\.IWriter') the provided [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement')\.
+Writes to a [IWriter](../IWriter/index.md 'DefaultDocumentation\.Api\.IWriter') the provided [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement')\.
 
 ```csharp
 void Write(DefaultDocumentation.Api.IWriter writer, System.Xml.Linq.XElement element);
@@ -18,6 +18,6 @@ The [IWriter](../IWriter/index.md 'DefaultDocumentation\.Api\.IWriter') to write
 
 <a name='DefaultDocumentation.Api.IElement.Write(DefaultDocumentation.Api.IWriter,System.Xml.Linq.XElement).element'></a>
 
-`element` [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement')
+`element` [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement')
 
-The [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement') to write\.
+The [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement') to write\.

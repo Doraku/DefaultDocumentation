@@ -12,4 +12,4 @@ public int Length { get; set; }
 Implements [Length](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IWriter/Length.md 'DefaultDocumentation\.Api\.IWriter\.Length')
 
 #### Property Value
-[System\.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System\.Int32')
+[System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')

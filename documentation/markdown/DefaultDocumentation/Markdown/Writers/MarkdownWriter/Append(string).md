@@ -12,7 +12,7 @@ public DefaultDocumentation.Api.IWriter Append(string value);
 
 <a name='DefaultDocumentation.Markdown.Writers.MarkdownWriter.Append(string).value'></a>
 
-`value` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`value` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The value to append\.
 

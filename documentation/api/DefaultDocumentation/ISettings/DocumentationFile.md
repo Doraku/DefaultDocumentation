@@ -10,4 +10,4 @@ System.IO.FileInfo DocumentationFile { get; }
 ```
 
 #### Property Value
-[System\.IO\.FileInfo](https://docs.microsoft.com/en-us/dotnet/api/System.IO.FileInfo 'System\.IO\.FileInfo')
+[System\.IO\.FileInfo](https://learn.microsoft.com/en-us/dotnet/api/system.io.fileinfo 'System\.IO\.FileInfo')

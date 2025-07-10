@@ -17,7 +17,7 @@ public static string GetUrlFormat(this DefaultDocumentation.Api.IWriter writer);
 The [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IWriter/index.md 'DefaultDocumentation\.Api\.IWriter') for which to get this setting\.
 
 #### Returns
-[System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')  
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')  
 Whether line break in the xml documentation should be handled in the generated markdown\.
 
 ### Remarks

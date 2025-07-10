@@ -18,7 +18,7 @@ The [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documen
 
 <a name='DefaultDocumentation.Api.IWriterExtensions.ToPrefixedWriter(thisDefaultDocumentation.Api.IWriter,string).prefix'></a>
 
-`prefix` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`prefix` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The string to prefix every new line with\.
 

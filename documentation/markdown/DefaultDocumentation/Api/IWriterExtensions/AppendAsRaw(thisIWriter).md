@@ -17,5 +17,5 @@ public static System.IDisposable AppendAsRaw(this DefaultDocumentation.Api.IWrit
 The [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IWriter/index.md 'DefaultDocumentation\.Api\.IWriter') to use\.
 
 #### Returns
-[System\.IDisposable](https://docs.microsoft.com/en-us/dotnet/api/System.IDisposable 'System\.IDisposable')  
+[System\.IDisposable](https://learn.microsoft.com/en-us/dotnet/api/system.idisposable 'System\.IDisposable')  
 The given [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IWriter/index.md 'DefaultDocumentation\.Api\.IWriter')\.

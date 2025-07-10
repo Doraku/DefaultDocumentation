@@ -32,7 +32,7 @@ The [IPageContext](../IPageContext/index.md 'DefaultDocumentation\.IPageContext'
 The [DocItem](../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') for which to get the url\.
 
 #### Returns
-[System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')  
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')  
 The url of the given [DocItem](../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')\.
 
 <a name='DefaultDocumentation.IPageContextExtensions.GetUrl(thisDefaultDocumentation.IPageContext,string)'></a>
@@ -54,10 +54,10 @@ The [IPageContext](../IPageContext/index.md 'DefaultDocumentation\.IPageContext'
 
 <a name='DefaultDocumentation.IPageContextExtensions.GetUrl(thisDefaultDocumentation.IPageContext,string).id'></a>
 
-`id` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`id` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The id for which to get the url\.
 
 #### Returns
-[System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')  
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')  
 The url of the given [DocItem](../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')\.

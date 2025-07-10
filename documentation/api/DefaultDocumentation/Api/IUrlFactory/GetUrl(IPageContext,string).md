@@ -18,10 +18,10 @@ The [IPageContext](../../IPageContext/index.md 'DefaultDocumentation\.IPageConte
 
 <a name='DefaultDocumentation.Api.IUrlFactory.GetUrl(DefaultDocumentation.IPageContext,string).id'></a>
 
-`id` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`id` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The id to get the url for\.
 
 #### Returns
-[System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')  
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')  
 The url of the given id\.

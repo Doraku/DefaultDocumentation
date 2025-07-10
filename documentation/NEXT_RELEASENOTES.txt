@@ -1,4 +1,0 @@
-## New features
-- added configuration for Markdown.InvalidCharToTrimRegex, used to trim chars from file names
-- added configuration for Markdown.InvalidCharToReplaceRegex, used to replace chars from file names
-- updated dotnet api documentation link generation

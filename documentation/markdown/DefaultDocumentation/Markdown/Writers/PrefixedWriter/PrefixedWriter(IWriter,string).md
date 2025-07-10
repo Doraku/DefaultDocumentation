@@ -18,6 +18,6 @@ The [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documen
 
 <a name='DefaultDocumentation.Markdown.Writers.PrefixedWriter.PrefixedWriter(DefaultDocumentation.Api.IWriter,string).prefix'></a>
 
-`prefix` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`prefix` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The prefix to use at every new line start\.

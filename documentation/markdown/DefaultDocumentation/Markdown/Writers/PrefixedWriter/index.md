@@ -3,13 +3,13 @@
 
 ## PrefixedWriter Class
 
-Decorator of the [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IWriter/index.md 'DefaultDocumentation\.Api\.IWriter') type to prefix every new line with a specific [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')\.
+Decorator of the [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IWriter/index.md 'DefaultDocumentation\.Api\.IWriter') type to prefix every new line with a specific [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')\.
 
 ```csharp
 public sealed class PrefixedWriter : DefaultDocumentation.Api.IWriter
 ```
 
-Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System\.Object') &#129106; PrefixedWriter
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; PrefixedWriter
 
 Implements [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IWriter/index.md 'DefaultDocumentation\.Api\.IWriter')
 
@@ -25,5 +25,5 @@ Implements [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/
 | Methods | |
 | :--- | :--- |
 | [Append\(string\)](Append(string).md 'DefaultDocumentation\.Markdown\.Writers\.PrefixedWriter\.Append\(string\)') | Appends a string at the end of the documentation text\. |
-| [AppendLine\(\)](AppendLine().md 'DefaultDocumentation\.Markdown\.Writers\.PrefixedWriter\.AppendLine\(\)') | Appends a [System\.Environment\.NewLine](https://docs.microsoft.com/en-us/dotnet/api/System.Environment.NewLine 'System\.Environment\.NewLine') at the end of the documentation text\. |
+| [AppendLine\(\)](AppendLine().md 'DefaultDocumentation\.Markdown\.Writers\.PrefixedWriter\.AppendLine\(\)') | Appends a [System\.Environment\.NewLine](https://learn.microsoft.com/en-us/dotnet/api/system.environment.newline 'System\.Environment\.NewLine') at the end of the documentation text\. |
 | [EndsWith\(string\)](EndsWith(string).md 'DefaultDocumentation\.Markdown\.Writers\.PrefixedWriter\.EndsWith\(string\)') | Returns whether the documentation text ends with the given string\. |

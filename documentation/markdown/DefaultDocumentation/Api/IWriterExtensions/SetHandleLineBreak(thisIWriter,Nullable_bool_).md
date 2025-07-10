@@ -19,7 +19,7 @@ The [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documen
 
 <a name='DefaultDocumentation.Api.IWriterExtensions.SetHandleLineBreak(thisDefaultDocumentation.Api.IWriter,System.Nullable_bool_).value'></a>
 
-`value` [System\.Nullable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Nullable-1 'System\.Nullable\`1')[System\.Boolean](https://docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System\.Boolean')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Nullable-1 'System\.Nullable\`1')
+`value` [System\.Nullable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.nullable-1 'System\.Nullable\`1')[System\.Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean 'System\.Boolean')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.nullable-1 'System\.Nullable\`1')
 
 Whether line break in the xml documentation should be handled in the generated markdown\.
 

@@ -12,12 +12,12 @@ protected ChildrenSection(string name, string title);
 
 <a name='DefaultDocumentation.Markdown.Sections.ChildrenSection_T_.ChildrenSection(string,string).name'></a>
 
-`name` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`name` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The name of the section\.
 
 <a name='DefaultDocumentation.Markdown.Sections.ChildrenSection_T_.ChildrenSection(string,string).title'></a>
 
-`title` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`title` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The title that will be written before the children\.

@@ -18,7 +18,7 @@ The [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documen
 
 <a name='DefaultDocumentation.Api.IWriterExtensions.SetUrlFormat(thisDefaultDocumentation.Api.IWriter,string).value'></a>
 
-`value` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`value` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The format to use to display urls\.
 

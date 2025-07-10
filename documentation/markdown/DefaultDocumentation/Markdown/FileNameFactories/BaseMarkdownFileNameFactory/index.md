@@ -10,7 +10,7 @@ It will also replace invalid char that may be present with the [Markdown\.Invali
 public abstract class BaseMarkdownFileNameFactory : DefaultDocumentation.Api.IFileNameFactory
 ```
 
-Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System\.Object') &#129106; BaseMarkdownFileNameFactory
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; BaseMarkdownFileNameFactory
 
 Derived  
 &#8627; [FullNameFactory](../FullNameFactory/index.md 'DefaultDocumentation\.Markdown\.FileNameFactories\.FullNameFactory')  

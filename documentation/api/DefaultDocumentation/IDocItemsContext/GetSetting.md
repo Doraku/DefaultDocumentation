@@ -6,7 +6,7 @@
 | Overloads | |
 | :--- | :--- |
 | [GetSetting&lt;T&gt;\(string\)](GetSetting.md#DefaultDocumentation.IDocItemsContext.GetSetting_T_(string) 'DefaultDocumentation\.IDocItemsContext\.GetSetting\<T\>\(string\)') | Gets a [T](index.md#DefaultDocumentation.IDocItemsContext.GetSetting_T_(string).T 'DefaultDocumentation\.IDocItemsContext\.GetSetting\<T\>\(string\)\.T') setting with the given name\. |
-| [GetSetting&lt;T&gt;\(Type, string\)](GetSetting.md#DefaultDocumentation.IDocItemsContext.GetSetting_T_(System.Type,string) 'DefaultDocumentation\.IDocItemsContext\.GetSetting\<T\>\(System\.Type, string\)') | Gets a [T](index.md#DefaultDocumentation.IDocItemsContext.GetSetting_T_(System.Type,string).T 'DefaultDocumentation\.IDocItemsContext\.GetSetting\<T\>\(System\.Type, string\)\.T') setting with the given name for the given [DocItem](../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')[System\.Type](https://docs.microsoft.com/en-us/dotnet/api/System.Type 'System\.Type')\. |
+| [GetSetting&lt;T&gt;\(Type, string\)](GetSetting.md#DefaultDocumentation.IDocItemsContext.GetSetting_T_(System.Type,string) 'DefaultDocumentation\.IDocItemsContext\.GetSetting\<T\>\(System\.Type, string\)') | Gets a [T](index.md#DefaultDocumentation.IDocItemsContext.GetSetting_T_(System.Type,string).T 'DefaultDocumentation\.IDocItemsContext\.GetSetting\<T\>\(System\.Type, string\)\.T') setting with the given name for the given [DocItem](../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')[System\.Type](https://learn.microsoft.com/en-us/dotnet/api/system.type 'System\.Type')\. |
 
 <a name='DefaultDocumentation.IDocItemsContext.GetSetting_T_(string)'></a>
 
@@ -28,7 +28,7 @@ The type of the setting to get\.
 
 <a name='DefaultDocumentation.IDocItemsContext.GetSetting_T_(string).name'></a>
 
-`name` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`name` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The name of the setting to get\.
 
@@ -40,7 +40,7 @@ The setting if present, otherwise the default value of the type [T](index.md#Def
 
 ## IDocItemsContext\.GetSetting\<T\>\(Type, string\) Method
 
-Gets a [T](index.md#DefaultDocumentation.IDocItemsContext.GetSetting_T_(System.Type,string).T 'DefaultDocumentation\.IDocItemsContext\.GetSetting\<T\>\(System\.Type, string\)\.T') setting with the given name for the given [DocItem](../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')[System\.Type](https://docs.microsoft.com/en-us/dotnet/api/System.Type 'System\.Type')\.
+Gets a [T](index.md#DefaultDocumentation.IDocItemsContext.GetSetting_T_(System.Type,string).T 'DefaultDocumentation\.IDocItemsContext\.GetSetting\<T\>\(System\.Type, string\)\.T') setting with the given name for the given [DocItem](../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')[System\.Type](https://learn.microsoft.com/en-us/dotnet/api/system.type 'System\.Type')\.
 
 ```csharp
 T? GetSetting<T>(System.Type? type, string name);
@@ -56,13 +56,13 @@ The type of the setting to get\.
 
 <a name='DefaultDocumentation.IDocItemsContext.GetSetting_T_(System.Type,string).type'></a>
 
-`type` [System\.Type](https://docs.microsoft.com/en-us/dotnet/api/System.Type 'System\.Type')
+`type` [System\.Type](https://learn.microsoft.com/en-us/dotnet/api/system.type 'System\.Type')
 
-The [DocItem](../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')[System\.Type](https://docs.microsoft.com/en-us/dotnet/api/System.Type 'System\.Type') for which to get the specific setting\.
+The [DocItem](../Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')[System\.Type](https://learn.microsoft.com/en-us/dotnet/api/system.type 'System\.Type') for which to get the specific setting\.
 
 <a name='DefaultDocumentation.IDocItemsContext.GetSetting_T_(System.Type,string).name'></a>
 
-`name` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`name` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The name of the setting to get\.
 

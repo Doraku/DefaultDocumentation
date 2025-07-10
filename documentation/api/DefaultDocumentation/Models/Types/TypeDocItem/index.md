@@ -9,7 +9,7 @@ Represents a [ITypeDefinition](https://github.com/icsharpcode/ILSpy 'ICSharpCode
 public abstract class TypeDocItem : DefaultDocumentation.Models.EntityDocItem, DefaultDocumentation.Models.ITypeParameterizedDocItem
 ```
 
-Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System\.Object') &#129106; [DocItem](../../DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') &#129106; [EntityDocItem](../../EntityDocItem/index.md 'DefaultDocumentation\.Models\.EntityDocItem') &#129106; TypeDocItem
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; [DocItem](../../DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') &#129106; [EntityDocItem](../../EntityDocItem/index.md 'DefaultDocumentation\.Models\.EntityDocItem') &#129106; TypeDocItem
 
 Derived  
 &#8627; [ClassDocItem](../ClassDocItem/index.md 'DefaultDocumentation\.Models\.Types\.ClassDocItem')  

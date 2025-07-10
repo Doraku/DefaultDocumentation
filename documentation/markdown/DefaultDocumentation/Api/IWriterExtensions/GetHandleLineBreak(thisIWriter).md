@@ -18,7 +18,7 @@ public static bool GetHandleLineBreak(this DefaultDocumentation.Api.IWriter writ
 The [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IWriter/index.md 'DefaultDocumentation\.Api\.IWriter') for which to get this setting\.
 
 #### Returns
-[System\.Boolean](https://docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System\.Boolean')  
+[System\.Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean 'System\.Boolean')  
 Whether line break in the xml documentation should be handled in the generated markdown\.
 
 ### See Also

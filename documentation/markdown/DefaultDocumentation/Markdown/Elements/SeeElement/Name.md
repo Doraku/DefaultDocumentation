@@ -3,7 +3,7 @@
 
 ## SeeElement\.Name Property
 
-Gets the name of the [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement') this type handle\.
+Gets the name of the [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement') this type handle\.
 
 ```csharp
 public string Name { get; }
@@ -12,4 +12,4 @@ public string Name { get; }
 Implements [Name](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IElement/Name.md 'DefaultDocumentation\.Api\.IElement\.Name')
 
 #### Property Value
-[System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')

@@ -18,19 +18,19 @@ The [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documen
 
 <a name='DefaultDocumentation.Api.IWriterExtensions.AppendUrl(thisDefaultDocumentation.Api.IWriter,string,string,string).url'></a>
 
-`url` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`url` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The url of the link\.
 
 <a name='DefaultDocumentation.Api.IWriterExtensions.AppendUrl(thisDefaultDocumentation.Api.IWriter,string,string,string).displayedName'></a>
 
-`displayedName` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`displayedName` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The displayed name of the link\.
 
 <a name='DefaultDocumentation.Api.IWriterExtensions.AppendUrl(thisDefaultDocumentation.Api.IWriter,string,string,string).tooltip'></a>
 
-`tooltip` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`tooltip` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The tooltip of the link\.
 

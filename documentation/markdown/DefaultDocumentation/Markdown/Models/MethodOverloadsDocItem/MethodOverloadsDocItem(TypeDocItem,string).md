@@ -18,6 +18,6 @@ The [TypeDocItem](https://github.com/Doraku/DefaultDocumentation/blob/master/doc
 
 <a name='DefaultDocumentation.Markdown.Models.MethodOverloadsDocItem.MethodOverloadsDocItem(DefaultDocumentation.Models.Types.TypeDocItem,string).methodName'></a>
 
-`methodName` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`methodName` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The method name of the overloads\.

@@ -17,5 +17,5 @@ public static string? GetInvalidCharReplacement(this DefaultDocumentation.IGener
 The [IGeneralContext](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/IGeneralContext/index.md 'DefaultDocumentation\.IGeneralContext') of the current documentation file\.
 
 #### Returns
-[System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')  
-The [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String') to use to replace invalid chars in generated file name\.
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')  
+The [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String') to use to replace invalid chars in generated file name\.

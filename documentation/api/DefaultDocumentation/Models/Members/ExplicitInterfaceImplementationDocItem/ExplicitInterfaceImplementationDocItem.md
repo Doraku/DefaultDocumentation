@@ -34,9 +34,9 @@ The [IEvent](https://github.com/icsharpcode/ILSpy 'ICSharpCode\.Decompiler\.Type
 
 <a name='DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem.ExplicitInterfaceImplementationDocItem(DefaultDocumentation.Models.Types.TypeDocItem,IEvent,System.Xml.Linq.XElement).documentation'></a>
 
-`documentation` [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement')
+`documentation` [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement')
 
-The [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement') documentation element of the interface event explicitly implemented\.
+The [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement') documentation element of the interface event explicitly implemented\.
 
 <a name='DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem.ExplicitInterfaceImplementationDocItem(DefaultDocumentation.Models.Types.TypeDocItem,IMethod,System.Xml.Linq.XElement)'></a>
 
@@ -63,9 +63,9 @@ The [IMethod](https://github.com/icsharpcode/ILSpy 'ICSharpCode\.Decompiler\.Typ
 
 <a name='DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem.ExplicitInterfaceImplementationDocItem(DefaultDocumentation.Models.Types.TypeDocItem,IMethod,System.Xml.Linq.XElement).documentation'></a>
 
-`documentation` [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement')
+`documentation` [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement')
 
-The [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement') documentation element of the interface method explicitly implemented\.
+The [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement') documentation element of the interface method explicitly implemented\.
 
 <a name='DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem.ExplicitInterfaceImplementationDocItem(DefaultDocumentation.Models.Types.TypeDocItem,IProperty,System.Xml.Linq.XElement)'></a>
 
@@ -92,6 +92,6 @@ The [IProperty](https://github.com/icsharpcode/ILSpy 'ICSharpCode\.Decompiler\.T
 
 <a name='DefaultDocumentation.Models.Members.ExplicitInterfaceImplementationDocItem.ExplicitInterfaceImplementationDocItem(DefaultDocumentation.Models.Types.TypeDocItem,IProperty,System.Xml.Linq.XElement).documentation'></a>
 
-`documentation` [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement')
+`documentation` [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement')
 
-The [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement') documentation element of the interface property explicitly implemented\.
+The [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement') documentation element of the interface property explicitly implemented\.

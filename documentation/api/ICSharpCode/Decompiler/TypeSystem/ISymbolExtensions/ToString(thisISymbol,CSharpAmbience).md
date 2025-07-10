@@ -3,7 +3,7 @@
 
 ## ISymbolExtensions\.ToString\(this ISymbol, CSharpAmbience\) Method
 
-Converts a [ICSharpCode\.Decompiler\.TypeSystem\.ISymbol](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.ISymbol 'ICSharpCode\.Decompiler\.TypeSystem\.ISymbol') into its string representation using the provided [ICSharpCode\.Decompiler\.CSharp\.OutputVisitor\.CSharpAmbience](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.CSharp.OutputVisitor.CSharpAmbience 'ICSharpCode\.Decompiler\.CSharp\.OutputVisitor\.CSharpAmbience')\.
+Converts a [ICSharpCode\.Decompiler\.TypeSystem\.ISymbol](https://learn.microsoft.com/en-us/dotnet/api/icsharpcode.decompiler.typesystem.isymbol 'ICSharpCode\.Decompiler\.TypeSystem\.ISymbol') into its string representation using the provided [ICSharpCode\.Decompiler\.CSharp\.OutputVisitor\.CSharpAmbience](https://learn.microsoft.com/en-us/dotnet/api/icsharpcode.decompiler.csharp.outputvisitor.csharpambience 'ICSharpCode\.Decompiler\.CSharp\.OutputVisitor\.CSharpAmbience')\.
 
 ```csharp
 public static string ToString(this ISymbol symbol, CSharpAmbience ambience);
@@ -12,15 +12,15 @@ public static string ToString(this ISymbol symbol, CSharpAmbience ambience);
 
 <a name='ICSharpCode.Decompiler.TypeSystem.ISymbolExtensions.ToString(thisISymbol,CSharpAmbience).symbol'></a>
 
-`symbol` [ICSharpCode\.Decompiler\.TypeSystem\.ISymbol](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.TypeSystem.ISymbol 'ICSharpCode\.Decompiler\.TypeSystem\.ISymbol')
+`symbol` [ICSharpCode\.Decompiler\.TypeSystem\.ISymbol](https://learn.microsoft.com/en-us/dotnet/api/icsharpcode.decompiler.typesystem.isymbol 'ICSharpCode\.Decompiler\.TypeSystem\.ISymbol')
 
 The symbol to convert into its string representation\.
 
 <a name='ICSharpCode.Decompiler.TypeSystem.ISymbolExtensions.ToString(thisISymbol,CSharpAmbience).ambience'></a>
 
-`ambience` [ICSharpCode\.Decompiler\.CSharp\.OutputVisitor\.CSharpAmbience](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.CSharp.OutputVisitor.CSharpAmbience 'ICSharpCode\.Decompiler\.CSharp\.OutputVisitor\.CSharpAmbience')
+`ambience` [ICSharpCode\.Decompiler\.CSharp\.OutputVisitor\.CSharpAmbience](https://learn.microsoft.com/en-us/dotnet/api/icsharpcode.decompiler.csharp.outputvisitor.csharpambience 'ICSharpCode\.Decompiler\.CSharp\.OutputVisitor\.CSharpAmbience')
 
-The [ICSharpCode\.Decompiler\.CSharp\.OutputVisitor\.CSharpAmbience](https://docs.microsoft.com/en-us/dotnet/api/ICSharpCode.Decompiler.CSharp.OutputVisitor.CSharpAmbience 'ICSharpCode\.Decompiler\.CSharp\.OutputVisitor\.CSharpAmbience') to use\.
+The [ICSharpCode\.Decompiler\.CSharp\.OutputVisitor\.CSharpAmbience](https://learn.microsoft.com/en-us/dotnet/api/icsharpcode.decompiler.csharp.outputvisitor.csharpambience 'ICSharpCode\.Decompiler\.CSharp\.OutputVisitor\.CSharpAmbience') to use\.
 
 #### Returns
-[System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')

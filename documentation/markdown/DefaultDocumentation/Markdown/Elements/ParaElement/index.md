@@ -9,7 +9,7 @@ Handles `para` xml element\.
 public sealed class ParaElement : DefaultDocumentation.Api.IElement
 ```
 
-Inheritance [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System\.Object') &#129106; ParaElement
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; ParaElement
 
 Implements [IElement](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IElement/index.md 'DefaultDocumentation\.Api\.IElement')
 
@@ -19,8 +19,8 @@ Implements [IElement](https://github.com/Doraku/DefaultDocumentation/blob/master
 
 | Properties | |
 | :--- | :--- |
-| [Name](Name.md 'DefaultDocumentation\.Markdown\.Elements\.ParaElement\.Name') | Gets the name of the [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement') this type handle\. |
+| [Name](Name.md 'DefaultDocumentation\.Markdown\.Elements\.ParaElement\.Name') | Gets the name of the [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement') this type handle\. |
 
 | Methods | |
 | :--- | :--- |
-| [Write\(IWriter, XElement\)](Write(IWriter,XElement).md 'DefaultDocumentation\.Markdown\.Elements\.ParaElement\.Write\(DefaultDocumentation\.Api\.IWriter, System\.Xml\.Linq\.XElement\)') | Writes to a [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IWriter/index.md 'DefaultDocumentation\.Api\.IWriter') the provided [System\.Xml\.Linq\.XElement](https://docs.microsoft.com/en-us/dotnet/api/System.Xml.Linq.XElement 'System\.Xml\.Linq\.XElement')\. |
+| [Write\(IWriter, XElement\)](Write(IWriter,XElement).md 'DefaultDocumentation\.Markdown\.Elements\.ParaElement\.Write\(DefaultDocumentation\.Api\.IWriter, System\.Xml\.Linq\.XElement\)') | Writes to a [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IWriter/index.md 'DefaultDocumentation\.Api\.IWriter') the provided [System\.Xml\.Linq\.XElement](https://learn.microsoft.com/en-us/dotnet/api/system.xml.linq.xelement 'System\.Xml\.Linq\.XElement')\. |

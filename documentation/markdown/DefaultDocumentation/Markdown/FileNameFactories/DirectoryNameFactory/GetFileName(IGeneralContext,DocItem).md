@@ -25,5 +25,5 @@ The [DocItem](https://github.com/Doraku/DefaultDocumentation/blob/master/documen
 Implements [GetFileName\(IGeneralContext, DocItem\)](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IFileNameFactory/GetFileName(IGeneralContext,DocItem).md 'DefaultDocumentation\.Api\.IFileNameFactory\.GetFileName\(DefaultDocumentation\.IGeneralContext,DefaultDocumentation\.Models\.DocItem\)')
 
 #### Returns
-[System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')  
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')  
 The documentation file name of the given [DocItem](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem')\.

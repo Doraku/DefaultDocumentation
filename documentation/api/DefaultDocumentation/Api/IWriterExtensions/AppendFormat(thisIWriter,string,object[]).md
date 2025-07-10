@@ -18,13 +18,13 @@ The [IWriter](../IWriter/index.md 'DefaultDocumentation\.Api\.IWriter') to appen
 
 <a name='DefaultDocumentation.Api.IWriterExtensions.AppendFormat(thisDefaultDocumentation.Api.IWriter,string,object[]).format'></a>
 
-`format` [System\.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System\.String')
+`format` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The format to use\.
 
 <a name='DefaultDocumentation.Api.IWriterExtensions.AppendFormat(thisDefaultDocumentation.Api.IWriter,string,object[]).args'></a>
 
-`args` [System\.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System\.Object')[\[\]](https://docs.microsoft.com/en-us/dotnet/api/System.Array 'System\.Array')
+`args` [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object')[\[\]](https://learn.microsoft.com/en-us/dotnet/api/system.array 'System\.Array')
 
 The arguments to use in the format\.
 
