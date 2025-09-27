@@ -1,2 +1,0 @@
-## Bug fixes
-- fixed ordering inconsistencies between netframework and net (core) execution
