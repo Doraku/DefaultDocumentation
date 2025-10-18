@@ -2,10 +2,10 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Internal.DocItemGenerators;
 using DefaultDocumentation.Models;
-using Newtonsoft.Json.Linq;
 
 using static DefaultDocumentation.Internal.LoggerHelper;
 
@@ -26,7 +26,7 @@ internal sealed class GeneralContext : Context, IGeneralContext, IDocItemsContex
         .Distinct();
 
     public GeneralContext(
-        JObject config,
+        JsonObject config,
         Type[] availableTypes,
         Settings settings)
         : base(config, availableTypes)
@@ -39,8 +39,8 @@ internal sealed class GeneralContext : Context, IGeneralContext, IDocItemsContex
 
         _contexts = availableTypes
             .Where(type => typeof(DocItem).IsAssignableFrom(type) && !type.IsAbstract)
-            .Select(type => (Type: type, Setting: GetSetting<JObject>(type.Name)))
-            .Where(tuple => tuple.Setting != null)
+            .Select(type => (Type: type, Setting: GetSetting<JsonObject>(type.Name)))
+            .Where(tuple => tuple.Setting is not null)
             .ToDictionary(tuple => tuple.Type, tuple => new Context(tuple.Setting!, availableTypes));
         _fileNames = new ConcurrentDictionary<DocItem, string>();
 

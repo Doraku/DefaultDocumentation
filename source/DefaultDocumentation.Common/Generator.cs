@@ -4,15 +4,14 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading;
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Internal;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Parameters;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
 
 using static DefaultDocumentation.Internal.LoggerHelper;
 
@@ -20,29 +19,19 @@ namespace DefaultDocumentation;
 
 public sealed class Generator
 {
-    private static readonly JsonSerializer _serializer;
-
     private readonly IRawSettings _settings;
-    private readonly JObject _configuration;
+    private readonly JsonObject _configuration;
     private readonly ILogger _logger;
     private readonly GeneralContext _context;
 
-    static Generator()
-    {
-        _serializer = new JsonSerializer();
-        _serializer.Converters.Add(new StringEnumConverter());
-    }
-
     private Generator(Func<LogLevel, ILogger> loggerFactory, IRawSettings settings)
     {
-        T? GetSetting<T>(string name) => _configuration.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out JToken? value) ? value.ToObject<T>() : default;
-
         _settings = settings;
         _configuration = [];
 
         if (File.Exists(settings.ConfigurationFilePath))
         {
-            _configuration = JObject.Parse(File.ReadAllText(settings.ConfigurationFilePath));
+            _configuration = JsonNode.Parse(File.ReadAllText(settings.ConfigurationFilePath)) as JsonObject ?? [];
             Environment.CurrentDirectory = Path.GetDirectoryName(settings.ConfigurationFilePath);
         }
 
@@ -66,22 +55,22 @@ public sealed class Generator
         AddSetting(settings => settings.Sections, value => !(value ?? []).Any(), value => value.ToArray(), ["Header", "Default"]);
         AddSetting(settings => settings.Elements, value => !(value ?? []).Any(), value => value.ToArray());
 
-        _logger = loggerFactory(GetSetting<LogLevel?>(nameof(LogLevel)) ?? LogLevel.Information);
+        _logger = loggerFactory(_configuration.GetValue<LogLevel?>(nameof(LogLevel)) ?? LogLevel.Information);
         LogStarting(_logger, _configuration);
 
         Settings resolvedSettings = new(
             _logger,
-            GetSetting<string>(nameof(settings.AssemblyFilePath)),
-            GetSetting<string>(nameof(settings.DocumentationFilePath)),
-            GetSetting<string>(nameof(settings.ProjectDirectoryPath)),
-            GetSetting<string>(nameof(settings.OutputDirectoryPath)),
-            GetSetting<string>(nameof(settings.AssemblyPageName)),
-            GetSetting<GeneratedAccessModifiers>(nameof(settings.GeneratedAccessModifiers)),
-            GetSetting<GeneratedPages>(nameof(settings.GeneratedPages)),
-            GetSetting<bool>(nameof(settings.IncludeUndocumentedItems)),
-            GetSetting<string>(nameof(settings.LinksOutputFilePath)),
-            GetSetting<string>(nameof(settings.LinksBaseUrl)),
-            GetSetting<string[]>(nameof(settings.ExternLinksFilePaths)));
+            _configuration.GetValue<string>(nameof(settings.AssemblyFilePath)),
+            _configuration.GetValue<string>(nameof(settings.DocumentationFilePath)),
+            _configuration.GetValue<string>(nameof(settings.ProjectDirectoryPath)),
+            _configuration.GetValue<string>(nameof(settings.OutputDirectoryPath)),
+            _configuration.GetValue<string>(nameof(settings.AssemblyPageName)),
+            _configuration.GetValue<GeneratedAccessModifiers>(nameof(settings.GeneratedAccessModifiers)),
+            _configuration.GetValue<GeneratedPages>(nameof(settings.GeneratedPages)),
+            _configuration.GetValue<bool>(nameof(settings.IncludeUndocumentedItems)),
+            _configuration.GetValue<string>(nameof(settings.LinksOutputFilePath)),
+            _configuration.GetValue<string>(nameof(settings.LinksBaseUrl)),
+            _configuration.GetValue<string[]>(nameof(settings.ExternLinksFilePaths)));
 
         LogStarting(_logger, resolvedSettings);
 
@@ -116,31 +105,46 @@ public sealed class Generator
                     typeof(DocItem).Assembly,
                     typeof(Markdown.Writers.MarkdownWriter).Assembly
                 ])
-                .Concat((GetSetting<string[]>(nameof(settings.Plugins)) ?? Enumerable.Empty<string>()).Select(Assembly.LoadFrom))
+                .Concat((_configuration.GetValue<string[]>(nameof(settings.Plugins)) ?? Enumerable.Empty<string>()).Select(Assembly.LoadFrom))
                 .SelectMany(assembly => assembly.GetTypes())],
             resolvedSettings);
     }
 
     private void AddSetting<TSetting, TConfig>(
-        Expression<Func<IRawSettings, TSetting>> property,
+        Expression<Func<IRawSettings, TSetting>> propertyExpression,
         Predicate<TSetting> noValuePredicate,
         Func<TSetting, TConfig> convert,
         TConfig? defaultValue = default)
     {
-        string name = ((MemberExpression)property.Body).Member.Name;
-        TSetting value = property.Compile().Invoke(_settings);
+        string name = ((MemberExpression)propertyExpression.Body).Member.Name;
+        TSetting value = propertyExpression.Compile().Invoke(_settings);
+
+        JsonNode? valueNode;
+        JsonNode? configurationProperty;
 
         if (!noValuePredicate(value))
         {
-            _configuration.Property(name, StringComparison.OrdinalIgnoreCase)?.Remove();
-            _configuration.Add(name, JToken.FromObject(convert(value)!, _serializer));
+            valueNode = JsonSerializer.SerializeToNode(convert(value), JsonObjectExtensions.JsonOptions);
+            _configuration.TryGetPropertyIgnoringCase(name, out configurationProperty);
         }
         else if (!Equals(defaultValue, default(TConfig))
-            && (!(_configuration.Property(name, StringComparison.OrdinalIgnoreCase) is { } configurationProperty)
-                || configurationProperty.Value?.Type is null or JTokenType.Null))
+            && (!_configuration.TryGetPropertyIgnoringCase(name, out configurationProperty)
+                || configurationProperty.GetValueKind() is JsonValueKind.Null or JsonValueKind.Undefined))
         {
-            _configuration.Property(name, StringComparison.OrdinalIgnoreCase)?.Remove();
-            _configuration.Add(name, JToken.FromObject(defaultValue!, _serializer));
+            valueNode = JsonSerializer.SerializeToNode(defaultValue, JsonObjectExtensions.JsonOptions);
+        }
+        else
+        {
+            return;
+        }
+
+        if (configurationProperty is not null)
+        {
+            configurationProperty.ReplaceWith(valueNode);
+        }
+        else
+        {
+            _configuration.Add(name, valueNode);
         }
     }
 

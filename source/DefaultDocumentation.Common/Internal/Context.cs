@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using DefaultDocumentation.Api;
-using Newtonsoft.Json.Linq;
 
 namespace DefaultDocumentation.Internal;
 
 internal class Context : IContext
 {
-    private readonly JObject _configuration;
+    private readonly JsonObject _configuration;
 
     public Context(
-        JObject configuration,
+        JsonObject configuration,
         Type[] availableTypes)
     {
         _configuration = configuration;
@@ -60,7 +60,7 @@ internal class Context : IContext
 
     public IEnumerable<ISection>? Sections { get; }
 
-    public T? GetSetting<T>(string name) => _configuration.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out JToken? value) ? value.ToObject<T>() : default;
+    public T? GetSetting<T>(string name) => _configuration.GetValue<T>(name);
 
     #endregion
 }

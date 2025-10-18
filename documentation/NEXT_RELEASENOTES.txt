@@ -1,0 +1,3 @@
+## Bug fixes
+- fixed ordering inconsistencies between netframework and net (core) execution
+- replaced Newtonsoft with System.Text.Json (#208)

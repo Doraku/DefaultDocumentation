@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using DefaultDocumentation.Models;
 using ICSharpCode.Decompiler.Metadata;
 using ICSharpCode.Decompiler.TypeSystem;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace DefaultDocumentation.Internal;
 
@@ -17,8 +17,8 @@ internal static partial class LoggerHelper
     [LoggerMessage(LogLevel.Information, "starting DefaultDocumentation {Version} with this configuration:\n{Configuration}")]
     private static partial void LogStartingWithConfiguration(ILogger logger, Version version, string configuration);
 
-    public static void LogStarting(ILogger logger, JObject configuration)
-        => LogStartingWithConfiguration(logger, typeof(LoggerHelper).Assembly.GetName().Version, configuration.ToString(Formatting.Indented));
+    public static void LogStarting(ILogger logger, JsonObject configuration)
+        => LogStartingWithConfiguration(logger, typeof(LoggerHelper).Assembly.GetName().Version, JsonSerializer.Serialize(configuration, JsonObjectExtensions.JsonOptions));
 
     [LoggerMessage(LogLevel.Information, "starting DefaultDocumentation with those settings:\n{Settings}")]
     private static partial void LogStartingWithSettings(ILogger logger, string settings);
