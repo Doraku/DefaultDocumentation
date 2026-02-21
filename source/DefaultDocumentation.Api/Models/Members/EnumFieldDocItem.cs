@@ -23,8 +23,8 @@ public sealed class EnumFieldDocItem : EntityDocItem
     /// <param name="documentation">The <see cref="XElement"/> documentation element of the enum field.</param>
     public EnumFieldDocItem(EnumDocItem parent, IField field, XElement? documentation)
         : base(
-              parent.ThrowIfNull(),
-              field.ThrowIfNull(),
+              parent ?? throw new ArgumentNullException(nameof(parent)),
+              field ?? throw new ArgumentNullException(nameof(field)),
               documentation)
     {
         Field = field;

@@ -14,6 +14,4 @@
     <ProjectReference Include="..\DefaultDocumentation.Markdown\DefaultDocumentation.Markdown.csproj" />
   </ItemGroup>
 
-  <Import Project="..\DefaultDocumentation.Internal\DefaultDocumentation.Internal.projitems" Label="Shared" />
-
 </Project>

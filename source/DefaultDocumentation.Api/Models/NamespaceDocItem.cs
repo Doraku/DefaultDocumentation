@@ -15,6 +15,11 @@ public sealed class NamespaceDocItem : DocItem
     /// <param name="name">The name of the namespace.</param>
     /// <param name="documentation">The <see cref="XElement"/> documentation element of the namespace.</param>
     public NamespaceDocItem(AssemblyDocItem parent, string name, XElement? documentation)
-        : base(parent.ThrowIfNull(), $"N:{name}", name, name, documentation)
+        : base(
+            parent ?? throw new ArgumentNullException(nameof(parent)),
+            $"N:{name ?? throw new ArgumentNullException(nameof(name))}",
+            name,
+            name,
+            documentation)
     { }
 }

@@ -17,8 +17,8 @@ public static class IPageContextExtensions
     /// <returns>The url of the given <see cref="DocItem"/>.</returns>
     public static string? GetUrl(this IPageContext context, DocItem item)
     {
-        context.ThrowIfNull();
-        item.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(item);
 
         return context.GetUrl(item.Id);
     }
@@ -31,8 +31,8 @@ public static class IPageContextExtensions
     /// <returns>The url of the given <see cref="DocItem"/>.</returns>
     public static string? GetUrl(this IPageContext context, string id)
     {
-        context.ThrowIfNull();
-        id.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(id);
 
         return context.UrlFactories.Select(urlFactory => urlFactory.GetUrl(context, id)).FirstOrDefault(url => url is not null);
     }

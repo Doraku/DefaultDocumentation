@@ -20,8 +20,8 @@ public sealed class BrElement : IElement
     /// <inheritdoc/>
     public void Write(IWriter writer, XElement element)
     {
-        writer.ThrowIfNull();
-        element.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(element);
 
         using (writer.AppendAsRaw())
         {

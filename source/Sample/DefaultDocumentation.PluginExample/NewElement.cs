@@ -10,8 +10,8 @@ public sealed class NewElement : IElement
 
     public void Write(IWriter writer, XElement element)
     {
-        writer.ThrowIfNull();
-        element.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(element);
 
         writer.Append("hello ").Append(element.Value);
     }

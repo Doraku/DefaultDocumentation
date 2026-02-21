@@ -1,0 +1,34 @@
+<Solution>
+  <Folder Name="/.solution items/">
+    <File Path="../documentation/NEXT_RELEASENOTES.txt" />
+    <File Path="Directory.Build.props" />
+    <File Path="NuGet.Config" />
+  </Folder>
+  <Folder Name="/.solution items/.git/">
+    <File Path="../.gitignore" />
+  </Folder>
+  <Folder Name="/.solution items/.github/">
+    <File Path="../.github/FUNDING.yml" />
+    <File Path="../LICENSE.md" />
+    <File Path="../README.md" />
+  </Folder>
+  <Folder Name="/.solution items/.workflows/">
+    <File Path="../.github/dependabot.yml" />
+    <File Path="../.github/workflows/CodeCoverage.yml" />
+    <File Path="../.github/workflows/ContinuousIntegration.yml" />
+    <File Path="../.github/workflows/PullRequest.yml" />
+    <File Path="../.github/workflows/Release.yml" />
+    <File Path="../Release.bat" />
+  </Folder>
+  <Folder Name="/Sample/">
+    <Project Path="Sample/DefaultDocumentation.PluginExample/DefaultDocumentation.PluginExample.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="DefaultDocumentation.Test/DefaultDocumentation.Test.csproj" />
+  </Folder>
+  <Project Path="DefaultDocumentation.Api/DefaultDocumentation.Api.csproj" />
+  <Project Path="DefaultDocumentation.Common/DefaultDocumentation.Common.csproj" />
+  <Project Path="DefaultDocumentation.Console/DefaultDocumentation.Console.csproj" />
+  <Project Path="DefaultDocumentation.Markdown/DefaultDocumentation.Markdown.csproj" />
+  <Project Path="DefaultDocumentation/DefaultDocumentation.csproj" />
+</Solution>

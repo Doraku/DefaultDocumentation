@@ -20,8 +20,8 @@ public static class DocItemExtensions
     /// <returns><see langword="true"/> if the <see cref="TypeParameterDocItem"/> was found, else <see langword="false"/>.</returns>
     public static bool TryGetTypeParameterDocItem(this DocItem item, string name, [NotNullWhen(true)] out TypeParameterDocItem? typeParameterDocItem)
     {
-        item.ThrowIfNull();
-        name.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(item);
+        ArgumentNullException.ThrowIfNull(name);
 
         DocItem? currentItem = item;
         typeParameterDocItem = null;
@@ -48,8 +48,8 @@ public static class DocItemExtensions
     /// <returns><see langword="true"/> if the <see cref="ParameterDocItem"/> was found, else <see langword="false"/>.</returns>
     public static bool TryGetParameterDocItem(this DocItem item, string name, [NotNullWhen(true)] out ParameterDocItem? parameterDocItem)
     {
-        item.ThrowIfNull();
-        name.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(item);
+        ArgumentNullException.ThrowIfNull(name);
 
         DocItem? currentItem = item;
         parameterDocItem = null;
@@ -74,7 +74,7 @@ public static class DocItemExtensions
     /// <returns>The parents of the given <see cref="DocItem"/> from the top parent.</returns>
     public static IEnumerable<DocItem> GetParents(this DocItem item)
     {
-        item.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(item);
 
         Stack<DocItem> parents = new();
         for (DocItem? parent = item?.Parent; parent != null; parent = parent.Parent)

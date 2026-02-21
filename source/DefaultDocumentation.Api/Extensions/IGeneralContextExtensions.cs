@@ -16,8 +16,8 @@ public static class IGeneralContextExtensions
     /// <returns>The <see cref="IContext"/> specific to the provided <see cref="DocItem"/>.</returns>
     public static IContext GetContext(this IGeneralContext context, DocItem item)
     {
-        context.ThrowIfNull();
-        item.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(item);
 
         return context.GetContext(item.GetType());
     }
@@ -33,8 +33,8 @@ public static class IGeneralContextExtensions
     /// <remarks>The <typeparamref name="T"/> should be <see cref="Nullable{T}"/> for struct settings.</remarks>
     public static T? GetSetting<T>(this IGeneralContext context, Type? type, Func<IContext, T?> getter)
     {
-        context.ThrowIfNull();
-        getter.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(getter);
 
         return getter(context.GetContext(type)) ?? getter(context);
     }
@@ -50,9 +50,9 @@ public static class IGeneralContextExtensions
     /// <remarks>The <typeparamref name="T"/> should be <see cref="Nullable{T}"/> for struct settings.</remarks>
     public static T? GetSetting<T>(this IGeneralContext context, DocItem item, Func<IContext, T?> getter)
     {
-        context.ThrowIfNull();
-        item.ThrowIfNull();
-        getter.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(item);
+        ArgumentNullException.ThrowIfNull(getter);
 
         return context.GetSetting(item.GetType(), getter);
     }

@@ -17,7 +17,7 @@ dotnet tool
 [![NuGet dotnet tool](https://img.shields.io/nuget/v/DefaultDocumentation.Console)](https://www.nuget.org/packages/DefaultDocumentation.Console)
 [![preview dotnet tool](https://img.shields.io/badge/preview-package-blue?style=flat&logo=github)](https://github.com/Doraku/DefaultDocumentation/pkgs/nuget/DefaultDocumentation.Console)
 
-![continuous integration status](https://github.com/doraku/defaultdocumentation/workflows/continuous%20integration/badge.svg)
+[![continuous integration](https://github.com/Doraku/DefaultDocumentation/actions/workflows/ContinuousIntegration.yml/badge.svg)](https://github.com/Doraku/DefaultDocumentation/actions/workflows/ContinuousIntegration.yml)
 [![Coverage Status](https://coveralls.io/repos/github/Doraku/DefaultDocumentation/badge.svg?branch=master)](https://coveralls.io/github/Doraku/DefaultDocumentation?branch=master)
 
 - [Api documentation](./documentation/api/index.md 'Api documentation')

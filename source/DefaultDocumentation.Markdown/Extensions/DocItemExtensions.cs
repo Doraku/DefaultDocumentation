@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using DefaultDocumentation.Api;
 
 namespace DefaultDocumentation.Models;
 
@@ -16,7 +17,7 @@ public static class DocItemExtensions
     /// <returns>The long name of the <see cref="DocItem"/>.</returns>
     public static string GetLongName(this DocItem item)
     {
-        item.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(item);
 
         return string.Join(".", item.GetParents().Skip(2).Select(parent => parent.Name).Concat(Enumerable.Repeat(item.Name, 1)));
     }

@@ -20,7 +20,7 @@ public sealed class ExceptionSection : ISection
     /// <inheritdoc/>
     public void Write(IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         bool titleWritten = false;
 

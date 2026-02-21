@@ -17,7 +17,7 @@ public static class IEntityExtensions
     /// <returns><see langword="true"/> if the entity should be part of the documentation; otherwise <see langword="false"/>.</returns>
     public static bool IsVisibleInDocumentation(this IEntity? entity, ISettings settings)
     {
-        settings.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(settings);
 
         return entity?.EffectiveAccessibility() switch
         {

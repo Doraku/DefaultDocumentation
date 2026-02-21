@@ -31,7 +31,7 @@ internal sealed class GeneralContext : Context, IGeneralContext, IDocItemsContex
         Settings settings)
         : base(config, availableTypes)
     {
-        FileNameFactory.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(FileNameFactory);
 
         Settings = settings;
         _items = [];

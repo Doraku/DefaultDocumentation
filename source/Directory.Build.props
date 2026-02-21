@@ -14,11 +14,14 @@
 
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\..\ds.snk</AssemblyOriginatorKeyFile>
     <AssemblyOriginatorKeyFile Condition="'$(GITHUB_ACTIONS)' == 'true'">$(MSBuildThisFileDirectory)..\ds.snk</AssemblyOriginatorKeyFile>
+
+    <Version>0.0.0</Version>
     
 	</PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="DefaultCSharp" Version="1.0.5" PrivateAssets="all" />
+    <PackageReference Include="DefaultCSharp" Version="14.0.1" PrivateAssets="all" />
+    <PackageReference Include="Polyfill" Version="9.9.0" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>

@@ -21,7 +21,7 @@ public sealed class HeaderSection : ISection
     /// <inheritdoc/>
     public void Write(IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         if (writer.GetCurrentItem() != writer.Context.DocItem)
         {

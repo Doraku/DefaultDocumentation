@@ -9,8 +9,8 @@ public sealed class NewSection : ISection
 
     public void Write(IWriter writer)
     {
-        writer
-            .ThrowIfNull()
-            .Append("helloworld");
+        ArgumentNullException.ThrowIfNull(writer);
+
+        writer.Append("helloworld");
     }
 }

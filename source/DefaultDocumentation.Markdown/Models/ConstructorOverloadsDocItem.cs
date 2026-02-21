@@ -14,6 +14,11 @@ public sealed class ConstructorOverloadsDocItem : DocItem
     /// </summary>
     /// <param name="parent">The <see cref="TypeDocItem"/> parent.</param>
     public ConstructorOverloadsDocItem(TypeDocItem parent)
-        : base(parent.ThrowIfNull(), $"?{parent.Id[1..]}.#ctor", $"{parent.FullName}.#ctor", parent.Name, null)
+        : base(
+            parent ?? throw new ArgumentNullException(nameof(parent)),
+            $"?{parent.Id[1..]}.#ctor",
+            $"{parent.FullName}.#ctor",
+            parent.Name,
+            null)
     { }
 }

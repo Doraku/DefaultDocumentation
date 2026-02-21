@@ -43,9 +43,9 @@ public abstract class DocItem
     /// <param name="documentation">The documentation.</param>
     protected DocItem(DocItem? parent, string id, string fullName, string name, XElement? documentation)
     {
-        id.ThrowIfNull();
-        fullName.ThrowIfNull();
-        name.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(id);
+        ArgumentNullException.ThrowIfNull(fullName);
+        ArgumentNullException.ThrowIfNull(name);
 
         Parent = parent;
         Id = id;

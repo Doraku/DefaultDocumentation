@@ -31,11 +31,7 @@ public sealed class CodeElement : IElement
         string? code = File.ReadAllText(source);
         if (!string.IsNullOrEmpty(region))
         {
-            code = CodeRegion.Extract(code, region!);
-            if (code is null)
-            {
-                throw new InvalidOperationException($"Unable to find region \"{region}\" in file \"{source}\".");
-            }
+            code = CodeRegion.Extract(code, region!) ?? throw new InvalidOperationException($"Unable to find region \"{region}\" in file \"{source}\".");
         }
 
         // remove \r to be consistent with xml content
@@ -48,8 +44,8 @@ public sealed class CodeElement : IElement
     /// <inheritdoc/>
     public void Write(IWriter writer, XElement element)
     {
-        writer.ThrowIfNull();
-        element.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(element);
 
         if (writer.GetDisplayAsSingleLine())
         {

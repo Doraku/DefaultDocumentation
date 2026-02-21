@@ -1,5 +1,5 @@
 ﻿{
-	"AssemblyFilePath": "bin\\Release\\netstandard2.0\\DefaultDocumentation.Markdown.dll",
+	"AssemblyFilePath": "bin\\Debug\\netstandard2.0\\DefaultDocumentation.Markdown.dll",
 	"OutputDirectoryPath": "..\\..\\documentation\\markdown",
 	"GeneratedAccessModifiers": "Api",
 	"GeneratedPages": "Assembly,Types,Members",

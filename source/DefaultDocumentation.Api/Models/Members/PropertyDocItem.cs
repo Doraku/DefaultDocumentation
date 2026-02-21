@@ -29,8 +29,8 @@ public sealed class PropertyDocItem : EntityDocItem, IParameterizedDocItem
     /// <param name="documentation">The <see cref="XElement"/> documentation element of the property.</param>
     public PropertyDocItem(TypeDocItem parent, IProperty property, XElement? documentation)
         : base(
-              parent.ThrowIfNull(),
-              property.ThrowIfNull(),
+              parent ?? throw new ArgumentNullException(nameof(parent)),
+              property ?? throw new ArgumentNullException(nameof(property)),
               documentation)
     {
         Property = property;

@@ -18,8 +18,8 @@ public sealed class PrefixedWriter : IWriter
     /// <param name="prefix">The prefix to use at every new line start.</param>
     public PrefixedWriter(IWriter writer, string prefix)
     {
-        writer.ThrowIfNull();
-        prefix.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(prefix);
 
         _writer = writer;
         _prefix = prefix;

@@ -22,7 +22,7 @@ public sealed class ExcludeGenerator : IDocItemGenerator
     /// <inheritdoc/>
     public void Generate(IDocItemsContext context)
     {
-        context.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
 
         void Remove(DocItem item)
         {

@@ -22,8 +22,8 @@ public sealed class NoteElement : IElement
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1308:Normalize strings to uppercase", Justification = "we want the lower case")]
     public void Write(IWriter writer, XElement element)
     {
-        writer.ThrowIfNull();
-        element.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(element);
 
         if (writer.GetDisplayAsSingleLine())
         {

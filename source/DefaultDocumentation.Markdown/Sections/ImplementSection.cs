@@ -26,7 +26,7 @@ public sealed class ImplementSection : ISection
     /// <inheritdoc/>
     public void Write(IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         IEnumerable<INamedElement> GetImplementation(IMember member)
         {

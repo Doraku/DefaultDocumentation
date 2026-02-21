@@ -15,6 +15,4 @@
     <ProjectReference Include="..\DefaultDocumentation.Api\DefaultDocumentation.Api.csproj" />
   </ItemGroup>
 
-  <Import Project="..\DefaultDocumentation.Internal\DefaultDocumentation.Internal.projitems" Label="Shared" />
-
 </Project>

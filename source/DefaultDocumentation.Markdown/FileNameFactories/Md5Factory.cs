@@ -22,8 +22,8 @@ public sealed class Md5Factory : BaseMarkdownFileNameFactory
     /// <inheritdoc/>
     protected override string GetMarkdownFileName(IGeneralContext context, DocItem item)
     {
-        context.ThrowIfNull();
-        item.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(item);
 
         return GetMd5HashBase36(item.FullName);
     }

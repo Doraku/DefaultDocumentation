@@ -133,7 +133,7 @@ public sealed class TableOfContentsSection : ISection
     /// <inheritdoc/>
     public void Write(IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         Modes modes = writer.Context.GetSetting(writer.GetCurrentItem(), context => context.GetSetting<Modes?>("Markdown.TableOfContentsModes")).GetValueOrDefault();
 

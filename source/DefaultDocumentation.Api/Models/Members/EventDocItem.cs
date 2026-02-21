@@ -23,8 +23,8 @@ public sealed class EventDocItem : EntityDocItem
     /// <param name="documentation">The <see cref="XElement"/> documentation element of the event.</param>
     public EventDocItem(TypeDocItem parent, IEvent @event, XElement? documentation)
         : base(
-              parent.ThrowIfNull(),
-              @event.ThrowIfNull(),
+              parent ?? throw new ArgumentNullException(nameof(parent)),
+              @event ?? throw new ArgumentNullException(nameof(@event)),
               documentation)
     {
         Event = @event;

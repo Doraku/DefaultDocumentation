@@ -22,8 +22,8 @@ public sealed class ParamRefElement : IElement
     /// <inheritdoc/>
     public void Write(IWriter writer, XElement element)
     {
-        writer.ThrowIfNull();
-        element.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(element);
 
         string? name = element.GetNameAttribute();
 

@@ -22,7 +22,7 @@ public sealed class DerivedSection : ISection
     /// <inheritdoc/>
     public void Write(IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         if (writer.GetCurrentItem() is TypeDocItem typeItem)
         {

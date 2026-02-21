@@ -25,8 +25,8 @@ public sealed class DocItemFactory : IUrlFactory
     /// <inheritdoc/>
     public string? GetUrl(IPageContext context, string id)
     {
-        context.ThrowIfNull();
-        id.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(id);
 
         if (!context.Items.TryGetValue(id, out DocItem item))
         {

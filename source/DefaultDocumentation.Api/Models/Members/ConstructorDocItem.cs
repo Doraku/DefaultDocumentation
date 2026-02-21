@@ -30,8 +30,8 @@ public sealed class ConstructorDocItem : EntityDocItem, IParameterizedDocItem
     /// <exception cref="ArgumentNullException"><paramref name="parent"/> or <paramref name="method"/> is null.</exception>
     public ConstructorDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
         : base(
-              parent.ThrowIfNull(),
-              method.ThrowIfNull(),
+              parent ?? throw new ArgumentNullException(nameof(parent)),
+              method ?? throw new ArgumentNullException(nameof(method)),
               documentation)
     {
         Method = method;

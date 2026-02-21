@@ -29,8 +29,8 @@ public sealed class OperatorDocItem : EntityDocItem, IParameterizedDocItem
     /// <param name="documentation">The <see cref="XElement"/> documentation element of the operator.</param>
     public OperatorDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
         : base(
-              parent.ThrowIfNull(),
-              method.ThrowIfNull(),
+              parent ?? throw new ArgumentNullException(nameof(parent)),
+              method ?? throw new ArgumentNullException(nameof(method)),
               documentation)
     {
         Method = method;

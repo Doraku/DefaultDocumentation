@@ -18,7 +18,7 @@ public static class IWriterExtensions
     /// <returns>The given <see cref="IWriter"/>.</returns>
     public static IWriter Append(this IWriter writer, XElement? value)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         static void AppendMultiline(IWriter writer, string text, ref int? textStartIndex, ref bool startingNewLine)
         {
@@ -97,8 +97,8 @@ public static class IWriterExtensions
     /// <returns>The given <see cref="IWriter"/>.</returns>
     public static IWriter AppendFormat(this IWriter writer, string format, params object?[] args)
     {
-        writer.ThrowIfNull();
-        format.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(format);
 
         return writer.Append(string.Format(CultureInfo.InvariantCulture, format, args));
     }
@@ -111,8 +111,8 @@ public static class IWriterExtensions
     /// <returns>The given <see cref="IWriter"/>.</returns>
     public static IWriter AppendLine(this IWriter writer, string value)
     {
-        writer.ThrowIfNull();
-        value.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(value);
 
         return writer.Append(value).AppendLine();
     }
@@ -125,8 +125,8 @@ public static class IWriterExtensions
     /// <returns>The given <see cref="IWriter"/>.</returns>
     public static IWriter TrimEnd(this IWriter writer, params string[] values)
     {
-        writer.ThrowIfNull();
-        values.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(values);
 
 Start:
         foreach (string value in values)

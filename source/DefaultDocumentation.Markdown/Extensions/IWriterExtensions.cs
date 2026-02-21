@@ -38,7 +38,7 @@ public static class IWriterExtensions
     /// <returns>The <see cref="DocItem"/> for which the documentation is being generated.</returns>
     public static DocItem GetCurrentItem(this IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         return writer.Context[_currentItemKey] as DocItem ?? writer.Context.DocItem;
     }
@@ -52,8 +52,8 @@ public static class IWriterExtensions
     /// <returns>The given <see cref="IWriter"/>.</returns>
     public static IWriter SetCurrentItem(this IWriter writer, DocItem value)
     {
-        writer.ThrowIfNull();
-        value.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(value);
 
         writer.Context[_currentItemKey] = value;
 
@@ -68,7 +68,7 @@ public static class IWriterExtensions
     /// <returns>Whether all futur data to happend should stay on the same line.</returns>
     public static bool GetDisplayAsSingleLine(this IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         return writer.Context[_displayAsSingleLineKey] as bool? ?? false;
     }
@@ -82,7 +82,7 @@ public static class IWriterExtensions
     /// <returns>The given <see cref="IWriter"/>.</returns>
     public static IWriter SetDisplayAsSingleLine(this IWriter writer, bool? value)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         writer.Context[_displayAsSingleLineKey] = value;
 
@@ -98,7 +98,7 @@ public static class IWriterExtensions
     /// <seealso href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_HandleLineBreak">Markdown.HandleLineBreak</seealso>
     public static bool GetHandleLineBreak(this IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         return writer.Context[_handleLineBreakKey] as bool?
             ?? writer.Context.GetSetting(writer.GetCurrentItem(), context => context.GetSetting<bool?>(_handleLineBreakKey)).GetValueOrDefault();
@@ -114,7 +114,7 @@ public static class IWriterExtensions
     /// <seealso href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_HandleLineBreak">Markdown.HandleLineBreak</seealso>
     public static IWriter SetHandleLineBreak(this IWriter writer, bool? value)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         writer.Context[_handleLineBreakKey] = value;
 
@@ -129,7 +129,7 @@ public static class IWriterExtensions
     /// <returns>Whether strings should be sanitized.</returns>
     public static bool GetRenderAsRaw(this IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         return writer.Context[_renderAsRawKey] as bool? ?? false;
     }
@@ -143,7 +143,7 @@ public static class IWriterExtensions
     /// <returns>The given <see cref="IWriter"/>.</returns>
     public static IWriter SetRenderAsRaw(this IWriter writer, bool? value)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         writer.Context[_renderAsRawKey] = value;
 
@@ -167,7 +167,7 @@ public static class IWriterExtensions
     /// <seealso href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_UrlFormat">Markdown.UrlFormat</seealso>
     public static string GetUrlFormat(this IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         return writer.Context[_urlFormatKey] as string ?? "[{0}]({1} '{2}')";
     }
@@ -181,7 +181,7 @@ public static class IWriterExtensions
     /// <seealso href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_UrlFormat">Markdown.UrlFormat</seealso>
     public static IWriter SetUrlFormat(this IWriter writer, string? value)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         writer.Context[_urlFormatKey] = value;
 
@@ -195,7 +195,7 @@ public static class IWriterExtensions
     /// <returns>The given <see cref="IWriter"/>.</returns>
     public static IDisposable AppendAsRaw(this IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         bool? previousRenderAsRaw = writer.GetRenderAsRaw();
 
@@ -214,7 +214,7 @@ public static class IWriterExtensions
     /// <returns>The given <see cref="IWriter"/>.</returns>
     public static IWriter AppendUrl(this IWriter writer, string? url, string? displayedName = null, string? tooltip = null)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         using (writer.AppendAsRaw())
         {
@@ -244,8 +244,8 @@ public static class IWriterExtensions
     /// <returns>The given <see cref="IWriter"/>.</returns>
     public static IWriter AppendLink(this IWriter writer, DocItem item, string? displayedName = null)
     {
-        writer.ThrowIfNull();
-        item.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(item);
 
         return writer.AppendUrl(writer.Context.GetUrl(item), displayedName ?? item.Name, item.FullName);
     }
@@ -259,8 +259,8 @@ public static class IWriterExtensions
     /// <returns>The given <see cref="IWriter"/>.</returns>
     public static IWriter AppendLink(this IWriter writer, string id, string? displayedName = null)
     {
-        writer.ThrowIfNull();
-        id.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(id);
 
         return writer.Context.Items.TryGetValue(id, out DocItem item)
             ? writer.AppendLink(item, displayedName)
@@ -276,9 +276,9 @@ public static class IWriterExtensions
     /// <returns>The given <see cref="IWriter"/>.</returns>
     public static IWriter AppendLink(this IWriter writer, DocItem item, INamedElement element)
     {
-        writer.ThrowIfNull();
-        item.ThrowIfNull();
-        element.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(item);
+        ArgumentNullException.ThrowIfNull(element);
 
         IWriter HandleParameterizedType(ParameterizedType genericType)
         {
@@ -374,7 +374,7 @@ public static class IWriterExtensions
     /// <returns>The given <see cref="IWriter"/>.</returns>
     public static IWriter EnsureLineStart(this IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         return writer.Length > 0 && (!writer.EndsWith(Environment.NewLine) || (writer.GetDisplayAsSingleLine() && !writer.EndsWith("<br/>")))
             ? writer.AppendLine()
@@ -388,7 +388,7 @@ public static class IWriterExtensions
     /// <returns>The given <see cref="IWriter"/>.</returns>
     public static IWriter EnsureLineStartAndAppendLine(this IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         return writer
             .EnsureLineStart()
@@ -403,7 +403,7 @@ public static class IWriterExtensions
     /// <returns>The given <see cref="IWriter"/>.</returns>
     public static IWriter AppendAsMarkdown(this IWriter writer, XElement? element)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         new MarkdownWriter(writer)
             .SetHandleLineBreak(element?.GetHandleLineBreak())
@@ -420,8 +420,8 @@ public static class IWriterExtensions
     /// <returns>The decorated <see cref="IWriter"/>.</returns>
     public static IWriter ToPrefixedWriter(this IWriter writer, string prefix)
     {
-        writer.ThrowIfNull();
-        prefix.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(prefix);
 
         return new PrefixedWriter(writer, prefix);
     }
@@ -433,7 +433,7 @@ public static class IWriterExtensions
     /// <returns>The decorated <see cref="IWriter"/>.</returns>
     public static IWriter ToOverrideWriter(this IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         return new OverrideWriter(writer);
     }

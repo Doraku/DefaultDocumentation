@@ -28,7 +28,7 @@ public sealed class Settings : ISettings
         string? linksBaseUrl,
         IEnumerable<string>? externlinksFilePaths)
     {
-        logger.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(logger);
 
         Logger = logger;
 

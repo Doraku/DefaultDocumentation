@@ -59,7 +59,7 @@ public abstract class ChildrenSection<T> : ISection
     /// <inheritdoc/>
     public void Write(IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         bool inlineChildren = ShouldInlineChildren(writer.Context, writer.GetCurrentItem());
         bool titleWritten = !(ShouldWriteTitle(writer.Context, writer.GetCurrentItem()) || !inlineChildren);

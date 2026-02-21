@@ -32,7 +32,7 @@ public abstract class BaseMarkdownFileNameFactory : IFileNameFactory
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1851:Possible multiple enumerations of 'IEnumerable' collection", Justification = "exepected")]
     public void Clean(IGeneralContext context)
     {
-        context.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
 
         LogCleaning(context.Settings.Logger, context.Settings.OutputDirectory);
 
@@ -73,8 +73,8 @@ start:
     /// <inheritdoc/>
     public string GetFileName(IGeneralContext context, DocItem item)
     {
-        context.ThrowIfNull();
-        item.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(item);
 
         return PathCleaner.Clean(item is AssemblyDocItem ? item.FullName : GetMarkdownFileName(context, item), context) + ".md";
     }

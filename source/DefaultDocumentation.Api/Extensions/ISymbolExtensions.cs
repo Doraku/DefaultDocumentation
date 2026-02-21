@@ -16,8 +16,8 @@ public static class ISymbolExtensions
     /// <param name="ambience">The <see cref="CSharpAmbience"/> to use.</param>
     public static string ToString(this ISymbol symbol, CSharpAmbience ambience)
     {
-        symbol.ThrowIfNull();
-        ambience.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(symbol);
+        ArgumentNullException.ThrowIfNull(ambience);
 
         using StringWriter writer = new();
 

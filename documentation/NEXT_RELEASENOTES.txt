@@ -1,0 +1,2 @@
+- added net10 support for DefaultDocumentation.Console
+- fixed ValueType appearing in definition constrains

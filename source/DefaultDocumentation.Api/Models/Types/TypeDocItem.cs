@@ -23,7 +23,7 @@ public abstract class TypeDocItem : EntityDocItem, ITypeParameterizedDocItem
     private protected TypeDocItem(DocItem parent, ITypeDefinition type, XElement? documentation)
         : base(
               parent is NamespaceDocItem or TypeDocItem ? parent : throw new ArgumentException($"must be either {nameof(NamespaceDocItem)} or {nameof(TypeDocItem)}", nameof(parent)),
-              type.ThrowIfNull(),
+              type ?? throw new ArgumentNullException(nameof(type)),
               documentation)
     {
         Type = type;

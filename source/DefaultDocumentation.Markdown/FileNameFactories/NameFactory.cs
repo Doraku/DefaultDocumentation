@@ -19,8 +19,8 @@ public sealed class NameFactory : BaseMarkdownFileNameFactory
     /// <inheritdoc/>
     protected override string GetMarkdownFileName(IGeneralContext context, DocItem item)
     {
-        context.ThrowIfNull();
-        item.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(item);
 
         return item.GetLongName();
     }

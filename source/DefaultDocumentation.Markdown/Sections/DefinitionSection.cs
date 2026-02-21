@@ -150,7 +150,7 @@ public sealed class DefinitionSection : ISection
                 WriteWhere(writer, typeParameter, ref whereWritten, "notnull");
             }
 
-            foreach (TypeConstraint typeConstraint in typeParameter.TypeConstraints.Where(typeConstraint => typeConstraint.Type.GetDefinition()?.KnownTypeCode is not KnownTypeCode.Object or KnownTypeCode.ValueType))
+            foreach (TypeConstraint typeConstraint in typeParameter.TypeConstraints.Where(typeConstraint => typeConstraint.Type.GetDefinition()?.KnownTypeCode is not KnownTypeCode.Object and not KnownTypeCode.ValueType))
             {
                 WriteWhere(writer, typeParameter, ref whereWritten, _baseTypeAmbience.ConvertType(typeConstraint.Type));
             }

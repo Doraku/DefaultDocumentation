@@ -33,8 +33,8 @@ public sealed class ExplicitInterfaceImplementationDocItem : EntityDocItem, ITyp
     /// <param name="documentation">The <see cref="XElement"/> documentation element of the interface event explicitly implemented.</param>
     public ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IEvent @event, XElement? documentation)
         : base(
-              parent.ThrowIfNull(),
-              @event.ThrowIfNull(),
+              parent ?? throw new ArgumentNullException(nameof(parent)),
+              @event ?? throw new ArgumentNullException(nameof(@event)),
               documentation)
     {
         Member = @event;
@@ -50,8 +50,8 @@ public sealed class ExplicitInterfaceImplementationDocItem : EntityDocItem, ITyp
     /// <param name="documentation">The <see cref="XElement"/> documentation element of the interface property explicitly implemented.</param>
     public ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IProperty property, XElement? documentation)
         : base(
-              parent.ThrowIfNull(),
-              property.ThrowIfNull(),
+              parent ?? throw new ArgumentNullException(nameof(parent)),
+              property ?? throw new ArgumentNullException(nameof(property)),
               documentation)
     {
         Member = property;
@@ -67,8 +67,8 @@ public sealed class ExplicitInterfaceImplementationDocItem : EntityDocItem, ITyp
     /// <param name="documentation">The <see cref="XElement"/> documentation element of the interface method explicitly implemented.</param>
     public ExplicitInterfaceImplementationDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
         : base(
-              parent.ThrowIfNull(),
-              method.ThrowIfNull(),
+              parent ?? throw new ArgumentNullException(nameof(parent)),
+              method ?? throw new ArgumentNullException(nameof(method)),
               documentation)
     {
         Member = method;

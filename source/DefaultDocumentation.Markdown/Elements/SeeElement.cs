@@ -20,8 +20,8 @@ public sealed class SeeElement : IElement
     /// <inheritdoc/>
     public void Write(IWriter writer, XElement element)
     {
-        writer.ThrowIfNull();
-        element.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(element);
 
         string? displayName = element.Value.TrimLinebreakChars().NullIfEmpty();
 

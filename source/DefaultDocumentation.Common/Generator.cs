@@ -225,8 +225,8 @@ public sealed class Generator
 
     public static void Execute(Func<LogLevel, ILogger> loggerFactory, IRawSettings settings)
     {
-        loggerFactory.ThrowIfNull();
-        settings.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(loggerFactory);
+        ArgumentNullException.ThrowIfNull(settings);
 
         Generator generator = new(loggerFactory, settings);
 

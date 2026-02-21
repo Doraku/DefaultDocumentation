@@ -26,7 +26,7 @@ public sealed class TitleSection : ISection
     /// <inheritdoc/>
     public void Write(IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         DocItem currentItem = writer.GetCurrentItem();
 

@@ -69,7 +69,7 @@ public sealed class OverrideWriter : IWriter
     /// <param name="writer">The <see cref="IWriter"/> instance to decorate.</param>
     public OverrideWriter(IWriter writer)
     {
-        writer.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(writer);
 
         _writer = writer;
         Context = new OverrideContext(writer.Context);

@@ -20,8 +20,8 @@ public sealed class NameAndMd5MixFactory : BaseMarkdownFileNameFactory
     /// <inheritdoc/>
     protected override string GetMarkdownFileName(IGeneralContext context, DocItem item)
     {
-        context.ThrowIfNull();
-        item.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(item);
 
         return item is EntityDocItem entity && item is IParameterizedDocItem parameterized && parameterized.Parameters.Any()
             ? $"{item.Parent!.GetLongName()}.{entity.Entity.Name}.{Md5Factory.GetMd5HashBase36(item.FullName)}"

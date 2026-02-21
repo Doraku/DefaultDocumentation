@@ -133,8 +133,8 @@ void DefaultDocumentation.AssemblyInfo.IInterface.Method();
 @"```csharp
 private static void MethodWithGenericConstrains<T1,T2,T3,T4,T5>()
     where T1 : class, System.Collections.IEnumerator, new()
-    where T2 : unmanaged, System.ValueType, System.ValueType
-    where T3 : struct, System.ValueType, System.ValueType
+    where T2 : unmanaged
+    where T3 : struct
     where T4 : notnull
     where T5 : class?;
 ```");

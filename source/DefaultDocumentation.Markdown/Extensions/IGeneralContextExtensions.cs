@@ -28,8 +28,8 @@ public static class IGeneralContextExtensions
     /// <returns>The <see cref="NestedTypeVisibilities"/> to use.</returns>
     public static NestedTypeVisibilities GetNestedTypeVisibilities(this IGeneralContext context, Type type)
     {
-        context.ThrowIfNull();
-        type.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(type);
 
         NestedTypeVisibilities value = context.GetSetting(type, context => context.GetSetting<NestedTypeVisibilities?>(_nestedTypeVisibilitiesKey)) ?? NestedTypeVisibilities.Default;
 
@@ -48,7 +48,7 @@ public static class IGeneralContextExtensions
     /// <returns>Whether to include the file extension in urls.</returns>
     public static bool GetRemoveFileExtensionFromUrl(this IGeneralContext context)
     {
-        context.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
 
         return context.GetSetting<bool>(_removeFileExtensionFromUrlKey);
     }
@@ -59,7 +59,7 @@ public static class IGeneralContextExtensions
     /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
     public static string? GetInvalidCharToTrimRegex(this IGeneralContext context)
     {
-        context.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
 
         return context.GetSetting<string>(_invalidCharToTrimRegex);
     }
@@ -70,7 +70,7 @@ public static class IGeneralContextExtensions
     /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
     public static string? GetInvalidCharToReplaceRegex(this IGeneralContext context)
     {
-        context.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
 
         return context.GetSetting<string>(_invalidCharToReplaceRegex);
     }
@@ -82,7 +82,7 @@ public static class IGeneralContextExtensions
     /// <returns>The <see cref="string"/> to use to replace invalid chars in generated file name.</returns>
     public static string? GetInvalidCharReplacement(this IGeneralContext context)
     {
-        context.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
 
         return context.GetSetting<string>(_invalidCharReplacementKey);
     }
@@ -93,7 +93,7 @@ public static class IGeneralContextExtensions
     /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
     public static bool GetUseFullUrl(this IGeneralContext context)
     {
-        context.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
 
         return context.GetSetting<bool>(_useFullUrlKey);
     }
@@ -104,7 +104,7 @@ public static class IGeneralContextExtensions
     /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
     public static string? GetMarkdownSanitizationRegex(this IGeneralContext context)
     {
-        context.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
 
         return context.GetSetting<string>(_markdownSanitizationRegex);
     }
@@ -119,8 +119,8 @@ public static class IGeneralContextExtensions
     public static IEnumerable<T> GetChildren<T>(this IGeneralContext context, DocItem item)
         where T : DocItem
     {
-        context.ThrowIfNull();
-        item.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(item);
 
         IEnumerable<DocItem> GetAllChildren(DocItem item)
         {

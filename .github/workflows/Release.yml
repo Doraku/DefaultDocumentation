@@ -3,6 +3,10 @@ name: release
 on:
   release:
     types: [published]
+    
+permissions:
+  id-token: write
+  contents: write
 
 jobs:
   release:
@@ -12,7 +16,7 @@ jobs:
 
     - uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: '9.0.x'
+        dotnet-version: '10.0.x'
       
     - name: Decrypte snk file
       env:
@@ -49,8 +53,14 @@ jobs:
         dotnet run --project source\DefaultDocumentation.Console\DefaultDocumentation.Console.csproj --framework net9.0 -c Release --ConfigurationFilePath source\DefaultDocumentation.Api\DefaultDocumentation.json
         dotnet run --project source\DefaultDocumentation.Console\DefaultDocumentation.Console.csproj --framework net9.0 -c Release --ConfigurationFilePath source\DefaultDocumentation.Markdown\DefaultDocumentation.json
       
+    - name: Retrieve NuGet temp API key
+      uses: NuGet/login@v1
+      id: login
+      with:
+        user: Doraku
+
     - name: Publish packages
-      run: dotnet nuget push build\*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push build\*.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
       
     - name: Commit RELEASENOTES and documentation api
       if: "!contains(github.event.release.tag_name, '-')"

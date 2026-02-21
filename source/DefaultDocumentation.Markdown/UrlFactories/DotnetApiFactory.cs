@@ -20,8 +20,8 @@ public sealed class DotnetApiFactory : IUrlFactory
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1308:Normalize strings to uppercase", Justification = "we want lowercase")]
     public string GetUrl(IPageContext context, string id)
     {
-        context.ThrowIfNull();
-        id.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(id);
 
         id = id[2..];
         int parametersIndex = id.IndexOf("(", StringComparison.Ordinal);

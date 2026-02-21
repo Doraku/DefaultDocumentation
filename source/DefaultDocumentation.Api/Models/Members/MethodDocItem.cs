@@ -32,8 +32,8 @@ public sealed class MethodDocItem : EntityDocItem, ITypeParameterizedDocItem, IP
     /// <param name="documentation">The <see cref="XElement"/> documentation element of the method.</param>
     public MethodDocItem(TypeDocItem parent, IMethod method, XElement? documentation)
         : base(
-              parent.ThrowIfNull(),
-              method.ThrowIfNull(),
+              parent ?? throw new ArgumentNullException(nameof(parent)),
+              method ?? throw new ArgumentNullException(nameof(method)),
               documentation)
     {
         Method = method;

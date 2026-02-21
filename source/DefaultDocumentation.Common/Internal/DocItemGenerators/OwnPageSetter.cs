@@ -38,8 +38,8 @@ internal sealed class OwnPageSetter : IDocItemGenerator
     /// <returns><see langword="true"/> if the <see cref="DocItem"/> has its own page, otherwise <see langword="false"/>.</returns>
     public static bool HasOwnPage(DocItem item, IDocItemsContext context)
     {
-        item.ThrowIfNull();
-        context.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(item);
+        ArgumentNullException.ThrowIfNull(context);
 
         return item switch
         {

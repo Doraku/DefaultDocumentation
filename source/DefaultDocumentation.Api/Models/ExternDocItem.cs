@@ -22,11 +22,11 @@ public sealed class ExternDocItem : DocItem
         : base(
               null,
               id,
-              id.ThrowIfNull()[2..],
-              name ?? id[2..],
+              id?[2..] ?? throw new ArgumentNullException(nameof(id)),
+              name ?? id?[2..] ?? throw new ArgumentNullException(nameof(id)),
               null)
     {
-        url.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(url);
 
         Url = url;
     }

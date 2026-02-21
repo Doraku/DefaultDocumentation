@@ -23,7 +23,7 @@ public sealed class OverloadsGenerator : IDocItemGenerator
     /// <inheritdoc/>
     public void Generate(IDocItemsContext context)
     {
-        context.ThrowIfNull();
+        ArgumentNullException.ThrowIfNull(context);
 
         if (context.Settings.GeneratedPages.HasFlag(GeneratedPages.Constructors))
         {

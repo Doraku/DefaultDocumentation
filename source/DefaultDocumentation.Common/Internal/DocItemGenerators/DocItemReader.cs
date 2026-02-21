@@ -152,6 +152,12 @@ internal sealed class DocItemReader : IDocItemGenerator
                     continue;
                 }
 
+                if (type.Name.StartsWith("<G>$", StringComparison.OrdinalIgnoreCase))
+                {
+                    LogSkippingEntity(_context.Settings.Logger, type, "extension type");
+                    continue;
+                }
+
                 if (string.IsNullOrWhiteSpace(type.Namespace))
                 {
                     LogSkippingEntity(_context.Settings.Logger, type, "empty namespace");
