@@ -8,11 +8,6 @@
 
     <IsPackable>false</IsPackable>
     
-    <NoWarn>
-      <!-- Warning because of Microsoft.Bcl.AsyncInterfaces -->
-      MSB3277
-    </NoWarn>
-    
   </PropertyGroup>
 
   <ItemGroup>
