@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DefaultDocumentation.Api" Version="1.2.2" />
+    <PackageReference Include="DefaultDocumentation.Api" Version="1.2.3" />
   </ItemGroup>
 
 </Project>
