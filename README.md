@@ -73,7 +73,7 @@ dotnet tool
 <a name='Requirement'></a>
 # Requirement
 - for the msbuild task: any runtime supporting netstandard2.0
-- for the dotnet tool: netcore3.1, net5.0 or net6.0
+- for the dotnet tool: net8.0, net9.0 or net10.0
 
 <a name='Usage'></a>
 # Usage
@@ -92,7 +92,7 @@ You can disable the documentation generation by setting the `<DisableDefaultDocu
 	</PropertyGroup>
     ...
     <ItemGroup>
-	    <PackageReference Include="DefaultDocumentation" Version="0.8.0" PrivateAssets="all"/>
+	    <PackageReference Include="DefaultDocumentation" Version="1.2.4" />
     </ItemGroup>
     ...
 </Project>
