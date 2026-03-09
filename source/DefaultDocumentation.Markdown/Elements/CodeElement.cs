@@ -28,7 +28,7 @@ public sealed class CodeElement : IElement
             throw new FileNotFoundException($"Unable to find code documentation file \"{source}\".");
         }
 
-        string? code = File.ReadAllText(source);
+        string code = File.ReadAllText(source);
         if (!string.IsNullOrEmpty(region))
         {
             code = CodeRegion.Extract(code, region!) ?? throw new InvalidOperationException($"Unable to find region \"{region}\" in file \"{source}\".");

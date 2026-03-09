@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    
+
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>DefaultDocumentation</RootNamespace>
     <Nullable>enable</Nullable>
@@ -14,9 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="ICSharpCode.Decompiler" Version="9.1.0.7988" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.3" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.3" />
-    <PackageReference Include="System.Text.Json" Version="10.0.3" />
   </ItemGroup>
 
 </Project>

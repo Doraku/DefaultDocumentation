@@ -24,7 +24,7 @@ public sealed class DotnetApiFactory : IUrlFactory
         ArgumentNullException.ThrowIfNull(id);
 
         id = id[2..];
-        int parametersIndex = id.IndexOf("(", StringComparison.Ordinal);
+        int parametersIndex = id.IndexOf('(');
         if (parametersIndex > 0)
         {
             string methodName = id[..parametersIndex].Replace('#', '-');

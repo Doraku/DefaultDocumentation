@@ -32,7 +32,7 @@ public sealed class Generator
         if (File.Exists(settings.ConfigurationFilePath))
         {
             _configuration = JsonNode.Parse(File.ReadAllText(settings.ConfigurationFilePath)) as JsonObject ?? [];
-            Environment.CurrentDirectory = Path.GetDirectoryName(settings.ConfigurationFilePath);
+            Environment.CurrentDirectory = Path.GetDirectoryName(settings.ConfigurationFilePath) ?? Environment.CurrentDirectory;
         }
 
         AddSetting(settings => settings.LogLevel, value => !value.HasValue);
@@ -78,14 +78,19 @@ public sealed class Generator
 
         AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
         {
+            if (sender is not AppDomain appDomain)
+            {
+                return null;
+            }
+
             AssemblyName assemblyName = new(args.Name);
 
-            Assembly? loadedAssembly = Array.Find(((AppDomain)sender).GetAssemblies(), assemby => assemby.GetName().Name.Equals(assemblyName.Name, StringComparison.OrdinalIgnoreCase));
+            Assembly? loadedAssembly = Array.Find(appDomain.GetAssemblies(), assemby => assemby.GetName().Name?.Equals(assemblyName.Name, StringComparison.OrdinalIgnoreCase) ?? false);
 
             if (loadedAssembly?.GetName() is AssemblyName loadedAssemblyName
                 && loadedAssemblyName.Version != assemblyName.Version)
             {
-                if (loadedAssemblyName.Version.Major == assemblyName.Version.Major)
+                if (loadedAssemblyName.Version?.Major == assemblyName.Version?.Major)
                 {
                     // there shouldn't be any breaking changes
                     LogAssemblyDifferentVersionAsInformation(_logger, loadedAssemblyName, assemblyName);
@@ -170,7 +175,7 @@ public sealed class Generator
 
         string fileName = Path.Combine(_context.Settings.OutputDirectory.FullName, _context.GetFileName(item));
 
-        Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+        new FileInfo(fileName).Directory?.Create();
         File.WriteAllText(fileName, builder.ToString());
     }
 
@@ -179,7 +184,7 @@ public sealed class Generator
         if (_context.Settings.LinksOutputFile != null)
         {
             LogWritingLinksFile(_logger, _context.Settings.LinksOutputFile);
-            _context.Settings.LinksOutputFile.Directory.Create();
+            _context.Settings.LinksOutputFile.Directory?.Create();
 
             using StreamWriter writer = _context.Settings.LinksOutputFile.CreateText();
 

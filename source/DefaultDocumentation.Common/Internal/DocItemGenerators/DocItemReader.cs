@@ -66,7 +66,7 @@ internal sealed class DocItemReader : IDocItemGenerator
                 return false;
             }
 
-            if (!_documentationProviders.TryGetValue(entity.ParentModule, out IDocumentationProvider documentationProvider))
+            if (!_documentationProviders.TryGetValue(entity.ParentModule, out IDocumentationProvider? documentationProvider))
             {
                 LogLoadingDocumentationProvider(_context.Settings.Logger, entity.ParentModule.MetadataFile);
                 documentationProvider = XmlDocLoader.LoadDocumentation(entity.ParentModule.MetadataFile) ?? XmlDocLoader.MscorlibDocumentation;
@@ -191,7 +191,7 @@ internal sealed class DocItemReader : IDocItemGenerator
 
                 foreach (ITypeDefinition currentType in declaringTypes)
                 {
-                    if (!_context.Items.TryGetValue(currentType.GetIdString(), out DocItem declaringTypeDocItem))
+                    if (!_context.Items.TryGetValue(currentType.GetIdString(), out DocItem? declaringTypeDocItem))
                     {
                         declaringTypeDocItem = GetDocItem(currentType, parentDocItem);
 

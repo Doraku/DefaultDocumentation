@@ -30,5 +30,7 @@
   <Project Path="DefaultDocumentation.Common/DefaultDocumentation.Common.csproj" />
   <Project Path="DefaultDocumentation.Console/DefaultDocumentation.Console.csproj" />
   <Project Path="DefaultDocumentation.Markdown/DefaultDocumentation.Markdown.csproj" />
-  <Project Path="DefaultDocumentation/DefaultDocumentation.csproj" />
+  <Project Path="DefaultDocumentation/DefaultDocumentation.csproj">
+    <BuildDependency Project="DefaultDocumentation.Console/DefaultDocumentation.Console.csproj" />
+  </Project>
 </Solution>

@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Linq;
 using CommandLine;
 
 namespace DefaultDocumentation;
 
 internal static class Program
 {
-    private static void Main(string[] args)
+    private static int Main(string[] args)
     {
         using Parser parser = new(settings =>
         {
@@ -14,8 +15,9 @@ internal static class Program
             settings.HelpWriter = Console.Out;
         });
 
-        parser
+        return parser
             .ParseArguments<SettingsArgs>(args)
-            .WithParsed(parsedArgs => Generator.Execute(logLevel => new ConsoleLogger(logLevel), parsedArgs));
+            .WithParsed(parsedArgs => Generator.Execute(logLevel => new ConsoleLogger(logLevel), parsedArgs))
+            .Errors.Any() ? -1 : 0;
     }
 }

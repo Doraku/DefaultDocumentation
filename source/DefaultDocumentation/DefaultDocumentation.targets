@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<UsingTask TaskName="DefaultDocumentation.DefaultDocumentationTask" AssemblyFile="$(MSBuildThisFileDirectory)DefaultDocumentation.dll"/>
-	<UsingTask TaskName="EnsureDefaultDocumentationExternLinksFilesRooted" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll" >
+	<UsingTask TaskName="_DefaultDocumentationEnsureFilesRooted" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll" >
 		<ParameterGroup>
 			<FilePaths Required="true" />
 			<Result Output="true" />
@@ -30,37 +29,53 @@
 			<_DefaultDocumentationConfigurationFile Condition="'$(DefaultDocumentationConfigurationFile)' == ''">$(ProjectDir)DefaultDocumentation.json</_DefaultDocumentationConfigurationFile>
 			<_DefaultDocumentationDocumentationFile Condition="'$(MSBuildProjectExtension)' != '.vbproj'">$([System.IO.Path]::GetFullPath($(DocumentationFile)))</_DefaultDocumentationDocumentationFile>
 			<_DefaultDocumentationDocumentationFile Condition="'$(MSBuildProjectExtension)' == '.vbproj'">$([System.IO.Path]::GetFullPath($(IntermediateOutputPath)$(DocumentationFile)))</_DefaultDocumentationDocumentationFile>
-			<_DefaultDocumentationFolder Condition="'$(DefaultDocumentationFolder)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationFolder)))</_DefaultDocumentationFolder>
+			<_DefaultDocumentationFolder Condition="'$(DefaultDocumentationFolder)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationFolder.TrimEnd('\\'))))</_DefaultDocumentationFolder>
 			<_DefaultDocumentationLinksOutputFile Condition="'$(DefaultDocumentationLinksOutputFile)' != ''">$([System.IO.Path]::GetFullPath($(DefaultDocumentationLinksOutputFile)))</_DefaultDocumentationLinksOutputFile>
 		</PropertyGroup>
 
-		<EnsureDefaultDocumentationExternLinksFilesRooted Condition="'$(DefaultDocumentationExternLinksFiles)' != ''" FilePaths="$(DefaultDocumentationExternLinksFiles)">
+		<_DefaultDocumentationEnsureFilesRooted Condition="'$(DefaultDocumentationExternLinksFiles)' != ''" FilePaths="$(DefaultDocumentationExternLinksFiles)">
 			<Output PropertyName="_DefaultDocumentationExternLinksFiles" TaskParameter="Result" />
-		</EnsureDefaultDocumentationExternLinksFilesRooted>
+		</_DefaultDocumentationEnsureFilesRooted>
 
-		<EnsureDefaultDocumentationExternLinksFilesRooted Condition="'$(DefaultDocumentationPlugins)' != ''" FilePaths="$(DefaultDocumentationPlugins)">
+    <_DefaultDocumentationEnsureFilesRooted Condition="'$(DefaultDocumentationPlugins)' != ''" FilePaths="$(DefaultDocumentationPlugins)">
 			<Output PropertyName="_DefaultDocumentationPlugins" TaskParameter="Result" />
-		</EnsureDefaultDocumentationExternLinksFilesRooted>
+		</_DefaultDocumentationEnsureFilesRooted>
 
-		<DefaultDocumentationTask
-			LogLevelString="$(DefaultDocumentationLogLevel)"
-			ConfigurationFilePath="$(_DefaultDocumentationConfigurationFile)"
-			AssemblyFilePath="$(TargetPath)"
-			DocumentationFilePath="$(_DefaultDocumentationDocumentationFile)"
-			ProjectDirectoryPath="$(ProjectDir)"
-			OutputDirectoryPath="$(_DefaultDocumentationFolder)"
-			AssemblyPageName="$(DefaultDocumentationAssemblyPageName)"
-			GeneratedAccessModifiers="$(DefaultDocumentationGeneratedAccessModifiers)"
-			IncludeUndocumentedItems="$(DefaultDocumentationIncludeUndocumentedItems)"
-			GeneratedPages="$(DefaultDocumentationGeneratedPages)"
-			LinksOutputFilePath="$(_DefaultDocumentationLinksOutputFile)"
-			LinksBaseUrl="$(DefaultDocumentationLinksBaseUrl)"
-			ExternLinksFilePaths="$(_DefaultDocumentationExternLinksFiles)"
-			Plugins="$(_DefaultDocumentationPlugins)"
-			UrlFactories="$(DefaultDocumentationUrlFactories)"
-			DocItemGenerators="$(DefaultDocumentationDocItemGenerators)"
-			Elements="$(DefaultDocumentationElements)"
-			FileNameFactory="$(DefaultDocumentationFileNameFactory)"
-			Sections="$(DefaultDocumentationSections)"/>
+    <Exec ConsoleToMsBuild="true" StandardOutputImportance="low" Command="dotnet --list-runtimes">
+      <Output TaskParameter="ConsoleOutput" PropertyName="_DefaultDocumentationDotnetRuntimes" />
+    </Exec>
+
+    <PropertyGroup>
+      <_DefaultDocumentationDotnet Condition="'$(_DefaultDocumentationDotnet)' == '' AND $(_DefaultDocumentationDotnetRuntimes.Contains(' 10.0.'))">net10.0</_DefaultDocumentationDotnet>
+      <_DefaultDocumentationDotnet Condition="'$(_DefaultDocumentationDotnet)' == '' AND $(_DefaultDocumentationDotnetRuntimes.Contains(' 9.0.'))">net9.0</_DefaultDocumentationDotnet>
+      <_DefaultDocumentationDotnet Condition="'$(_DefaultDocumentationDotnet)' == '' AND $(_DefaultDocumentationDotnetRuntimes.Contains(' 8.0.'))">net8.0</_DefaultDocumentationDotnet>
+      <_DefaultDocumentationDotnet Condition="'$(_DefaultDocumentationDotnet)' == ''">net8.0</_DefaultDocumentationDotnet>
+      
+      <_DefaultDocumentationCommand>dotnet "$(MSBuildThisFileDirectory)../tools/$(_DefaultDocumentationDotnet)/publish/DefaultDocumentation.Console.dll"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand>$(_DefaultDocumentationCommand) --ConfigurationFilePath "$(_DefaultDocumentationConfigurationFile)"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand>$(_DefaultDocumentationCommand) --AssemblyFilePath "$(TargetPath)"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand>$(_DefaultDocumentationCommand) --DocumentationFilePath "$(_DefaultDocumentationDocumentationFile)"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand>$(_DefaultDocumentationCommand) --ProjectDirectoryPath "$(ProjectDir.TrimEnd('\\'))"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand Condition="'$(DefaultDocumentationLogLevel)' != ''">$(_DefaultDocumentationCommand) --LogLevel $(DefaultDocumentationLogLevel)</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand Condition="'$(DefaultDocumentationAssemblyPageName)' != ''">$(_DefaultDocumentationCommand) --AssemblyPageName "$(DefaultDocumentationAssemblyPageName)"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand Condition="'$(DefaultDocumentationGeneratedAccessModifiers)' != ''">$(_DefaultDocumentationCommand) --GeneratedAccessModifiers "$(DefaultDocumentationGeneratedAccessModifiers)"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand Condition="'$(DefaultDocumentationIncludeUndocumentedItems)' != ''">$(_DefaultDocumentationCommand) --IncludeUndocumentedItems $(DefaultDocumentationIncludeUndocumentedItems)</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand Condition="'$(DefaultDocumentationGeneratedPages)' != ''">$(_DefaultDocumentationCommand) --GeneratedPages "$(DefaultDocumentationGeneratedPages)"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand Condition="'$(DefaultDocumentationLinksBaseUrl)' != ''">$(_DefaultDocumentationCommand) --LinksBaseUrl "$(DefaultDocumentationLinksBaseUrl)"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand Condition="'$(DefaultDocumentationDocItemGenerators)' != ''">$(_DefaultDocumentationCommand) --DocItemGenerators "$(DefaultDocumentationDocItemGenerators)"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand Condition="'$(DefaultDocumentationUrlFactories)' != ''">$(_DefaultDocumentationCommand) --UrlFactories "$(DefaultDocumentationUrlFactories)"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand Condition="'$(DefaultDocumentationElements)' != ''">$(_DefaultDocumentationCommand) --Elements "$(DefaultDocumentationElements)"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand Condition="'$(DefaultDocumentationFileNameFactory)' != ''">$(_DefaultDocumentationCommand) --FileNameFactory "$(DefaultDocumentationFileNameFactory)"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand Condition="'$(DefaultDocumentationSections)' != ''">$(_DefaultDocumentationCommand) --Sections "$(DefaultDocumentationSections)"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand Condition="'$(_DefaultDocumentationFolder)' != ''">$(_DefaultDocumentationCommand) --OutputDirectoryPath "$(_DefaultDocumentationFolder)"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand Condition="'$(_DefaultDocumentationLinksOutputFile)' != ''">$(_DefaultDocumentationCommand) --LinksOutputFilePath "$(_DefaultDocumentationLinksOutputFile)"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand Condition="'$(_DefaultDocumentationExternLinksFiles)' != ''">$(_DefaultDocumentationCommand) --ExternLinksFilePaths "$(_DefaultDocumentationExternLinksFiles)"</_DefaultDocumentationCommand>
+      <_DefaultDocumentationCommand Condition="'$(_DefaultDocumentationPlugins)' != ''">$(_DefaultDocumentationCommand) --Plugins "$(_DefaultDocumentationPlugins)"</_DefaultDocumentationCommand>
+    </PropertyGroup>
+
+    <Error  Condition="'$(_DefaultDocumentationDotnet)' == ''" Text="dotnet runtime 8.0, 9.0 or 10.0 required" />
+    
+    <Message Condition="'$(DefaultDocumentationLogLevel)' == 'Trace'" Importance="high" Text="$(_DefaultDocumentationCommand)"/>
+    <Exec ConsoleToMsBuild="true" StandardOutputImportance="high" Command="$(_DefaultDocumentationCommand)" />
 	</Target>
 </Project>

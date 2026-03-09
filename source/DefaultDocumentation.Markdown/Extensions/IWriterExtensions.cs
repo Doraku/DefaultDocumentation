@@ -227,7 +227,7 @@ public static class IWriterExtensions
                 writer.AppendFormat(
                     writer.GetUrlFormat(),
                     (displayedName ?? url!).Prettify().SanitizeForMarkdown(writer.Context.GetMarkdownSanitizationRegex()),
-                    url!,
+                    url,
                     (tooltip ?? url!).SanitizeForMarkdown(writer.Context.GetMarkdownSanitizationRegex()));
             }
         }
@@ -262,7 +262,7 @@ public static class IWriterExtensions
         ArgumentNullException.ThrowIfNull(writer);
         ArgumentNullException.ThrowIfNull(id);
 
-        return writer.Context.Items.TryGetValue(id, out DocItem item)
+        return writer.Context.Items.TryGetValue(id, out DocItem? item)
             ? writer.AppendLink(item, displayedName)
             : writer.AppendUrl(writer.Context.GetUrl(id), displayedName ?? id[2..], id[2..]);
     }

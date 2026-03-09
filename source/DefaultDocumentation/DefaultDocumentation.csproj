@@ -5,36 +5,16 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     
     <Description>Create a simple markdown documentation from the Visual Studio xml one.</Description>
-    
-    <DevelopmentDependency>true</DevelopmentDependency>
-    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <ContentTargetFolders>build</ContentTargetFolders>
-    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);PackBuildOutputs</TargetsForTfmSpecificContentInPackage>
+    <AddSyntheticProjectReferencesForSolutionDependencies>false</AddSyntheticProjectReferencesForSolutionDependencies>
     
   </PropertyGroup>
 
   <ItemGroup>
     <None Update="DefaultDocumentation.targets" Pack="true" PackagePath="build\" />
+    <None Include="..\DefaultDocumentation.Console\bin\Release\*\Publish\**" Pack="true" PackagePath="tools\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="18.3.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\DefaultDocumentation.Common\DefaultDocumentation.Common.csproj" />
-  </ItemGroup>
-
-  <Target Name="PackBuildOutputs" DependsOnTargets="ResolveProjectReferences;SatelliteDllsProjectOutputGroup;DebugSymbolsProjectOutputGroup;SatelliteDllsProjectOutputGroupDependencies;ResolveAssemblyReferences">
-    <ItemGroup>
-      <TfmSpecificPackageFile Include="$(TargetPath)" PackagePath="build\" />
-      <TfmSpecificPackageFile Include="$(DepsFilePath)" PackagePath="build\" />
-      <TfmSpecificPackageFile Include="@(DebugSymbolsProjectOutputGroupOutput)" PackagePath="build\" />
-      <TfmSpecificPackageFile Include="%(_ResolvedProjectReferencePaths.Identity)" PackagePath="build\" />
-      <TfmSpecificPackageFile Include="@(ReferenceCopyLocalPaths)" Exclude="@(_ResolvedProjectReferencePaths)" PackagePath="build\%(ReferenceCopyLocalPaths.DestinationSubPath)" />
-    </ItemGroup>
-  </Target>
-
+  
 </Project>

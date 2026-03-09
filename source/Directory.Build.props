@@ -20,8 +20,8 @@
 	</PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="DefaultCSharp" Version="14.0.1" PrivateAssets="all" />
-    <PackageReference Include="Polyfill" Version="9.13.0" PrivateAssets="all" />
+    <PackageReference Include="DefaultCSharp" Version="14.0.2" PrivateAssets="all" />
+    <PackageReference Include="Polyfill" Version="9.18.0" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>

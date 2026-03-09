@@ -31,8 +31,7 @@ public sealed class Md5Factory : BaseMarkdownFileNameFactory
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "CA5351:Do Not Use Broken Cryptographic Algorithms", Justification = "not used for security")]
     internal static string GetMd5HashBase36(string text)
     {
-        using MD5 md5 = MD5.Create();
-        return ToBase36String(md5.ComputeHash(Encoding.UTF8.GetBytes(text)));
+        return ToBase36String(MD5.HashData(Encoding.UTF8.GetBytes(text)));
     }
 
     private static string ToBase36String(byte[] bytes)

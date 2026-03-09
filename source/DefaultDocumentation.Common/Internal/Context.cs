@@ -23,14 +23,16 @@ internal class Context : IContext
     protected static IReadOnlyDictionary<string, T> GetAllAvailableImplementations<T>(IEnumerable<Type> availableTypes, Func<T, string> keySelector)
         => availableTypes
             .Where(type => typeof(T).IsAssignableFrom(type) && !type.IsAbstract)
-            .Select(type => (T)Activator.CreateInstance(type))
+            .Select(Activator.CreateInstance)
+            .OfType<T>()
             .GroupBy(section => keySelector(section), StringComparer.OrdinalIgnoreCase)
             .ToDictionary(group => group.Key, group => group.Last(), StringComparer.OrdinalIgnoreCase);
 
     protected static T GetImplementation<T>(IEnumerable<Type> availableTypes, string typeName)
         => availableTypes
             .Where(type => typeof(T).IsAssignableFrom(type) && !type.IsAbstract && $"{type.FullName} {type.Assembly.GetName().Name}" == typeName)
-            .Select(type => (T)Activator.CreateInstance(type))
+            .Select(Activator.CreateInstance)
+            .OfType<T>()
             .FirstOrDefault()
             ?? throw new Exception($"{typeof(T).Name} '{typeName}' not found");
 
@@ -49,7 +51,7 @@ internal class Context : IContext
         return [.. values
             .Where(value => !string.IsNullOrEmpty(value))
             .Select(value =>
-                availableImplementations.TryGetValue(value!, out T implementation)
+                availableImplementations.TryGetValue(value!, out T? implementation)
                 ? implementation
                 : GetImplementation<T>(availableTypes, value!))];
     }

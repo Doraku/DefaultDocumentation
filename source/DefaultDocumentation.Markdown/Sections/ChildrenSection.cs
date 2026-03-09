@@ -51,7 +51,7 @@ public abstract class ChildrenSection<T> : ISection
     /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation generation process.</param>
     /// <param name="item">The <see cref="DocItem"/> for which to write its children.</param>
     /// <returns>The children to write.</returns>
-    protected virtual IEnumerable<T>? GetChildren(IGeneralContext context, DocItem item) => context.GetChildren<T>(item);
+    protected virtual IEnumerable<T> GetChildren(IGeneralContext context, DocItem item) => context.GetChildren<T>(item);
 
     /// <inheritdoc/>
     public string Name { get; }
@@ -64,7 +64,7 @@ public abstract class ChildrenSection<T> : ISection
         bool inlineChildren = ShouldInlineChildren(writer.Context, writer.GetCurrentItem());
         bool titleWritten = !(ShouldWriteTitle(writer.Context, writer.GetCurrentItem()) || !inlineChildren);
 
-        foreach (DocItem child in GetChildren(writer.Context, writer.GetCurrentItem()) ?? [])
+        foreach (DocItem child in GetChildren(writer.Context, writer.GetCurrentItem()))
         {
             if (!titleWritten)
             {
@@ -135,7 +135,7 @@ public sealed class TypeParametersSection : ChildrenSection<TypeParameterDocItem
     protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item) => true;
 
     /// <inheritdoc/>
-    protected override IEnumerable<TypeParameterDocItem>? GetChildren(IGeneralContext context, DocItem item) => (item as ITypeParameterizedDocItem)?.TypeParameters;
+    protected override IEnumerable<TypeParameterDocItem> GetChildren(IGeneralContext context, DocItem item) => (item as ITypeParameterizedDocItem)?.TypeParameters ?? [];
 }
 
 /// <summary>
@@ -159,7 +159,7 @@ public sealed class ParametersSection : ChildrenSection<ParameterDocItem>
     protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item) => true;
 
     /// <inheritdoc/>
-    protected override IEnumerable<ParameterDocItem>? GetChildren(IGeneralContext context, DocItem item) => (item as IParameterizedDocItem)?.Parameters;
+    protected override IEnumerable<ParameterDocItem> GetChildren(IGeneralContext context, DocItem item) => (item as IParameterizedDocItem)?.Parameters ?? [];
 }
 
 /// <summary>
@@ -183,7 +183,7 @@ public sealed class EnumFieldsSection : ChildrenSection<EnumFieldDocItem>
     protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item) => true;
 
     /// <inheritdoc/>
-    protected override IEnumerable<EnumFieldDocItem>? GetChildren(IGeneralContext context, DocItem item)
+    protected override IEnumerable<EnumFieldDocItem> GetChildren(IGeneralContext context, DocItem item)
         => item is EnumDocItem enumType
         ? base.GetChildren(context, item).OrderBy(child => enumType.Type.Fields.TakeWhile(field => field != child.Field).Count())
         : [];
@@ -214,7 +214,7 @@ public sealed class ConstructorsSection : ChildrenSection<ConstructorDocItem>
     protected override bool ShouldWriteTitle(IGeneralContext context, DocItem item) => item is not ConstructorOverloadsDocItem;
 
     /// <inheritdoc/>
-    protected override IEnumerable<ConstructorDocItem>? GetChildren(IGeneralContext context, DocItem item) =>
+    protected override IEnumerable<ConstructorDocItem> GetChildren(IGeneralContext context, DocItem item) =>
         item is ConstructorOverloadsDocItem overloadsItem
         ? context.GetChildren<ConstructorDocItem>(overloadsItem.Parent!)
         : base.GetChildren(context, item);
@@ -241,7 +241,7 @@ public sealed class ConstructorOverloadsSection : ChildrenSection<ConstructorDoc
     protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item) => false;
 
     /// <inheritdoc/>
-    protected override IEnumerable<ConstructorDocItem>? GetChildren(IGeneralContext context, DocItem item) =>
+    protected override IEnumerable<ConstructorDocItem> GetChildren(IGeneralContext context, DocItem item) =>
         item is ConstructorOverloadsDocItem overloadsItem
         ? context.GetChildren<ConstructorDocItem>(overloadsItem.Parent!)
         : [];
@@ -316,7 +316,7 @@ public sealed class MethodsSection : ChildrenSection<MethodDocItem>
     protected override bool ShouldWriteTitle(IGeneralContext context, DocItem item) => item is not MethodOverloadsDocItem;
 
     /// <inheritdoc/>
-    protected override IEnumerable<MethodDocItem>? GetChildren(IGeneralContext context, DocItem item) =>
+    protected override IEnumerable<MethodDocItem> GetChildren(IGeneralContext context, DocItem item) =>
         item is MethodOverloadsDocItem overloadsItem
         ? context.GetChildren<MethodDocItem>(overloadsItem.Parent!).Where(item => item.Method.Name == overloadsItem.Name)
         : base.GetChildren(context, item);
@@ -343,7 +343,7 @@ public sealed class MethodOverloadsSection : ChildrenSection<MethodDocItem>
     protected override bool ShouldInlineChildren(IGeneralContext context, DocItem item) => false;
 
     /// <inheritdoc/>
-    protected override IEnumerable<MethodDocItem>? GetChildren(IGeneralContext context, DocItem item) =>
+    protected override IEnumerable<MethodDocItem> GetChildren(IGeneralContext context, DocItem item) =>
         item is MethodOverloadsDocItem overloadsItem
         ? context.GetChildren<MethodDocItem>(overloadsItem.Parent!).Where(item => item.Method.Name == overloadsItem.Name)
         : [];

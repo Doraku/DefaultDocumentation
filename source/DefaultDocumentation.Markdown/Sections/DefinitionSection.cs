@@ -197,7 +197,7 @@ public sealed class DefinitionSection : ISection
             }
 
             writer
-                .Append((method!.IsExplicitInterfaceImplementation ? method.ExplicitlyImplementedInterfaceMembers.FirstOrDefault() : method).Accessibility switch
+                .Append((method.IsExplicitInterfaceImplementation ? method.ExplicitlyImplementedInterfaceMembers.FirstOrDefault() : method)?.Accessibility switch
                 {
                     Accessibility.Private => " private ",
                     Accessibility.Internal => " internal ",
@@ -282,7 +282,7 @@ public sealed class DefinitionSection : ISection
             {
                 w.Append(item.Type.ToString(_typeAmbience));
 
-                IType baseType = item.Type.DirectBaseTypes.FirstOrDefault(baseType => baseType.Kind == TypeKind.Class && !baseType.IsKnownType(KnownTypeCode.Object) && !baseType.IsKnownType(KnownTypeCode.ValueType));
+                IType? baseType = item.Type.DirectBaseTypes.FirstOrDefault(baseType => baseType.Kind == TypeKind.Class && !baseType.IsKnownType(KnownTypeCode.Object) && !baseType.IsKnownType(KnownTypeCode.ValueType));
                 if (baseType != null)
                 {
                     w

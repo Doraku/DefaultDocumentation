@@ -18,9 +18,9 @@ internal sealed class ExternDocItemReader : IDocItemGenerator
             string baseLink = string.Empty;
             while (!reader.EndOfStream)
             {
-                string[] items = reader.ReadLine().Split(['|'], 3);
+                string[]? items = reader.ReadLine()?.Split(['|'], 3);
 
-                switch (items.Length)
+                switch (items?.Length)
                 {
                     case 1:
                         baseLink = items[0].Trim();

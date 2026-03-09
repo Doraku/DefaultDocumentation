@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using DefaultDocumentation;
 
@@ -15,7 +16,7 @@ public static class IEntityExtensions
     /// <param name="entity">The <see cref="IEntity"/> to check.</param>
     /// <param name="settings">The <see cref="ISettings"/> used to generate the documentation.</param>
     /// <returns><see langword="true"/> if the entity should be part of the documentation; otherwise <see langword="false"/>.</returns>
-    public static bool IsVisibleInDocumentation(this IEntity? entity, ISettings settings)
+    public static bool IsVisibleInDocumentation([NotNullWhen(true)] this IEntity? entity, ISettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
 

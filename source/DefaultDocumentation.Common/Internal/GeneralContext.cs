@@ -98,7 +98,7 @@ internal sealed class GeneralContext : Context, IGeneralContext, IDocItemsContex
 
     public IEnumerable<IUrlFactory> UrlFactories { get; }
 
-    public IContext GetContext(Type? type) => type != null && _contexts.TryGetValue(type, out Context context) ? context : this;
+    public IContext GetContext(Type? type) => type != null && _contexts.TryGetValue(type, out Context? context) ? context : this;
 
     public string GetFileName(DocItem item) => _fileNames.GetOrAdd(item, newItem => (this.GetContext(newItem).FileNameFactory ?? FileNameFactory!).GetFileName(this, newItem));
 

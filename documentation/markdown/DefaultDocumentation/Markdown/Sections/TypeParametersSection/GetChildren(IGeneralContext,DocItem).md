@@ -6,7 +6,7 @@
 Gets the children of a [DocItem](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') to write\.
 
 ```csharp
-protected override System.Collections.Generic.IEnumerable<DefaultDocumentation.Models.Parameters.TypeParameterDocItem>? GetChildren(DefaultDocumentation.IGeneralContext context, DefaultDocumentation.Models.DocItem item);
+protected override System.Collections.Generic.IEnumerable<DefaultDocumentation.Models.Parameters.TypeParameterDocItem> GetChildren(DefaultDocumentation.IGeneralContext context, DefaultDocumentation.Models.DocItem item);
 ```
 #### Parameters
 

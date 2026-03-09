@@ -15,7 +15,7 @@ namespace DefaultDocumentation.Internal;
 internal static partial class LoggerHelper
 {
     [LoggerMessage(LogLevel.Information, "starting DefaultDocumentation {Version} with this configuration:\n{Configuration}")]
-    private static partial void LogStartingWithConfiguration(ILogger logger, Version version, string configuration);
+    private static partial void LogStartingWithConfiguration(ILogger logger, Version? version, string configuration);
 
     public static void LogStarting(ILogger logger, JsonObject configuration)
         => LogStartingWithConfiguration(logger, typeof(LoggerHelper).Assembly.GetName().Version, JsonSerializer.Serialize(configuration, JsonObjectExtensions.JsonOptions));
@@ -40,13 +40,13 @@ internal static partial class LoggerHelper
   - {nameof(settings.ExternLinksFiles)}:{string.Concat(settings.ExternLinksFiles.Select(file => $"\n    - {file.FullName}"))}");
 
     [LoggerMessage(LogLevel.Information, "using {AssemblyName} version {LoadedVersion} instead of version {ExpectedVersion}, may cause issue")]
-    private static partial void LogAssemblyDifferentVersionAsInformation(ILogger logger, string assemblyName, Version loadedVersion, Version expectedVersion);
+    private static partial void LogAssemblyDifferentVersionAsInformation(ILogger logger, string? assemblyName, Version? loadedVersion, Version? expectedVersion);
 
     public static void LogAssemblyDifferentVersionAsInformation(ILogger logger, AssemblyName loadedAssembly, AssemblyName expectedAssembly)
         => LogAssemblyDifferentVersionAsInformation(logger, loadedAssembly.Name, loadedAssembly.Version, expectedAssembly.Version);
 
     [LoggerMessage(LogLevel.Warning, "using {AssemblyName} version {LoadedVersion} instead of version {ExpectedVersion}, may cause issue")]
-    private static partial void LogAssemblyDifferentVersionAsWarning(ILogger logger, string assemblyName, Version loadedVersion, Version expectedVersion);
+    private static partial void LogAssemblyDifferentVersionAsWarning(ILogger logger, string? assemblyName, Version? loadedVersion, Version? expectedVersion);
 
     public static void LogAssemblyDifferentVersionAsWarning(ILogger logger, AssemblyName loadedAssembly, AssemblyName expectedAssembly)
         => LogAssemblyDifferentVersionAsWarning(logger, loadedAssembly.Name, loadedAssembly.Version, expectedAssembly.Version);
@@ -54,8 +54,8 @@ internal static partial class LoggerHelper
     [LoggerMessage(LogLevel.Information, "{ItemKind} that will be used:\n{Items}")]
     private static partial void LogUsedItems(ILogger logger, string itemKind, string items);
 
-    public static void LogUsedItems(ILogger logger, string itemKind, IEnumerable<string>? items)
-        => LogUsedItems(logger, itemKind, string.Join("\n", (items ?? []).Select(item => "  - " + item)));
+    public static void LogUsedItems(ILogger logger, string itemKind, IEnumerable<string?>? items)
+        => LogUsedItems(logger, itemKind, string.Join("\n", (items ?? []).Where(item => item is not null).Select(item => "  - " + item)));
 
     [LoggerMessage(LogLevel.Trace, "writing DocItem \"{DocItem}\" with id \"{DocItemId}\"")]
     private static partial void LogWritingDocItem(ILogger logger, DocItem docItem, string docItemId);
