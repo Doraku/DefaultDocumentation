@@ -37,7 +37,7 @@ public sealed class DerivedSection : ISection
                 {
                     writer
                         .AppendLine("  ")
-                        .Append("&#8627; ")
+                        .Append("↳ ")
                         .AppendLink(t);
                 }
             }

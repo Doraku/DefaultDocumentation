@@ -34,7 +34,7 @@ public sealed class InheritanceSection : ISection
             {
                 writer
                     .AppendLink(typeItem, t)
-                    .Append(" &#129106; ");
+                    .Append(" → ");
             }
 
             writer.Append(typeItem.Name.SanitizeForMarkdown(writer.Context.GetMarkdownSanitizationRegex()));
