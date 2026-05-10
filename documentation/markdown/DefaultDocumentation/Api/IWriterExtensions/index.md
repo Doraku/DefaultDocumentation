@@ -9,7 +9,7 @@ Provides extension methods on the [IWriter](https://github.com/Doraku/DefaultDoc
 public static class IWriterExtensions
 ```
 
-Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; IWriterExtensions
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → IWriterExtensions
 
 | Methods | |
 | :--- | :--- |

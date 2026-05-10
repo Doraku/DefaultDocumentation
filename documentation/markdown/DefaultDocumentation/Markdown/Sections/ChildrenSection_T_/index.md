@@ -17,27 +17,27 @@ public abstract class ChildrenSection<T> : DefaultDocumentation.Api.ISection
 
 The of [DocItem](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Models/DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') to write\.
 
-Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; ChildrenSection\<T\>
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → ChildrenSection\<T\>
 
 Derived  
-&#8627; [ClassesSection](../ClassesSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.ClassesSection')  
-&#8627; [ConstructorOverloadsSection](../ConstructorOverloadsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.ConstructorOverloadsSection')  
-&#8627; [ConstructorsSection](../ConstructorsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.ConstructorsSection')  
-&#8627; [DelegatesSection](../DelegatesSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.DelegatesSection')  
-&#8627; [EnumFieldsSection](../EnumFieldsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.EnumFieldsSection')  
-&#8627; [EnumsSection](../EnumsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.EnumsSection')  
-&#8627; [EventsSection](../EventsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.EventsSection')  
-&#8627; [ExplicitInterfaceImplementationsSection](../ExplicitInterfaceImplementationsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.ExplicitInterfaceImplementationsSection')  
-&#8627; [FieldsSection](../FieldsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.FieldsSection')  
-&#8627; [InterfacesSection](../InterfacesSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.InterfacesSection')  
-&#8627; [MethodOverloadsSection](../MethodOverloadsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.MethodOverloadsSection')  
-&#8627; [MethodsSection](../MethodsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.MethodsSection')  
-&#8627; [NamespacesSection](../NamespacesSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.NamespacesSection')  
-&#8627; [OperatorsSection](../OperatorsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.OperatorsSection')  
-&#8627; [ParametersSection](../ParametersSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.ParametersSection')  
-&#8627; [PropertiesSection](../PropertiesSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.PropertiesSection')  
-&#8627; [StructsSection](../StructsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.StructsSection')  
-&#8627; [TypeParametersSection](../TypeParametersSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.TypeParametersSection')
+↳ [ClassesSection](../ClassesSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.ClassesSection')  
+↳ [ConstructorOverloadsSection](../ConstructorOverloadsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.ConstructorOverloadsSection')  
+↳ [ConstructorsSection](../ConstructorsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.ConstructorsSection')  
+↳ [DelegatesSection](../DelegatesSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.DelegatesSection')  
+↳ [EnumFieldsSection](../EnumFieldsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.EnumFieldsSection')  
+↳ [EnumsSection](../EnumsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.EnumsSection')  
+↳ [EventsSection](../EventsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.EventsSection')  
+↳ [ExplicitInterfaceImplementationsSection](../ExplicitInterfaceImplementationsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.ExplicitInterfaceImplementationsSection')  
+↳ [FieldsSection](../FieldsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.FieldsSection')  
+↳ [InterfacesSection](../InterfacesSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.InterfacesSection')  
+↳ [MethodOverloadsSection](../MethodOverloadsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.MethodOverloadsSection')  
+↳ [MethodsSection](../MethodsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.MethodsSection')  
+↳ [NamespacesSection](../NamespacesSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.NamespacesSection')  
+↳ [OperatorsSection](../OperatorsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.OperatorsSection')  
+↳ [ParametersSection](../ParametersSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.ParametersSection')  
+↳ [PropertiesSection](../PropertiesSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.PropertiesSection')  
+↳ [StructsSection](../StructsSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.StructsSection')  
+↳ [TypeParametersSection](../TypeParametersSection/index.md 'DefaultDocumentation\.Markdown\.Sections\.TypeParametersSection')
 
 Implements [ISection](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/ISection/index.md 'DefaultDocumentation\.Api\.ISection')
 

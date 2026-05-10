@@ -9,7 +9,7 @@ Decorator of the [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/m
 public sealed class PrefixedWriter : DefaultDocumentation.Api.IWriter
 ```
 
-Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; PrefixedWriter
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → PrefixedWriter
 
 Implements [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IWriter/index.md 'DefaultDocumentation\.Api\.IWriter')
 

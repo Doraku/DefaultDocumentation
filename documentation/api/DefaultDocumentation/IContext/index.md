@@ -10,8 +10,8 @@ public interface IContext
 ```
 
 Derived  
-&#8627; [IGeneralContext](../IGeneralContext/index.md 'DefaultDocumentation\.IGeneralContext')  
-&#8627; [IPageContext](../IPageContext/index.md 'DefaultDocumentation\.IPageContext')
+↳ [IGeneralContext](../IGeneralContext/index.md 'DefaultDocumentation\.IGeneralContext')  
+↳ [IPageContext](../IPageContext/index.md 'DefaultDocumentation\.IPageContext')
 
 | Properties | |
 | :--- | :--- |

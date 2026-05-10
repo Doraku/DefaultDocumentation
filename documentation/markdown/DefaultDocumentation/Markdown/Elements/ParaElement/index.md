@@ -9,7 +9,7 @@ Handles `para` xml element\.
 public sealed class ParaElement : DefaultDocumentation.Api.IElement
 ```
 
-Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; ParaElement
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → ParaElement
 
 Implements [IElement](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IElement/index.md 'DefaultDocumentation\.Api\.IElement')
 

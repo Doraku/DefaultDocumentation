@@ -10,9 +10,9 @@ public interface ITypeParameterizedDocItem
 ```
 
 Derived  
-&#8627; [ExplicitInterfaceImplementationDocItem](../Members/ExplicitInterfaceImplementationDocItem/index.md 'DefaultDocumentation\.Models\.Members\.ExplicitInterfaceImplementationDocItem')  
-&#8627; [MethodDocItem](../Members/MethodDocItem/index.md 'DefaultDocumentation\.Models\.Members\.MethodDocItem')  
-&#8627; [TypeDocItem](../Types/TypeDocItem/index.md 'DefaultDocumentation\.Models\.Types\.TypeDocItem')
+↳ [ExplicitInterfaceImplementationDocItem](../Members/ExplicitInterfaceImplementationDocItem/index.md 'DefaultDocumentation\.Models\.Members\.ExplicitInterfaceImplementationDocItem')  
+↳ [MethodDocItem](../Members/MethodDocItem/index.md 'DefaultDocumentation\.Models\.Members\.MethodDocItem')  
+↳ [TypeDocItem](../Types/TypeDocItem/index.md 'DefaultDocumentation\.Models\.Types\.TypeDocItem')
 
 | Properties | |
 | :--- | :--- |

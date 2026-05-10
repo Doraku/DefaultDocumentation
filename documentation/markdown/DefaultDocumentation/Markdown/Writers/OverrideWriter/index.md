@@ -9,7 +9,7 @@ Decorator of the [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/m
 public sealed class OverrideWriter : DefaultDocumentation.Api.IWriter
 ```
 
-Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; OverrideWriter
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → OverrideWriter
 
 Implements [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IWriter/index.md 'DefaultDocumentation\.Api\.IWriter')
 

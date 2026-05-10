@@ -10,13 +10,13 @@ It will also replace invalid char that may be present with the [Markdown\.Invali
 public abstract class BaseMarkdownFileNameFactory : DefaultDocumentation.Api.IFileNameFactory
 ```
 
-Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; BaseMarkdownFileNameFactory
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → BaseMarkdownFileNameFactory
 
 Derived  
-&#8627; [FullNameFactory](../FullNameFactory/index.md 'DefaultDocumentation\.Markdown\.FileNameFactories\.FullNameFactory')  
-&#8627; [Md5Factory](../Md5Factory/index.md 'DefaultDocumentation\.Markdown\.FileNameFactories\.Md5Factory')  
-&#8627; [NameAndMd5MixFactory](../NameAndMd5MixFactory/index.md 'DefaultDocumentation\.Markdown\.FileNameFactories\.NameAndMd5MixFactory')  
-&#8627; [NameFactory](../NameFactory/index.md 'DefaultDocumentation\.Markdown\.FileNameFactories\.NameFactory')
+↳ [FullNameFactory](../FullNameFactory/index.md 'DefaultDocumentation\.Markdown\.FileNameFactories\.FullNameFactory')  
+↳ [Md5Factory](../Md5Factory/index.md 'DefaultDocumentation\.Markdown\.FileNameFactories\.Md5Factory')  
+↳ [NameAndMd5MixFactory](../NameAndMd5MixFactory/index.md 'DefaultDocumentation\.Markdown\.FileNameFactories\.NameAndMd5MixFactory')  
+↳ [NameFactory](../NameFactory/index.md 'DefaultDocumentation\.Markdown\.FileNameFactories\.NameFactory')
 
 Implements [IFileNameFactory](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IFileNameFactory/index.md 'DefaultDocumentation\.Api\.IFileNameFactory')
 

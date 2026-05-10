@@ -9,7 +9,7 @@ Handles `paramref` xml element\.
 public sealed class ParamRefElement : DefaultDocumentation.Api.IElement
 ```
 
-Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; ParamRefElement
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → ParamRefElement
 
 Implements [IElement](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IElement/index.md 'DefaultDocumentation\.Api\.IElement')
 

@@ -9,7 +9,7 @@ Represents an assembly documentation\.
 public sealed class AssemblyDocItem : DefaultDocumentation.Models.DocItem
 ```
 
-Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; [DocItem](../DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') &#129106; AssemblyDocItem
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → [DocItem](../DocItem/index.md 'DefaultDocumentation\.Models\.DocItem') → AssemblyDocItem
 
 | Constructors | |
 | :--- | :--- |

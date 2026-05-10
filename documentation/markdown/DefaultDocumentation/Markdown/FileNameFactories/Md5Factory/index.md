@@ -9,7 +9,7 @@
 public sealed class Md5Factory : DefaultDocumentation.Markdown.FileNameFactories.BaseMarkdownFileNameFactory
 ```
 
-Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; [BaseMarkdownFileNameFactory](../BaseMarkdownFileNameFactory/index.md 'DefaultDocumentation\.Markdown\.FileNameFactories\.BaseMarkdownFileNameFactory') &#129106; Md5Factory
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → [BaseMarkdownFileNameFactory](../BaseMarkdownFileNameFactory/index.md 'DefaultDocumentation\.Markdown\.FileNameFactories\.BaseMarkdownFileNameFactory') → Md5Factory
 
 | Fields | |
 | :--- | :--- |

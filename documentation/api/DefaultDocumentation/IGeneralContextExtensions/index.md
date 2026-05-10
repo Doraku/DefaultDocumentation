@@ -9,7 +9,7 @@ Provides extension methods on the [IGeneralContext](../IGeneralContext/index.md 
 public static class IGeneralContextExtensions
 ```
 
-Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; IGeneralContextExtensions
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → IGeneralContextExtensions
 
 | Methods | |
 | :--- | :--- |

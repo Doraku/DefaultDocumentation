@@ -9,7 +9,7 @@ Provides extension methods on the [ICSharpCode\.Decompiler\.TypeSystem\.ISymbol]
 public static class ISymbolExtensions
 ```
 
-Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; ISymbolExtensions
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → ISymbolExtensions
 
 | Methods | |
 | :--- | :--- |

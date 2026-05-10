@@ -10,7 +10,7 @@ It also uses a [OverrideWriter](../OverrideWriter/index.md 'DefaultDocumentation
 public sealed class MarkdownWriter : DefaultDocumentation.Api.IWriter
 ```
 
-Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; MarkdownWriter
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → MarkdownWriter
 
 Implements [IWriter](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IWriter/index.md 'DefaultDocumentation\.Api\.IWriter')
 

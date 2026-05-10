@@ -10,7 +10,7 @@ public interface IGeneralContext : DefaultDocumentation.IContext
 ```
 
 Derived  
-&#8627; [IPageContext](../IPageContext/index.md 'DefaultDocumentation\.IPageContext')
+↳ [IPageContext](../IPageContext/index.md 'DefaultDocumentation\.IPageContext')
 
 Implements [IContext](../IContext/index.md 'DefaultDocumentation\.IContext')
 

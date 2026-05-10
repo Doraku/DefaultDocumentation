@@ -9,7 +9,7 @@ Handles `list` xml element\.
 public sealed class ListElement : DefaultDocumentation.Api.IElement
 ```
 
-Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; ListElement
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → ListElement
 
 Implements [IElement](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IElement/index.md 'DefaultDocumentation\.Api\.IElement')
 

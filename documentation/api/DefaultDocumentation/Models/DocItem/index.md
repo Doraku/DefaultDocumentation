@@ -9,15 +9,15 @@ Represent a documentation item\.
 public abstract class DocItem
 ```
 
-Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; DocItem
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → DocItem
 
 Derived  
-&#8627; [AssemblyDocItem](../AssemblyDocItem/index.md 'DefaultDocumentation\.Models\.AssemblyDocItem')  
-&#8627; [EntityDocItem](../EntityDocItem/index.md 'DefaultDocumentation\.Models\.EntityDocItem')  
-&#8627; [ExternDocItem](../ExternDocItem/index.md 'DefaultDocumentation\.Models\.ExternDocItem')  
-&#8627; [NamespaceDocItem](../NamespaceDocItem/index.md 'DefaultDocumentation\.Models\.NamespaceDocItem')  
-&#8627; [ParameterDocItem](../Parameters/ParameterDocItem/index.md 'DefaultDocumentation\.Models\.Parameters\.ParameterDocItem')  
-&#8627; [TypeParameterDocItem](../Parameters/TypeParameterDocItem/index.md 'DefaultDocumentation\.Models\.Parameters\.TypeParameterDocItem')
+↳ [AssemblyDocItem](../AssemblyDocItem/index.md 'DefaultDocumentation\.Models\.AssemblyDocItem')  
+↳ [EntityDocItem](../EntityDocItem/index.md 'DefaultDocumentation\.Models\.EntityDocItem')  
+↳ [ExternDocItem](../ExternDocItem/index.md 'DefaultDocumentation\.Models\.ExternDocItem')  
+↳ [NamespaceDocItem](../NamespaceDocItem/index.md 'DefaultDocumentation\.Models\.NamespaceDocItem')  
+↳ [ParameterDocItem](../Parameters/ParameterDocItem/index.md 'DefaultDocumentation\.Models\.Parameters\.ParameterDocItem')  
+↳ [TypeParameterDocItem](../Parameters/TypeParameterDocItem/index.md 'DefaultDocumentation\.Models\.Parameters\.TypeParameterDocItem')
 
 | Constructors | |
 | :--- | :--- |

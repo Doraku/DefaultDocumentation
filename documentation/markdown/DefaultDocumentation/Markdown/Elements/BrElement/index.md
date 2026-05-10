@@ -9,7 +9,7 @@ Handles `br` xml element\.
 public sealed class BrElement : DefaultDocumentation.Api.IElement
 ```
 
-Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; BrElement
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → BrElement
 
 Implements [IElement](https://github.com/Doraku/DefaultDocumentation/blob/master/documentation/api/DefaultDocumentation/Api/IElement/index.md 'DefaultDocumentation\.Api\.IElement')
 
