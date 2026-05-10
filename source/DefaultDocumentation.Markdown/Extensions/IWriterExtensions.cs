@@ -357,6 +357,8 @@ public static class IWriterExtensions
                 TypeKind.TypeParameter => item.TryGetTypeParameterDocItem(type.Name, out TypeParameterDocItem? typeParameter) ? writer.AppendLink(typeParameter) : writer.Append(type.Name),
                 TypeKind.Dynamic => writer.AppendUrl("https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/using-type-dynamic", "dynamic"),
                 TypeKind.Tuple when type is TupleType tupleType => HandleTupleType(tupleType),
+                TypeKind.NInt => writer.AppendLink("T:System.IntPtr", "nint"),
+                TypeKind.NUInt => writer.AppendLink("T:System.UIntPtr", "nuint"),
                 TypeKind.Unknown => writer.AppendLink("T:" + type.FullName),
                 _ when type is ParameterizedType genericType => HandleParameterizedType(genericType),
                 _ => writer.AppendLink(type.GetDefinition().GetIdString())

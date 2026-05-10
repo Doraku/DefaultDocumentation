@@ -1,0 +1,3 @@
+## Bug fixes
+- fixed nint and nuint handling (#255)
+- replaced HTML numeric entities with literal Unicode arrows
