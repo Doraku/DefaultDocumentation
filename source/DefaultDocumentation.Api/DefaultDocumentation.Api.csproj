@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="ICSharpCode.Decompiler" Version="10.1.0.8386" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.9" />
   </ItemGroup>
 
 </Project>
