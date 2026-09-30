@@ -169,7 +169,9 @@ public static class IWriterExtensions
     {
         ArgumentNullException.ThrowIfNull(writer);
 
-        return writer.Context[_urlFormatKey] as string ?? "[{0}]({1} '{2}')";
+        return writer.Context[_urlFormatKey] as string
+            ?? writer.Context.GetSetting<string>(_urlFormatKey)
+            ?? "[{0}]({1} '{2}')";
     }
 
     /// <summary>

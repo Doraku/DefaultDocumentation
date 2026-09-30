@@ -1,0 +1,3 @@
+## Bug fixes
+
+- fixed Markdown.UrlFormat configuration settings not being used (#296 thanks to @NotAFlightRisk)
