@@ -626,7 +626,6 @@ DefaultDocumentation is only made possible thanks to those awesome projects:
 - [ICSharpCode.Decompiler](https://github.com/icsharpcode/ILSpy)
 
 CI, tests and code quality rely on those awesome projects:
-- [Coverlet](https://github.com/coverlet-coverage/coverlet)
 - [NFulent](https://github.com/tpierrain/NFluent)
 - [NSubstitute](https://github.com/nsubstitute/NSubstitute)
 - [Roslynator](https://github.com/JosefPihrt/Roslynator)

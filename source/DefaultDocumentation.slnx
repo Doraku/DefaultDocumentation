@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/.solution items/">
     <File Path="../documentation/NEXT_RELEASENOTES.txt" />
+    <File Path="../global.json" />
     <File Path="Directory.Build.props" />
     <File Path="NuGet.Config" />
   </Folder>

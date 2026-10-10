@@ -19,14 +19,9 @@ jobs:
         dotnet-version: '10.0.x'
 
     - name: Collect coverage
-      run: dotnet test source -c Release
-      env:
-        CollectCoverage: true
-        CoverletOutputFormat: lcov
-        CoverletOutput: ..\..\build\lcov.info
+      run: dotnet test source -c Release --coverage --coverage-output-format cobertura --coverage-output coverage.cobertura.xml
 
     - name: Upload to coverall
       uses: coverallsapp/github-action@v2
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: 'build\lcov.info'
+        file: TestResults\coverage.cobertura.xml
