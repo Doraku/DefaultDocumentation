@@ -6,7 +6,7 @@ internal static class StringExtensions
 {
     private static readonly char[] _linebreakChars = ['\r', '\n'];
 
-    public static string SanitizeForMarkdown(this string value, string? regex) => Regex.Replace(value, regex ?? @"[\\\`\*_\{\}\[\]\<\>\(\)\#\+\-\.\!\|]", @"\$&");
+    public static string SanitizeForMarkdown(this string value, string regex) => Regex.Replace(value, regex, @"\$&");
 
     public static string Prettify(this string value)
     {

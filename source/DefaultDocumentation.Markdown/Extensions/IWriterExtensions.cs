@@ -165,13 +165,13 @@ public static class IWriterExtensions
     /// <param name="writer">The <see cref="IWriter"/> for which to get this setting.</param>
     /// <returns>Whether line break in the xml documentation should be handled in the generated markdown.</returns>
     /// <seealso href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_UrlFormat">Markdown.UrlFormat</seealso>
+    [Obsolete("This method is obsolete and will be removed in a future version. Use IGeneralContextExtensions.GetUrlFormat instead.")]
     public static string GetUrlFormat(this IWriter writer)
     {
         ArgumentNullException.ThrowIfNull(writer);
 
         return writer.Context[_urlFormatKey] as string
-            ?? writer.Context.GetSetting<string>(_urlFormatKey)
-            ?? "[{0}]({1} '{2}')";
+            ?? writer.Context.GetUrlFormat();
     }
 
     /// <summary>
@@ -181,6 +181,7 @@ public static class IWriterExtensions
     /// <param name="value">The format to use to display urls.</param>
     /// <returns>The given <see cref="IWriter"/>.</returns>
     /// <seealso href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_UrlFormat">Markdown.UrlFormat</seealso>
+    [Obsolete("This method is obsolete and will be removed in a future version.")]
     public static IWriter SetUrlFormat(this IWriter writer, string? value)
     {
         ArgumentNullException.ThrowIfNull(writer);
@@ -227,7 +228,7 @@ public static class IWriterExtensions
             else
             {
                 writer.AppendFormat(
-                    writer.GetUrlFormat(),
+                    writer.Context.GetUrlFormat(),
                     (displayedName ?? url!).Prettify().SanitizeForMarkdown(writer.Context.GetMarkdownSanitizationRegex()),
                     url,
                     (tooltip ?? url!).SanitizeForMarkdown(writer.Context.GetMarkdownSanitizationRegex()));

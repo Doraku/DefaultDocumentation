@@ -19,6 +19,7 @@ public static class IGeneralContextExtensions
     private const string _invalidCharReplacementKey = "Markdown.InvalidCharReplacement";
     private const string _useFullUrlKey = "Markdown.UseFullUrl";
     private const string _markdownSanitizationRegex = "Markdown.MarkdownSanitizationRegex";
+    private const string _urlFormatKey = "Markdown.UrlFormat";
 
     /// <summary>
     /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_NestedTypeVisibilities">Markdown.NestedTypeVisibilities</see> setting.
@@ -57,22 +58,26 @@ public static class IGeneralContextExtensions
     /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_InvalidCharToTrimRegex">Markdown.InvalidCharToTrimRegex</see> setting.
     /// </summary>
     /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
-    public static string? GetInvalidCharToTrimRegex(this IGeneralContext context)
+    public static string GetInvalidCharToTrimRegex(this IGeneralContext context)
     {
         ArgumentNullException.ThrowIfNull(context);
 
-        return context.GetSetting<string>(_invalidCharToTrimRegex);
+        return
+            context.GetSetting<string>(_invalidCharToTrimRegex)
+            ?? @"[\=\ ]";
     }
 
     /// <summary>
     /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_InvalidCharToReplaceRegex">Markdown.InvalidCharToReplaceRegex</see> setting.
     /// </summary>
     /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
-    public static string? GetInvalidCharToReplaceRegex(this IGeneralContext context)
+    public static string GetInvalidCharToReplaceRegex(this IGeneralContext context)
     {
         ArgumentNullException.ThrowIfNull(context);
 
-        return context.GetSetting<string>(_invalidCharToReplaceRegex);
+        return
+            context.GetSetting<string>(_invalidCharToReplaceRegex)
+            ?? @"[\\\<\>\:\*\?]";
     }
 
     /// <summary>
@@ -80,11 +85,13 @@ public static class IGeneralContextExtensions
     /// </summary>
     /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
     /// <returns>The <see cref="string"/> to use to replace invalid chars in generated file name.</returns>
-    public static string? GetInvalidCharReplacement(this IGeneralContext context)
+    public static string GetInvalidCharReplacement(this IGeneralContext context)
     {
         ArgumentNullException.ThrowIfNull(context);
 
-        return context.GetSetting<string>(_invalidCharReplacementKey);
+        return
+            context.GetSetting<string>(_invalidCharReplacementKey)
+            ?? "_";
     }
 
     /// <summary>
@@ -102,11 +109,26 @@ public static class IGeneralContextExtensions
     /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#Markdown_MarkdownSanitizationRegex">Markdown.MarkdownSanitizationRegex</see> setting.
     /// </summary>
     /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
-    public static string? GetMarkdownSanitizationRegex(this IGeneralContext context)
+    public static string GetMarkdownSanitizationRegex(this IGeneralContext context)
     {
         ArgumentNullException.ThrowIfNull(context);
 
-        return context.GetSetting<string>(_markdownSanitizationRegex);
+        return
+            context.GetSetting<string>(_markdownSanitizationRegex)
+            ?? @"[\\\`\*_\{\}\[\]\<\>\(\)\#\+\-\.\!\|]";
+    }
+
+    /// <summary>
+    /// Gets the <see href="https://github.com/Doraku/DefaultDocumentation#MarkdownConfiguration_UrlFormat">Markdown.UrlFormat</see> setting.
+    /// </summary>
+    /// <param name="context">The <see cref="IGeneralContext"/> of the current documentation file.</param>
+    public static string GetUrlFormat(this IGeneralContext context)
+    {
+        ArgumentNullException.ThrowIfNull(context);
+
+        return
+            context.GetSetting<string>(_urlFormatKey)
+            ?? "[{0}]({1} '{2}')";
     }
 
     /// <summary>
