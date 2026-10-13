@@ -21,7 +21,7 @@
   
   <ItemGroup>
     <PackageReference Include="DefaultCSharp" Version="14.0.3" PrivateAssets="all" />
-    <PackageReference Include="Polyfill" Version="11.4.3" PrivateAssets="all" />
+    <PackageReference Include="Polyfill" Version="11.4.5" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>
